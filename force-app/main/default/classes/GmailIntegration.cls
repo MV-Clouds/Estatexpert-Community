@@ -1,48 +1,41 @@
 public with sharing class GmailIntegration {
-    public GmailIntegration() {
 
-    }
 
-    @future (callout=true)
-    public static void sendGmail(String subjectMail, String bodyGmail, String sendTo) {
-        String errorMessage = '';
-        String before = 'From: Jaimin Shah <jaiminshah555@gmail.com>\n' +
-                        'To: ' + sendTo + '\n' +
-                        'Subject: ' + subjectMail + '\n' +
-                        'Content-Type: text/html \n\n' + bodyGmail;
-        System.debug(before);
-        
-        Blob beforeblob = Blob.valueOf(before);
-        String paramvalue = EncodingUtil.base64Encode(beforeblob);
-        paramvalue = paramvalue.replace('+', '-');
-        paramvalue = paramvalue.replace('/', '_');
-        System.debug(paramvalue);
-        
-        Http httpMail = new Http();
-        HttpRequest httpReqMail = new HttpRequest();
-        HttpResponse httpResMail = new HttpResponse();
-        httpReqMail.setEndpoint('callout:Gmail/gmail/v1/users/me/messages/send');
-        httpReqMail.setMethod('POST');
-        httpReqMail.setHeader('Content-Type', 'application/json');
-        httpReqMail.setHeader('Content-Length', '-1');
-        
-        String refreshToknBody = '{"userId":"me","raw":"' + paramvalue + '"}';
-        System.debug(refreshToknBody);
-        httpReqMail.setBody(refreshToknBody);
-        
+    //contentType should be text/html when sending email without attachment
+    public static string sendEmail(String toEmail, String emailSubject, String contentType, String emailBody){
+        String returnMsg;
         try {
-            httpResMail = httpMail.send(httpReqMail);
-            if (httpResMail.getStatusCode() == 200) {
-                System.debug(httpResMail.getBody());
-            } else {
-                String errorMessageMail = 'Unexpected Error while communicating with Google Calendar API. ' +
-                                        'Status ' + httpResMail.getBody() + ' and Status Code ' + httpResMail.getStatusCode();
-                System.debug('Error ' + errorMessageMail);
-                System.debug(httpResMail);
+            string rawBody ='From: Jaimin Shah <jaiminshah555@gmail.com>\n' +
+                            'To: '+ toEmail +'\n'+ 
+                            'Subject: '+ emailSubject +' \n' + 
+                            'Content-Type: '+ contentType +' \n\n' + emailBody;
+
+            String tempBody = EncodingUtil.base64Encode(Blob.valueOf(rawBody));
+            tempBody = tempBody.replace('+', '-');
+            tempBody = tempBody.replace('/', '_');
+    
+            String requestBody = '{"userId":"me","raw":"'+ tempBody +'"}';
+
+            Http httpMail = new Http();
+            HttpRequest httpReqMail = new HttpRequest();
+            
+            httpReqMail.setEndpoint('callout:Gmail/gmail/v1/users/me/messages/send');
+            httpReqMail.setMethod('POST');
+            httpReqMail.setHeader('Content-Type', 'application/json');
+            httpReqMail.setHeader('Content-Length', '-1');
+            httpReqMail.setBody(requestBody);
+
+            HttpResponse httpResMail = httpMail.send(httpReqMail);
+            if(httpResMail.getStatusCode() == 200){
+                returnMsg =  'Success';
+            }else{
+                returnMsg = 'Unexpected Error while communicating with Google Calendar API. ' +'Status '+httpResMail.getBody()+' and Status Code '+httpResMail.getStatuscode();
             }
-        } catch (System.Exception e) {
-            System.debug('#### Exception Executed ' + e.getStackTraceString() + ' ' + e.getMessage());
+        } catch (Exception e) {
+            returnMsg = 'Error Message => '+e.getMessage() + '|| Error Line no => '+e.getLineNumber();
         }
+        System.debug('Gmail_Integration Return Message ==> '+returnMsg);
+        return returnMsg;
     }
 
 }
