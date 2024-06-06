@@ -1,0 +1,75 @@
+.main-div{
+    background-color: white;
+    width: 100%;
+}
+
+.header{
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+}
+
+.header-left{
+    display: flex;
+    flex-direction: column;
+    float: left;
+    gap: 0.8rem;
+    margin-left: 5rem;
+}
+
+.header-right{
+    display: flex;
+    float: right;
+    position: absolute;
+    right: 0;
+    /* padding: 1.188rem 1.875rem 1.188rem 1.875rem;
+    justify-content: space-between; */
+    padding-right:2rem ;
+}
+
+.button {
+    padding: 0.5rem 1rem;
+    font-size: 1rem;
+    border: 1px solid #0070d2;
+    border-radius: 0.25rem;
+    background-color: white;
+    color: #0070d2;
+    cursor: pointer;
+}
+
+.button:hover {
+    background-color: #e6f4ff;
+}
+
+.button.active {
+    background-color: #0070d2;
+    color: white;
+}
+
+.header-tag{
+    font-family: inherit;
+    font-size: 2.5rem;
+    line-height: 3rem;
+    color: #2B2B2B;
+}
+
+.header-line{
+    font-family: inherit;
+    line-height: 2rem;
+    font-size: 1rem;
+    color: #8E8E93;
+}
+
+.listing-property{
+    width: 100%;
+    padding-left: 5rem;
+    margin-top: 1rem;
+    display: flex;
+    overflow-x: auto;
+    white-space: nowrap;
+    -webkit-overflow-scrolling: touch; /* Enables smooth scrolling on touch devices */
+}
+
+.listing-property::-webkit-scrollbar {
+    display: none; /* Hides the scrollbar for WebKit browsers */
+}

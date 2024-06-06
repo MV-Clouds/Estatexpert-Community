@@ -1,0 +1,51 @@
+<template>
+    <template for:each={properties} for:item="property">
+        <div class="property-card" key={property.id}>
+            <img src={property.mediaLinks} alt="Image" class="property-image" />
+            <img src={FavouriteIcon} class="fav-icon" />
+            <img src={FeaturedIcon} class="featured-icon" />
+                        
+            <!-- <template if:true={allPropertyStatus}>
+                <img src={ForRentIcon} class="forrent-icon" />
+            </template> -->
+            <!-- <template if:true={isRent}> -->
+            <template if:true={property.isForRent}>
+                <img src={ForRentIcon} class="forrent-icon" />
+            </template>
+            <!-- <template if:true={isSell}> -->
+            <template if:true={property.isForSale}>
+                <img src={ForSellIcon} class="forsell-icon" />
+            </template>
+            <div class="property-info">
+                <div class="property-heading">
+                    <p class="heading-title">{property.name}</p>
+                    <div class="property-address">
+                        <img src={AddressIcon} alt="AddressIcon" class="address-icon">
+                        <p class="address-info">{property.landmark}, {property.city}</p>
+                    </div>
+                </div>
+                <p class="property-price">Rs. {property.price}</p>
+                <div class="property-desc">
+                    <div class="property-bed">
+                        <img src={BedroomIcon} alt="BedroomIcon" class="bedroom-icon">
+                        <p class="bedroom-text"> Beds:</p>
+                        <p class="bedroom-num"> {property.bedrooms}</p>
+                    </div>
+                    <div class="property-bath">
+                        <img src={BathroomIcon} alt="BathroomIcon" class="bathroom-icon">
+                        <p class="bathroom-text"> Baths: </p>
+                        <p class="bathroom-num"> {property.bathrooms}</p>
+                        <p> </p>
+                    </div>
+                    <div class="property-size">
+                        <img src={AreaIcon} alt="AreaIcon" class="area-icon">
+                        <p class="area-text"> Sqft: </p>
+                        <p class="area-num"> {property.area} </p>
+                        <p> </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </template>
+
+</template>
