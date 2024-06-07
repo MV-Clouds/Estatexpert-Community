@@ -33,9 +33,11 @@ public with sharing class GmailIntegration {
             }
         } catch (Exception e) {
             returnMsg = 'Error Message => '+e.getMessage() + '|| Error Line no => '+e.getLineNumber();
+            ErrorHandler.Store_Exception(e);
         }
         System.debug('Gmail_Integration Return Message ==> '+returnMsg);
         return returnMsg;
     }
+
 
 }
