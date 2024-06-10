@@ -5,7 +5,7 @@ public with sharing class GmailIntegration {
     public static string sendEmail(String toEmail, String emailSubject, String contentType, String emailBody){
         String returnMsg;
         try {
-            string rawBody ='From: Jaimin Shah <jaiminshah555@gmail.com>\n' +
+            string rawBody ='From: ExpertXpert <excommunity@mvclouds.com>\n' +
                             'To: '+ toEmail +'\n'+ 
                             'Subject: '+ emailSubject +' \n' + 
                             'Content-Type: '+ contentType +' \n\n' + emailBody;
