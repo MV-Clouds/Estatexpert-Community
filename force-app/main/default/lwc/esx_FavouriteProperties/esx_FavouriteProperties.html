@@ -1,0 +1,20 @@
+<template>
+    <div class="main-div">
+        <img src={BgImage} alt="BgImage" class="bg-image"/>
+        <div class="header">
+            <div class="header-text">
+                Favorite Property
+            </div>
+            <div class="header-line">
+                <p class="line1"></p>
+                <p class="line2"></p>
+                <p class="line3"></p>
+            </div>
+        </div>
+        <div class="fav-propertirs">
+            <template for:each={FavProperties} for:item="property">
+                <c-esx_-favourite-properties-card key={property.id} property={property}></c-esx_-favourite-properties-card>
+            </template>
+        </div>
+    </div>
+</template>

@@ -1,0 +1,91 @@
+<template>
+    <div class="main-div">
+        <div class="property-image">
+            <img src={property.mediaLinks} alt="Image" class="image" />
+            <label class="container" onclick={handleDelete}>
+                <input checked="checked" type="checkbox">
+                <div class="checkmark">
+                    <svg viewBox="0 0 256 256">
+                        <rect fill="none" height="256" width="256"></rect>
+                        <path
+                            d="M224.6,51.9a59.5,59.5,0,0,0-43-19.9,60.5,60.5,0,0,0-44,17.6L128,59.1l-7.5-7.4C97.2,28.3,59.2,26.3,35.9,47.4a59.9,59.9,0,0,0-2.3,87l83.1,83.1a15.9,15.9,0,0,0,22.6,0l81-81C243.7,113.2,245.6,75.2,224.6,51.9Z"
+                            stroke-width="20px" stroke="#FFF" fill="none"></path>
+                    </svg>
+                </div>
+            </label>
+            <!-- <img src={favouriteIcon} class="fav-icon" onclick={handleDelete} /> -->
+        </div>
+        <div class="property-desc">
+            <div class="property-header">
+                <div class="property-name">
+                    {property.name}
+                </div>
+                <div class="property-price">
+                    <p class="price-text">{property.price}</p>
+                </div>
+            </div>
+            <div class="property-middle">
+                <div class="floor-no">
+                    Floor : {property.floor}
+                </div>
+                <div class="property-amenities">
+
+                </div>
+            </div>
+            <div class="property-lower">
+                <div class="property-bed">
+                    <div class="bed-text">
+                        Bedrooms
+                    </div>
+                    <div class="bed-desc">
+                        <div class="bed-icon">
+                            <img src={bedroomIcon} alt="BedroomIcon" class="bedroom-icon" />
+                        </div>
+                        <div class="bed-no">
+                            {property.bedrooms}
+                        </div>
+                    </div>
+                </div>
+                <div class="property-bath">
+                    <div class="bath-text">
+                        Bathrooms
+                    </div>
+                    <div class="bath-desc">
+                        <div class="bath-icon">
+                            <img src={bathroomIcon} alt="BathroomIcon" class="bathroom-icon" />
+                        </div>
+                        <div class="bath-no">
+                            {property.bathrooms}
+                        </div>
+                    </div>
+                </div>
+                <div class="property-area">
+                    <div class="area-text">
+                        Carpet Area
+                    </div>
+                    <div class="area-desc">
+                        <div class="area-icon">
+                            <img src={areaIcon} alt="AreaIcon" class="area-icon" />
+                        </div>
+                        <div class="area-no">
+                            {property.area} m<sup>2</sup>
+                        </div>
+                    </div>
+                </div>
+                <div class="property-rank">
+                    <div class="rank-text">
+                        Safety Rank
+                    </div>
+                    <div class="rank-desc">
+                        <div class="rank-icon">
+                            <img src={safetyRank1Icon} alt="SafetyRankIcon" class="safetyrank-icon" />
+                        </div>
+                        <div class="rank-value">
+                            {property.status}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</template>
