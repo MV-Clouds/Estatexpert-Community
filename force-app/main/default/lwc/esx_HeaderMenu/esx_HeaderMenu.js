@@ -10,21 +10,26 @@ export default class Esx_HeaderMenu extends NavigationMixin(LightningElement){
     @track contactId = '003dL000001VvuLQAS' // Add dynamic Id after complete login module
     @track profileImgUrl;
     @track activeTab = 'Home';
+    @track displayRowIcon = true;
 
     get profileAvatar() {
         return `background-image: url(${this.profileImgUrl});`;
     }
 
     get item1Class() {
-        return this.activeTab === 'Home' ? 'active-tab' : '';
+        return this.activeTab == 'Home' ? 'active-tab' : '';
     }
 
     get item2Class() {
-        return this.activeTab === 'Property__c' ? 'active-tab' : '';
+        return this.activeTab == 'Property__c' ? 'active-tab' : '';
     }
 
     get item3Class() {
-        return this.activeTab === 'About__c' ? 'active-tab' : '';
+        return this.activeTab == 'About__c' ? 'active-tab' : '';
+    }
+
+    get checkContainerCls(){
+        return this.displayRowIcon == false ? 'container' : '';
     }
 
     connectedCallback(){
@@ -48,6 +53,21 @@ export default class Esx_HeaderMenu extends NavigationMixin(LightningElement){
             });
     }
 
+    changeIcon(){
+        if (this.displayRowIcon) {
+            this.template.querySelector('.side-menu-div').style="width:70%";
+            this.displayRowIcon = false;
+        } else {
+            this.template.querySelector('.side-menu-div').style="width:0px";
+            this.displayRowIcon = true;
+        }
+    }
+
+    closeSideMenu(){
+        this.template.querySelector('.side-menu-div').style="width:0px";
+        this.displayRowIcon = true;
+    }
+
     handleNavigate(event) {
         let pageApi = event.currentTarget.dataset.id;
         this.activeTab = pageApi;
@@ -58,5 +78,7 @@ export default class Esx_HeaderMenu extends NavigationMixin(LightningElement){
                 name: pageApi
             },
         });
+
+        this.closeSideMenu();
     }
 }
