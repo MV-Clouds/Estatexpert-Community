@@ -1,0 +1,17 @@
+<template>
+    <div class="main-div" style={loadStyle}>
+        <div class="sub-div">
+            <div class="content-div">
+                <p class="welcome-txt">Welcome to EstateXpert</p>
+                <p class="header-txt">Manage Your Property</p>
+                <p class="subheader-txt">Your will have everything nearby supermarket, buses station, the carmen neighborhood, etc...</p>
+            </div>
+
+            <template lwc:if={sideImageId}>
+                <div class="img-div">
+                    <img src={sideImgURL}>
+                </div>
+            </template>
+        </div>
+    </div>
+</template>

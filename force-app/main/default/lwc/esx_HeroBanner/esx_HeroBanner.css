@@ -1,0 +1,157 @@
+:host {
+    --heroBg: ;
+}
+
+.main-div {
+    height: 500px;
+    border-radius: 15px;
+    margin: 0px 20px;
+    background: var(--heroBg);
+    background-size: cover;   
+}
+
+.sub-div {
+     height: 100%;
+}
+
+.img-div {
+    display: flex;
+    justify-content: end;
+    height: 100%;
+}
+
+.img-div img {
+    width: 60%;
+    height: auto;
+    top: 0;
+    bottom: 0;
+    margin: auto;
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+}
+
+.content-div {
+    position: absolute;
+    padding: 70px 0px 50px 20px;
+    width: 40%;
+}
+
+.welcome-txt {
+    font-size: 20px;
+    font-weight: 400; 
+}
+
+.header-txt {
+    font-size: 60px;
+    font-weight: 600;
+    line-height: 75px;
+    max-width: 450px;
+    padding: 30px 0px;
+}
+
+.subheader-txt {
+    font-size: 20px;
+    font-weight: 400;   
+    max-width: 450px; 
+}
+
+@media only screen and (max-width: 1200px){
+    .main-div {
+        height: 450px;
+    }
+}
+
+@media only screen and (max-width: 1025px) {
+    .main-div {
+        height: 400px;
+    }
+
+    .img-div {
+        display: flex;
+        justify-content: end;
+        height: 100%;
+    }
+
+    .img-div img {
+        width: 60%;
+        height: auto;
+        top: 0;
+        bottom: 0;
+        margin: auto;
+        margin-left: 0 !important;
+        margin-right: 0 !important;
+    }
+
+    .content-div {
+        padding: 50px 0px 50px 20px;
+    }
+
+    .welcome-txt {
+        font-size: 18px;
+    }
+    
+    .header-txt {
+        font-size: 40px;
+        line-height: 50px;
+        max-width: 320px;
+    }
+    
+    .subheader-txt {
+        font-size: 18px;
+        max-width: 320px; 
+    }
+}
+
+@media only screen and (max-width: 800px) {
+    .main-div {
+        height: 350px;
+    }
+
+    .img-div img {
+        width: 55%;
+    }
+
+    .content-div {
+        width: 45%;
+    }
+
+    .header-txt {
+        font-size: 35px;
+        line-height: 45px;
+        padding: 15px 0px;
+    }
+}
+
+@media only screen and (max-width: 650px) {
+    .main-div {
+        height: auto;
+        margin: 0px 5px;
+    }
+
+    .content-div {
+        position: relative;
+        padding: 20px;
+        width: auto;
+    }
+
+    .welcome-txt {
+        font-size: 15px;
+    }
+    
+    .header-txt {
+        padding: 20px 0px;
+        max-width: unset;
+    }
+    
+    .subheader-txt {
+        font-size: 15px;
+        max-width: unset;
+    }
+
+    .img-div img {
+        width: auto;
+        padding: 5px;
+        max-width: -webkit-fill-available;
+    }
+
+}
