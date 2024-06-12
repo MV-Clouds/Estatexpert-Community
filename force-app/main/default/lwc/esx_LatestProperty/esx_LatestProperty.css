@@ -1,15 +1,15 @@
-.main-div{
+.main-div {
     background-color: white;
     width: 100%;
 }
 
-.header{
+.header {
     width: 100%;
     display: flex;
     flex-direction: row;
 }
 
-.header-left{
+.header-left {
     display: flex;
     flex-direction: column;
     float: left;
@@ -17,14 +17,12 @@
     margin-left: 5rem;
 }
 
-.header-right{
+.header-right {
     display: flex;
     float: right;
     position: absolute;
     right: 0;
-    /* padding: 1.188rem 1.875rem 1.188rem 1.875rem;
-    justify-content: space-between; */
-    padding-right:2rem ;
+    padding-right: 2rem;
 }
 
 .button {
@@ -46,30 +44,32 @@
     color: white;
 }
 
-.header-tag{
+.header-tag {
     font-family: inherit;
     font-size: 2.5rem;
     line-height: 3rem;
     color: #2B2B2B;
 }
 
-.header-line{
+.header-line {
     font-family: inherit;
     line-height: 2rem;
     font-size: 1rem;
     color: #8E8E93;
 }
 
-.listing-property{
+.listing-property {
     width: 100%;
     padding-left: 5rem;
     margin-top: 1rem;
     display: flex;
     overflow-x: auto;
     white-space: nowrap;
-    -webkit-overflow-scrolling: touch; /* Enables smooth scrolling on touch devices */
+    -webkit-overflow-scrolling: touch;
+    /* Enables smooth scrolling on touch devices */
 }
 
 .listing-property::-webkit-scrollbar {
-    display: none; /* Hides the scrollbar for WebKit browsers */
+    display: none;
+    /* Hides the scrollbar for WebKit browsers */
 }

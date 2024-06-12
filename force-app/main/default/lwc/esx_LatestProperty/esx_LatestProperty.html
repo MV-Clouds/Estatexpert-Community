@@ -14,10 +14,9 @@
             </div>
         </div>
         <div class="listing-property">
-            <!-- <template for:each={properties} for:item="property"> -->
-                <c-esx_-latest-property-card properties={properties} status={status}
-                    ></c-esx_-latest-property-card>
-            <!-- </template> -->
+            <template for:each={properties} for:item="property">
+                <c-esx_-latest-property-card key={property.id} property={property}></c-esx_-latest-property-card>
+            </template>
         </div>
     </div>
 </template>

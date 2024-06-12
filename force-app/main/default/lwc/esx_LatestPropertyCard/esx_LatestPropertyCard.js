@@ -2,53 +2,19 @@ import { LightningElement, api } from 'lwc';
 import ListedProperties from "@salesforce/resourceUrl/ListedProperties";
 
 export default class Esx_LatestPropertyCard extends LightningElement {
-    @api properties;
-    @api status;
+    @api property;
 
-    AddressIcon = ListedProperties + '/ForLocation-icon.png';
-    BedroomIcon = ListedProperties + '/Bedroom-icon.png';
-    BathroomIcon = ListedProperties + '/Bathroom-icon.png';
-    AreaIcon = ListedProperties + '/ForArea-icon.png';
-    FavouriteIcon = ListedProperties + '/Favourite-icon.png';
-    FeaturedIcon = ListedProperties + '/Featured-icon.png';
-    ForSellIcon = ListedProperties + '/ForSell-icon.png';
-    ForRentIcon = ListedProperties + '/ForRent-icon.png';
-    
-    get isRent() {
-        return this.status === 'rent';
-    }
-
-    get isSell() {
-        return this.status === 'sell';
-    }
-
-    get isRentAndSell() {
-        return this.status === 'both';
-    }
-
-    get propertyRentStatus() {
-        const a =  this.properties.map(prop => prop.status === 'rent');
-        return a;
-
-    }
-
-    get propertySellStatus() {
-        const b = this.properties.map(prop => prop.status === 'sell');
-        return b;
-    }
-
-    get allPropertyStatus() {
-        const c = this.properties.map(prop => prop.status);
-        console.log(c);
-        return c;
-    }
+    addressIcon = ListedProperties + '/ForLocation-icon.png';
+    bedroomIcon = ListedProperties + '/Bedroom-icon.png';
+    bathroomIcon = ListedProperties + '/Bathroom-icon.png';
+    areaIcon = ListedProperties + '/ForArea-icon.png';
+    favouriteIcon = ListedProperties + '/Favourite-icon.png';
+    featuredIcon = ListedProperties + '/Featured-icon.png';
+    forSellIcon = ListedProperties + '/ForSell-icon.png';
+    forRentIcon = ListedProperties + '/ForRent-icon.png';
 
     connectedCallback() {
-        console.log('properties => ', this.properties);
-    }
-
-    renderedCallback(){
-        console.log('properties stringfy=> ', JSON.stringify(this.properties));
+        console.log('properties stringfy=> ', JSON.stringify(this.property));
     }
 
 }
