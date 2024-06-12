@@ -8,7 +8,7 @@
 
 .mian-div {
     height: 70px;
-    padding: 5px 1.5%;
+    padding: 5px 2.5%;
     margin-bottom: 5px;
     display: flex;
     justify-content: space-between;
@@ -156,6 +156,7 @@
         display: block;
         padding-left: 10px;
         padding-top: 10px;
+        border-bottom: 1px solid #e7e7e7;
     }
 
     .menu-item-div {
