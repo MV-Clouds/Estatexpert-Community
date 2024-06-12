@@ -16,12 +16,16 @@ svg {
 }
 
 .property-image {
-    width: 19.063rem;
+    position: relative;
+    display: inline-block;
+    /* width: 19.063rem; */
     height: 12.5rem;
 }
 
 .image {
-    width: 19.063rem;
+    display: block;
+    width: 100%;
+    /* width: 19.063rem; */
     height: 12.5rem;
     border-radius: 12px 0px 0px 12px;
 }
@@ -34,7 +38,8 @@ svg {
 }
 
 .container {
-    left: 15.6rem;
+    right: 0.6rem;
+    /* left: 15.6rem; */
     top: 0.6rem;
     position: absolute;
     transition: 100ms;
@@ -104,7 +109,7 @@ svg {
 }
 
 .property-desc {
-    width: 78%;
+    width: 80%;
     padding: 1rem 1rem 1rem 2rem;
 }
 
@@ -160,7 +165,7 @@ svg {
 
 .property-lower {
     margin-top: 2rem;
-    width: 55%;
+    width: 65%;
     justify-content: space-between;
     display: flex;
     flex-direction: row;
