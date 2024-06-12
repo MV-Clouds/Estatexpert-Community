@@ -1,13 +1,5 @@
 public with sharing class ESX_LatestPropertyController {
-    public class PropertyWrapper {
-        @AuraEnabled
-        public Property__c property { get; set; }
-        
-        @AuraEnabled
-        public List<String> mediaLinks { get; set; }
-    }
-
-    @AuraEnabled(cacheable=true)
+    @AuraEnabled
     public static List<PropertyWrapper> getPropertiesByStatus(String status) {
         List<Listing__c> listedProperties = new List<Listing__c>();
         listedProperties = [SELECT Id, Property__c FROM Listing__c];
@@ -50,5 +42,13 @@ public with sharing class ESX_LatestPropertyController {
         }
         System.debug(propertyList); 
         return propertyList;
+    }
+
+    public class PropertyWrapper {
+        @AuraEnabled
+        public Property__c property { get; set; }
+        
+        @AuraEnabled
+        public List<String> mediaLinks { get; set; }
     }
 }

@@ -8,7 +8,21 @@
     box-shadow: 0px 4px 26px 0px #42474C14;
     background-size: cover;
     position: relative;
+    -webkit-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
 }
+
+/* Make images non-draggable */
+img {
+    -webkit-user-drag: none; /* For Safari and Chrome */
+    user-drag: none; /* Standard property */
+    -webkit-user-select: none; /* Prevent text selection in Safari */
+    -moz-user-select: none; /* Prevent text selection in Firefox */
+    -ms-user-select: none; /* Prevent text selection in Internet Explorer/Edge */
+    user-select: none; /* Prevent text selection in standard browsers */
+}
+
 
 .property-image {
     width: 19.625rem;

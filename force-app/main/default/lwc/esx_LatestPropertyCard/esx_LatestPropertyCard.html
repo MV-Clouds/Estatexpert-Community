@@ -25,7 +25,10 @@
                 <p class="heading-title">{property.name}</p>
                 <div class="property-address">
                     <img src={addressIcon} alt="AddressIcon" class="address-icon">
-                    <p class="address-info">{property.landmark}, {property.city}</p>
+                    <p class="address-info">
+                        {formattedAddress}
+                        <!-- {property.landmark}, {property.city} -->
+                    </p>
                 </div>
             </div>
             <p class="property-price">Rs. {property.price}</p>

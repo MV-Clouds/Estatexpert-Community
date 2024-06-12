@@ -3,7 +3,7 @@ import ListedProperties from "@salesforce/resourceUrl/ListedProperties";
 
 export default class Esx_LatestPropertyCard extends LightningElement {
     @api property;
-
+    
     addressIcon = ListedProperties + '/ForLocation-icon.png';
     bedroomIcon = ListedProperties + '/Bedroom-icon.png';
     bathroomIcon = ListedProperties + '/Bathroom-icon.png';
@@ -15,6 +15,24 @@ export default class Esx_LatestPropertyCard extends LightningElement {
 
     connectedCallback() {
         console.log('properties stringfy=> ', JSON.stringify(this.property));
+    }
+
+    get formattedAddress() {
+        const { landmark, city } = this.property || {};
+
+        if (!landmark && !city) {
+            return '';
+        }
+
+        if (landmark && !city) {
+            return landmark;
+        }
+
+        if (!landmark && city) {
+            return city;
+        }
+
+        return `${landmark}, ${city}`;
     }
 
 }
