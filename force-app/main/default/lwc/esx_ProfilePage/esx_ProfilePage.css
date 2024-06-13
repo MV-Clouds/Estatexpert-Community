@@ -1,0 +1,112 @@
+.spinnerDiv{
+
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 1;
+}
+
+.mainDiv{
+    position: relative;
+    width: 100%;
+    height: 100vh; /* Adjust as necessary */
+    overflow: hidden;
+}
+
+.backgroundImage {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    
+}
+
+.backgroundImage img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    opacity: 0.6;
+}
+
+.mainContent {
+    position: relative;
+    z-index: 1;
+    padding: 20px;
+}
+
+.header{
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    margin-bottom: 1.375rem;
+}
+
+.backIcon{
+    border-radius: 5px;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 1px solid #d8dde6;
+    margin-right: 10px;
+}
+
+.headerTitle{
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: #16325c;
+    border-bottom: 1px solid #628cdb;
+}
+
+.generalInformation {
+    display: flex;
+    align-items: flex-start;
+    margin-bottom: 1.25rem; /* 20px */
+}
+
+.profileImage {
+    margin-right: 1.25rem; /* 20px */
+    position: relative;
+}
+
+.profileImage img {
+    border-radius: 15%;
+    width: 12.375rem; /* 150px */
+    height: 14.375rem; /* 150px */
+    object-fit: fill;
+}
+
+.uploadButton{
+    position: absolute;
+    bottom: 0.625rem; /* 10px */
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: whitesmoke ; /*  80% white */
+    border: none;
+    border-radius: 1.25rem; /* 20px */
+    padding: 0.3125rem 3.625rem; /* 5px 10px */
+    cursor: pointer;
+    box-shadow: 0px 1px 61px 1px rgba(0, 0, 0, 0.25);
+    font-size: x-small;
+}
+
+.sectionTitle{
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: #0176D3;
+}
+
+.label{
+    font-size: small;
+    font-weight: 700;
+}
+
+.formGroup{
+    display: flex;
+    justify-content: space-between;
+}

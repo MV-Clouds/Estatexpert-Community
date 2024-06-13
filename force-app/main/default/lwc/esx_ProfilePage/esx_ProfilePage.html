@@ -1,0 +1,61 @@
+<template>
+
+     <template if:true={isLoading}>
+        <div class="spinnerDiv">
+            <lightning-spinner alternative-text="Loading" size="medium"></lightning-spinner>
+        </div>
+    </template>
+
+    <template if:false={isLoading}>
+        <div class="mainDiv">
+    
+            <div class="backgroundImage">
+                <img src={backgroundImageUrl} alt="Background Image"/>
+            </div>
+            
+    
+            <div class="mainContent">
+                
+                <div class="header">
+                    <lightning-icon class="backIcon" size='x-small' icon-name="utility:chevronleft" onclick={navigateHome}></lightning-icon>
+                    <div class="headerTitle">{recordType} Details</div>
+                </div>
+        
+                <div class="generalInformation">
+                    <div class="profileImage">
+                        <img src={profileImage} alt="Profile Image" />
+                        <button class="uploadButton" onclick={uploadProfileImage}>Upload Image</button>
+                    </div>
+    
+                    <div class="generalInfoContent">
+                        <div class="sectionTitle">General Information</div>
+                        <div class="formGroup">
+                            <div class="formElement">
+                                <div class="label">Salutation</div>
+                                <lightning-combobox
+                                    variant="label-hidden"
+                                    name="Salutation"
+                                    value={contact.Salutation}
+                                    placeholder="Salutation"
+                                    options={Salutationoptions}
+                                    onchange={handleChange} ></lightning-combobox>
+                            </div>
+                            <div class="formElement">
+                                <div class="label">First Name</div>
+                                <lightning-input variant="label-hidden" type="text" name="FirstName" value={contact.FirstName} onchange={handleChange}></lightning-input>
+                            </div>
+                            <div class="formElement">
+                                <div class="label">Last Name</div>
+                                <lightning-input variant="label-hidden" type="text" name="LastName" value={contact.LastName} onchange={handleChange}></lightning-input>
+                            </div>
+                        </div>
+                        </div>
+                    </div>
+                </div>
+    
+            </div>
+        </div>
+    </template>
+
+
+</template>
