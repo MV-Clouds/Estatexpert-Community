@@ -48,12 +48,12 @@
 
 .social-div {
     display: flex;
+    gap: 10px;
     padding-top: 5px;
 }
 
 .social-div img {
     width: 30px;
-    margin-right: 10px;
 }
 
 .second-sub-container {
@@ -62,14 +62,18 @@
     min-width: 13rem;
 }
 
-.second-sub-container .header-txt {
+.second-sub-container .header-txt,
+.third-sub-container .header-txt {
     padding-top: 3%;
+    padding-bottom: 20px;
     font-size: 24px;
     font-weight: 600;
 }
 
-.second-sub-container div {
+.second-sub-container .txt,
+.third-sub-container .txt {
     padding-bottom: 20px;
+    padding-left: 3px;
 }
 
 .second-sub-container img {
@@ -80,16 +84,6 @@
 .third-sub-container {
     margin-left: max(30px, 3%);
     width: 25%;
-}
-
-.third-sub-container .header-txt {
-    padding-top: 3%;
-    font-size: 24px;
-    font-weight: 600;
-}
-
-.third-sub-container div {
-    padding-bottom: 20px;
 }
 
 .forth-sub-container {
@@ -117,5 +111,86 @@
 }
 
 @media only screen and (max-width: 1024px) {
+    .main-div {
+        height: 300px;
+    }
+
+    .forth-sub-container {
+        display: none;
+    }
+
+    .first-sub-container {
+        margin: 0 20px;
+    }
+
+    .second-sub-container {
+        margin: 0 30px;
+    }
+    
+}
+
+@media only screen and (max-width: 767px) {
+
+    .main-div {
+        height: auto;
+    }
+
+    .logo-div {
+        display: none;
+    }
+
+    .container {
+        flex-direction: column-reverse;
+    }
+
+    .first-sub-container {
+        border-top: 1px solid #b7b7b7;
+        margin: 10px 15px 0 15px;
+        padding-top: 15px;
+        width: auto;
+    }
+
+    .first-sub-container p {
+        padding-bottom: 5px;
+        text-align: center;
+    }
+
+    .second-sub-container,
+    .third-sub-container {
+        width: auto;
+        margin: 0 15px;
+    }
+
+    .second-sub-container .txt  {
+        padding-bottom: 7px;
+        font-size: 14px;
+    }
+
+    .second-sub-container img {
+        width: 16px;
+        margin-right: 5px;
+    }
+
+    .third-sub-container .txt {
+        padding-bottom: 5px;
+        font-size: 14px;
+    }
+
+    .second-sub-container .header-txt,
+    .third-sub-container .header-txt {
+        padding-bottom: 5px;
+        font-size: 20px;
+        font-weight: 800;
+    }
+    
+    .social-div {
+        justify-content: center;
+        margin-top: 5px;
+    }
+
+    .shape-div, 
+    .grp-image-div {
+        display: none;
+    }
 
 }
