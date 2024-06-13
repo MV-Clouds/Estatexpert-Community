@@ -7,7 +7,8 @@ import getContactdetails from '@salesforce/apex/ESX_HeaderMenu.getContactdetails
 export default class Esx_HeaderMenu extends NavigationMixin(LightningElement){
     @track logo = EstateXpert_Logo;
     @track isGuest = true;
-    @track contactId = '003dL000001VvuLQAa' // Add dynamic Id after complete login module
+    @track contactId = '003dL000001VvuLQAS' // Add dynamic Id after complete login module
+    @track contact = {};
     @track profileImgUrl;
     @track activeTab = 'Home';
     @track displayRowIcon = true;
@@ -28,11 +29,28 @@ export default class Esx_HeaderMenu extends NavigationMixin(LightningElement){
         return this.activeTab == 'About__c' ? 'active-tab' : '';
     }
 
+    get item4Class() {
+        return this.activeTab == 'My_Properties__c' ? 'active-tab' : '';
+    }
+
+    get item5Class() {
+        return this.activeTab == 'Check_Password' ? 'active-tab' : '';
+    }
+
+    get item6Class() {
+        return this.activeTab == 'Contact_Us__c' ? 'active-tab' : '';
+    }
+
     get checkContainerCls(){
         return this.displayRowIcon == false ? 'container' : '';
     }
 
+    get checkViewType (){
+        this.resizeFunction();
+    }
+
     connectedCallback(){
+        window.addEventListener('resize', this.resizeFunction);
         if (this.contactId != null) {
             this.isGuest = false;
             this.getContact();
@@ -42,6 +60,9 @@ export default class Esx_HeaderMenu extends NavigationMixin(LightningElement){
     getContact(){
         getContactdetails({contactId: this.contactId})
             .then(result => {
+                this.contact['Name'] = result.contact.Name;
+                this.contact['Type'] = result.contact.RecordTypeId != null ? result.contact.RecordType.Name : '';
+                console.log('this.contact ==> ',this.contact);
                 if((result != null && result != undefined) && (result.image != null && result.image != undefined)){
                     this.profileImgUrl = 'data:image/jpeg;base64,' + result.image;
                 }else{
@@ -67,6 +88,13 @@ export default class Esx_HeaderMenu extends NavigationMixin(LightningElement){
         this.template.querySelector('.side-menu-div').style="width:0px";
         this.displayRowIcon = true;
     }
+
+    resizeFunction = () => {
+		if (window.innerWidth < 600) {
+            var css = this.template.host.style;
+            css.setProperty('--mobileHeight', window.innerHeight + 'px');
+		}
+    };
 
     handleNavigate(event) {
         let pageApi = event.currentTarget.dataset.id;

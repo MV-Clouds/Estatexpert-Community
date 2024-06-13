@@ -98,7 +98,7 @@
     .container {
         position: absolute;
         z-index: 1;
-        height: 100vh;
+        height : var(--mobileHeight);
         width: 100%;
         background-color: #16161680;
     }
@@ -125,7 +125,7 @@
     }
 
     .side-menu-div {
-        height: 100vh;
+        height : var(--mobileHeight);
         width: 0px;
         overflow: auto;
         background: #fff;
@@ -157,9 +157,57 @@
         padding-left: 10px;
         padding-top: 10px;
         border-bottom: 1px solid #e7e7e7;
+        line-height: 50px;
     }
 
-    .menu-item-div {
-        font-size: 18px;
+    .hide-buttom-border {
+        border-bottom: none;
+    }
+
+    .profile-sub-div {
+        padding: 10px;
+        position: absolute;
+        bottom: 0;
+        width: -webkit-fill-available;
+        display: flex;
+        justify-content: space-between;
+        background: #e7e8e9;
+    }
+
+    .profile-detail-div {
+        display: flex;
+        justify-content: flex-start;
+        cursor: pointer;
+    }
+
+    .profile-sub-div .avatar {
+        width: 40px;
+        min-width: 40px;
+        height: 40px;
+        margin: 5px;
+        background-size: cover;
+        border-radius: 10px;
+    }
+
+    .contact-data-div {
+        display: grid;
+        align-content: space-evenly;
+    }
+
+    .contact-data-1 {
+        line-height: 20px;
+        font-weight: 700;
+    }
+
+    .contact-data-2 {
+        line-height: 20px;
+    }
+
+    .logout-div {
+        line-height: 50px;
+    }
+
+    .icons {
+        cursor: pointer;
     }
 }

@@ -38,34 +38,68 @@
 
     <div class="mobile-view">
         <div class={checkContainerCls} onclick={closeSideMenu}></div>
-        <div class="mian-div">
+        <div class="mian-div" onload={checkViewType}>
             <div class="menu-icon-div">
-                <lightning-icon icon-name="utility:rows" size="small" onclick={changeIcon}> </lightning-icon>
-                <div class="side-menu-div">
+                <lightning-icon class="icons" icon-name="utility:rows" size="small" onclick={changeIcon}> </lightning-icon>
+            </div>
 
-                    <div class="side-logo-div">
-                        <div class="logo-div">
-                            <img src={logo}>
-                        </div>
-    
-                        <div class="close-icon">
-                            <lightning-icon icon-name="utility:close" size="small" onclick={changeIcon}> </lightning-icon>
-                        </div>
+            <div class="side-menu-div">
+
+                <div class="side-logo-div">
+                    <div class="logo-div">
+                        <img src={logo}>
                     </div>
 
-                    <ul class="menu-div">
+                    <div class="close-icon">
+                        <lightning-icon class="icons" icon-name="utility:close" size="small" onclick={changeIcon}> </lightning-icon>
+                    </div>
+                </div>
+
+                <ul class="menu-div">
+                    <li class="menu-item-div">
+                        <a class={item1Class} data-id="Home" onclick={handleNavigate}>Home</a>
+                    </li>
+                    <li class="menu-item-div">
+                        <a class={item2Class} data-id="Property__c" onclick={handleNavigate}>Property</a>
+                    </li>
+                    <li class="menu-item-div">
+                        <a class={item3Class} data-id="About__c" onclick={handleNavigate}>About</a>
+                    </li>
+                </ul>
+
+                <template if:false={isGuest}>
+                    <ul class="menu-div hide-buttom-border">
                         <li class="menu-item-div">
-                            <a class={item1Class} data-id="Home" onclick={handleNavigate}>Home</a>
+                            <a class={item4Class} data-id="My_Properties__c" onclick={handleNavigate}>My Property</a>
                         </li>
                         <li class="menu-item-div">
-                            <a class={item2Class} data-id="Property__c" onclick={handleNavigate}>Property</a>
+                            <a class={item5Class} data-id="Check_Password" onclick={handleNavigate}>Change Password</a>
                         </li>
                         <li class="menu-item-div">
-                            <a class={item3Class} data-id="About__c" onclick={handleNavigate}>About</a>
+                            <a class={item6Class} data-id="Contact_Us__c" onclick={handleNavigate}>Contact Us</a>
                         </li>
                     </ul>
-                    
-                </div>
+
+                    <div class="profile-sub-div">
+                        <div class="profile-detail-div" data-id="Profile__c" onclick={handleNavigate}>
+                            <div class="avatar" style={profileAvatar}></div>
+
+                            <div class="contact-data-div">
+                                <div class="contact-data-1">
+                                    {contact.Name}
+                                </div>
+                                <div class="contact-data-2">
+                                    {contact.Type}
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="logout-div">
+                            <lightning-icon class="icons" icon-name="utility:logout" size="small" onclick={changeIcon}> </lightning-icon>
+                        </div>
+                    </div>
+                </template>
+                
             </div>
     
             <template if:true={isGuest}>
@@ -76,7 +110,7 @@
 
             <template if:false={isGuest}>
                 <div>
-                    <div data-id="Profile__c" class="avatar" style={profileAvatar} onclick={handleNavigate}></div>
+                    <div class="avatar" style={profileAvatar}></div>
                 </div>
             </template>
 

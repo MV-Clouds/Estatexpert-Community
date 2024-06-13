@@ -1,9 +1,9 @@
-public with sharing class ESX_HeaderMenu {
+public without sharing class ESX_HeaderMenu {
     
     @AuraEnabled
     public static ContactImageWrapper getContactdetails(Id contactId){
         try{
-            Contact con =[SELECT Id, Salutation, FirstName, LastName, Gender__c, Birthdate, Age__c, Phone, Email, MailingStreet, MailingCity, MailingPostalCode, MailingState, MailingCountry, Description, RecordType.Name  FROM Contact WHERE Id =: contactId];
+            Contact con =[SELECT Id, Salutation, FirstName, LastName, Name, Gender__c, Birthdate, Age__c, Phone, Email, MailingStreet, MailingCity, MailingPostalCode, MailingState, MailingCountry, Description, RecordType.Name  FROM Contact WHERE Id =: contactId];
 
             List<ContentDocumentLink> cdlList = [SELECT Id, ContentDocumentId FROM ContentDocumentLink WHERE LinkedEntityId =: con.Id];
 
