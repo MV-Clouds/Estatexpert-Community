@@ -19,6 +19,8 @@ public with sharing class ESX_LatestPropertyController {
         } else if(status == 'both'){
             query += ' AND (Property_Status__c = \'For Sell\' OR Property_Status__c = \'For Rent\')';
         }
+
+        query += 'LIMIT 5';
         
         List<Property__c> properties = Database.query(query);
 

@@ -1,7 +1,8 @@
 import { LightningElement } from 'lwc';
 import PropertiesStatus from '@salesforce/apex/ESX_LatestPropertyController.getPropertiesByStatus';
+import { NavigationMixin } from 'lightning/navigation';
 
-export default class Esx_LatestProperty extends LightningElement {
+export default class Esx_LatestProperty extends NavigationMixin(LightningElement) {
     properties;
     status = 'both';
 
@@ -41,6 +42,20 @@ export default class Esx_LatestProperty extends LightningElement {
         this.status = event.target.textContent.toLowerCase();
         console.log(this.status);
         this.loadFilteredProperties();
+    }
+
+    navigateToPage(url) {
+        this[NavigationMixin.Navigate]({
+            type: 'standard__webPage',
+            attributes: {
+                url: url
+            }
+        });
+    }
+
+    handlePropertyClick(event) {
+        event.preventDefault();
+        this.navigateToPage('https://mvclouds9-dev-ed.develop.my.site.com/property');
     }
 
     // Load filtered properties by status

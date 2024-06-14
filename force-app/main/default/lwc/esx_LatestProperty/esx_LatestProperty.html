@@ -8,9 +8,13 @@
                     accusantium.</div>
             </div>
             <div class="header-right">
-                <button onclick={handleStatusClick} class="button active">Both</button>
-                <button onclick={handleStatusClick} class="button">Sell</button>
-                <button onclick={handleStatusClick} class="button">Rent</button>
+                <div class="buttons">
+                    <button onclick={handleStatusClick} class="button active">Both</button>
+                    <button onclick={handleStatusClick} class="button">Sell</button>
+                    <button onclick={handleStatusClick} class="button">Rent</button>
+                </div>
+                <a class="view-all" onclick={handlePropertyClick}> View All </a>
+
             </div>
         </div>
         <div class="listing-property">

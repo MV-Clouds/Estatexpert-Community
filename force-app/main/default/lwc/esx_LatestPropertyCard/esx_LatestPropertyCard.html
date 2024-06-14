@@ -13,12 +13,33 @@
             </div>
         </label>
         <!-- <img src={favouriteIcon} class="fav-icon" /> -->
-        <img src={featuredIcon} class="featured-icon" />
+        <div class="wrap">
+            <div class="card">
+                <div class="tag">
+                    Featured
+                </div>
+            </div>
+        </div>
+        <!-- <img src={featuredIcon} class="featured-icon" /> -->
         <template if:true={property.isForRent}>
-            <img src={forRentIcon} class="forrent-icon" />
+            <div class="wrap rent-wrap">
+                <div class="card">
+                    <div class="tag rent-tag">
+                        For Rent
+                    </div>
+                </div>
+            </div>
+            <!-- <img src={forRentIcon} class="forrent-icon" /> -->
         </template>
         <template if:true={property.isForSale}>
-            <img src={forSellIcon} class="forsell-icon" />
+            <div class="wrap sell-wrap">
+                <div class="card">
+                    <div class="tag sell-tag">
+                        For Sell
+                    </div>
+                </div>
+            </div>
+            <!-- <img src={forSellIcon} class="forsell-icon" /> -->
         </template>
         <div class="property-info">
             <div class="property-heading">

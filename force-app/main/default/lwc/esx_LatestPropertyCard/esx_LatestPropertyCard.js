@@ -3,7 +3,7 @@ import ListedProperties from "@salesforce/resourceUrl/ListedProperties";
 
 export default class Esx_LatestPropertyCard extends LightningElement {
     @api property;
-    
+
     addressIcon = ListedProperties + '/ForLocation-icon.png';
     bedroomIcon = ListedProperties + '/Bedroom-icon.png';
     bathroomIcon = ListedProperties + '/Bathroom-icon.png';
