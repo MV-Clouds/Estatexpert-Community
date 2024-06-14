@@ -1,7 +1,9 @@
 import { LightningElement, track } from 'lwc';
 import { NavigationMixin } from 'lightning/navigation';
+import { loadStyle, loadScript } from 'lightning/platformResourceLoader';
 import EstateXpert_Logo from '@salesforce/resourceUrl/EstateXpert_Logo';
 import Blank_Profile_Photo from '@salesforce/resourceUrl/Blank_Profile_Photo';
+import ESX_CustomJS from '@salesforce/resourceUrl/ESX_CustomJS';
 import getContactdetails from '@salesforce/apex/ESX_HeaderMenu.getContactdetails';
 
 export default class Esx_HeaderMenu extends NavigationMixin(LightningElement){
@@ -50,11 +52,22 @@ export default class Esx_HeaderMenu extends NavigationMixin(LightningElement){
     }
 
     connectedCallback(){
+        this.loadJsFromResource();
         window.addEventListener('resize', this.resizeFunction);
         if (this.contactId != null) {
             this.isGuest = false;
             this.getContact();
         }
+    }
+
+    loadJsFromResource() {
+        Promise.all([
+            loadScript(this, ESX_CustomJS)
+        ]).then(() => {
+            console.log('Files loaded');
+        }).catch(error => {
+            console.log(error.body.message);
+        });
     }
 
     getContact(){
@@ -78,9 +91,11 @@ export default class Esx_HeaderMenu extends NavigationMixin(LightningElement){
         if (this.displayRowIcon) {
             this.template.querySelector('.side-menu-div').style="width:70%";
             this.displayRowIcon = false;
+            disbaleScroll();
         } else {
             this.template.querySelector('.side-menu-div').style="width:0px";
             this.displayRowIcon = true;
+            enableScroll();
         }
     }
 
