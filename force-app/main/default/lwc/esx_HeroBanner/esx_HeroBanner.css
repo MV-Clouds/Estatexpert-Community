@@ -5,9 +5,13 @@
 .main-div {
     height: 500px;
     border-radius: 15px;
-    margin: 0px 20px;
+    margin: 0px 2%;
     background: var(--heroBg);
-    background-size: cover;   
+    background-size: cover;
+    pointer-events:none;
+    -webkit-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
 }
 
 .sub-div {
@@ -61,7 +65,7 @@
     }
 }
 
-@media only screen and (max-width: 1025px) {
+@media only screen and (max-width: 1024px) {
     .main-div {
         height: 400px;
     }
@@ -125,7 +129,8 @@
 @media only screen and (max-width: 650px) {
     .main-div {
         height: auto;
-        margin: 0px 5px;
+        margin: 0px;
+        border-radius: 0px;
     }
 
     .content-div {
