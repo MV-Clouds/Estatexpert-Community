@@ -135,6 +135,10 @@
     .second-sub-container {
         margin: 0 30px;
     }
+
+    .link-txt {
+        width: fit-content;
+    }
     
 }
 
