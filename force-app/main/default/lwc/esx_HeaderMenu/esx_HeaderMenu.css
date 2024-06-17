@@ -1,0 +1,260 @@
+.main-container {
+    position: fixed;
+    z-index: 9;
+    width: 100%;
+    background: #fff;
+    font-family: system-ui;
+}
+
+.desktop-view {
+    display: block;
+}
+
+.mobile-view {
+    display: none;
+}
+
+.mian-div {
+    height: 70px;
+    padding: 5px 2.5%;
+    margin-bottom: 5px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.logo-div img {
+    height: 60px;
+}
+
+.menu-div {
+    display: flex;
+    line-height: 60px;
+}
+
+.menu-item-div {
+    padding: 0px 15px;
+    cursor: pointer;
+}
+
+.menu-div li a {
+    padding: 5px;
+    text-decoration: none;
+    color: rgb(0, 0, 0);
+}
+
+.menu-div li a.active-tab {
+    color: rgba(1, 118, 211, 1);
+    border-bottom: 2px solid rgba(1, 118, 211, 1);
+}
+
+.menu-div li a:hover {
+    color: rgba(1, 118, 211, 1);
+}
+
+.profile-div {
+    display: flex;
+}
+
+.btn-div {
+    background: #0176D3;
+    margin: 10px;
+    padding: 8px 30px;
+    color: #fff;
+    border-radius: 30px;
+    cursor: pointer;
+}
+
+.btn-div:hover {
+    background: #0467b5;
+}
+
+.avatar {
+    width: 40px;
+    height: 40px;
+    background-size: cover;
+    border-radius: 50px;
+    margin: 10px;
+    cursor: pointer;
+    transition: 0.4s;
+}
+
+.avatar:hover {
+    width: 50px;
+    height: 50px;
+    margin: 5px;
+}
+
+.menu-dropdown-div {
+    display: none;
+    padding-top: 0.5rem;
+    position: absolute;
+    font-size: 14px;
+    top: 3.5rem;
+    right: 3%;
+    cursor: auto;
+}
+
+.menu-dropdown {
+    position: relative;
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+    padding: 0.5rem 0;
+    z-index: 10;
+}
+
+.avatar:hover .menu-dropdown-div {
+    display: block;
+}
+
+.menu-dropdown-div:hover {
+    display: block;
+}
+
+.dropdown-item {
+    font-family: system-ui;
+    padding: 0.7rem 1rem;
+    text-align: center;
+    color: black;
+    cursor: pointer;
+}
+
+.dropdown-item:hover {
+    background-color: #0176d333;
+}
+
+@media only screen and (max-width: 1024px) {
+    .menu-item-div {
+        padding: 0px 10px;
+    }
+
+    .btn-div {
+        margin: 10px 5px;
+    }
+}
+
+@media only screen and (max-width: 767px) {
+    .desktop-view {
+        display: none;
+    }
+
+    .mobile-view {
+        display: block;
+    }
+
+    .container {
+        position: absolute;
+        z-index: 1;
+        height : var(--mobileHeight);
+        width: 100%;
+        background-color: #16161680;
+    }
+
+    .mian-div {
+        height: 60px;
+        margin-bottom: 0px;
+        padding: 10px 4%;
+    }
+
+    .menu-icon-div {
+        line-height: 40px;
+    }
+
+    .avatar {
+        width: 30px;
+        height: 30px;
+        margin: 5px;
+    }
+
+    .avatar:hover {
+        width: 30px;
+        height: 30px;
+    }
+
+    .side-menu-div {
+        height : var(--mobileHeight);
+        width: 0px;
+        overflow: auto;
+        background: #fff;
+        position: absolute;
+        top: 0px;
+        left: 0px;
+        z-index: 5;
+        transition: 0.3s;
+    }
+
+    .side-logo-div {
+        display: flex;
+        justify-content: space-between;
+        padding: 25px 15px 15px 25px;
+        border-bottom: 1px solid #e7e7e7;
+    }
+
+    .logo-div img {
+        height: 50px;
+    }
+    
+    .btn-div {
+        margin: 5px;
+        padding: 3px 30px;
+    }
+
+    .menu-div {
+        display: block;
+        padding-left: 10px;
+        padding-top: 10px;
+        border-bottom: 1px solid #e7e7e7;
+        line-height: 50px;
+    }
+
+    .hide-buttom-border {
+        border-bottom: none;
+    }
+
+    .profile-sub-div {
+        padding: 10px;
+        position: absolute;
+        bottom: 0;
+        width: -webkit-fill-available;
+        display: flex;
+        justify-content: space-between;
+        background: #e7e8e9;
+    }
+
+    .profile-detail-div {
+        display: flex;
+        justify-content: flex-start;
+        cursor: pointer;
+    }
+
+    .profile-sub-div .avatar {
+        width: 40px;
+        min-width: 40px;
+        height: 40px;
+        margin: 5px;
+        background-size: cover;
+        border-radius: 10px;
+    }
+
+    .contact-data-div {
+        display: grid;
+        align-content: space-evenly;
+    }
+
+    .contact-data-1 {
+        line-height: 20px;
+        font-weight: 700;
+    }
+
+    .contact-data-2 {
+        line-height: 20px;
+    }
+
+    .logout-div {
+        line-height: 50px;
+    }
+
+    .icons {
+        cursor: pointer;
+    }
+}
