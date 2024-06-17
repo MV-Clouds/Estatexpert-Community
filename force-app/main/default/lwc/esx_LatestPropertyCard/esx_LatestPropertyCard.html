@@ -1,0 +1,77 @@
+<template>
+    <div class="property-card">
+        <img src={property.mediaLinks} alt="Image" class="property-image" />
+        <label class="container">
+            <input checked="checked" type="checkbox">
+            <div class="checkmark">
+                <svg viewBox="0 0 256 256">
+                    <rect fill="none" height="256" width="256"></rect>
+                    <path
+                        d="M224.6,51.9a59.5,59.5,0,0,0-43-19.9,60.5,60.5,0,0,0-44,17.6L128,59.1l-7.5-7.4C97.2,28.3,59.2,26.3,35.9,47.4a59.9,59.9,0,0,0-2.3,87l83.1,83.1a15.9,15.9,0,0,0,22.6,0l81-81C243.7,113.2,245.6,75.2,224.6,51.9Z"
+                        stroke-width="20px" stroke="#FFF" fill="none"></path>
+                </svg>
+            </div>
+        </label>
+        <!-- <img src={favouriteIcon} class="fav-icon" /> -->
+        <div class="wrap">
+            <div class="card">
+                <div class="tag">
+                    Featured
+                </div>
+            </div>
+        </div>
+        <!-- <img src={featuredIcon} class="featured-icon" /> -->
+        <template if:true={property.isForRent}>
+            <div class="wrap rent-wrap">
+                <div class="card">
+                    <div class="tag rent-tag">
+                        For Rent
+                    </div>
+                </div>
+            </div>
+            <!-- <img src={forRentIcon} class="forrent-icon" /> -->
+        </template>
+        <template if:true={property.isForSale}>
+            <div class="wrap sell-wrap">
+                <div class="card">
+                    <div class="tag sell-tag">
+                        For Sell
+                    </div>
+                </div>
+            </div>
+            <!-- <img src={forSellIcon} class="forsell-icon" /> -->
+        </template>
+        <div class="property-info">
+            <div class="property-heading">
+                <p class="heading-title">{property.name}</p>
+                <div class="property-address">
+                    <img src={addressIcon} alt="AddressIcon" class="address-icon">
+                    <p class="address-info">
+                        {formattedAddress}
+                        <!-- {property.landmark}, {property.city} -->
+                    </p>
+                </div>
+            </div>
+            <p class="property-price">Rs. {property.price}</p>
+            <div class="property-desc">
+                <div class="property-bed">
+                    <img src={bedroomIcon} alt="BedroomIcon" class="bedroom-icon">
+                    <p class="bedroom-text"> Beds:</p>
+                    <p class="bedroom-num"> {property.bedrooms}</p>
+                </div>
+                <div class="property-bath">
+                    <img src={bathroomIcon} alt="BathroomIcon" class="bathroom-icon">
+                    <p class="bathroom-text"> Baths: </p>
+                    <p class="bathroom-num"> {property.bathrooms}</p>
+                    <p> </p>
+                </div>
+                <div class="property-size">
+                    <img src={areaIcon} alt="AreaIcon" class="area-icon">
+                    <p class="area-text"> Sqft: </p>
+                    <p class="area-num"> {property.area} </p>
+                    <p> </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</template>

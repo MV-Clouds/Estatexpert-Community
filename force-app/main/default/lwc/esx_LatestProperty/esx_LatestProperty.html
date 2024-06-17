@@ -1,0 +1,26 @@
+<template>
+    <div class="main-div">
+        <div class="header">
+            <div class="header-left">
+                <div class="header-tag">Latest Listed Properties</div>
+                <div class="header-line">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Culpa fugiat
+                    excepturi
+                    accusantium.</div>
+            </div>
+            <div class="header-right">
+                <div class="buttons">
+                    <button onclick={handleStatusClick} class="button active">Both</button>
+                    <button onclick={handleStatusClick} class="button">Sell</button>
+                    <button onclick={handleStatusClick} class="button">Rent</button>
+                </div>
+                <a class="view-all" onclick={handlePropertyClick}> View All </a>
+
+            </div>
+        </div>
+        <div class="listing-property">
+            <template for:each={properties} for:item="property">
+                <c-esx_-latest-property-card key={property.id} property={property}></c-esx_-latest-property-card>
+            </template>
+        </div>
+    </div>
+</template>
