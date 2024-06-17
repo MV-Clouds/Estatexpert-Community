@@ -13,11 +13,11 @@
                     Designed by MV Clouds
                 </p>
                 <div class="social-div">
-                    <img class="link-txt" src={twittorIcon} />
-                    <img class="link-txt" src={facebookIcon} />
-                    <img class="link-txt" src={linkdinIcon} />
-                    <img class="link-txt" src={instagramIcon} />
-                    <img class="link-txt" src={skypeIcon} />
+                    <img class="link-txt" src={twittorIcon} data-link="https://x.com/" onclick={handleRedirect}/>
+                    <img class="link-txt" src={facebookIcon} data-link="https://www.facebook.com/" onclick={handleRedirect}/>
+                    <img class="link-txt" src={linkdinIcon} data-link="https://in.linkedin.com/" onclick={handleRedirect}/>
+                    <img class="link-txt" src={instagramIcon} data-link="https://www.instagram.com/" onclick={handleRedirect}/>
+                    <img class="link-txt" src={skypeIcon} data-link="https://www.skype.com/" onclick={handleRedirect}/>
                 </div>
             </div>
 
@@ -27,15 +27,15 @@
                 </div>
                 <div class="txt">
                     <img src={phone} />
-                    <span> +91 79 4037 2991 </span>
+                    <a class="link-txt" target="_blank" href="tel:+917940372991">+91 79 4037 2991</a>
                 </div>
                 <div class="txt">
                     <img src={email} />
-                    <span> info@mvclouds.com </span>
+                    <a class="link-txt" target="_blank" href="mailto:info@mvclouds.com">info@mvclouds.com</a>
                 </div>
                 <div class="txt">
                     <img src={website} />
-                    <span> www.mvclouds.com </span>
+                    <span class="link-txt" data-link="https://www.mvclouds.com" onclick={handleRedirect}>www.mvclouds.com</span>
                 </div>
                 
             </div>
@@ -44,13 +44,13 @@
                 <div class="header-txt">
                     Quick Links
                 </div>
-                <div class="txt">
+                <div class="txt link-txt" data-id="Home" onclick={handleNavigate}>
                     Home
                 </div>
-                <div class="txt">
+                <div class="txt link-txt" data-id="Property__c" onclick={handleNavigate}>
                     Property
                 </div>
-                <div class="txt">
+                <div class="txt link-txt" data-id="About__c" onclick={handleNavigate}>
                     About
                 </div>
             </div>

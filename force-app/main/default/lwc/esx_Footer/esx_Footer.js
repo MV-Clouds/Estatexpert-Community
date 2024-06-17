@@ -1,7 +1,8 @@
 import { LightningElement, track } from 'lwc';
+import { NavigationMixin } from 'lightning/navigation';
 import Footersvg from '@salesforce/resourceUrl/FooterSVG';
 
-export default class Esx_Footer extends LightningElement {
+export default class Esx_Footer extends NavigationMixin(LightningElement) {
     @track bg = Footersvg + '/FooterSVG/blue-bg.png';
     @track grpImage = Footersvg + '/FooterSVG/grp-image.png';
     @track logo = Footersvg + '/FooterSVG/logo-2.png';
@@ -14,4 +15,21 @@ export default class Esx_Footer extends LightningElement {
     @track email = Footersvg + '/FooterSVG/email.png';
     @track website = Footersvg + '/FooterSVG/website.png';
     @track sideImage = Footersvg + '/FooterSVG/footer-image.png';
+
+    handleRedirect(event){
+        let redirectURL = event.currentTarget.dataset.link;
+        window.open(redirectURL, '_blank');
+    }
+
+    handleNavigate(event) {
+        let pageApi = event.currentTarget.dataset.id;
+        this.activeTab = pageApi;
+
+        this[NavigationMixin.Navigate]({
+            type: 'comm__namedPage',
+            attributes: {
+                name: pageApi
+            },
+        });
+    }
 }
