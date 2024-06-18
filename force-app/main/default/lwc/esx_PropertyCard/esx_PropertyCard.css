@@ -1,0 +1,203 @@
+.main{
+    border-radius: 12px;
+    background: #E1F1FE;
+    display: flex;
+    /* font-family: Verdana, Geneva, Tahoma, sans-serif; */
+    /* flex-direction: row; */
+    flex-wrap: wrap;
+    /* justify-content: space-between; */
+    /* align-items: center; */
+    /* padding: 1rem; */
+    width: max-content;
+    /* gap: 16px; */
+}
+
+.main-list{
+    border-radius: 12px;
+    background: #E1F1FE;
+    display: flex;
+    /* flex-wrap: wrap; */
+    width: 100%;
+    margin-top: 25px;
+}
+
+.image{
+    width: fit-content;
+    /* padding: 1rem; */
+    /* gap: 1rem; */
+    /* display: inline-block; */
+    /* vertical-align: top; */
+    /* background-size: cover; */
+    position: relative;
+    /* border-radius: 12px 0px 0px 12px; */
+    /* opacity: 0px; */
+}
+.image-list{
+    width: fit-content;
+    position: relative;
+    min-width: 273px;
+}
+.innertext{
+    position: absolute;
+    top: 91%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: #000000;
+    color: #fff;
+    width: 100%;
+    /* padding: 10px 20px; */
+    font-size: 0.625rem;
+    text-align: center;
+    opacity: 0.58;
+    border-radius: 0 0 12px 12px;
+}
+
+.property-image {
+    /* width: 17.063rem; */
+    /* height: 12.75rem; */
+    height:-webkit-fill-available;
+    border-radius: 0.625rem 0 0 0.625rem;
+    z-index: 1;
+}
+
+.property-image-tiles{
+    height: -webkit-fill-available;
+    border-radius: 0.625rem;
+    z-index: 1;
+}
+
+.description{
+    width: 60%;
+    display: grid;
+    gap: 12px;
+    padding: 20px;
+
+}
+.description-list{
+    width: 80%;
+    /* display: grid; */
+    /* gap: 12px; */
+    padding: 20px;
+}
+.iconsize{
+    width: 20px;
+    height: 20px;
+}
+
+.propertyname{
+    font-size:1.12rem;
+    font-weight: 700;
+    line-height: 24px;
+
+}
+
+.propertyname-list{
+    display: flex;
+    justify-content: space-between;
+}
+.pname{
+    font-size: 1.12rem;
+    font-weight: 700;
+    line-height: 24px;
+}
+.pavailabledate{
+    background: #0176D3;
+    width: fit-content;
+    padding: 6px 25px 6px 25px;
+    color: white;
+    border-radius: 30px;
+}
+
+.pricev{
+    margin: auto;
+    margin-top: 16px;
+    float: right;
+    margin-right: 7px;
+}
+.feturediv{
+    display: inline-block;
+    margin-top: 13px;
+}
+.featurespart1{
+    
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 16px;
+    text-align: left;
+    display: flex;
+    gap: 14px;
+}
+.featurespart2{
+    
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 25px;
+    text-align: left;
+}
+.price{
+    
+    font-size: 1.063rem;
+    font-weight: 400;
+    line-height: 20px;
+    text-align: left;
+}
+
+.facilitate{
+    display: flex;
+    margin-top: 14px;
+    gap: 25px;
+}
+
+
+/* like icon box css */
+.container input {
+    position: absolute;
+    opacity: 0;
+    height: 0;
+    width: 0;
+}
+
+.container {
+    left: 80%;
+    top: 7%;
+    position: absolute;
+    transition: 100ms;
+    z-index: 2;
+}
+
+.checkmark {
+    height: 2.5em;
+    width: 2.5em;
+    padding: 0.45rem;
+    background: #FFFFFFC7;
+    border-radius: 15rem;
+    transition: 100ms;
+    animation: dislike_effect 400ms ease;
+}
+
+.container input:not(:checked)~.checkmark path {
+    stroke: #000000;
+    stroke-width: 12px;
+}
+
+.container input:checked~.checkmark path {
+    fill: #FF7878;
+    stroke-width: 0;
+}
+
+.container input:checked~.checkmark {
+    animation: like_effect 400ms ease;
+}
+
+.container:hover {
+    transform: scale(1.1);
+}
+/* like icon box css */
+
+
+@media only screen and (min-device-width: 480px) {
+
+}
+@media only screen and (min-device-width: 768px) {
+
+}
