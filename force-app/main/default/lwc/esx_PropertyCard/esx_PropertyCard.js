@@ -2,7 +2,7 @@ import { LightningElement,api } from 'lwc';
 import ListedProperties from "@salesforce/resourceUrl/ListedProperties";
 
 export default class Esx_PropertyCard extends LightningElement {
-    @api propertyDetail;
+    @api propertydata;
     @api viewtype;
 
     bedroomIcon = ListedProperties + '/Vector.png';

@@ -4,12 +4,13 @@
     display: flex;
     /* font-family: Verdana, Geneva, Tahoma, sans-serif; */
     /* flex-direction: row; */
-    flex-wrap: wrap;
+    /* flex-wrap: wrap; */
     /* justify-content: space-between; */
     /* align-items: center; */
     /* padding: 1rem; */
-    width: max-content;
+    /* width: max-content; */
     /* gap: 16px; */
+    margin: 14px 0px;
 }
 
 .main-list{
@@ -46,7 +47,7 @@
     color: #fff;
     width: 100%;
     /* padding: 10px 20px; */
-    font-size: 0.625rem;
+    font-size: 0.9rem;
     text-align: center;
     opacity: 0.58;
     border-radius: 0 0 12px 12px;
