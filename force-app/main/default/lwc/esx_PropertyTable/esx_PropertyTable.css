@@ -1,3 +1,39 @@
 .main-model{
     /* margin:12px 12px; */
 }
+.more{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    justify-items: center;
+    text-align: center;
+}
+.morebutton{
+    color: white;
+    font-size: 0.8rem;
+    font-weight: 700;
+    width: fit-content;
+    height: 40px;
+    margin: 25px 0;
+    background: #0176D3;
+    border-radius: 2rem;
+    padding: 23px;
+    cursor: pointer;
+    border: none;
+}
+
+@media (max-width: 480px) {
+    .morebutton {
+        color: white;
+        font-size: 1rem;
+        font-weight: 700;
+        width: fit-content;
+        height: 40px;
+        margin: 25px 0;
+        background: #0176D3;
+        border-radius: 2rem;
+        padding: 25px;
+        cursor: pointer;
+        border: none;
+    }
+}

@@ -14,7 +14,7 @@ public without sharing class ESX_PropertyDataTableController {
 
 
         // Fetch listing data
-        listings = [SELECT Property__c FROM Listing__c WHERE Property__c != null ORDER BY CreatedDate DESC LIMIT 50000];
+        listings = [SELECT Property__c FROM Listing__c WHERE Property__c != null ORDER BY CreatedDate DESC LIMIT 50000 OFFSET : listingSize];
         
         // Collect property IDs from listings
         for (Listing__c listing : listings) {

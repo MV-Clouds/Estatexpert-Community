@@ -1,4 +1,4 @@
-import { LightningElement,api } from 'lwc';
+import { LightningElement,api, track } from 'lwc';
 import ListedProperties from "@salesforce/resourceUrl/ListedProperties";
 
 export default class Esx_PropertyCard extends LightningElement {
@@ -12,5 +12,8 @@ export default class Esx_PropertyCard extends LightningElement {
     areaIcon = ListedProperties + '/areaicon.png';
     areaIconWhite = ListedProperties + '/areawhite.png';
     Rectangle = ListedProperties + '/Rectangle.png';
-    viewtype = false;
+
+    
+    
+
 }

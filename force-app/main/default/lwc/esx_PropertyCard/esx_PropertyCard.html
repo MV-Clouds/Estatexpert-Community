@@ -2,182 +2,278 @@
 
     <lightning-layout multiple-rows>
         <!-- first view -->
-        <template  for:each={propertydata} for:item="property">
-        <lightning-layout-item size="12" small-device-size="12" medium-device-size="6" large-device-size="6"
-            key={property.Id} padding="horizontal-small">
-            <div class="custom-box">
-                <div class="main">
-                    <div class="image">
-                        <template for:each={property.Property_Medias__r} for:item="propertym">
-                            <img src={propertym.ExternalLink__c} key={propertym.Id} class="property-image" alt="" srcset="">
-                        </template>
-                        <label class="container">
-                            <input checked="checked" type="checkbox">
-                            <div class="checkmark">
-                                <svg viewBox="0 0 256 256">
-                                    <rect fill="none" height="256" width="256"></rect>
-                                    <path
-                                        d="M224.6,51.9a59.5,59.5,0,0,0-43-19.9,60.5,60.5,0,0,0-44,17.6L128,59.1l-7.5-7.4C97.2,28.3,59.2,26.3,35.9,47.4a59.9,59.9,0,0,0-2.3,87l83.1,83.1a15.9,15.9,0,0,0,22.6,0l81-81C243.7,113.2,245.6,75.2,224.6,51.9Z"
-                                        stroke-width="20px" stroke="#FFF" fill="none"></path>
-                                </svg>
+        <template if:true={viewtype.gridView} for:each={propertydata} for:item="property">
+            <lightning-layout-item size="12" small-device-size="12" medium-device-size="6" large-device-size="6"
+                key={property.Id}  class="layout-model">
+                <div class="custom-box">
+                    <div class="main">
+                        <div class="image">
+                            <template for:each={property.Property_Medias__r} for:item="propertym">
+                                <img src={propertym.ExternalLink__c} key={propertym.Id} class="property-image" alt=""
+                                    srcset="">
+                            </template>
+                            <label class="container container-grid">
+                                <input checked="checked" type="checkbox">
+                                <div class="checkmark">
+                                    <svg viewBox="0 0 256 256">
+                                        <rect fill="none" height="256" width="256"></rect>
+                                        <path
+                                            d="M224.6,51.9a59.5,59.5,0,0,0-43-19.9,60.5,60.5,0,0,0-44,17.6L128,59.1l-7.5-7.4C97.2,28.3,59.2,26.3,35.9,47.4a59.9,59.9,0,0,0-2.3,87l83.1,83.1a15.9,15.9,0,0,0,22.6,0l81-81C243.7,113.2,245.6,75.2,224.6,51.9Z"
+                                            stroke-width="20px" stroke="#FFF" fill="none"></path>
+                                    </svg>
+                                </div>
+                            </label>
+                        </div>
+                        <template for:each={property.Listings__r} for:item="propertyl">
+                            <div class="description" key={propertyl.Id}>
+                                <template if:true={propertyl.Property__r.Name}>
+                                <div class="propertyname">
+                                    <p>{propertyl.Property__r.Name}</p>
+                                </div>
+                                </template>
+                                <template if:true={propertyl.fetureAvali}>
+                                <div class="featurespart1">
+                                    <template if:true={propertyl.Property__r.Number_of_Bedrooms__c}>
+                                        <span><img src={bedroomIcon} alt="This image is not visible."
+                                                class="iconsize" />&nbsp;{propertyl.Property__r.Number_of_Bedrooms__c}
+                                            Bedroom</span>
+                                    </template>
+                                    <template if:true={propertyl.Property__r.Number_of_Bathrooms__c}>
+                                        <span><img src={bathroomIcon} alt="This image is not visible."
+                                                class="iconsize">&nbsp;{propertyl.Property__r.Number_of_Bathrooms__c}
+                                            Bath</span>
+                                    </template>
+                                    <template if:true={propertyl.Property__r.Carpet_Area__c}>
+                                        <span><img src={areaIcon} alt="This image is not visible."
+                                                class="iconsize" />&nbsp;{propertyl.Property__r.Carpet_Area__c}
+                                            M<sup>{propertyl.Property__r.carpetAreaUnit__c}</sup></span>
+                                    </template>
+                                </div>
+                                </template>
+                                <template if:true={propertyl.feture}>
+                                    <div class="featurespart2">
+                                        <p> {propertyl.feture} </p>
+                                    </div>
+                                </template>
+                                <template if:true={propertyl.Listing_Price__c}>
+                                    <div class="price">
+                                        <p>from <b>${propertyl.Listing_Price__c}</b>/month</p>
+                                    </div>
+                                </template>
                             </div>
-                        </label>
+                        </template>
                     </div>
-                    <template for:each={property.Listings__r} for:item="propertyl">
-                    <div class="description" key={propertyl.Id}>
-                        <div class="propertyname">
-                            <p>{propertyl.Property__r.Name}</p>
-                        </div>
-                        <div class="featurespart1">
-                            <!-- <template for:each={element} for:item="value"> -->
-                            <span><img src={bedroomIcon} alt="This image is not visible." class="iconsize" />&nbsp;{propertyl.Property__r.Number_of_Bedrooms__c}
-                                Bedroom</span>
-                            <span><img src={bathroomIcon} alt="This image is not visible." class="iconsize">&nbsp;{propertyl.Property__r.Number_of_Bathrooms__c}
-                                Bath</span>
-                            <span><img src={areaIcon} alt="This image is not visible." class="iconsize" />&nbsp;{propertyl.Property__r.Carpet_Area__c} 
-                                M<sup>{propertyl.Property__r.carpetAreaUnit__c}</sup></span>
-                            <!-- </template> -->
-                        </div>
-                        <div class="featurespart2">
-                            <!-- <p> City view | 3rd floor | Elevator | Parking </p> -->
-                            <p> {propertyl.Property__r.Amenities__c} </p>
-                        </div>
-                        <div class="price">
-                            <p>from <b>${propertyl.Listing_Price__c}</b>/month</p>
-                        </div>
-                    </div>
-                    </template>
                 </div>
-            </div>
-        </lightning-layout-item>
+            </lightning-layout-item>
         </template>
         <!-- first view  over-->
 
         <!-- second view -->
-        <template  for:each={propertydata} for:item="property">
-        <lightning-layout-item size="12" key={property.id} small-device-size="12" medium-device-size="6" large-device-size="4"
-            padding="horizontal-small">
-            <div class="custom-box">
-                <div class="main">
-                    <div class="image">
-                        <template for:each={property.Property_Medias__r} for:item="propertym">
-                        <img src={propertym.ExternalLink__c} key={propertym.Id} class="property-image-tiles" alt="" srcset="">
-                        </template>
-                        <label class="container">
-                            <input checked="checked" type="checkbox">
-                            <div class="checkmark">
-                                <svg viewBox="0 0 256 256">
-                                    <rect fill="none" height="256" width="256"></rect>
-                                    <path
-                                        d="M224.6,51.9a59.5,59.5,0,0,0-43-19.9,60.5,60.5,0,0,0-44,17.6L128,59.1l-7.5-7.4C97.2,28.3,59.2,26.3,35.9,47.4a59.9,59.9,0,0,0-2.3,87l83.1,83.1a15.9,15.9,0,0,0,22.6,0l81-81C243.7,113.2,245.6,75.2,224.6,51.9Z"
-                                        stroke-width="20px" stroke="#FFF" fill="none"></path>
-                                </svg>
-                            </div>
-                        </label>
-                        <template for:each={property.Listings__r} for:item="propertyl">
-                        <div class="innertext" key={propertyl.Id}>
-                            <div>
-                                <p>{propertyl.Property__r.Name}</p>
-                            </div>
-                            <div>
-                                <!-- <template for:each={element} for:item="value"> -->
-                                <span><img src={bedroomIconWhite} alt="This image is not visible."
-                                        class="iconsize">&nbsp;{propertyl.Property__r.Number_of_Bedrooms__c}
-                                    bedroom</span>
-                                <span><img src={bathroomIconWhite} alt="This image is not visible."
-                                        class="iconsize">&nbsp;{propertyl.Property__r.Number_of_Bathrooms__c}
-                                    bath</span>
-                                <span><img src={areaIconWhite} alt="This image is not visible."
-                                        class="iconsize">&nbsp;{propertyl.Property__r.Carpet_Area__c}
-                                    M<sup>{propertyl.Property__r.carpetAreaUnit__c}</sup></span>
-                                <!-- </template> -->
-                            </div>
+        <template if:true={viewtype.cardView} for:each={propertydata} for:item="property">
+            <lightning-layout-item size="12" key={property.id} small-device-size="12" medium-device-size="6"
+                large-device-size="4" padding="horizontal-small">
+                <div class="custom-box">
+                    <div class="main">
+                        <div class="image-card">
+                            <template for:each={property.Property_Medias__r} for:item="propertym">
+                                <img src={propertym.ExternalLink__c} key={propertym.Id} class="property-image-card"
+                                    alt="" srcset="">
+                            </template>
+                            <label class="container container-card">
+                                <input checked="checked" type="checkbox">
+                                <div class="checkmark">
+                                    <svg viewBox="0 0 256 256">
+                                        <rect fill="none" height="256" width="256"></rect>
+                                        <path
+                                            d="M224.6,51.9a59.5,59.5,0,0,0-43-19.9,60.5,60.5,0,0,0-44,17.6L128,59.1l-7.5-7.4C97.2,28.3,59.2,26.3,35.9,47.4a59.9,59.9,0,0,0-2.3,87l83.1,83.1a15.9,15.9,0,0,0,22.6,0l81-81C243.7,113.2,245.6,75.2,224.6,51.9Z"
+                                            stroke-width="20px" stroke="#FFF" fill="none"></path>
+                                    </svg>
+                                </div>
+                            </label>
+                            <template for:each={property.Listings__r} for:item="propertyl">
+                                <div class="innertext" key={propertyl.Id}>
+                                    <template if:true={propertyl.Property__r.Name}>
+                                    <div>
+                                        <p>{propertyl.Property__r.Name}</p>
+                                    </div>
+                                    </template>
+                                    <template if:true={propertyl.fetureAvali}>
+                                    <div class="featureroom">
+                                        <template if:true={propertyl.Property__r.Number_of_Bedrooms__c}>
+                                        <span><img src={bedroomIconWhite} alt="This image is not visible."
+                                                class="iconsize">&nbsp;{propertyl.Property__r.Number_of_Bedrooms__c}
+                                            bedroom</span>
+                                            </template>
+                                        <template if:true={propertyl.Property__r.Number_of_Bathrooms__c}>
+                                        <span><img src={bathroomIconWhite} alt="This image is not visible."
+                                                class="iconsize">&nbsp;{propertyl.Property__r.Number_of_Bathrooms__c}
+                                            bath</span>
+                                            </template>
+                                            <template if:true={propertyl.Property__r.Carpet_Area__c}>
+                                        <span><img src={areaIconWhite} alt="This image is not visible."
+                                                class="iconsize">&nbsp;{propertyl.Property__r.Carpet_Area__c}
+                                            M<sup>{propertyl.Property__r.carpetAreaUnit__c}</sup></span>
+                                            </template>
+                                    </div>
+                                    </template>
+                                </div>
+                            </template>
                         </div>
-                        </template>
                     </div>
                 </div>
-            </div>
-        </lightning-layout-item>
+            </lightning-layout-item>
         </template>
         <!-- second view over -->
 
 
         <!-- Third view  -->
-        <template  for:each={propertydata} for:item="property">
-        <lightning-layout-item size="12" key={property.id} small-device-size="12" medium-device-size="12" large-device-size="12"
-            padding="horizontal-small">
-            <div class="custom-box">
-                <div class="main-list">
-                    <div class="image-list">
-                        <template for:each={property.Property_Medias__r} for:item="propertym">
-                        <img src={propertym.ExternalLink__c} key={propertym.Id} class="property-image" alt="" srcset="">
+        <template if:true={viewtype.listView} for:each={propertydata} for:item="property">
+            <lightning-layout-item size="12" key={property.id} small-device-size="12" medium-device-size="12"
+                large-device-size="12" padding="horizontal-small">
+                <div class="custom-box">
+                    <div class="main-list">
+                        <div class="image-list">
+                            <template for:each={property.Property_Medias__r} for:item="propertym">
+                                <img src={propertym.ExternalLink__c} key={propertym.Id} class="property-image" alt=""
+                                    srcset="">
+                            </template>
+                            <label class="container container-list">
+                                <input checked="checked" type="checkbox">
+                                <div class="checkmark">
+                                    <svg viewBox="0 0 256 256">
+                                        <rect fill="none" height="256" width="256"></rect>
+                                        <path
+                                            d="M224.6,51.9a59.5,59.5,0,0,0-43-19.9,60.5,60.5,0,0,0-44,17.6L128,59.1l-7.5-7.4C97.2,28.3,59.2,26.3,35.9,47.4a59.9,59.9,0,0,0-2.3,87l83.1,83.1a15.9,15.9,0,0,0,22.6,0l81-81C243.7,113.2,245.6,75.2,224.6,51.9Z"
+                                            stroke-width="20px" stroke="#FFF" fill="none"></path>
+                                    </svg>
+                                </div>
+                            </label>
+                        </div>
+                        <template for:each={property.Listings__r} for:item="propertyl">
+                            <div class="description-list" key={propertyl.Id}>
+                                <div class="propertyname-list">
+                                    <div class="pname">
+                                        <p>{propertyl.Property__r.Name}</p>
+                                    </div>
+                                    <div>
+                                        <div class="pavailabledate">
+                                            <p>Available <b>28 Nov 2021</b></p>
+                                        </div>
+
+                                    </div>
+                                </div>
+                                <div>
+                                    <div class="feturediv">
+                                        <div class="featurespart2">
+                                            <!-- <p> City view | 3rd floor | Elevator | Parking </p> -->
+                                            <p> {propertyl.feture} </p>
+                                        </div>
+                                        <div class="facilitate">
+                                            <div>
+                                                <p>Bedrooms</p>
+                                                <img src={bedroomIcon} alt="This image is not visible." srcset="">
+                                                &nbsp;&nbsp;<span>{propertyl.Property__r.Number_of_Bedrooms__c}</span>
+                                            </div>
+                                            <div>
+                                                <p>Bathrooms</p>
+                                                <img src={bedroomIcon} alt="This image is not visible." srcset="">
+                                                &nbsp;&nbsp;<span>{propertyl.Property__r.Number_of_Bathrooms__c}</span>
+                                            </div>
+                                            <div>
+                                                <p>Carpet Area</p>
+                                                <img src={bedroomIcon} alt="This image is not visible." srcset="">
+                                                &nbsp;&nbsp;<span>{propertyl.Property__r.Carpet_Area__c}M<sup>{propertyl.Property__r.carpetAreaUnit__c}</sup></span>
+                                            </div>
+                                            <div>
+                                                <p>Safety Rank</p>
+                                                <img src={bedroomIcon} alt="This image is not visible." srcset="">
+                                                &nbsp;&nbsp;<span>4457</span>
+                                            </div>
+                                            <div>
+                                                <p>Safety Rank</p>
+                                                <img src={bedroomIcon} alt="This image is not visible." srcset="">
+                                                &nbsp;&nbsp;<span>Active</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="pricev">
+                                        <p>from <b>$3490 /month</b></p>
+                                    </div>
+                                </div>
+                            </div>
                         </template>
-                        <label class="container">
-                            <input checked="checked" type="checkbox">
-                            <div class="checkmark">
-                                <svg viewBox="0 0 256 256">
-                                    <rect fill="none" height="256" width="256"></rect>
-                                    <path
-                                        d="M224.6,51.9a59.5,59.5,0,0,0-43-19.9,60.5,60.5,0,0,0-44,17.6L128,59.1l-7.5-7.4C97.2,28.3,59.2,26.3,35.9,47.4a59.9,59.9,0,0,0-2.3,87l83.1,83.1a15.9,15.9,0,0,0,22.6,0l81-81C243.7,113.2,245.6,75.2,224.6,51.9Z"
-                                        stroke-width="20px" stroke="#FFF" fill="none"></path>
-                                </svg>
-                            </div>
-                        </label>
-                    </div>
-                    <template for:each={property.Listings__r} for:item="propertyl">
-                    <div class="description-list" key={propertyl.Id}>
-                        <div class="propertyname-list">
-                            <div class="pname">
-                                <p>{propertyl.Property__r.Name}</p>
-                            </div>
-                            <div>
-                                <div class="pavailabledate">
-                                    <p>Available <b>28 Nov 2021</b></p>
-                                </div>
 
-                            </div>
-                        </div>
-                        <div>
-                            <div class="feturediv">
-                                <div class="featurespart2">
-                                    <!-- <p> City view | 3rd floor | Elevator | Parking </p> -->
-                                    <p> {propertyl.Property__r.Amenities__c} </p>
-                                </div>
-                                <div class="facilitate">
-                                    <div>
-                                        <p>Bedrooms</p>
-                                        <img src={bedroomIcon} alt="This image is not visible." srcset=""> &nbsp;&nbsp;<span>{propertyl.Property__r.Number_of_Bedrooms__c}</span>
-                                    </div>
-                                    <div>
-                                        <p>Bathrooms</p>
-                                        <img src={bedroomIcon} alt="This image is not visible." srcset=""> &nbsp;&nbsp;<span>{propertyl.Property__r.Number_of_Bathrooms__c}</span>
-                                    </div>
-                                    <div>
-                                        <p>Carpet Area</p>
-                                        <img src={bedroomIcon} alt="This image is not visible." srcset=""> &nbsp;&nbsp;<span>{propertyl.Property__r.Carpet_Area__c}M<sup>{propertyl.Property__r.carpetAreaUnit__c}</sup></span>
-                                    </div>
-                                    <div>
-                                        <p>Safety Rank</p>
-                                        <img src={bedroomIcon} alt="This image is not visible." srcset=""> &nbsp;&nbsp;<span>4457</span>
-                                    </div>
-                                    <div>
-                                        <p>Safety Rank</p>
-                                        <img src={bedroomIcon} alt="This image is not visible." srcset=""> &nbsp;&nbsp;<span>Active</span>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="pricev">
-                                <p>from <b>$3490 /month</b></p>
-                            </div>
-                        </div>
                     </div>
-                    </template>
-
                 </div>
-            </div>
-        </lightning-layout-item>
+            </lightning-layout-item>
         </template>
         <!-- Third view  over-->
 
+
+        <!-- mobile view  -->
+        <template if:true={viewtype.mobileView} for:each={propertydata} for:item="property">
+            <lightning-layout-item size="12" key={property.id} small-device-size="12" medium-device-size="12"
+                large-device-size="12" padding="horizontal-small">
+            <div class="main-mobile">
+                <div class="image-mobile">
+                    <template for:each={property.Property_Medias__r} for:item="propertym">
+                        <img src={propertym.ExternalLink__c} key={propertym.Id} class="property-image-mobile" alt="" srcset="">
+                    </template>
+                    <label class="container container-mobile">
+                        <input checked="checked" type="checkbox">
+                        <div class="checkmark">
+                            <svg viewBox="0 0 256 256">
+                                <rect fill="none" height="256" width="256"></rect>
+                                <path
+                                    d="M224.6,51.9a59.5,59.5,0,0,0-43-19.9,60.5,60.5,0,0,0-44,17.6L128,59.1l-7.5-7.4C97.2,28.3,59.2,26.3,35.9,47.4a59.9,59.9,0,0,0-2.3,87l83.1,83.1a15.9,15.9,0,0,0,22.6,0l81-81C243.7,113.2,245.6,75.2,224.6,51.9Z"
+                                    stroke-width="20px" stroke="#FFF" fill="none"></path>
+                            </svg>
+                        </div>
+                    </label>
+                </div>
+                <template for:each={property.Listings__r} for:item="propertyl">
+                <div key={propertyl.Id} class="discription-mobile">
+                    <div class="prname">
+                        <p>{propertyl.Property__r.Name}</p>
+                        <p class="fontnowrap">Rs. 59 Lac</p>
+                    </div>
+                    <div class="addressfet">
+                        <div class="mapaddress"><img src={bedroomIcon} alt=""><p>Sola,Ahmedabad</p></div>
+                        <p>{propertyl.feture}</p>
+                    </div>
+                    <div class="areanumber">
+                        <div class="iconsarea">
+                            <img src={bedroomIcon} alt="This image is not available.">
+                            <p>{propertyl.Property__r.Carpet_Area__c}sqft</p>
+                        </div>
+                        
+                        <div  class="icons">
+                            <template if:true={propertyl.Property__r.Number_of_Bedrooms__c}>
+                                <span><img src={bedroomIcon} alt="This image is not available."
+                                        class="iconsize">&nbsp;{propertyl.Property__r.Number_of_Bedrooms__c}
+                                    </span>
+                            </template>
+                            <template if:true={propertyl.Property__r.Number_of_Bathrooms__c}>
+                                <span><img src={bedroomIcon} alt="This image is not available."
+                                        class="iconsize">&nbsp;{propertyl.Property__r.Number_of_Bathrooms__c}
+                                    </span>
+                            </template>
+                            <template if:true={propertyl.Property__r.Carpet_Area__c}>
+                                <span><img src={bedroomIcon} alt="This image is not available."
+                                        class="iconsize">&nbsp;{propertyl.Property__r.Carpet_Area__c}
+                                    </span>
+                            </template>
+                        </div>
+                        
+                    </div>
+                </div>
+                </template>
+            </div>
+            </lightning-layout-item>
+        </template>
+        <!-- mobile view-->
+
     </lightning-layout>
+
+    
 </template>
