@@ -1,13 +1,13 @@
 
 .layout-model{
-    width: 45.5%;
+    /* width: 45.5%; */
     /* height: 35%; */
     /* max-height: 300px; */
-    margin: 0px 0.8% 0.5% 2.5%;
+    /* margin: 0px 0.8% 0.5% 2.5%; */
 
 }
 .custom-box{
-    height: 259px;
+    /* height: 259px; */
 }
 .main{
     border-radius: 12px;
@@ -34,7 +34,8 @@
 }
 
 .image{
-    width: 21rem;
+    /* width: 21rem; */
+    aspect-ratio: 1.8;
     /* padding: 1rem; */
     /* gap: 1rem; */
     /* display: inline-block; */
@@ -51,11 +52,11 @@
 .image-list{
     width: fit-content;
     position: relative;
-    min-width: 273px;
+    /* min-width: 273px; */
 }
 .innertext{
     position: absolute;
-    top: 87%;
+    top: 88%;
     left: 50%;
     transform: translate(-50%, -50%);
     background-color: #000000;
@@ -77,7 +78,7 @@
 }
 
 .property-image-card{
-    height: -webkit-fill-available;
+    height: 260px;
     border-radius: 0.625rem;
     z-index: 1;
 }
@@ -128,6 +129,7 @@
     padding: 6px 25px 6px 25px;
     color: white;
     border-radius: 30px;
+    white-space: nowrap;
 }
 
 .pricev{
@@ -190,7 +192,7 @@
 }
 
 .container-list {
-    left: 87%;
+    left: 83%;
     top: 5%;
 }
 
@@ -237,6 +239,7 @@
     border-radius: 8px;
     gap: 10px;
     width: 100%;
+    height: 120px;
     margin: 9px 3px;
     border: 0.5px solid #FFFFFF;
     padding-right: 12px;
@@ -280,12 +283,15 @@
 }
 
 .property-image-mobile {
-    height: -webkit-fill-available;
+    height: 120px;
     border-radius: 8px 0 0 8px;
     z-index: 1;
 }
 .fontnowrap{
     white-space: nowrap;
+}
+.imageisize{
+    width: 12px;
 }
 
 
@@ -303,8 +309,8 @@
     }
     
     .container-mobile {
-        left: 36.5%;
-        margin-top: 8px;
+        left: 25.5%;
+        margin-top: 7px;
     }
     .prname{
         font-size: 0.875rem;
@@ -312,6 +318,14 @@
         justify-content: space-between;
         font-weight: 700;
         margin-top: 7px;
+    }
+
+    .proname{
+        width: 150px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        resize: horizontal;
     }
     
     .prname p:last-of-type {
@@ -325,5 +339,10 @@
 
 /* Media Query for low resolution  Tablets, Ipads */
 @media (min-width: 481px) and (max-width: 767px) {
+
+    .container-card {
+        left: 87%;
+        top: 5%;
+    }
     
 }

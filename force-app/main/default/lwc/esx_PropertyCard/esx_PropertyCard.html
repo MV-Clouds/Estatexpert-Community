@@ -4,7 +4,7 @@
         <!-- first view -->
         <template if:true={viewtype.gridView} for:each={propertydata} for:item="property">
             <lightning-layout-item size="12" small-device-size="12" medium-device-size="6" large-device-size="6"
-                key={property.Id}  class="layout-model">
+                key={property.Id}  class="layout-model" padding="horizontal-small">
                 <div class="custom-box">
                     <div class="main">
                         <div class="image">
@@ -171,29 +171,29 @@
                                         <div class="facilitate">
                                             <div>
                                                 <p>Bedrooms</p>
-                                                <img src={bedroomIcon} alt="This image is not visible." srcset="">
+                                                <img src={bedrooms_list} alt="This image is not visible." srcset="">
                                                 &nbsp;&nbsp;<span>{propertyl.Property__r.Number_of_Bedrooms__c}</span>
                                             </div>
                                             <div>
                                                 <p>Bathrooms</p>
-                                                <img src={bedroomIcon} alt="This image is not visible." srcset="">
+                                                <img src={bathrooms_list} alt="This image is not visible." srcset="">
                                                 &nbsp;&nbsp;<span>{propertyl.Property__r.Number_of_Bathrooms__c}</span>
                                             </div>
                                             <div>
                                                 <p>Carpet Area</p>
-                                                <img src={bedroomIcon} alt="This image is not visible." srcset="">
+                                                <img src={carpet_list} alt="This image is not visible." srcset="">
                                                 &nbsp;&nbsp;<span>{propertyl.Property__r.Carpet_Area__c}M<sup>{propertyl.Property__r.carpetAreaUnit__c}</sup></span>
                                             </div>
-                                            <div>
+                                            <!-- <div>
                                                 <p>Safety Rank</p>
-                                                <img src={bedroomIcon} alt="This image is not visible." srcset="">
+                                                <img src={safety_list} alt="This image is not visible." srcset="">
                                                 &nbsp;&nbsp;<span>4457</span>
                                             </div>
                                             <div>
                                                 <p>Safety Rank</p>
-                                                <img src={bedroomIcon} alt="This image is not visible." srcset="">
+                                                <img src={active_list} alt="This image is not visible." srcset="">
                                                 &nbsp;&nbsp;<span>Active</span>
-                                            </div>
+                                            </div> -->
                                         </div>
                                     </div>
                                     <div class="pricev">
@@ -234,32 +234,32 @@
                 <template for:each={property.Listings__r} for:item="propertyl">
                 <div key={propertyl.Id} class="discription-mobile">
                     <div class="prname">
-                        <p>{propertyl.Property__r.Name}</p>
+                        <p class="proname">{propertyl.Property__r.Name}</p>
                         <p class="fontnowrap">Rs. 59 Lac</p>
                     </div>
                     <div class="addressfet">
-                        <div class="mapaddress"><img src={bedroomIcon} alt=""><p>Sola,Ahmedabad</p></div>
+                        <div class="mapaddress"><img src={mapicon_mobile} alt=""><p>Sola,Ahmedabad</p></div>
                         <p>{propertyl.feture}</p>
                     </div>
                     <div class="areanumber">
                         <div class="iconsarea">
-                            <img src={bedroomIcon} alt="This image is not available.">
+                            <img class="imageisize" src={aresqft_mobile} alt="This image is not available.">
                             <p>{propertyl.Property__r.Carpet_Area__c}sqft</p>
                         </div>
                         
                         <div  class="icons">
                             <template if:true={propertyl.Property__r.Number_of_Bedrooms__c}>
-                                <span><img src={bedroomIcon} alt="This image is not available."
+                                <span><img src={bedroom_mobile} alt="This image is not available."
                                         class="iconsize">&nbsp;{propertyl.Property__r.Number_of_Bedrooms__c}
                                     </span>
                             </template>
                             <template if:true={propertyl.Property__r.Number_of_Bathrooms__c}>
-                                <span><img src={bedroomIcon} alt="This image is not available."
+                                <span><img src={bathroom_mobile} alt="This image is not available."
                                         class="iconsize">&nbsp;{propertyl.Property__r.Number_of_Bathrooms__c}
                                     </span>
                             </template>
                             <template if:true={propertyl.Property__r.Carpet_Area__c}>
-                                <span><img src={bedroomIcon} alt="This image is not available."
+                                <span><img src={cook_mobile} alt="This image is not available."
                                         class="iconsize">&nbsp;{propertyl.Property__r.Carpet_Area__c}
                                     </span>
                             </template>
