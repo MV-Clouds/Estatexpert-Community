@@ -1,0 +1,19 @@
+<template>
+    <lightning-card title="Buyer Information">
+        <div class="container">
+            <div class="slds-m-around_medium">
+                <lightning-button-group>
+                    <lightning-button label="All" onclick={filterAll}></lightning-button>
+                    <lightning-button label="Buy" onclick={filterBuy}></lightning-button>
+                    <lightning-button label="Rent" onclick={filterRent}></lightning-button>
+                </lightning-button-group>
+            </div>
+            <lightning-datatable
+                key-field="id"
+                data={filteredData}
+                columns={columns}
+                hide-checkbox-column
+            ></lightning-datatable>
+        </div>
+    </lightning-card>
+</template>

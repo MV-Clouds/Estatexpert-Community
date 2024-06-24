@@ -1,0 +1,14 @@
+.slds-m-around_medium {
+    margin: 1rem;
+}
+.container{
+    padding: 2%;
+}
+.slds-table thead th {
+    background-color: transparent !important;
+}
+
+/* Apply transparency to table rows */
+.slds-table tbody tr {
+    background-color: transparent !important;
+}
