@@ -4,11 +4,24 @@
 .container{
     padding: 2%;
 }
+.bg-image{
+    width: 100%;
+    opacity: 70%;
+    background-size: cover;
+    position: absolute;
+    z-index: 1;
+}
+:host {
+    --slds-c-table-tr-even-bg-color: transparent;
+    --slds-c-table-tr-odd-bg-color: transparent;
+    --slds-c-table-th-bg-color: transparent;
+}
+
+/* Apply transparency to table headers and rows */
 .slds-table thead th {
     background-color: transparent !important;
 }
 
-/* Apply transparency to table rows */
 .slds-table tbody tr {
     background-color: transparent !important;
 }

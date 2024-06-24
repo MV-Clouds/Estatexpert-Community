@@ -1,6 +1,17 @@
 import { LightningElement,track } from 'lwc';
+import backgroundImage from "@salesforce/resourceUrl/FavoriteProperties";
+import LightningDatatable from 'lightning/datatable';
+// import statusDropdown from './esx_InquiryPageStatusDropdown.html';
 
+// LightningDatatable.types.customDropdown = {
+//     template: statusDropdown,
+//     standardCellLayout: true,
+//     typeAttributes: ['value', 'rowId']
+// };
 export default class Esx_InquiryPage extends LightningElement {
+
+
+    BgImage = backgroundImage + '/Bg-Image.png';
 
     @track data = [
         { id: 1, propertyName: 'Property Name', buyerName: 'Evan Flores', mobileNo: '0123456789', emailId: 'xyz@gmail.com', inquiryDate: 'DD/MM/YYYY', status: 'Open', action: 'Open' },
@@ -21,6 +32,16 @@ export default class Esx_InquiryPage extends LightningElement {
         { label: 'Email ID', fieldName: 'emailId', type: 'email' },
         { label: 'Inquiry Date', fieldName: 'inquiryDate', type: 'text' },
         { label: 'Status', fieldName: 'status', type: 'text' },
+        // {
+        //     label: 'Status',
+        //     fieldName: 'status',
+        //     type: 'customDropdown',
+        //     typeAttributes: {
+        //         value: { fieldName: 'status' },
+        //         rowId: { fieldName: 'id' }
+        //     }
+        // },
+
         {   
             label:'Action',
             type: 'button-icon',
