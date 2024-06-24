@@ -2,20 +2,19 @@
     <!-- <lightning-card title="Buyer Information"> -->
         <div class="container">
             <!-- <img src={BgImage} alt="BgImage" class="bg-image"/> -->
-            <h1 style="font-size: 24px;"><span style="border-bottom:1px solid #2A323C;"><b>Buyer</b></span><span
-                style="padding: 5px;"> </span><span
-                style="border-bottom:1px solid rgba(18, 82, 174, 0.5);"><b>Inf</b></span><span
-                ></span><span
-                style="border-bottom:1px solid rgba(18, 82, 174, 0.25);"><b>or</b></span><span
-                ><b>mation</b></span> </h1>
+            <h1 style="font-size: 36px;"><span style="border-bottom:1px solid rgba(42, 50, 60, 1)"><b>Buyer</b></span>
+              <span style="padding:5px;"> </span>
+              <!-- <span> </span> -->
+                <span style="border-bottom:1px solid rgba(42, 50, 60, 1)"><b>Inf</b></span>
+                <span style="border-bottom:1px solid rgba(1, 118, 211, 0.5);"><b>orm</b></span>
+                <span style="border-bottom:1px solid rgba(1, 118, 211, 0.25);"><b>a</b></span><span><b>tion</b></span> </h1>
                 <br/>
-            <div class="slds-m-around_medium">
-                <lightning-button-group>
-                    <lightning-button label="All" onclick={filterAll}></lightning-button>
-                    <lightning-button label="Buy" onclick={filterBuy}></lightning-button>
-                    <lightning-button label="Rent" onclick={filterRent}></lightning-button>
-                </lightning-button-group>
+            <div class="buttons">
+                <lightning-button variant={allBtnVarient} label="All" title="All" onclick={handleFilter} ></lightning-button>
+                <lightning-button variant={buyBtnVarient} label="Buy" title="Buy" onclick={handleFilter} class="slds-m-left_x-small"></lightning-button>
+                <lightning-button variant={rentBtnVarient} label="Rent" title="Rent" onclick={handleFilter} class="slds-m-left_x-small"></lightning-button>
             </div>
+            <br/>
             <!-- <lightning-datatable
             key-field="id"
             data={filteredData}
@@ -32,47 +31,48 @@
               resize-column-disabled
           ></c-custom-datatable> -->
 
-          <div class="table" style="size: 600px;overflow:auto;">
+          <div class="table">
+            <template if:true={isData}>
             <table class="slds-table slds-table_bordered" aria-labelledby="element-with-table-label other-element-with-table-label">
               <thead>
                 <tr class="slds-line-height_reset">
                   <th class="" scope="col">
-                    <div class="slds-truncate" title="No.">No.</div>
-                  </th>
-                  <th class="" scope="col" style="size:20px;">
-                    <div class="slds-truncate" title="Property Name">PropertyName</div>
+                    <div class="slds-truncate rowValue" title="No.">No.</div>
                   </th>
                   <th class="" scope="col">
-                    <div class="slds-truncate" title="Buyer Name">BuyerName</div>
+                    <div class="slds-truncate rowValue" title="Property Name">PropertyName</div>
                   </th>
                   <th class="" scope="col">
-                    <div class="slds-truncate" title="Mobile No.">Mobile No.</div>
+                    <div class="slds-truncate rowValue" title="Buyer Name">BuyerName</div>
                   </th>
                   <th class="" scope="col">
-                    <div class="slds-truncate" title="Email Id">Email ID</div>
+                    <div class="slds-truncate rowValue" title="Mobile No.">Mobile No.</div>
                   </th>
                   <th class="" scope="col">
-                    <div class="slds-truncate" title="Inquiry Date">Inquiry Date</div>
+                    <div class="slds-truncate rowValue" title="Email Id">Email ID</div>
                   </th>
                   <th class="" scope="col">
-                    <div class="slds-truncate" title="Status">Status</div>
+                    <div class="slds-truncate rowValue" title="Inquiry Date">Inquiry Date</div>
                   </th>
                   <th class="" scope="col">
-                    <div class="slds-truncate" title="Action">Action</div>
+                    <div class="slds-truncate rowValue" title="Status">Status</div>
+                  </th>
+                  <th class="" scope="col">
+                    <div class="slds-truncate rowValue" title="Action">Action</div>
                   </th>
                 </tr>
               </thead>
               <tbody >
-                <template for:each={Data} for:item="item">
+                <template for:each={FilteredData} for:item="item">
                 <tr class="slds-hint-parent" key={item.Id}>
                   <td data-label="Thumbnail">
-                    <div class="slds-truncate" title="Number">{item.number}</div>
+                    <div class="slds-truncate rowValue" title="Number">{item.number}</div>
                   </td>
                   <td data-label="Title">
-                    <div class="box" style="display: flex;align-items:center;">
-                        <div class="slds-truncate" title="Thumbnail" style="margin: 10px;"><img src={item.ImageURL} style="margin: 2px;" class="slds-avatar slds-avatar_rectangle slds-avatar_large customimg" alt="Thumbnail"/></div>
+                    <div class="box">
+                        <div class="slds-truncate imgbox" title="Thumbnail"><img src={item.ImageURL} class="slds-avatar slds-avatar_rectangle slds-avatar_large customimg" alt="Thumbnail"/></div>
                         <!-- <div class="slds-truncate" title="Title" style="width: 150px;">{item.propertyName}</div> -->
-                        <div class="slds-truncate" title="Property Name" style="width: 150px;">{item.Listing__r.Property__r.Name}</div>
+                        <div class="slds-truncate rowValue propTitle" title="Property Name">{item.Listing__r.Property__r.Name}</div>
 
                     </div>
                   </td>
@@ -80,37 +80,45 @@
                     <!-- <div class="slds-truncate" title="Size">{item.buyerName}</div> -->
                      <div class="box" style="display: flex;align-items:center;">
                         <lightning-avatar size="medium" style="margin: 10px;"  variant="circle" src="https://www.lightningdesignsystem.com/assets/images/avatar1.jpg"></lightning-avatar>
-                        <div class="slds-truncate" title="buyer name">{item.Contact__r.Name}</div>
+                        <div class="slds-truncate rowValue" title="buyer name">{item.Contact__r.Name}</div>
                     </div>
 
                   </td>
                   <td data-label="mobile">
                     <!-- <div class="slds-truncate" title="Size">{item.mobileNo}</div> -->
-                    <div class="slds-truncate" title="mobile phone">{item.Contact__r.MobilePhone}</div>
+                    <div class="slds-truncate rowValue" title="mobile phone">{item.Contact__r.MobilePhone}</div>
 
                   </td>
                   <td data-label="email">
                     <!-- <div class="slds-truncate" title="Size">{item.emailId}</div> -->
-                    <div class="slds-truncate" title="email">{item.Contact__r.Email}</div>
+                    <div class="slds-truncate rowValue emailDiv" title="email" >{item.Contact__r.Email}</div>
 
                   </td>
                   <td data-label="date">
                     <!-- <div class="slds-truncate" title="date">{item.inquiryDate}</div> -->
-                    <div class="slds-truncate" title="date">{item.Inquiry_Date__c}</div>
+                    <div class="slds-truncate rowValue" title="date">{item.Inquiry_Date__c}</div>
 
                   </td>
                   <td data-label="dropdown">
-                    <div class="slds-truncate" title="status" style="width: 150px;"><lightning-combobox
+                    <div class="slds-truncate rowValue dropdown" title="status">
+                      <!-- <lightning-combobox
                         data-id="status"
                         name="status"
                         value={item.Status__c}
                         placeholder="Select Status"
                         options={options}
                         onchange={handleChange}
-                        ></lightning-combobox></div>
+                        ></lightning-combobox> -->
+                        <lightning-select
+                            name="status"
+                            value={item.Status__c}
+                            options={options}
+                            onchange={handleChange}
+                            ></lightning-select>
+                      </div>
                   </td>
                   <td data-label="actions">
-                    <div class="slds-truncate" title="actions">
+                    <div class="slds-truncate rowValue" title="actions">
                       <lightning-button-icon icon-name="utility:delete"   alternative-text="Preview" class="slds-m-left_xx-small" title="delete" data-key={item.id} data-url={item.ImageURL} onclick={delete_row}></lightning-button-icon>
                     </div>
                   </td>
@@ -118,6 +126,12 @@
               </template>
               </tbody>
             </table>
+          </template>
+          <template if:false={isData}>
+            <div class="message">
+              <h1>No inquiries found for the current user.</h1>
+            </div>
+          </template>
           </div>
         </div>
     <!-- </lightning-card> -->

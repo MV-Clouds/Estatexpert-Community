@@ -2,7 +2,7 @@
     margin: 1rem;
 }
 .container{
-    padding: 2%;
+    padding: 4%;
     background: url(/sfsites/c/resource/FavoriteProperties/Bg-Image.png);
     background-size: cover;
 }
@@ -13,17 +13,54 @@
     position: absolute;
     z-index: 1;
 }
-:host {
-    --slds-c-table-tr-even-bg-color: transparent;
-    --slds-c-table-tr-odd-bg-color: transparent;
-    --slds-c-table-th-bg-color: transparent;
+.table{
+    height: 600px;
+    overflow:auto;
 }
-
+.rowValue{
+    font-size: 14px;
+}
+.box{
+    display: flex;
+    align-items:center;
+}
+.imgbox{
+    margin: 10px;
+}
+.imgbox img{
+    margin: 2px;
+}
+.propTitle{
+    width: 130px;
+}
+.emailDiv{
+    border: 1px solid rgba(223, 226, 233, 1);
+    padding: 2%;
+    border-radius: 8px;
+    width: fit-content;
+    background-color: white;
+}
+.dropdown{
+    /* width: 150px; */
+    display: flex;
+    align-items:center;
+}
+.message{
+    height: 600px;
+    display: flex;
+    justify-content: center;
+}
+.message h1{
+    font-size: 32px;
+}
 /* Apply transparency to table headers and rows */
-table.slds-table thead tr {
-    background-color: transparent;
+.slds-table thead tr {
+    background-color: transparent !important;
+}
+.slds-table{
+    background-color: transparent !important;
 }
 
-table.slds-table tbody tr {
-    background-color: transparent;
+.slds-table tbody tr {
+    background-color: transparent !important;
 }
