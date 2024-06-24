@@ -32,7 +32,7 @@
               resize-column-disabled
           ></c-custom-datatable> -->
 
-          <div class="table">
+          <div class="table" style="size: 600px;overflow:auto;">
             <table class="slds-table slds-table_bordered" aria-labelledby="element-with-table-label other-element-with-table-label">
               <thead>
                 <tr class="slds-line-height_reset">
@@ -62,7 +62,7 @@
                   </th>
                 </tr>
               </thead>
-              <tbody>
+              <tbody >
                 <template for:each={Data} for:item="item">
                 <tr class="slds-hint-parent" key={item.Id}>
                   <td data-label="Thumbnail">
@@ -78,7 +78,10 @@
                   </td>
                   <td data-label="buyer_name">
                     <!-- <div class="slds-truncate" title="Size">{item.buyerName}</div> -->
-                    <div class="slds-truncate" title="buyer name">{item.Contact__r.Name}</div>
+                     <div class="box" style="display: flex;align-items:center;">
+                        <lightning-avatar size="medium" style="margin: 10px;"  variant="circle" src="https://www.lightningdesignsystem.com/assets/images/avatar1.jpg"></lightning-avatar>
+                        <div class="slds-truncate" title="buyer name">{item.Contact__r.Name}</div>
+                    </div>
 
                   </td>
                   <td data-label="mobile">

@@ -4,7 +4,7 @@
 .container{
     padding: 2%;
     background: url(/sfsites/c/resource/FavoriteProperties/Bg-Image.png);
-    background-size: contain;
+    background-size: cover;
 }
 .bg-image{
     width: 100%;
@@ -20,10 +20,10 @@
 }
 
 /* Apply transparency to table headers and rows */
-.table thead th {
-    background-color: transparent !important;
+table.slds-table thead tr {
+    background-color: transparent;
 }
 
-.table tbody tr {
-    background-color: transparent !important;
+table.slds-table tbody tr {
+    background-color: transparent;
 }
