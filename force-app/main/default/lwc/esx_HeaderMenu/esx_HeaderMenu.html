@@ -3,7 +3,7 @@
         <div class="desktop-view">
             <div class="mian-div">
                 <div class="logo-div">
-                    <img src={logo}>
+                    <img draggable="false" src={logo}>
                 </div>
         
                 <ul class="menu-div">
@@ -41,7 +41,7 @@
                                     <div class="dropdown-item" data-id="Check_Password" onclick={handleNavigate}>
                                         Change Password
                                     </div>
-                                    <div class="dropdown-item" data-id="Logout" onclick={handleNavigate}>
+                                    <div class="dropdown-item" data-id="Logout" onclick={handleLogOut}>
                                         Log Out
                                     </div>
                                 </div>
@@ -63,7 +63,7 @@
 
                     <div class="side-logo-div">
                         <div class="logo-div">
-                            <img src={logo}>
+                            <img draggable="false" src={logo}>
                         </div>
 
                         <div class="close-icon">
