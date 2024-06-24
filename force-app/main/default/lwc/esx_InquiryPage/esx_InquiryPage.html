@@ -1,7 +1,7 @@
 <template>
     <!-- <lightning-card title="Buyer Information"> -->
         <div class="container">
-            <img src={BgImage} alt="BgImage" class="bg-image"/>
+            <!-- <img src={BgImage} alt="BgImage" class="bg-image"/> -->
             <div class="slds-m-around_medium">
                 <lightning-button-group>
                     <lightning-button label="All" onclick={filterAll}></lightning-button>
@@ -9,12 +9,21 @@
                     <lightning-button label="Rent" onclick={filterRent}></lightning-button>
                 </lightning-button-group>
             </div>
-            <lightning-datatable
-                key-field="id"
-                data={filteredData}
-                columns={columns}
-                hide-checkbox-column
-            ></lightning-datatable>
+            <!-- <lightning-datatable
+            key-field="id"
+            data={filteredData}
+            columns={columns}
+            hide-checkbox-column
+            onrowaction={handleRowAction}
+        ></lightning-datatable> -->
+        <c-custom-data-table
+              key-field="id"
+              data={filteredData}
+              columns={columns}
+              onrowaction={handleRowAction}
+              hide-checkbox-column="false"
+              resize-column-disabled
+          ></c-custom-data-table>
         </div>
     <!-- </lightning-card> -->
 </template>

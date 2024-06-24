@@ -1,5 +1,6 @@
 import { LightningElement,api } from 'lwc';
-
+import LightningDatatable from 'lightning/datatable';
+import statusDropdown from './customDropdown.html';
 export default class Esx_InquiryPageStatusDropdown extends LightningElement {
 
     @api value;
@@ -10,6 +11,15 @@ export default class Esx_InquiryPageStatusDropdown extends LightningElement {
         { label: 'Close', value: 'Close' },
         { label: 'Pending', value: 'Pending' }
     ];
+
+    static customTypes = {
+        statusDropdown: {
+            template: statusDropdown,
+            standardCellLayout: true,
+            typeAttributes: ['value', 'rowId'],
+            typeAttributes: ['title']
+        },
+    }
 
     handleChange(event) {
         const selectedEvent = new CustomEvent('statuschange', {
