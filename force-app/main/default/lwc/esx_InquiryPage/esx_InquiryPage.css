@@ -60,7 +60,7 @@
     font-size: 32px;
 }
 /* Apply transparency to table headers and rows */
-.slds-table thead tr {
+.slds-table thead th {
     background-color: transparent !important;
     border: 0px;
     position: sticky;
@@ -74,5 +74,5 @@
 .slds-table tbody tr {
     background-color: transparent !important;
     border: 0px;
-
+    height: fit-content;
 }

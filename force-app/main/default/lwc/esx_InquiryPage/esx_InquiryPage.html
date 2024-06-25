@@ -1,13 +1,13 @@
 <template>
-    <!-- <lightning-card title="Buyer Information"> -->
         <div class="container">
-            <!-- <img src={BgImage} alt="BgImage" class="bg-image"/> -->
-            <h1 style="font-size: 36px;"><b><span style="border-bottom:1px solid rgba(42, 50, 60, 1)"><b>Buyer</b></span>
-              <span style="padding:5px;"> </span>
-              <!-- <span> </span> -->
-                <span style="border-bottom:1px solid rgba(42, 50, 60, 1)"><b>Inf</b></span>
+            <h1 style="font-size: 36px;font-weight:700;"><b><span style="border-bottom:1px solid rgba(42, 50, 60, 1)"><b>Buyer</b></span>
+              <span style="border-bottom:1px solid rgba(42, 50, 60, 1)">&nbsp; </span>
+                <span style="border-bottom:1px solid rgba(42, 50, 60, 1)"><b>In</b></span>
+                <span ><b>f</b></span>
                 <span style="border-bottom:1px solid rgba(1, 118, 211, 0.5);"><b>orm</b></span>
-                <span style="border-bottom:1px solid rgba(1, 118, 211, 0.25);"><b>a</b></span><span><b>tion</b></span></b></h1>
+                <span ><b>a</b></span>
+                <span style="border-bottom:1px solid rgba(1, 118, 211, 0.25);"><b>t</b></span>
+                <span><b>ion</b></span></b></h1>
                 <br/>
             <div class="buttons">
                 <lightning-button variant={allBtnVarient} label="All" title="All" onclick={handleFilter} ></lightning-button>
@@ -58,13 +58,11 @@
                   <td data-label="Title">
                     <div class="box">
                         <div class="slds-truncate imgbox" title="Thumbnail"><img src={item.ImageURL} class="slds-avatar slds-avatar_rectangle slds-avatar_large customimg" alt="Thumbnail"/></div>
-                        <!-- <div class="slds-truncate" title="Title" style="width: 150px;">{item.propertyName}</div> -->
                         <div class="slds-truncate rowValue propTitle" title="Property Name">{item.Listing__r.Property__r.Name}</div>
 
                     </div>
                   </td>
                   <td data-label="buyer_name">
-                    <!-- <div class="slds-truncate" title="Size">{item.buyerName}</div> -->
                      <div class="box" style="display: flex;align-items:center;">
                         <lightning-avatar size="medium" style="margin: 10px;"  variant="circle" src={profileImgUrl}></lightning-avatar>
                         <div class="slds-truncate rowValue" title="buyer name">{item.Listing__r.Property__r.Current_Owner__r.Name}</div>
@@ -72,17 +70,14 @@
 
                   </td>
                   <td data-label="mobile">
-                    <!-- <div class="slds-truncate" title="Size">{item.mobileNo}</div> -->
                     <div class="slds-truncate rowValue" title="mobile phone">{item.Listing__r.Property__r.Current_Owner__r.MobilePhone}</div>
 
                   </td>
                   <td data-label="email">
-                    <!-- <div class="slds-truncate" title="Size">{item.emailId}</div> -->
                     <div class="slds-truncate rowValue emailDiv" title="email" >{item.Listing__r.Property__r.Current_Owner__r.Email}</div>
 
                   </td>
                   <td data-label="date">
-                    <!-- <div class="slds-truncate" title="date">{item.inquiryDate}</div> -->
                     <div class="slds-truncate rowValue" title="date">{item.Inquiry_Date__c}</div>
 
                   </td>
@@ -107,8 +102,8 @@
                   </td>
                   <td data-label="actions">
                     <div class="slds-truncate rowValue" title="actions">
-                      <lightning-button-icon icon-name="utility:save"   alternative-text="Preview" class="slds-m-left_xx-small save-button" title="delete" data-key={item.Id} data-status={item.Status__c} data-url={item.ImageURL} onclick={saveUpdatedStatus} disabled></lightning-button-icon>
-                      <lightning-button-icon icon-name="utility:delete"   alternative-text="Preview" class="slds-m-left_xx-small" title="delete" data-key={item.Id}  data-url={item.ImageURL} onclick={delete_row}></lightning-button-icon>
+                      <lightning-button-icon icon-name="utility:save"   alternative-text="Save" class="slds-m-left_xx-small save-button" title="Save" data-key={item.Id} data-status={item.Status__c} data-url={item.ImageURL} onclick={saveUpdatedStatus} disabled></lightning-button-icon>
+                      <lightning-button-icon icon-name="utility:delete"   alternative-text="Delete" class="slds-m-left_xx-small" title="Delete" data-key={item.Id}  data-url={item.ImageURL} onclick={delete_row}></lightning-button-icon>
                     </div>
                   </td>
                 </tr>
@@ -123,5 +118,4 @@
           </template>
           </div>
         </div>
-    <!-- </lightning-card> -->
 </template>

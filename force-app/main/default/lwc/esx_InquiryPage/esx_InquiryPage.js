@@ -4,43 +4,12 @@ import { loadStyle } from 'lightning/platformResourceLoader';
 import getInquiryData from '@salesforce/apex/ESX_InquiryPageController.getInquiryData';
 import DeleteInquiry from '@salesforce/apex/ESX_InquiryPageController.DeleteInquiry';
 import customStyles from '@salesforce/resourceUrl/InquiryPageCss';
+import Blank_Profile_Photo from '@salesforce/resourceUrl/Blank_Profile_Photo';
 import updateInquiryStatus from '@salesforce/apex/ESX_InquiryPageController.updateInquiryStatus';
 export default class Esx_InquiryPage extends LightningElement {
 
     BgImage = backgroundImage + '/Bg-Image.png';
 
-    // @track data = [
-    //     { id: 1,ImageURL:'https://images.pexels.com/photos/210617/pexels-photo-210617.jpeg?cs=srgb&dl=pexels-pixabay-210617.jpg&fm=jpg', propertyName: 'Property Name', buyerName: 'Evan Flores', mobileNo: '0123456789', emailId: 'xyz@gmail.com', inquiryDate: 'DD/MM/YYYY', status: 'Open', action: 'Open',options:[
-    //         { label: 'Open', value: 'Open' },
-    //         { label: 'Close', value: 'Close' },
-    //         { label: 'Pending', value: 'Pending' }
-    //     ]  },
-    //     { id: 2,ImageURL:'https://images.pexels.com/photos/210617/pexels-photo-210617.jpeg?cs=srgb&dl=pexels-pixabay-210617.jpg&fm=jpg', propertyName: 'Property Name', buyerName: 'Arlene Wilson', mobileNo: '0123456789', emailId: 'xyz@gmail.com', inquiryDate: 'DD/MM/YYYY', status: 'Close', action: 'Close',options:[
-    //         { label: 'Open', value: 'Open' },
-    //         { label: 'Close', value: 'Close' },
-    //         { label: 'Pending', value: 'Pending' }
-    //     ]  },
-    //     { id: 3,ImageURL:'https://images.pexels.com/photos/210617/pexels-photo-210617.jpeg?cs=srgb&dl=pexels-pixabay-210617.jpg&fm=jpg', propertyName: 'Property Name', buyerName: 'Jennie Cooper', mobileNo: '0123456789', emailId: 'xyz@gmail.com', inquiryDate: 'DD/MM/YYYY', status: 'Close', action: 'Close',options:[
-    //         { label: 'Open', value: 'Open' },
-    //         { label: 'Close', value: 'Close' },
-    //         { label: 'Pending', value: 'Pending' }
-    //     ]  },
-    //     { id: 4,ImageURL:'https://images.pexels.com/photos/210617/pexels-photo-210617.jpeg?cs=srgb&dl=pexels-pixabay-210617.jpg&fm=jpg', propertyName: 'Property Name', buyerName: 'Philip Steward', mobileNo: '0123456789', emailId: 'xyz@gmail.com', inquiryDate: 'DD/MM/YYYY', status: 'Pending', action: 'Pending',options:[
-    //         { label: 'Open', value: 'Open' },
-    //         { label: 'Close', value: 'Close' },
-    //         { label: 'Pending', value: 'Pending' }
-    //     ]  },
-    //     { id: 5,ImageURL:'https://images.pexels.com/photos/210617/pexels-photo-210617.jpeg?cs=srgb&dl=pexels-pixabay-210617.jpg&fm=jpg', propertyName: 'Property Name', buyerName: 'Jorge Black', mobileNo: '0123456789', emailId: 'xyz@gmail.com', inquiryDate: 'DD/MM/YYYY', status: 'Open', action: 'Open',options:[
-    //         { label: 'Open', value: 'Open' },
-    //         { label: 'Close', value: 'Close' },
-    //         { label: 'Pending', value: 'Pending' }
-    //     ]  },
-    //     { id: 6,ImageURL:'https://images.pexels.com/photos/210617/pexels-photo-210617.jpeg?cs=srgb&dl=pexels-pixabay-210617.jpg&fm=jpg', propertyName: 'Property Name', buyerName: 'Gladys Jones', mobileNo: '0123456789', emailId: 'xyz@gmail.com', inquiryDate: 'DD/MM/YYYY', status: 'Close', action: 'Close',options:[
-    //         { label: 'Open', value: 'Open' },
-    //         { label: 'Close', value: 'Close' },
-    //         { label: 'Pending', value: 'Pending' }
-    //     ] }
-    // ];
     options = [
         { label: '--Select--', value: '' },
         { label: 'Open', value: 'Open' },
@@ -63,6 +32,7 @@ export default class Esx_InquiryPage extends LightningElement {
     connectedCallback(){
         // console.log('cookies',document.cookie);
         // this.fetchInquryData();
+        this.showSpinner = true;
         this.checkUserIsLoggedIn();
     }
     renderedCallback(){
@@ -114,6 +84,7 @@ export default class Esx_InquiryPage extends LightningElement {
 
     fetchInquryData(){
         getInquiryData({contactId:this.contactId}).then((result) => {
+            this.showSpinner = false;
             if(result.inquiries.length>=0){
                 this.isData = true;
                 console.log('result:', result);
@@ -146,22 +117,22 @@ export default class Esx_InquiryPage extends LightningElement {
                     const year = date.getFullYear();
                     return `${day}/${month}/${year}`;
                 };
-                this.Data.forEach(row => {
+                this.Data.forEach((row,index) => {
                     const prop_id = row.Listing__r.Property__r.Id;
                     console.log('propId:',prop_id);
                     console.log('urlCheck:',this.propertyMediaUrls[prop_id][0].ExternalLink__c);
                     row.ImageURL = this.propertyMediaUrls[prop_id][0].ExternalLink__c? this.propertyMediaUrls[prop_id][0].ExternalLink__c : '/sfsites/c/resource/nopropertyfound';
                     row.Inquiry_Date__c = row.Inquiry_Date__c ? formatDate(row.Inquiry_Date__c):'';
-                    row.number = number;
+                    row.number = index + 1;
                 });
-                this.FilteredData.forEach(row => {
-                    number = number + 1;
+                this.FilteredData.forEach((row,index) => {
+                    // number = number + 1;
                     const prop_id = row.Listing__r.Property__r.Id;
                     console.log('propId:',prop_id);
                     console.log('urlCheck:',this.propertyMediaUrls[prop_id][0].ExternalLink__c);
                     row.ImageURL = this.propertyMediaUrls[prop_id][0].ExternalLink__c? this.propertyMediaUrls[prop_id][0].ExternalLink__c : '/sfsites/c/resource/nopropertyfound';
                     row.Inquiry_Date__c = row.Inquiry_Date__c ? formatDate(row.Inquiry_Date__c):'';
-                    row.number = number;
+                    row.number = index + 1;
                 });
             }else{
                 this.isData = false;
@@ -189,7 +160,7 @@ export default class Esx_InquiryPage extends LightningElement {
         this.updateSaveButtonState(recordId, selectedValue);
       }
     
-      updateSaveButtonState(recordId, selectedValue) {
+    updateSaveButtonState(recordId, selectedValue) {
         const allSaveButtons = this.template.querySelectorAll('.save-button');
     
         allSaveButtons.forEach((button) => {
@@ -198,7 +169,7 @@ export default class Esx_InquiryPage extends LightningElement {
             button.disabled = selectedValue? false:true; // Enable if selectedValue is not empty
           }
         });
-      }
+    }
     saveUpdatedStatus(event){
         this.showSpinner = true;
         let status = event.currentTarget.dataset.status;
@@ -258,9 +229,9 @@ export default class Esx_InquiryPage extends LightningElement {
         if(this.FilteredData.length>0){
             this.isData = true;
             let num = 0;
-            this.FilteredData.forEach(row => {
-                num = num + 1;
-                row.number = num;
+            this.FilteredData.forEach((row,index) => {
+                // num = num + 1;
+                row.number = index + 1;
             });
         }else{
             this.isData = false;
