@@ -91,7 +91,9 @@ public with sharing class ESX_InquiryPageController {
         try {
             Inquiry__c inquiry = [SELECT Id,Status__c FROM Inquiry__c WHERE Id=:recordId LIMIT 1];
             inquiry.Status__c = Status;
-            update inquiry;
+            if(inquiry!=null){
+                update inquiry;
+            }
         } catch (Exception e) {
             throw new AuraHandledException(e.getMessage());
         }

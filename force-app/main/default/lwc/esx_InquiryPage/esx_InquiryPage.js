@@ -29,12 +29,12 @@ export default class Esx_InquiryPage extends LightningElement {
     @track profileImgUrl;
     @track showSpinner = false;
     @track selectedStatusMap = new Map();
+    
     connectedCallback(){
-        // console.log('cookies',document.cookie);
-        // this.fetchInquryData();
         this.showSpinner = true;
         this.checkUserIsLoggedIn();
     }
+
     renderedCallback(){
         loadStyle(this, customStyles)
         .then(() => {
@@ -154,11 +154,9 @@ export default class Esx_InquiryPage extends LightningElement {
     handleStatusChange(event) {
         const recordId = event.currentTarget.dataset.key;
         const selectedValue = event.target.value;
-    
         this.selectedStatusMap.set(recordId, selectedValue);
-    
         this.updateSaveButtonState(recordId, selectedValue);
-      }
+    }
     
     updateSaveButtonState(recordId, selectedValue) {
         const allSaveButtons = this.template.querySelectorAll('.save-button');
@@ -170,6 +168,7 @@ export default class Esx_InquiryPage extends LightningElement {
           }
         });
     }
+
     saveUpdatedStatus(event){
         this.showSpinner = true;
         let status = event.currentTarget.dataset.status;
@@ -184,6 +183,7 @@ export default class Esx_InquiryPage extends LightningElement {
             }
         })
     }
+
     updateSaveButtonAfterSave(recordId) {
         // Query all save buttons
         const allSaveButtons = this.template.querySelectorAll('.save-button');
@@ -193,7 +193,8 @@ export default class Esx_InquiryPage extends LightningElement {
             button.disabled = true; // Disable the button after save action
           }
         });
-      }
+    }
+
     handleFilter(event){
         if(event.target.label === 'Buy'){
             this.propType = 'For Sell';
