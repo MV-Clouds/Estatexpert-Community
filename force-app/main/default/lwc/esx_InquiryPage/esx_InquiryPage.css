@@ -34,7 +34,10 @@
     margin: 2px;
 }
 .propTitle{
-    width: 130px;
+    width: 200px;
+    text-overflow: ellipsis;
+    white-space: normal;
+    word-break: break-word;
 }
 /* .emailDiv{
     border: 1px solid rgba(223, 226, 233, 1);

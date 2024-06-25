@@ -4,6 +4,7 @@ import { loadStyle } from 'lightning/platformResourceLoader';
 import getInquiryData from '@salesforce/apex/ESX_InquiryPageController.getInquiryData';
 import DeleteInquiry from '@salesforce/apex/ESX_InquiryPageController.DeleteInquiry';
 import customStyles from '@salesforce/resourceUrl/InquiryPageCss';
+import updateInquiryStatus from '@salesforce/apex/ESX_InquiryPageController.updateInquiryStatus';
 export default class Esx_InquiryPage extends LightningElement {
 
     BgImage = backgroundImage + '/Bg-Image.png';
@@ -41,7 +42,7 @@ export default class Esx_InquiryPage extends LightningElement {
     //     ] }
     // ];
     options = [
-        { label: '--Select--', value: 'none' },
+        { label: '--Select--', value: '' },
         { label: 'Open', value: 'Open' },
         { label: 'Close', value: 'Close' },
         { label: 'Pending', value: 'Pending' }
@@ -58,6 +59,7 @@ export default class Esx_InquiryPage extends LightningElement {
     @track contactId = '';
     @track profileImgUrl;
     @track showSpinner = false;
+    @track selectedStatusMap = new Map();
     connectedCallback(){
         // console.log('cookies',document.cookie);
         // this.fetchInquryData();
@@ -178,15 +180,49 @@ export default class Esx_InquiryPage extends LightningElement {
             }
         })
     }
-    handleStatusChange(event){
-        let currentStatus = event.target.value;
-    }
+    handleStatusChange(event) {
+        const recordId = event.currentTarget.dataset.key;
+        const selectedValue = event.target.value;
+    
+        this.selectedStatusMap.set(recordId, selectedValue);
+    
+        this.updateSaveButtonState(recordId, selectedValue);
+      }
+    
+      updateSaveButtonState(recordId, selectedValue) {
+        const allSaveButtons = this.template.querySelectorAll('.save-button');
+    
+        allSaveButtons.forEach((button) => {
+          if (button.dataset.key === recordId) {
+            button.dataset.status = selectedValue;
+            button.disabled = selectedValue? false:true; // Enable if selectedValue is not empty
+          }
+        });
+      }
     saveUpdatedStatus(event){
+        this.showSpinner = true;
         let status = event.currentTarget.dataset.status;
         let recordId = event.currentTarget.dataset.key;
         console.log('recordIdtoUpdate:',recordId);
         console.log('statusToUpdate:',status);
+        updateInquiryStatus({Status:status,recordId:recordId}).then((result) => {
+            if(result){
+                this.fetchInquryData();
+                this.showSpinner = false;
+                this.updateSaveButtonAfterSave(recordId);
+            }
+        })
     }
+    updateSaveButtonAfterSave(recordId) {
+        // Query all save buttons
+        const allSaveButtons = this.template.querySelectorAll('.save-button');
+    
+        allSaveButtons.forEach((button) => {
+          if (button.dataset.key === recordId) {
+            button.disabled = true; // Disable the button after save action
+          }
+        });
+      }
     handleFilter(event){
         if(event.target.label === 'Buy'){
             this.propType = 'For Sell';
@@ -221,6 +257,11 @@ export default class Esx_InquiryPage extends LightningElement {
         });
         if(this.FilteredData.length>0){
             this.isData = true;
+            let num = 0;
+            this.FilteredData.forEach(row => {
+                num = num + 1;
+                row.number = num;
+            });
         }else{
             this.isData = false;
         }

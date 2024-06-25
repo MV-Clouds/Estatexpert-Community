@@ -86,5 +86,16 @@ public with sharing class ESX_InquiryPageController {
         }
         return true;
     }
+    @AuraEnabled
+    public static Boolean updateInquiryStatus(String Status,Id recordId){
+        try {
+            Inquiry__c inquiry = [SELECT Id,Status__c FROM Inquiry__c WHERE Id=:recordId LIMIT 1];
+            inquiry.Status__c = Status;
+            update inquiry;
+        } catch (Exception e) {
+            throw new AuraHandledException(e.getMessage());
+        }
+        return true;
+    }
 
 }

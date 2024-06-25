@@ -101,12 +101,13 @@
                             value={item.Status__c}
                             options={options}
                             onchange={handleStatusChange}
+                            data-key={item.Id}
                             ></lightning-select>
                       </div>
                   </td>
                   <td data-label="actions">
                     <div class="slds-truncate rowValue" title="actions">
-                      <lightning-button-icon icon-name="utility:save"   alternative-text="Preview" class="slds-m-left_xx-small" title="delete" data-key={item.Id} data-status={item.Status__c} data-url={item.ImageURL} onclick={saveUpdatedStatus}></lightning-button-icon>
+                      <lightning-button-icon icon-name="utility:save"   alternative-text="Preview" class="slds-m-left_xx-small save-button" title="delete" data-key={item.Id} data-status={item.Status__c} data-url={item.ImageURL} onclick={saveUpdatedStatus} disabled></lightning-button-icon>
                       <lightning-button-icon icon-name="utility:delete"   alternative-text="Preview" class="slds-m-left_xx-small" title="delete" data-key={item.Id}  data-url={item.ImageURL} onclick={delete_row}></lightning-button-icon>
                     </div>
                   </td>
