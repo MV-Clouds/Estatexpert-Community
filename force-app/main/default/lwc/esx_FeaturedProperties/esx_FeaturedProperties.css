@@ -1,0 +1,356 @@
+.container {
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    padding: 20px;
+    margin: 27px;
+    background-color: #ECF6FD;
+}
+
+.small-container {
+    display: flex;
+}
+
+h1 {
+    padding: 20px 20px 20px 44px;
+    font-size: 30px;
+    font-weight: bold;
+}
+
+h1 b {
+    color: #007bff;
+}
+
+h1 span {
+    border-bottom: 1px solid black;
+}
+
+b:nth-of-type(1),
+b:nth-of-type(3) {
+    border-bottom: 1px solid #007bff;
+}
+
+.property-card {
+    display: flex;
+    background-color: rgba(255, 255, 255, 0.5);
+    border-radius: 16px;
+    float: left;
+    width: 100%;
+    overflow: hidden;
+}
+
+.carousel-item {
+    position: relative;
+    display: inline-block;
+}
+
+.carousel-item img {
+    width: 100%;
+    height: auto;
+    border-bottom: 1px solid #e0e0e0;
+}
+
+.property-details {
+    padding: 20px;
+    flex: 1;
+}
+
+.property-details h2 {
+    color: #000;
+    font-size: 24px;
+    margin-bottom: 10px;
+    font-size: 22px;
+    font-weight: 500;
+
+}
+
+.property-details h3 {
+    color: #555;
+    font-size: 26px;
+    margin-bottom: 20px;
+    font-weight: 700;
+}
+
+.property-details p {
+    color:black;
+    font-size: 16px;
+    margin-bottom: 20px;
+}
+
+.property-details p:nth-of-type(1), .facility {
+    color: #9B9A98;
+}
+
+.property-features {
+    display: flex;
+    justify-content: space-between;
+}
+
+.feature {
+    flex: 1;
+}
+
+.feature .icon {
+    color: #007bff;
+    display: flex;
+    gap: 12px;
+}
+
+.feature .label {
+    font-size: 18px;
+    color: black;
+}
+
+
+
+/* my css */
+
+/* my css */
+
+
+
+/* second css */
+
+.carousel-item {
+    transition: opacity 0.5s;
+}
+
+.carousel-property{
+    display: none;
+    transition: opacity 0.5s;
+    width: 100%;
+}
+
+.carousel-property.active {
+    display: block;
+    opacity: 1;
+}
+
+
+.carousel-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 16px 0 0 16px;
+}
+
+.carousel-info {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    margin-top: 20px;
+    text-align: center;
+}
+
+.carousel-info h2 {
+    margin-bottom: 10px;
+    font-size: 24px;
+}
+
+.carousel-info p {
+    margin-bottom: 15px;
+    font-size: 16px;
+}
+
+.carousel-info ul {
+    list-style: none;
+    padding: 0;
+    display: flex;
+    justify-content: space-around;
+    margin-bottom: 15px;
+}
+
+.carousel-info li {
+    display: flex;
+    align-items: center;
+}
+
+.carousel-info li i {
+    margin-right: 5px;
+}
+
+.carousel-nav {
+    display: flex;
+    font-size: 36px;
+    color: #1252AE;
+}
+
+.carousel-nav button {
+    border: none;
+    cursor: pointer;
+    background-color: #ECF6FD;
+}
+
+.carousel-nav-left {
+    float: left;
+    margin: 0 16px 0 0;
+}
+
+.carousel-nav-right {
+    float: right;
+    margin: 0 0 0 16px;
+}
+.ownerfeture{
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+}
+.allfeture{
+    display: flex;
+    gap: 8px;
+    flex: 1;
+}
+.owner{
+    display: flex;
+    
+}
+.owner img{
+    border-radius: 50%;
+    height: 16px;
+    width: 16px;
+}
+.owner p{
+    font-size: 11px;
+}
+
+
+/* like button css */
+
+    .like-icon {
+        cursor: pointer;
+        background-color: #E0EAFB;
+        border-radius: 50%;
+        display: inline-block;
+        transition: transform 0.1s ease-in-out;
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        width: 31px;
+        padding: 4px;
+    }
+
+    .like-icon svg {
+        width: 23px;
+        transition: stroke 0.1s ease-in-out, fill 0.1s ease-in-out;
+    }
+
+    .like-icon.clicked {
+        transform: scale(1.2);
+    }
+
+    .like-icon.clicked svg {
+        stroke: #e0245e;
+        fill: #e0245e;
+    }
+/* like button css over*/
+
+
+
+@media (max-width: 768px) {
+
+    .property-card {
+        flex-direction: column;
+    }
+
+    .flex-wrap {
+        padding: 10px;
+        margin: 25px;
+    }
+
+    .property-features {
+        gap: 18px;
+    }
+
+    .carousel-item {
+        border-radius: 16px 16px 0 0;
+    }
+    .carousel-nav{
+        font-size: 28px;
+    }
+}
+
+@media (max-width: 480px) {
+
+    .container{
+        margin: 0px;
+    }
+
+    .property-features {
+        gap: 8px;
+    }
+
+    .property-card {
+        position: relative;
+    }
+
+    .property-details {
+        position: absolute;
+        border-radius: 10px;
+        background-color: rgba(255, 255, 255, 0.8);
+        top: 59%;
+        width: -webkit-fill-available;
+        margin: 0px 17px 0 17px;
+        padding: 11px 11px 3px 11px;
+
+    }
+
+    h1 {
+        padding: 0 0 16px 5px;
+        font-size: 18px;
+        font-weight: bold;
+    }
+
+    .property-details h2 {
+        color: #0176D3;
+        float: right;
+        font-size: 12px;
+    }
+
+    .property-details h3 {
+        font-size: 12px;
+        margin-bottom: 4px;
+    }
+
+    .property-details p {
+        margin-bottom: 6px;
+        font-size: 10px;
+    }
+
+    .property-details p:nth-of-type(1) {
+        display: flex;
+    }
+
+    .property-details p:nth-of-type(1) img {
+        width: 12px;
+    }
+
+    .icon img {
+        height: 15px;
+    }
+
+    .feature,
+    .feature .label {
+        font-size: 11px;
+    }
+
+    .feature .icon {
+        gap: 8px;
+    }
+
+    .like-icon{
+        width: 32px;
+    }
+
+    .like-icon svg{
+        width: 20px;
+        padding-bottom: 2px;
+        padding-left: 4px;
+    }
+
+    .allfeture {
+        display: flex;
+        gap: 8px;
+        flex: none;
+    }
+}
