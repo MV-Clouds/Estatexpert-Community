@@ -2,7 +2,7 @@
     margin: 1rem;
 }
 .container{
-    padding: 4%;
+    padding: 2%;
     background: url(/sfsites/c/resource/FavoriteProperties/Bg-Image.png);
     background-size: cover;
 }
@@ -13,9 +13,12 @@
     position: absolute;
     z-index: 1;
 }
-.table{
+/* .table{
     height: 600px;
     overflow:auto;
+} */
+.table thead{
+    position: sticky;
 }
 .rowValue{
     font-size: 14px;
@@ -33,13 +36,13 @@
 .propTitle{
     width: 130px;
 }
-.emailDiv{
+/* .emailDiv{
     border: 1px solid rgba(223, 226, 233, 1);
     padding: 2%;
     border-radius: 8px;
     width: fit-content;
     background-color: white;
-}
+} */
 .dropdown{
     /* width: 150px; */
     display: flex;
@@ -56,11 +59,17 @@
 /* Apply transparency to table headers and rows */
 .slds-table thead tr {
     background-color: transparent !important;
+    border: 0px;
+    position: sticky;
 }
 .slds-table{
     background-color: transparent !important;
+    border: 0px;
+
 }
 
 .slds-table tbody tr {
     background-color: transparent !important;
+    border: 0px;
+
 }

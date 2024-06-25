@@ -1,14 +1,26 @@
 public with sharing class ESX_InquiryPageController {
  
     @AuraEnabled
-    public static WrapperClass getInquiryData(){
+    public static WrapperClass getInquiryData(Id contactId){
         WrapperClass wc = new WrapperClass();
         
         try {
             // Query for inquiries related to the current user
-            List<Inquiry__c> inquiries = [SELECT Listing__r.Property__r.Name,Listing__r.Property__r.Id,Listing__r.Listing_Type__c,Contact__r.Name,Contact__r.MobilePhone,Contact__r.Email,Inquiry_Date__c,Status__c FROM Inquiry__c WHERE OwnerId = :UserInfo.getUserId()
-            ];
+            List<Inquiry__c> inquiries = [SELECT Id, Listing__r.Property__r.Name,Listing__r.Property__r.Id,Listing__r.Property__r.Property_Status__c,Listing__r.Property__r.Current_Owner__r.Id,Listing__r.Property__r.Current_Owner__r.Name,Listing__r.Property__r.Current_Owner__r.MobilePhone,Listing__r.Property__r.Current_Owner__r.Email,Inquiry_Date__c,Status__c FROM Inquiry__c WHERE Listing__r.Property__r.Current_Owner__r.Id = :contactId];
 
+            List<ContentDocumentLink> cdlList = [SELECT Id, ContentDocumentId FROM ContentDocumentLink WHERE LinkedEntityId =: contactId];
+
+            Set<Id> cdIds = new Set<Id>();
+            for (ContentDocumentLink cdl :cdlList) {
+                cdIds.add(cdl.ContentDocumentId);
+            }
+
+            List<ContentDocument> document = [SELECT Id, Title, FileExtension, LatestPublishedVersionId FROM ContentDocument WHERE Id IN: cdIds AND Title like 'ProfileImage%' order by CreatedDate DESC LIMIT 1];
+
+            if(document.size() > 0){
+                ContentVersion cv = [SELECT Id, VersionData FROM ContentVersion WHERE Id =: document[0].LatestPublishedVersionId];
+                wc.image = EncodingUtil.Base64Encode(cv.VersionData);
+            }
             if (!inquiries.isEmpty()) {
                 // Extract property IDs from the inquiries
                 List<Id> propertyIds = new List<Id>();
@@ -47,27 +59,6 @@ public with sharing class ESX_InquiryPageController {
         }
         
         return wc;
-        // List<Inquiry__c> inquiries = [SELECT Listing__r.Property__r.Name,Listing__r.Property__r.Id,Listing__r.Listing_Type__c,Contact__r.Name,Contact__r.MobilePhone,Contact__r.Email,Inquiry_Date__c,Status__c FROM Inquiry__c Where OwnerId = :UserInfo.getUserId()];
-
-        //     List<Id> propertyIds = new List<Id>();                                   
-        //     for(Inquiry__c inquiry :inquiries) {
-        //         propertyIds.add(inquiry.Listing__r.Property__r.Id);
-        //     }      
-        //     System.debug('propertyIds:'+propertyIds);                            
-        //     List<Property_Media__c> medias = [SELECT Id,ExternalLink__c,FilenameUrlEncoded__c,Property__c FROM Property_Media__c WHERE Property__c IN:propertyIds];
-        //     System.debug('medias:'+medias);
-        //     Map<Id, List<Property_Media__c>> propertyMediaUrlsMap = new Map<Id, List<Property_Media__c>>();
-        //     for (Property_Media__c media : [SELECT ExternalLink__c,FilenameUrlEncoded__c,Property__c FROM Property_Media__c WHERE Property__c IN :propertyIds]) {
-        //         propertyMediaUrlsMap.put(media.Property__c, new List<Property_Media__c>());
-        //         propertyMediaUrlsMap.get(media.Property__c).add(media);
-        //     }
-
-        //     WrapperClass wc = new WrapperClass();
-        //     wc.inquiries = inquiries;
-        //     wc.propertyMedia = medias;
-        //     wc.medias = propertyMediaUrlsMap;
-            
-        // return wc;
     }
 
     public class WrapperClass {
@@ -78,33 +69,22 @@ public with sharing class ESX_InquiryPageController {
         @AuraEnabled
         public Map<Id, List<Property_Media__c>> medias;
         @AuraEnabled
+        public String image;
+        @AuraEnabled
         public String errorMessage;
     }
 
-    // @AuraEnabled
-    // public static List<Schema.FieldSet> getFieldSetFields(String objectName, String fieldSetName) {
-    //     FieldSet fieldSet = Schema.getFieldSet(objectName, fieldSetName);
-    //     List<FieldSetEntry> fieldSetEntries = fieldSet.getFieldSetEntries();
-        
-    //     List<Schema.FieldSet> fieldSets = new List<Schema.FieldSet>();
-        
-    //     for (Schema.FieldSetEntry field : fieldSetEntries) {
-    //         fieldSets.add(new Schema.FieldSet(field.getFieldPath(), field.getLabel()));
-    //     }
-        
-    //     return fieldSets;
-    // }
+    @AuraEnabled
+    public static Boolean DeleteInquiry(Id inquiryId){
+        try {
+            Inquiry__c inquiry = [SELECT Id FROM Inquiry__c WHERE Id=:inquiryId LIMIT 1];
+                if(inquiry!=null){
+                    delete inquiry;
+                }
+        } catch(Exception e) {
+                System.debug(e.getMessage());
+        }
+        return true;
+    }
 
-    // @AuraEnabled
-    // public static List<sObject> getInquiries() {
-    //     // Add your fields to the query from the field set
-    //     List<String> fields = getFieldSetFields('Inquiry__c', 'InquryPageFieldset')
-    //                              .stream()
-    //                              .map(FieldSetEntry::getFieldPath)
-    //                              .collect(Collectors.toList());
-        
-    //     String query = 'SELECT ' + String.join(',', fields) + ' FROM Inquiry__c';
-        
-    //     return Database.query(query);
-    // }
 }

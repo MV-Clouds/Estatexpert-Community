@@ -2,12 +2,12 @@
     <!-- <lightning-card title="Buyer Information"> -->
         <div class="container">
             <!-- <img src={BgImage} alt="BgImage" class="bg-image"/> -->
-            <h1 style="font-size: 36px;"><span style="border-bottom:1px solid rgba(42, 50, 60, 1)"><b>Buyer</b></span>
+            <h1 style="font-size: 36px;"><b><span style="border-bottom:1px solid rgba(42, 50, 60, 1)"><b>Buyer</b></span>
               <span style="padding:5px;"> </span>
               <!-- <span> </span> -->
                 <span style="border-bottom:1px solid rgba(42, 50, 60, 1)"><b>Inf</b></span>
                 <span style="border-bottom:1px solid rgba(1, 118, 211, 0.5);"><b>orm</b></span>
-                <span style="border-bottom:1px solid rgba(1, 118, 211, 0.25);"><b>a</b></span><span><b>tion</b></span> </h1>
+                <span style="border-bottom:1px solid rgba(1, 118, 211, 0.25);"><b>a</b></span><span><b>tion</b></span></b></h1>
                 <br/>
             <div class="buttons">
                 <lightning-button variant={allBtnVarient} label="All" title="All" onclick={handleFilter} ></lightning-button>
@@ -15,23 +15,10 @@
                 <lightning-button variant={rentBtnVarient} label="Rent" title="Rent" onclick={handleFilter} class="slds-m-left_x-small"></lightning-button>
             </div>
             <br/>
-            <!-- <lightning-datatable
-            key-field="id"
-            data={filteredData}
-            columns={columns}
-            hide-checkbox-column
-            onrowaction={handleRowAction}
-        ></lightning-datatable> -->
-        <!-- <c-custom-datatable
-              key-field="id"
-              data={filteredData}
-              columns={columns}
-              onrowaction={handleRowAction}
-              hide-checkbox-column="false"
-              resize-column-disabled
-          ></c-custom-datatable> -->
-
           <div class="table">
+            <template if:true={showSpinner}>
+              <lightning-spinner size="medium"> </lightning-spinner>
+            </template>
             <template if:true={isData}>
             <table class="slds-table slds-table_bordered" aria-labelledby="element-with-table-label other-element-with-table-label">
               <thead>
@@ -79,19 +66,19 @@
                   <td data-label="buyer_name">
                     <!-- <div class="slds-truncate" title="Size">{item.buyerName}</div> -->
                      <div class="box" style="display: flex;align-items:center;">
-                        <lightning-avatar size="medium" style="margin: 10px;"  variant="circle" src="https://www.lightningdesignsystem.com/assets/images/avatar1.jpg"></lightning-avatar>
-                        <div class="slds-truncate rowValue" title="buyer name">{item.Contact__r.Name}</div>
+                        <lightning-avatar size="medium" style="margin: 10px;"  variant="circle" src={profileImgUrl}></lightning-avatar>
+                        <div class="slds-truncate rowValue" title="buyer name">{item.Listing__r.Property__r.Current_Owner__r.Name}</div>
                     </div>
 
                   </td>
                   <td data-label="mobile">
                     <!-- <div class="slds-truncate" title="Size">{item.mobileNo}</div> -->
-                    <div class="slds-truncate rowValue" title="mobile phone">{item.Contact__r.MobilePhone}</div>
+                    <div class="slds-truncate rowValue" title="mobile phone">{item.Listing__r.Property__r.Current_Owner__r.MobilePhone}</div>
 
                   </td>
                   <td data-label="email">
                     <!-- <div class="slds-truncate" title="Size">{item.emailId}</div> -->
-                    <div class="slds-truncate rowValue emailDiv" title="email" >{item.Contact__r.Email}</div>
+                    <div class="slds-truncate rowValue emailDiv" title="email" >{item.Listing__r.Property__r.Current_Owner__r.Email}</div>
 
                   </td>
                   <td data-label="date">
@@ -113,13 +100,14 @@
                             name="status"
                             value={item.Status__c}
                             options={options}
-                            onchange={handleChange}
+                            onchange={handleStatusChange}
                             ></lightning-select>
                       </div>
                   </td>
                   <td data-label="actions">
                     <div class="slds-truncate rowValue" title="actions">
-                      <lightning-button-icon icon-name="utility:delete"   alternative-text="Preview" class="slds-m-left_xx-small" title="delete" data-key={item.id} data-url={item.ImageURL} onclick={delete_row}></lightning-button-icon>
+                      <lightning-button-icon icon-name="utility:save"   alternative-text="Preview" class="slds-m-left_xx-small" title="delete" data-key={item.Id} data-status={item.Status__c} data-url={item.ImageURL} onclick={saveUpdatedStatus}></lightning-button-icon>
+                      <lightning-button-icon icon-name="utility:delete"   alternative-text="Preview" class="slds-m-left_xx-small" title="delete" data-key={item.Id}  data-url={item.ImageURL} onclick={delete_row}></lightning-button-icon>
                     </div>
                   </td>
                 </tr>

@@ -2,6 +2,7 @@ import { LightningElement,track,wire } from 'lwc';
 import backgroundImage from "@salesforce/resourceUrl/FavoriteProperties";
 import { loadStyle } from 'lightning/platformResourceLoader';
 import getInquiryData from '@salesforce/apex/ESX_InquiryPageController.getInquiryData';
+import DeleteInquiry from '@salesforce/apex/ESX_InquiryPageController.DeleteInquiry';
 import customStyles from '@salesforce/resourceUrl/InquiryPageCss';
 export default class Esx_InquiryPage extends LightningElement {
 
@@ -54,10 +55,13 @@ export default class Esx_InquiryPage extends LightningElement {
     @track buyBtnVarient = 'brand-outline';
     @track rentBtnVarient = 'brand-outline';
     @track isData = false;
-
+    @track contactId = '';
+    @track profileImgUrl;
+    @track showSpinner = false;
     connectedCallback(){
-       
-        this.fetchInquryData();
+        // console.log('cookies',document.cookie);
+        // this.fetchInquryData();
+        this.checkUserIsLoggedIn();
     }
     renderedCallback(){
         loadStyle(this, customStyles)
@@ -69,21 +73,83 @@ export default class Esx_InquiryPage extends LightningElement {
         });
     }
 
+    checkUserIsLoggedIn() {
+        try {
+            let loggedUserInfo = localStorage.getItem('loggedUserInfo');
+            if (loggedUserInfo) {
+                let loggedUserInfoObj = JSON.parse(loggedUserInfo);
+                console.log('contactId:',loggedUserInfoObj.contactId);
+                this.contactId = loggedUserInfoObj.contactId;
+                console.log('contactIdFinal:',this.contactId);
+                if(this.contactId !== null && this.contactId !== undefined && this.contactId !== ''){
+                    console.log('contact id geted');
+                    this.fetchInquryData();
+                }
+                // isLoggedInUserDataCorrect({contactId: loggedUserInfoObj.contactId, siteUserId: loggedUserInfoObj.siteUserId})
+                //     .then(result => {
+                //         console.log('isLoggedInUserDataCorrect ** => ', result);
+                //         if (result) {
+                //             console.log('here=====');
+                //             this.contactId = loggedUserInfoObj.contactId;
+                //             console.log('contactId:',this.contactId);
+                //             // Call method if user is logged in
+                //             if(this.contactId !== null && this.contactId !== undefined && this.contactId !== ''){
+                //                 console.log('contact id geted');
+                //                 this.fetchInquryData();
+                //             }
+                //         }
+                //     })
+                //     .catch(error => {
+                //         console.log('incatch');
+                //         console.log(error);
+                //     });
+    
+            } 
+        } catch (error) {
+            console.error({error});
+        }
+    }
+
     fetchInquryData(){
-        getInquiryData().then((result) => {
+        getInquiryData({contactId:this.contactId}).then((result) => {
             if(result.inquiries.length>=0){
                 this.isData = true;
-                
                 console.log('result:', result);
                 this.FilteredData = result.inquiries;
                 this.Data = result.inquiries;
                 this.propertyMediaUrls = result.medias;
+                if((result != null && result != undefined) && (result.image != null && result.image != undefined)){
+                    this.profileImgUrl = 'data:image/jpeg;base64,' + result.image;
+                }else{
+                    this.profileImgUrl = Blank_Profile_Photo;
+                }
                 let number =0;
+                const formatDate = (dateStr) => {
+                    let date;
+                    const parts = dateStr.split(/[-\/]/);
+                    if (parts.length === 3) {
+                        if (parts[0].length === 4) {
+                            date = new Date(parts[0], parts[1] - 1, parts[2]);
+                        } else if (parts[2].length === 4) {
+                            date = new Date(parts[2], parts[1] - 1, parts[0]);
+                        } else {
+                            const year = parseInt(parts[2]) > 50 ? '19' + parts[2] : '20' + parts[2];
+                            date = new Date(year, parts[1] - 1, parts[0]);
+                        }
+                    } else {
+                        date = new Date(dateStr);
+                    }
+                    const day = String(date.getDate()).padStart(2, '0');
+                    const month = String(date.getMonth() + 1).padStart(2, '0'); // Months are zero-based
+                    const year = date.getFullYear();
+                    return `${day}/${month}/${year}`;
+                };
                 this.Data.forEach(row => {
                     const prop_id = row.Listing__r.Property__r.Id;
                     console.log('propId:',prop_id);
                     console.log('urlCheck:',this.propertyMediaUrls[prop_id][0].ExternalLink__c);
                     row.ImageURL = this.propertyMediaUrls[prop_id][0].ExternalLink__c? this.propertyMediaUrls[prop_id][0].ExternalLink__c : '/sfsites/c/resource/nopropertyfound';
+                    row.Inquiry_Date__c = row.Inquiry_Date__c ? formatDate(row.Inquiry_Date__c):'';
                     row.number = number;
                 });
                 this.FilteredData.forEach(row => {
@@ -92,21 +158,45 @@ export default class Esx_InquiryPage extends LightningElement {
                     console.log('propId:',prop_id);
                     console.log('urlCheck:',this.propertyMediaUrls[prop_id][0].ExternalLink__c);
                     row.ImageURL = this.propertyMediaUrls[prop_id][0].ExternalLink__c? this.propertyMediaUrls[prop_id][0].ExternalLink__c : '/sfsites/c/resource/nopropertyfound';
+                    row.Inquiry_Date__c = row.Inquiry_Date__c ? formatDate(row.Inquiry_Date__c):'';
                     row.number = number;
                 });
-        }
+            }else{
+                this.isData = false;
+            }
     })
     }   
+
+    delete_row(event){
+        this.showSpinner = true;
+        console.log('recordIdtoDelete:',event.currentTarget.dataset.key);
+        let inquiryId = event.currentTarget.dataset.key;
+        DeleteInquiry({inquiryId:inquiryId}).then((result) => {
+            if(result){
+                this.fetchInquryData();
+                this.showSpinner = false;
+            }
+        })
+    }
+    handleStatusChange(event){
+        let currentStatus = event.target.value;
+    }
+    saveUpdatedStatus(event){
+        let status = event.currentTarget.dataset.status;
+        let recordId = event.currentTarget.dataset.key;
+        console.log('recordIdtoUpdate:',recordId);
+        console.log('statusToUpdate:',status);
+    }
     handleFilter(event){
         if(event.target.label === 'Buy'){
-            this.propType = 'Buy';
+            this.propType = 'For Sell';
             this.buyBtnVarient = 'brand';
             this.allBtnVarient = 'brand-outline';
             this.rentBtnVarient = 'brand-outline';
             this.applyFilter();
         }
         if(event.target.label === 'Rent'){
-            this.propType = 'Buy';
+            this.propType = 'For Rent';
             this.buyBtnVarient = 'brand-outline';
             this.allBtnVarient = 'brand-outline';
             this.rentBtnVarient = 'brand';
@@ -126,7 +216,7 @@ export default class Esx_InquiryPage extends LightningElement {
    
     applyFilter(){
         this.FilteredData = this.Data.filter(row => {
-            const isPropertyType = this.propType?row.Listing__r.Listing_Type__c == this.propType:true;
+            const isPropertyType = this.propType?row.Listing__r.Property__r.Property_Status__c == this.propType:true;
             return isPropertyType;
         });
         if(this.FilteredData.length>0){
@@ -136,121 +226,4 @@ export default class Esx_InquiryPage extends LightningElement {
         }
     }
 
-
-
-
-
-
-
-
-
-    // @track data = [];
-    // @track error;
-    
-    // @track filteredData = this.data;
-    // options = [
-    //     { label: 'Open', value: 'Open' },
-    //     { label: 'Close', value: 'Close' },
-    //     { label: 'Pending', value: 'Pending' }
-    // ];
-    // columns = [
-    //     { label: 'No.', fieldName: 'id', type: 'text',fixedWidth: 70, },
-    //     {
-    //         label: 'Property Name',
-    //         // fieldName: 'propertyName',
-    //         type: 'customImage',
-    //         typeAttributes: {
-    //             name: { fieldName: 'propertyName' },
-    //             image: { fieldName: 'image' }
-    //         }
-    //     },
-    //     // { label: 'Property Name', fieldName: 'propertyName', type: 'text' },
-    //     { label: 'Buyer Name', fieldName: 'buyerName', type: 'text' },
-    //     { label: 'Mobile No.', fieldName: 'mobileNo', type: 'phone' },
-    //     { label: 'Email ID', fieldName: 'emailId', type: 'email' },
-    //     { label: 'Inquiry Date', fieldName: 'inquiryDate', type: 'text' },
-    //     // { label: 'Status', fieldName: 'status', type: 'text' },
-    //     {
-    //         label: 'Status',
-    //         fieldName: 'status',
-    //         type: 'statusDropdown',
-    //         typeAttributes: {
-    //             value: { fieldName: 'status' },
-    //             rowId: { fieldName: 'id' },
-    //             options: {fieldName: 'options'}
-    //         }
-    //     },
-
-    //     {   
-    //         label:'Action',
-    //         type: 'button-icon',
-    //         fixedWidth: 90,
-    //         typeAttributes: {
-    //             iconName: 'utility:delete',
-    //             name: 'delete',
-    //             variant: 'bare',
-    //             alternativeText: 'Delete'
-    //         }
-    //     } 
-    //    ];
-
-    // columns = [
-    //     { label: 'No.', fieldName: 'id', type: 'text',fixedWidth: 70, },
-    //     { label: 'Property Name', fieldName: 'Listing__r.Property__r.Name', type: 'text' },
-    //     { label: 'Buyer Name', fieldName: 'Contact__r.Name', type: 'text' },
-    //     { label: 'Mobile No.', fieldName: 'Contact__r.MobilePhone', type: 'phone' },
-    //     { label: 'Email ID', fieldName: 'Contact__r.Email', type: 'email' },
-    //     { label: 'Inquiry Date', fieldName: 'Inquiry_Date__c', type: 'text' },
-    //     { label: 'Status', fieldName: 'Status__c', type: 'text' },
-    //     // {
-    //     //     label: 'Status',
-    //     //     fieldName: 'status',
-    //     //     type: 'customDropdown',
-    //     //     typeAttributes: {
-    //     //         value: { fieldName: 'status' },
-    //     //         rowId: { fieldName: 'id' }
-    //     //     }
-    //     // },
-
-    //     {   
-    //         label:'Action',
-    //         type: 'button-icon',
-    //         fixedWidth: 90,
-    //         typeAttributes: {
-    //             iconName: 'utility:delete',
-    //             name: 'delete',
-    //             variant: 'bare',
-    //             alternativeText: 'Delete'
-    //         }
-    //     } 
-    //    ];
-
-    // @wire(getInquiries)
-    // wiredInquiries({ error, data }) {
-    //     console.log('data:',data);
-    //     if (data) {
-    //         this.data = data;
-    //         // this.setColumns(data);
-    //     } else if (error) {
-    //         this.error = error;
-    //         this.data = undefined;
-    //     }
-    // }
-
-
-    // handleRowAction(event) {
-    //     const actionName = event.detail.action.name;
-    //     const row = event.detail.row;
-    //     if (actionName === 'delete') {
-    //         this.deleteRow(row);
-    //     }
-    // }
-
-    // deleteRow(row) {
-    //     const index = this.data.indexOf(row);
-    //     if (index > -1) {
-    //         this.data.splice(index, 1);
-    //         this.filteredData = [...this.data];
-    //     }
-    // }
 }
