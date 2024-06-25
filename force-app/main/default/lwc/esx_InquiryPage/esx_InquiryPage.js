@@ -29,7 +29,7 @@ export default class Esx_InquiryPage extends LightningElement {
     @track profileImgUrl;
     @track showSpinner = false;
     @track selectedStatusMap = new Map();
-    
+
     connectedCallback(){
         this.showSpinner = true;
         this.checkUserIsLoggedIn();
@@ -119,8 +119,6 @@ export default class Esx_InquiryPage extends LightningElement {
                 };
                 this.Data.forEach((row,index) => {
                     const prop_id = row.Listing__r.Property__r.Id;
-                    console.log('propId:',prop_id);
-                    console.log('urlCheck:',this.propertyMediaUrls[prop_id][0].ExternalLink__c);
                     row.ImageURL = this.propertyMediaUrls[prop_id][0].ExternalLink__c? this.propertyMediaUrls[prop_id][0].ExternalLink__c : '/sfsites/c/resource/nopropertyfound';
                     row.Inquiry_Date__c = row.Inquiry_Date__c ? formatDate(row.Inquiry_Date__c):'';
                     row.number = index + 1;
@@ -151,6 +149,7 @@ export default class Esx_InquiryPage extends LightningElement {
             }
         })
     }
+
     handleStatusChange(event) {
         const recordId = event.currentTarget.dataset.key;
         const selectedValue = event.target.value;
@@ -160,7 +159,6 @@ export default class Esx_InquiryPage extends LightningElement {
     
     updateSaveButtonState(recordId, selectedValue) {
         const allSaveButtons = this.template.querySelectorAll('.save-button');
-    
         allSaveButtons.forEach((button) => {
           if (button.dataset.key === recordId) {
             button.dataset.status = selectedValue;
@@ -187,7 +185,6 @@ export default class Esx_InquiryPage extends LightningElement {
     updateSaveButtonAfterSave(recordId) {
         // Query all save buttons
         const allSaveButtons = this.template.querySelectorAll('.save-button');
-    
         allSaveButtons.forEach((button) => {
           if (button.dataset.key === recordId) {
             button.disabled = true; // Disable the button after save action
