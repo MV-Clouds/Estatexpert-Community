@@ -226,14 +226,15 @@ export default class Esx_InquiryPage extends LightningElement {
             this.applyFilter();
         }
         if(event.target.label === 'All'){
-            this.propType = 'All';
+            this.propType = '';
             this.buyBtnVarient = 'brand-outline';
             this.allBtnVarient = 'brand';
             this.rentBtnVarient = 'brand-outline';
-            this.FilteredData = this.Data;
-            if(this.FilteredData.length > 0){
-                this.isData = true;
-            }
+            this.applyFilter();
+            // this.FilteredData = this.Data;
+            // if(this.FilteredData.length > 0){
+            //     this.isData = true;
+            // }
         }
     }
    
