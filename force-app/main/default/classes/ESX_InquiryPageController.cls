@@ -1,26 +1,85 @@
-public with sharing class ESX_InquiryPageController {
+public without sharing class ESX_InquiryPageController {
  
     @AuraEnabled
     public static WrapperClass getInquiryData(Id contactId){
         WrapperClass wc = new WrapperClass();
-        
         try {
             // Query for inquiries related to the current user
-            List<Inquiry__c> inquiries = [SELECT Id, Listing__r.Property__r.Name,Listing__r.Property__r.Id,Listing__r.Property__r.Property_Status__c,Listing__r.Property__r.Current_Owner__r.Id,Listing__r.Property__r.Current_Owner__r.Name,Listing__r.Property__r.Current_Owner__r.MobilePhone,Listing__r.Property__r.Current_Owner__r.Email,Inquiry_Date__c,Status__c FROM Inquiry__c WHERE Listing__r.Property__r.Current_Owner__r.Id = :contactId];
+            List<Inquiry__c> inquiries = [SELECT Id, Listing__r.Property__r.Name,Listing__r.Property__r.Id,Listing__r.Property__r.Property_Status__c,Contact__r.Name,Contact__r.MobilePhone,Contact__r.Email,Contact__r.Id,Listing__r.Property__r.Current_Owner__r.Id,Listing__r.Property__r.Current_Owner__r.Name,Listing__r.Property__r.Current_Owner__r.MobilePhone,Listing__r.Property__r.Current_Owner__r.Email,Inquiry_Date__c,Status__c FROM Inquiry__c WHERE Listing__r.Property__r.Current_Owner__r.Id = :contactId];
 
-            List<ContentDocumentLink> cdlList = [SELECT Id, ContentDocumentId FROM ContentDocumentLink WHERE LinkedEntityId =: contactId];
+            // List<ContentDocumentLink> cdlList = [SELECT Id, ContentDocumentId FROM ContentDocumentLink WHERE LinkedEntityId =: contactId];
+            // Set<Id> cdIds = new Set<Id>();
+            // for (ContentDocumentLink cdl :cdlList) {
+            //     cdIds.add(cdl.ContentDocumentId);
+            // }
+            // List<ContentDocument> document = [SELECT Id, Title, FileExtension, LatestPublishedVersionId FROM ContentDocument WHERE Id IN: cdIds AND Title like 'ProfileImage%' order by CreatedDate DESC LIMIT 1];
+            // if(document.size() > 0){
+            //     ContentVersion cv = [SELECT Id, VersionData FROM ContentVersion WHERE Id =: document[0].LatestPublishedVersionId];
+            //     wc.image = EncodingUtil.Base64Encode(cv.VersionData);
+            // }
+             // Extract contact IDs from inquiries
+             Set<Id> contactIds = new Set<Id>();
+             for (Inquiry__c inquiry : inquiries) {
+                 if (inquiry.Contact__r.Id != null) {
+                     contactIds.add(inquiry.Contact__r.Id);
+                 }
+             }
+             
+             System.debug('contactIds:'+contactIds);
+             // Query for ContentDocumentLinks related to the extracted contact IDs
+             List<ContentDocumentLink> cdlListProfile = [
+                 SELECT Id, ContentDocumentId, LinkedEntityId 
+                 FROM ContentDocumentLink 
+                 WHERE LinkedEntityId IN :contactIds
+             ];
+             
+             System.debug('cdlListProfile:'+cdlListProfile);
 
-            Set<Id> cdIds = new Set<Id>();
-            for (ContentDocumentLink cdl :cdlList) {
-                cdIds.add(cdl.ContentDocumentId);
-            }
+             // Map to store ContentDocumentId to LinkedEntityId (Contact Id)
+             Map<Id, Id> contentDocumentToContactMap = new Map<Id, Id>();
+             for (ContentDocumentLink cdl : cdlListProfile) {
+                 contentDocumentToContactMap.put(cdl.ContentDocumentId, cdl.LinkedEntityId);
+             }
+             
+             System.debug('contentDocumentToContactMap:'+contentDocumentToContactMap);
 
-            List<ContentDocument> document = [SELECT Id, Title, FileExtension, LatestPublishedVersionId FROM ContentDocument WHERE Id IN: cdIds AND Title like 'ProfileImage%' order by CreatedDate DESC LIMIT 1];
+             // Query for ContentDocuments based on the ContentDocumentLink
+             List<ContentDocument> documents = [
+                 SELECT Id, Title, FileExtension, LatestPublishedVersionId 
+                 FROM ContentDocument 
+                 WHERE Id IN :contentDocumentToContactMap.keySet() AND Title LIKE 'ProfileImage%' 
+                 ORDER BY CreatedDate DESC
+             ];
+             
+             System.debug('contentDocumentToContactMap:'+contentDocumentToContactMap);
 
-            if(document.size() > 0){
-                ContentVersion cv = [SELECT Id, VersionData FROM ContentVersion WHERE Id =: document[0].LatestPublishedVersionId];
-                wc.image = EncodingUtil.Base64Encode(cv.VersionData);
-            }
+             // Map to hold the ContentVersions for each contact
+             Map<Id, String> contactContentVersionMap = new Map<Id, String>();
+ 
+             if (!documents.isEmpty()) {
+                 // Query for the latest ContentVersions
+                List<ContentVersion> contentVersions = [
+                     SELECT Id, ContentDocumentId, VersionData 
+                     FROM ContentVersion 
+                     WHERE Id IN (SELECT LatestPublishedVersionId FROM ContentDocument WHERE Id IN :contentDocumentToContactMap.keySet())
+                ];
+                 
+                 System.debug('contentVersions:'+contentVersions);
+
+                 // Create the map of Contact Ids to ContentVersions
+                if (!contentVersions.isEmpty()) {
+                    for (ContentVersion cv : contentVersions) {
+                        Id conId = contentDocumentToContactMap.get(cv.ContentDocumentId);
+                        if (conId != null) {
+                            contactContentVersionMap.put(conId,  EncodingUtil.Base64Encode(cv.VersionData));
+                        }
+                    }
+                }
+             }
+             System.debug('contactContentVersionMap:'+contactContentVersionMap);
+
+             wc.contactContentVersions = contactContentVersionMap;           
+
             if (!inquiries.isEmpty()) {
                 // Extract property IDs from the inquiries
                 List<Id> propertyIds = new List<Id>();
@@ -57,7 +116,6 @@ public with sharing class ESX_InquiryPageController {
             wc.errorMessage = 'An error occurred: ' + e.getMessage();
             System.debug('Error in getInquiryData: ' + e);
         }
-        
         return wc;
     }
 
@@ -66,6 +124,8 @@ public with sharing class ESX_InquiryPageController {
         public List<Inquiry__c> inquiries;
         @AuraEnabled
         public List<Property_Media__c> propertyMedia;
+        @AuraEnabled
+        public Map<Id, String> contactContentVersions;
         @AuraEnabled
         public Map<Id, List<Property_Media__c>> medias;
         @AuraEnabled

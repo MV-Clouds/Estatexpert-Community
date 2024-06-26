@@ -16,9 +16,9 @@
             </div>
             <br/>
           <div class="table">
-            <template if:true={showSpinner}>
+            <!-- <template if:true={showSpinner}>
               <lightning-spinner size="medium"> </lightning-spinner>
-            </template>
+            </template> -->
             <template if:true={isData}>
             <table class="slds-table slds-table_bordered" aria-labelledby="element-with-table-label other-element-with-table-label">
               <thead>
@@ -63,17 +63,17 @@
                   </td>
                   <td data-label="buyer_name">
                      <div class="box" style="display: flex;align-items:center;">
-                        <lightning-avatar size="medium" style="margin: 10px;"  variant="circle" src={profileImgUrl}></lightning-avatar>
-                        <div class="slds-truncate rowValue" title="buyer name">{item.Listing__r.Property__r.Current_Owner__r.Name}</div>
+                        <lightning-avatar size="medium" style="margin: 10px;"  variant="circle" src={item.profileUrl}></lightning-avatar>
+                        <div class="slds-truncate rowValue" title="buyer name">{item.Contact__r.Name}</div>
                     </div>
 
                   </td>
                   <td data-label="mobile">
-                    <div class="slds-truncate rowValue" title="mobile phone">{item.Listing__r.Property__r.Current_Owner__r.MobilePhone}</div>
+                    <div class="slds-truncate rowValue" title="mobile phone">{item.Contact__r.MobilePhone}</div>
 
                   </td>
                   <td data-label="email">
-                    <div class="slds-truncate rowValue emailDiv" title="email" >{item.Listing__r.Property__r.Current_Owner__r.Email}</div>
+                    <div class="slds-truncate rowValue emailDiv" title="email" >{item.Contact__r.Email}</div>
 
                   </td>
                   <td data-label="date">
