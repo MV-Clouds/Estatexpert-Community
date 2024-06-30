@@ -20,7 +20,8 @@
               <lightning-spinner size="medium"> </lightning-spinner>
             </template> -->
             <template if:true={isData}>
-            <table class="slds-table slds-table_bordered" aria-labelledby="element-with-table-label other-element-with-table-label">
+            <!-- <table class="slds-table slds-table_bordered" aria-labelledby="element-with-table-label other-element-with-table-label"> -->
+            <table  aria-labelledby="element-with-table-label other-element-with-table-label">
               <thead>
                 <tr class="slds-line-height_reset">
                   <th class="" scope="col">
@@ -83,12 +84,11 @@
                   <td data-label="dropdown">
                     <div class="slds-truncate rowValue dropdown" title="status">
                       <!-- <lightning-combobox
-                        data-id="status"
                         name="status"
-                        value={item.Status__c}
-                        placeholder="Select Status"
-                        options={options}
-                        onchange={handleChange}
+                            value={item.Status__c}
+                            options={options}
+                            onchange={handleStatusChange}
+                            data-key={item.Id}
                         ></lightning-combobox> -->
                         <lightning-select
                             name="status"
@@ -101,8 +101,10 @@
                   </td>
                   <td data-label="actions">
                     <div class="slds-truncate rowValue" title="actions">
-                      <lightning-button-icon icon-name="utility:save"   alternative-text="Save" class="slds-m-left_xx-small save-button" title="Save" data-key={item.Id} data-status={item.Status__c} data-url={item.ImageURL} onclick={saveUpdatedStatus} disabled></lightning-button-icon>
-                      <lightning-button-icon icon-name="utility:delete"    alternative-text="Delete" class="slds-m-left_xx-small" title="Delete" data-key={item.Id}  data-url={item.ImageURL} onclick={delete_row}></lightning-button-icon>
+                      <lightning-button icon-name="utility:save"  alternative-text="Save" class=" save-button my-round-button" title="Save" data-key={item.Id} data-status={item.Status__c} data-url={item.ImageURL} onclick={saveUpdatedStatus} disabled></lightning-button>
+                      <lightning-button icon-name="utility:delete"    alternative-text="Delete" class=" slds-m-left_x-small my-round-button" title="Delete" data-key={item.Id}  data-url={item.ImageURL} onclick={delete_row}></lightning-button>
+                      <!-- <lightning-button-icon icon-name="utility:save"  alternative-text="Save" class="blue-utility-icon save-button my-round-button" title="Save" data-key={item.Id} data-status={item.Status__c} data-url={item.ImageURL} onclick={saveUpdatedStatus} disabled></lightning-button-icon>
+                      <lightning-button-icon icon-name="utility:delete"    alternative-text="Delete" class="blue-utility-icon slds-m-left_x-small my-round-button" title="Delete" data-key={item.Id}  data-url={item.ImageURL} onclick={delete_row}></lightning-button-icon> -->
                     </div>
                   </td>
                 </tr>

@@ -13,14 +13,31 @@
     position: absolute;
     z-index: 1;
 }
-/* .table{
-    height: 600px;
-    overflow:auto;
-} */
-.table thead{
-    position: sticky;
-}
 
+
+.table { 
+    overflow-y: auto; 
+    height: 400px; 
+  } 
+  .slds-button__icon_left{
+    margin-right: 0rem;
+  }
+  .table::-webkit-scrollbar {
+    display: none; /* Hides the scrollbar */
+  }
+  .table thead th { 
+    position: sticky; 
+    background-color: #eef4ff;
+    height: 2rem;
+    z-index: 3;
+    top: 0; 
+  }
+  .table tbody tr { 
+    border-top: 1px solid rgba(223, 226, 233, 1);
+  }
+  .blue-utility-icon {
+    --sds-c-icon-color-foreground-default: blue;
+}
 .rowValue{
     font-size: 14px;
 }
@@ -40,13 +57,7 @@
     white-space: normal;
     word-break: break-word;
 }
-/* .emailDiv{
-    border: 1px solid rgba(223, 226, 233, 1);
-    padding: 2%;
-    border-radius: 8px;
-    width: fit-content;
-    background-color: white;
-} */
+
 .dropdown{
     /* width: 150px; */
     display: flex;
@@ -59,21 +70,4 @@
 }
 .message h1{
     font-size: 32px;
-}
-/* Apply transparency to table headers and rows */
-.slds-table thead th {
-    background-color: transparent !important;
-    border: 0px;
-    position: sticky;
-}
-.slds-table{
-    background-color: transparent !important;
-    border: 0px;
-
-}
-
-.slds-table tbody tr {
-    background-color: transparent !important;
-    border: 0px;
-    height: fit-content;
 }
