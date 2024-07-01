@@ -1,4 +1,4 @@
-import { LightningElement,track,wire } from 'lwc';
+import { LightningElement, track, wire } from 'lwc';
 import backgroundImage from "@salesforce/resourceUrl/FavoriteProperties";
 import { loadStyle } from 'lightning/platformResourceLoader';
 import getInquiryData from '@salesforce/apex/ESX_InquiryPageController.getInquiryData';
@@ -17,7 +17,7 @@ export default class Esx_InquiryPage extends LightningElement {
         { label: 'Pending', value: 'Pending' }
     ];
 
-    @track propType='All';
+    @track propType = 'All';
     @track propertyMediaUrls = [];
     @track profilepicUrls = [];
     @track Data = [];
@@ -31,18 +31,18 @@ export default class Esx_InquiryPage extends LightningElement {
     @track showSpinner = false;
     @track selectedStatusMap = new Map();
 
-    connectedCallback(){
+    connectedCallback() {
         this.checkUserIsLoggedIn();
     }
 
-    renderedCallback(){
+    renderedCallback() {
         loadStyle(this, customStyles)
-        .then(() => {
-            console.log('Custom styles loaded successfully.');
-        })
-        .catch(error => {
-            console.error('Error loading custom styles:', error);
-        });
+            .then(() => {
+                console.log('Custom styles loaded successfully.');
+            })
+            .catch(error => {
+                console.error('Error loading custom styles:', error);
+            });
     }
 
     checkUserIsLoggedIn() {
@@ -50,10 +50,10 @@ export default class Esx_InquiryPage extends LightningElement {
             let loggedUserInfo = localStorage.getItem('loggedUserInfo');
             if (loggedUserInfo) {
                 let loggedUserInfoObj = JSON.parse(loggedUserInfo);
-                console.log('contactId:',loggedUserInfoObj.contactId);
+                console.log('contactId:', loggedUserInfoObj.contactId);
                 this.contactId = loggedUserInfoObj.contactId;
-                console.log('contactIdFinal:',this.contactId);
-                if(this.contactId !== null && this.contactId !== undefined && this.contactId !== ''){
+                console.log('contactIdFinal:', this.contactId);
+                if (this.contactId !== null && this.contactId !== undefined && this.contactId !== '') {
                     console.log('contact id geted');
                     this.fetchInquryData();
                 }
@@ -75,18 +75,18 @@ export default class Esx_InquiryPage extends LightningElement {
                 //         console.log('incatch');
                 //         console.log(error);
                 //     });
-    
-            } 
+
+            }
         } catch (error) {
-            console.error({error});
+            console.error({ error });
         }
     }
 
-    fetchInquryData(){
+    fetchInquryData() {
         try {
             getInquiryData({ contactId: this.contactId }).then((result) => {
                 try {
-                    console.log('inquiryResult',result);
+                    console.log('inquiryResult', result);
                     if (result.inquiries.length >= 0) {
                         this.isData = true;
                         this.FilteredData = result.inquiries;
@@ -99,7 +99,7 @@ export default class Esx_InquiryPage extends LightningElement {
                         // } else {
                         //     this.profileImgUrl = Blank_Profile_Photo;
                         // }
-                        let number = 0;
+                        // let number = 0;
                         const formatDate = (dateStr) => {
                             let date;
                             const parts = dateStr.split(/[-\/]/);
@@ -125,9 +125,9 @@ export default class Esx_InquiryPage extends LightningElement {
                             const conId = row.Contact__r.Id;
                             row.ImageURL = this.propertyMediaUrls[prop_id][0].ExternalLink__c ? this.propertyMediaUrls[prop_id][0].ExternalLink__c : '/sfsites/c/resource/nopropertyfound';
                             row.Inquiry_Date__c = row.Inquiry_Date__c ? formatDate(row.Inquiry_Date__c) : '';
-                            if(this.profilepicUrls) {
-                                row.profileUrl = this.profilepicUrls[conId]?row.profileUrl='data:image/jpeg;base64,' + this.profilepicUrls[conId]:Blank_Profile_Photo;
-                            }else{
+                            if (this.profilepicUrls) {
+                                row.profileUrl = this.profilepicUrls[conId] ? row.profileUrl = 'data:image/jpeg;base64,' + this.profilepicUrls[conId] : Blank_Profile_Photo;
+                            } else {
                                 row.profileUrl = Blank_Profile_Photo;
                             }
                             row.number = index + 1;
@@ -137,9 +137,9 @@ export default class Esx_InquiryPage extends LightningElement {
                             const conId = row.Contact__r.Id;
                             row.ImageURL = this.propertyMediaUrls[prop_id][0].ExternalLink__c ? this.propertyMediaUrls[prop_id][0].ExternalLink__c : '/sfsites/c/resource/nopropertyfound';
                             row.Inquiry_Date__c = row.Inquiry_Date__c ? formatDate(row.Inquiry_Date__c) : '';
-                            if(this.profilepicUrls) {
-                                row.profileUrl = this.profilepicUrls[conId]?row.profileUrl='data:image/jpeg;base64,' + this.profilepicUrls[conId]:Blank_Profile_Photo;
-                            }else{
+                            if (this.profilepicUrls) {
+                                row.profileUrl = this.profilepicUrls[conId] ? row.profileUrl = 'data:image/jpeg;base64,' + this.profilepicUrls[conId] : Blank_Profile_Photo;
+                            } else {
                                 row.profileUrl = Blank_Profile_Photo;
                             }
                             row.number = index + 1;
@@ -158,13 +158,13 @@ export default class Esx_InquiryPage extends LightningElement {
         }
     }
 
-   
 
-    delete_row(event){
-        console.log('recordIdtoDelete:',event.currentTarget.dataset.key);
+
+    delete_row(event) {
+        console.log('recordIdtoDelete:', event.currentTarget.dataset.key);
         let inquiryId = event.currentTarget.dataset.key;
-        DeleteInquiry({inquiryId:inquiryId}).then((result) => {
-            if(result){
+        DeleteInquiry({ inquiryId: inquiryId }).then((result) => {
+            if (result) {
                 this.fetchInquryData();
             }
         })
@@ -176,24 +176,24 @@ export default class Esx_InquiryPage extends LightningElement {
         this.selectedStatusMap.set(recordId, selectedValue);
         this.updateSaveButtonState(recordId, selectedValue);
     }
-    
+
     updateSaveButtonState(recordId, selectedValue) {
         const allSaveButtons = this.template.querySelectorAll('.save-button');
         allSaveButtons.forEach((button) => {
-          if (button.dataset.key === recordId) {
-            button.dataset.status = selectedValue;
-            button.disabled = selectedValue? false:true; // Enable if selectedValue is not empty
-          }
+            if (button.dataset.key === recordId) {
+                button.dataset.status = selectedValue;
+                button.disabled = selectedValue ? false : true; // Enable if selectedValue is not empty
+            }
         });
     }
 
-    saveUpdatedStatus(event){
+    saveUpdatedStatus(event) {
         let status = event.currentTarget.dataset.status;
         let recordId = event.currentTarget.dataset.key;
-        console.log('recordIdtoUpdate:',recordId);
-        console.log('statusToUpdate:',status);
-        updateInquiryStatus({Status:status,recordId:recordId}).then((result) => {
-            if(result){
+        console.log('recordIdtoUpdate:', recordId);
+        console.log('statusToUpdate:', status);
+        updateInquiryStatus({ Status: status, recordId: recordId }).then((result) => {
+            if (result) {
                 this.fetchInquryData();
                 this.updateSaveButtonAfterSave(recordId);
             }
@@ -204,28 +204,28 @@ export default class Esx_InquiryPage extends LightningElement {
         // Query all save buttons
         const allSaveButtons = this.template.querySelectorAll('.save-button');
         allSaveButtons.forEach((button) => {
-          if (button.dataset.key === recordId) {
-            button.disabled = true; // Disable the button after save action
-          }
+            if (button.dataset.key === recordId) {
+                button.disabled = true; // Disable the button after save action
+            }
         });
     }
 
-    handleFilter(event){
-        if(event.target.label === 'Buy'){
+    handleFilter(event) {
+        if (event.target.label === 'Buy') {
             this.propType = 'For Sell';
             this.buyBtnVarient = 'brand';
             this.allBtnVarient = 'brand-outline';
             this.rentBtnVarient = 'brand-outline';
             this.applyFilter();
         }
-        if(event.target.label === 'Rent'){
+        if (event.target.label === 'Rent') {
             this.propType = 'For Rent';
             this.buyBtnVarient = 'brand-outline';
             this.allBtnVarient = 'brand-outline';
             this.rentBtnVarient = 'brand';
             this.applyFilter();
         }
-        if(event.target.label === 'All'){
+        if (event.target.label === 'All') {
             this.propType = '';
             this.buyBtnVarient = 'brand-outline';
             this.allBtnVarient = 'brand';
@@ -237,20 +237,20 @@ export default class Esx_InquiryPage extends LightningElement {
             // }
         }
     }
-   
-    applyFilter(){
+
+    applyFilter() {
         this.FilteredData = this.Data.filter(row => {
-            const isPropertyType = this.propType?row.Listing__r.Property__r.Property_Status__c == this.propType:true;
+            const isPropertyType = this.propType ? row.Listing__r.Property__r.Property_Status__c == this.propType : true;
             return isPropertyType;
         });
-        if(this.FilteredData.length>0){
+        if (this.FilteredData.length > 0) {
             this.isData = true;
-            let num = 0;
-            this.FilteredData.forEach((row,index) => {
+            // let num = 0;
+            this.FilteredData.forEach((row, index) => {
                 // num = num + 1;
                 row.number = index + 1;
             });
-        }else{
+        } else {
             this.isData = false;
         }
     }
