@@ -13,11 +13,9 @@
     position: absolute;
     z-index: 1;
 }
-
-
 .table { 
     overflow-y: auto; 
-    height: 400px; 
+    max-height: 400px; 
   } 
   .slds-button__icon_left{
     margin-right: 0rem;
@@ -35,9 +33,6 @@
   .table tbody tr { 
     border-top: 1px solid rgba(223, 226, 233, 1);
   }
-  .blue-utility-icon {
-    --sds-c-icon-color-foreground-default: blue;
-}
 .rowValue{
     font-size: 14px;
 }
@@ -57,7 +52,6 @@
     white-space: normal;
     word-break: break-word;
 }
-
 .dropdown{
     /* width: 150px; */
     display: flex;
