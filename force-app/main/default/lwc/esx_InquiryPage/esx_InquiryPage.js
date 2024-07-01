@@ -125,6 +125,7 @@ export default class Esx_InquiryPage extends LightningElement {
                             const conId = row.Contact__r.Id;
                             row.ImageURL = this.propertyMediaUrls[prop_id][0].ExternalLink__c ? this.propertyMediaUrls[prop_id][0].ExternalLink__c : '/sfsites/c/resource/nopropertyfound';
                             row.Inquiry_Date__c = row.Inquiry_Date__c ? formatDate(row.Inquiry_Date__c) : '';
+                            row.isEdit = false;
                             if (this.profilepicUrls) {
                                 row.profileUrl = this.profilepicUrls[conId] ? row.profileUrl = 'data:image/jpeg;base64,' + this.profilepicUrls[conId] : Blank_Profile_Photo;
                             } else {
@@ -137,6 +138,7 @@ export default class Esx_InquiryPage extends LightningElement {
                             const conId = row.Contact__r.Id;
                             row.ImageURL = this.propertyMediaUrls[prop_id][0].ExternalLink__c ? this.propertyMediaUrls[prop_id][0].ExternalLink__c : '/sfsites/c/resource/nopropertyfound';
                             row.Inquiry_Date__c = row.Inquiry_Date__c ? formatDate(row.Inquiry_Date__c) : '';
+                            row.isEdit = false;
                             if (this.profilepicUrls) {
                                 row.profileUrl = this.profilepicUrls[conId] ? row.profileUrl = 'data:image/jpeg;base64,' + this.profilepicUrls[conId] : Blank_Profile_Photo;
                             } else {
@@ -158,8 +160,6 @@ export default class Esx_InquiryPage extends LightningElement {
         }
     }
 
-
-
     delete_row(event) {
         console.log('recordIdtoDelete:', event.currentTarget.dataset.key);
         let inquiryId = event.currentTarget.dataset.key;
@@ -168,6 +168,15 @@ export default class Esx_InquiryPage extends LightningElement {
                 this.fetchInquryData();
             }
         })
+    }
+    editStatus(event){
+        const itemId = event.currentTarget.dataset.key;
+        this.FilteredData = this.FilteredData.map(item => {
+            if (item.Id === itemId) {
+                item.isEdit = true;
+            }
+            return item;
+        });
     }
 
     handleStatusChange(event) {
@@ -182,7 +191,7 @@ export default class Esx_InquiryPage extends LightningElement {
         allSaveButtons.forEach((button) => {
             if (button.dataset.key === recordId) {
                 button.dataset.status = selectedValue;
-                button.disabled = selectedValue ? false : true; // Enable if selectedValue is not empty
+                button.disabled = selectedValue ? false : true;
             }
         });
     }
@@ -194,18 +203,23 @@ export default class Esx_InquiryPage extends LightningElement {
         console.log('statusToUpdate:', status);
         updateInquiryStatus({ Status: status, recordId: recordId }).then((result) => {
             if (result) {
-                this.fetchInquryData();
-                this.updateSaveButtonAfterSave(recordId);
+                this.FilteredData = this.FilteredData.map(item => {
+                    if (item.Id === recordId) {
+                        item.isEdit = false;
+                        item.Status__c = status;
+                    }
+                    return item;
+                });
+                this.updateSaveButtonAfterSave(recordId); 
             }
         })
     }
 
     updateSaveButtonAfterSave(recordId) {
-        // Query all save buttons
         const allSaveButtons = this.template.querySelectorAll('.save-button');
         allSaveButtons.forEach((button) => {
             if (button.dataset.key === recordId) {
-                button.disabled = true; // Disable the button after save action
+                button.disabled = true;
             }
         });
     }
@@ -231,10 +245,6 @@ export default class Esx_InquiryPage extends LightningElement {
             this.allBtnVarient = 'brand';
             this.rentBtnVarient = 'brand-outline';
             this.applyFilter();
-            // this.FilteredData = this.Data;
-            // if(this.FilteredData.length > 0){
-            //     this.isData = true;
-            // }
         }
     }
 
@@ -245,9 +255,7 @@ export default class Esx_InquiryPage extends LightningElement {
         });
         if (this.FilteredData.length > 0) {
             this.isData = true;
-            // let num = 0;
             this.FilteredData.forEach((row, index) => {
-                // num = num + 1;
                 row.number = index + 1;
             });
         } else {
