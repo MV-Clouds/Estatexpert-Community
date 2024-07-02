@@ -1,0 +1,89 @@
+<template>
+
+    <div class="container">
+
+        <h1><span>Featured</span>&nbsp;<b>Pr</b><b>o</b><b>p</b><b>erties</b></h1>
+        <div class="small-container">
+
+            <div if:true={mobileView} class="carousel-nav carousel-nav-left">
+                <button class="prev" onclick={prevItem}>&#10094;</button>
+            </div>
+
+            <template for:each={carouselItems} for:item="item" for:index="index">
+
+                {item.Id}
+                {item.class}
+                <div class={item.class} key={item.Id}>
+                    <div class="property-card">
+                        <div class="carousel-item">
+                            <template for:each={item.Property_Medias__r} for:item="property">
+                                <img src={property.ExternalLink__c} key={property.Id} alt="Property Image">
+                            </template>
+                            <div class="like-icon" onclick={handleClick}>
+                                <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="none"
+                                    stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                    stroke-linejoin="round" class="feather feather-heart">
+                                    <path
+                                        d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z">
+                                    </path>
+                                </svg>
+                            </div>
+                        </div>
+                        <template for:each={item.Listings__r} for:item="Listings">
+                            {Listings.Listing_Price__c}
+                            <div key={Listings.Id} class="property-details">
+                                <h2>Rs.{Listings.Listing_Price__c} 57,00,000</h2>
+                                <h3>{Listings.Property__r.Name} Hampton Ltd</h3>
+                                <p><img if:true={mobileView} src={mapicon} alt=""><img if:false={mobileView}
+                                        src={mobilemap} alt="">&nbsp;<span if:true={mobileView}>{Listings.Property__r.Street__c}</span>
+                                    {Listings.Property__r.State__c}, {Listings.Property__r.City__c} <span if:true={mobileView}>,{Listings.Property__r.Postal_Code__c}</span></p>
+                                <p if:true={mobileView}>{Listings.Listing_Description__c}</p>
+                                <div class="property-features">
+                                    <div class="ownerfeture">
+                                        <div if:false={mobileView} class="owner">
+                                            <img src={Rectangle} alt="">&nbsp;
+                                            <p>{Listings.Property__r.Current_Owner__r.name}</p>
+                                        </div>
+                                        <div class="allfeture">
+                                            <div class="feature">
+                                                <span if:true={mobileView} class="facility">Bedroom</span>
+                                                <span class="icon"><img if:true={mobileView} src={bedroom} alt=""><img
+                                                        if:false={mobileView} src={mobilebedroom} alt=""><span
+                                                        class="label">{Listings.Property__r.Number_of_Bedrooms__c} 4</span></span>
+
+                                            </div>
+                                            <div class="feature">
+                                                <span if:true={mobileView} class="facility">Bathroom</span>
+                                                <span class="icon"><img if:true={mobileView} src={bathroomicon}
+                                                        alt=""><img if:false={mobileView} src={mobilebathroom}
+                                                        alt=""><span class="label">{Listings.Property__r.Number_of_Bathrooms__c} 4</span></span>
+
+                                            </div>
+                                            <div class="feature">
+                                                <span if:true={mobileView} class="facility">Car Space</span>
+                                                <span class="icon"><img if:true={mobileView} src={caricon} alt=""><img
+                                                        if:false={mobileView} src={mobilearea} alt=""><span
+                                                        class="label">{Listings.Property__r.Number_of_Parking__c} 4</span></span>
+
+                                            </div>
+                                            <div if:true={mobileView} class="feature">
+                                                <span class="facility">Reading Room</span>
+                                                <span class="icon"><img src={readicon} alt=""><span
+                                                        class="label">{Listings.Property__r.Number_of_Parking__c} 4</span></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </template>
+                    </div>
+                </div>
+            </template>
+
+            <div if:true={mobileView} class="carousel-nav carousel-nav-right">
+                <button class="next" onclick={nextItem}>&#10095;</button>
+            </div>
+        </div>
+    </div>
+
+</template>
