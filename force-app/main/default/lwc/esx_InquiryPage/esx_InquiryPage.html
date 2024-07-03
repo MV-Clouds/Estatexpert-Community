@@ -86,13 +86,13 @@
                 </td>
                 <td data-label="dropdown">
                   <div class="slds-truncate rowValue dropdown" title="status">
-                        <template if:false={item.isEdit}>
-                          <div class="slds-truncate rowValue" title="date">{item.Status__c}</div>
-                        </template>
-                        <template if:true={item.isEdit}>
-                          <lightning-select name="status" value={item.Status__c} options={options} class="statusDropdown"
+                      <template if:false={item.isEdit}>
+                        <div class="slds-truncate rowValue" title="date">{item.Status__c}</div>
+                      </template>
+                      <template if:true={item.isEdit}>
+                        <lightning-select name="status" value={item.Status__c} options={options} class="statusDropdown"
                           onchange={handleStatusChange} data-key={item.Id}></lightning-select>
-                        </template>
+                      </template>
                   </div>
                 </td>
                 <td data-label="actions">
