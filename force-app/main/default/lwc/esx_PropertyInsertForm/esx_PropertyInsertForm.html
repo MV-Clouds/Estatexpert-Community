@@ -1,0 +1,247 @@
+<template>
+    <div class="container">
+        <div class="box">
+            <div class="heading">
+                <h1 style="font-size: 36px;font-weight:700;"><b><span
+                            style="border-bottom:1px solid rgba(42, 50, 60, 1)"><b>Property</b></span>
+                        <span style="border-bottom:1px solid rgba(42, 50, 60, 1)">&nbsp; </span>
+                        <span style="border-bottom:1px solid rgba(42, 50, 60, 1)"><b>In</b></span>
+                        <span><b>f</b></span>
+                        <span style="border-bottom:1px solid rgba(1, 118, 211, 0.5);"><b>orm</b></span>
+                        <span><b>a</b></span>
+                        <span style="border-bottom:1px solid rgba(1, 118, 211, 0.25);"><b>t</b></span>
+                        <span><b>ion</b></span></b></h1>
+                <br />
+            </div>
+            <div class="propertyDetails">
+                <h2 class="boxHeading">Property Details</h2>
+                <!-- <template for:each={options_} for:item="option">
+
+                    <span key={option.key} for:index={option.index} data-key={option.key} data-value={option.value} class={radioClass} onclick={handleClick}>
+                      <input type="radio" value={option.value}  name={name} checked={option.checked} disabled={option.disabled} class={option.inputClass}/>
+                      <label class="slds-radio__label" >
+                        <span class="slds-radio_faux"></span>
+                        <span class="slds-form-element__label">{option.label}</span>
+                      </label>
+                    </span>
+            
+                  </template> -->
+                <div class="details">
+                    <!-- <lightning-radio-group name="radioGroup" options={options} value={value}
+                        type="radio"></lightning-radio-group> -->
+                        <div class="checkbox">
+                            <div class="tickbox checkbox1">
+                                <input type="radio" name="checkbox"><span> Sale</span></input>        
+                            </div>
+                            <div class="tickbox checkbox1">
+                                <input type="radio" name="checkbox"><span> Rent/Lease</span></input>        
+                            </div>
+                        </div>
+                        <br/>
+                    <div class="propType">
+                        <lightning-combobox name="propertyType" label="Property Type" value={value}
+                            placeholder="Property Type" options={propertyTypes}
+                            onchange={handleChange}></lightning-combobox>
+                    </div>
+                </div>
+            </div>
+            <div class="propertyLocation">
+                <h2 class="boxHeading">Property Location</h2>
+                <div class="location">
+                    <div class="propType slds-m-right_medium">
+                        <!-- <lightning-input type="text" label="City" placeholder="Enter City"></lightning-input> -->
+                         <p class="label"> City</p>
+                         <input type="text" class="inputText" placeholder="  Enter City"  ></input>
+                    </div>
+                    <div class="propType slds-m-left_medium">
+                        <!-- <lightning-input type="text" label="Locality" placeholder="   Enter Locality"></lightning-input> -->
+                        <p class="label"> Enter Locality</p>
+                        <input type="text" class="inputText" placeholder="  Enter Locality"  ></input>
+                    </div>
+                </div>
+            </div>
+            <div class="propertyFeatures">
+                <h2 class="boxHeading">Property Features</h2>
+                <div class="features">
+                    <!-- <div class="propType quantity slds-m-right_medium">
+                        Rooms
+                        <button name="rooms" class="minus" aria-label="Decrease" onclick={decreaseNumber}>&minus;</button>
+                        <input type="number" class="input-box bedrooms_number" value="1" min="1" max="10">
+                        <button name="rooms" class="plus" aria-label="Increase" onclick={increaseNumber}>&plus;</button>
+                    </div>
+                    <div class="propType quantity slds-m-left_medium">
+                        Bathroom
+                        <button name="bathrooms" class="minus" aria-label="Decrease" onclick={decreaseNumber}>&minus;</button>
+                        <input type="number" class="input-box bathrooms_number" value="1" min="1" max="10">
+                        <button name="bathrooms" class="plus" aria-label="Increase" onclick={increaseNumber}>&plus;</button>
+                    </div> -->
+                    <div class="dropdowns">
+                        <div class="propType slds-m-right_medium">
+                            <lightning-combobox name="propertyType" label="Floor No." value={value}
+                                placeholder="Floor No." options={floorNumbers}
+                                onchange={handleChange}></lightning-combobox>
+                        </div>
+                        <div class="propType slds-m-left_medium slds-m-right_medium">
+                            <lightning-combobox name="propertyType" label="Total Floor" value={value}
+                                placeholder="Total Floor" options={propTypes}
+                                onchange={handleChange}></lightning-combobox>
+                        </div>
+                    </div>
+                    <div class="propType">
+                        <lightning-combobox name="propertyType" label="Furnished Status" value={value}
+                            placeholder="Furnished Status" options={furnishedStatuses}
+                            onchange={handleChange}></lightning-combobox>
+                    </div>
+                </div>
+            </div>
+            <div class="area">
+                <h2 class="boxHeading">Area</h2>
+                <div class="areaBox">
+                    <div class="propType slds-m-right_medium">
+                        <!-- <lightning-input type="text" label="Covered Area" placeholder="Covered Area"></lightning-input> -->
+                        <p class="label"> Covered Area</p>
+                        <input type="text" class="inputText" placeholder="  Covered Area"  ></input>
+                    </div>
+                    <div class="propType slds-m-left_medium">
+                        <!-- <lightning-input type="text" label="Carpet Area" placeholder="Carpet Area"></lightning-input> -->
+                        <p class="label"> Carpet Area</p>
+                        <input type="text" class="inputText" placeholder="  Carpet Area"  ></input>
+                    </div>
+                </div>
+            </div>
+            <div class="transactionType">
+                <h2 class="boxHeading">Transaction Type</h2>
+                <h3 class="innerHeading">Transaction Type</h3>
+                <!-- <lightning-radio-group name="radioGroup" options={transactionTypes} value={value}
+                    type="radio"></lightning-radio-group> -->
+                    <div class="checkbox">
+                        <template for:each={transactionTypes} for:item="type">
+                            <div class="tickbox checkbox1" key={type.label}>
+                                <input type="radio" name="checkbox"><span> {type.label}</span></input>        
+                            </div>
+                        </template>
+                        <!-- <div class="tickbox checkbox1">
+                            <input type="radio" name="checkbox"><span> Resale</span></input>        
+                        </div> -->
+                    </div>
+                    <br/>
+                <h3 class="innerHeading">Possession Status</h3>
+                <!-- <lightning-radio-group name="radioGroup" options={possessionTypes} value={value}
+                    type="radio"></lightning-radio-group> -->
+                    <div class="checkbox">
+                        <template for:each={possessionStatus} for:item="status">
+                        <div class="tickbox checkbox1" key={status.label}>
+                            <input type="radio" name="checkbox"><span> {status.label}</span></input>        
+                        </div>
+                        </template>
+                        <!-- <div class="tickbox checkbox1">
+                            <input type="radio" name="checkbox"><span> Ready to Move</span></input>        
+                        </div>
+                        <div class="tickbox checkbox1">
+                            <input type="radio" name="checkbox"><span> Ongoing</span></input>        
+                        </div> -->
+                    </div>
+                    <br/>
+                <div class="dropdowns">
+                    <div class="propType availableFrom slds-m-right_medium">
+                        <lightning-combobox name="propertyType" label="Available From" value={value} placeholder="Floor No."
+                            options={propTypes} onchange={handleChange} class="slds-m-right_medium"></lightning-combobox>
+                        <lightning-combobox name="propertyType" value={value}
+                            placeholder="Total Floor" options={propTypes} onchange={handleChange}></lightning-combobox>
+                    </div>
+                </div>
+            </div>
+            <div class="priceDetails">
+                <h2 class="boxHeading">Price Details</h2>
+                <div class="prDetails">
+                    <div class="propType slds-m-right_medium">
+                        <!-- <lightning-input type="text" label="Expected Price" placeholder="Expected Price"></lightning-input> -->
+                        <p class="label"> Expected Price</p>
+                        <input type="text" class="inputText" placeholder="  Expected Price"  ></input>
+                    </div>
+                    <div class="propType slds-m-left_medium">
+                        <!-- <lightning-input type="text" label="Price per Sq-ft" placeholder=""></lightning-input> -->
+                        <p class="label"> Price per Sq-ft</p>
+                        <input type="text" class="inputText" placeholder="  "  ></input>
+                    </div>
+                </div>
+                <h3 class="innerHeading">Price Includes</h3>
+                <div class="checkbox">
+                    <template for:each={priceIncludes} for:item="priceItem">
+
+                    <div class="tickbox checkbox1" key={priceItem.label}>
+                        <!-- <input type="checkbox" name="checkbox"><span> PLC</span></input> -->
+                        <lightning-input type="checkbox" label={priceItem.label} name="input1"></lightning-input>
+
+                    </div>
+                    </template>
+                    <!-- <div class="tickbox checkbox2"> -->
+                        <!-- <input type="checkbox" name="checkbox"><span> Car Parking</span></input> -->
+                        <!-- <lightning-input type="checkbox" label="Car Parking" name="input1"></lightning-input>
+
+                    </div>
+                    <div class="tickbox checkbox3"> -->
+                        <!-- <input type="checkbox" name="checkbox"><span> Club Membership</span></input> -->
+                        <!-- <lightning-input type="checkbox" label="Club Membership" name="input1"></lightning-input>
+
+                    </div> -->
+                </div>
+                <br/>
+                <div class="prDetails">
+                    <div class="propType slds-m-right_medium">
+                        <!-- <lightning-input type="text" label="Booking/Token Amount" placeholder="Booking/Token Amount"></lightning-input> -->
+                        <p class="label"> Booking/Token Amount</p>
+                        <input type="text" class="inputText" placeholder=" Booking/Token Amount"  ></input>
+                    </div>
+                    <div class="propType slds-m-left_medium">
+                        <!-- <lightning-input type="text" label="Maintenance Charges" placeholder="Maintenance Charges"></lightning-input> -->
+                        <p class="label"> Maintenance Charges</p>
+                        <input type="text" class="inputText" placeholder=" Maintenance Charges"  ></input>
+                    </div>
+                </div>
+                <div class="prDetails">
+                    <div class="propType slds-m-right_medium">
+                        <lightning-combobox name="propertyType" label="per" value={value} placeholder="Monthely"
+                        options={propTypes} onchange={handleChange} ></lightning-combobox>                    
+                    </div>
+                    <div class="propType slds-m-left_medium">
+                        <lightning-combobox name="propertyType" label="Brokerage(Brokers only)" value={value} placeholder="Select Brokerage"
+                        options={brokerages} onchange={handleChange} ></lightning-combobox>                     
+                    </div>
+                </div>
+                <h3 class="innerHeading">Response from brokers</h3>
+                <div class="checkbox">
+                    <div class=" checkbox1">
+                        <!-- <input type="checkbox" name="checkbox"><span> I am not interested in getting response from brokers.</span></input> -->
+                        <lightning-input type="checkbox" label="I am not interested in getting response from brokers." name="input1"></lightning-input>
+
+                    </div>
+                </div>
+            </div>
+            <div class="amenities">
+                <h2 class="boxHeading">Amenities</h2>
+                <div class="prDetails">
+                    <div class="propType slds-m-right_medium">
+                        <lightning-combobox name="propertyType" label="Indoor Amenities" value={value} placeholder="Select Amenities"
+                        options={indoorFacilities} onchange={handleChange} ></lightning-combobox>                    
+                    </div>
+                    <div class="propType slds-m-left_medium">
+                        <lightning-combobox name="propertyType" label="Outdoor Amenities" value={value} placeholder="Select Amenities"
+                        options={outdoorFacilities} onchange={handleChange} ></lightning-combobox>                     
+                    </div>
+                </div>
+            </div>
+            <div class="nearBy">
+                <h2 class="boxHeading">Near By</h2>
+                <div class="nearby">
+                    <div class="nearByType slds-m-right_medium">
+                        <lightning-input type="text" label="Near by Landmark" placeholder="Enter a Near by Landmark"></lightning-input>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="buttons">
+            
+        </div>
+    </div>
+</template>

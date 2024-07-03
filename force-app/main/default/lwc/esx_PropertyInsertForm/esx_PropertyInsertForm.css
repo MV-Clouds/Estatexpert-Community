@@ -1,0 +1,86 @@
+.container{
+    padding: 2%;
+    background: url(/sfsites/c/resource/FavoriteProperties/Bg-Image.png);
+    background-size: cover;
+}
+.box{
+    display: block;
+}
+
+.boxHeading{
+    color: rgba(1, 118, 211, 1) ;
+    font-weight: 700;
+    font-size: 26px;
+    margin-bottom: 0.5rem;
+}
+.innerHeading{
+    font-size: 20px;
+    font-weight: 600;
+    color: black;
+}
+.propertyDetails{
+    width: 70%;
+}
+/* .details{
+    margin-top: 0.5rem;
+} */
+.propType{
+    width: 404px;
+    display: block;
+}
+.propertyLocation{
+    width: 70%;
+}
+.location{
+    display: flex;
+    /* margin-top: 0.5rem; */
+}
+.features{
+    /* display: flex; */
+    width: 70%;
+}
+.dropdowns{
+    display: flex;
+}
+.quantity input{
+    border: 0px;
+    text-align: center;
+}
+.minus{
+    background-color: white;
+    border: 0px;
+}
+.plus{
+    background-color: white;
+    border: 0px;
+}
+.areaBox{
+    display: flex;
+    width: 70%;
+}
+.availableFrom{
+    display: flex;
+}
+.prDetails{
+    display: flex;
+}
+.checkbox{
+    display: flex;
+    width: 70%;
+}
+.tickbox{
+    width: 20%;
+}
+.nearByType{
+    width: 842px;
+}
+.label{
+    font-size: 16px;
+    font-weight: 400;
+}
+.inputText{
+    width:100%;
+    height:46px;
+    border-radius:6px;
+    border:1px solid rgba(191, 196, 215, 1);
+}
