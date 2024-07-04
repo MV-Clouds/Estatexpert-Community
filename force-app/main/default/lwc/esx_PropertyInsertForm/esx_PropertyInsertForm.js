@@ -9,7 +9,6 @@ export default class Esx_PropertyInsertForm extends LightningElement {
             { label: 'Commercial shop', value: 'Commercial shop' },
         ];
     }
-
     @track propertyTypes =[];
     @track floorNumbers =[];
     @track furnishedStatuses =[];
@@ -21,6 +20,10 @@ export default class Esx_PropertyInsertForm extends LightningElement {
     @track brokerages = [];
     @track carpetareaUnits = [];
     @track coveredareaUnits =[];
+    @track contactId;
+    @track showDropdown_outdoor = false;
+    @track showDropdown_indoor = false;
+
     error;
     @track property = {
         saleOrRent: 'For Sell',
@@ -48,9 +51,10 @@ export default class Esx_PropertyInsertForm extends LightningElement {
         maintenanceChargesUnit: null,
         brokerage: null,
         responseFromBrokers: false,
-        indoorAmenities: null,
-        outdoorAmenities: null,
-        nearbyLandmark: null
+        indoorAmenities: [],
+        outdoorAmenities: [],
+        nearbyLandmark: null,
+        currentOwner: this.contactId,
     };
 
     @wire(getAllPicklistValues)
@@ -102,10 +106,39 @@ export default class Esx_PropertyInsertForm extends LightningElement {
             this.outdoorFacilities =[];
         }
     }
+    connectedCallback(){
+        this.checkUserIsLoggedIn();
+    }
+
+    checkUserIsLoggedIn() {
+        try {
+            let loggedUserInfo = localStorage.getItem('loggedUserInfo');
+            if (loggedUserInfo) {
+                let loggedUserInfoObj = JSON.parse(loggedUserInfo);
+                console.log('contactId:', loggedUserInfoObj.contactId);
+                this.contactId = loggedUserInfoObj.contactId;
+            }
+        } catch (error) {
+            console.error({ error });
+        }
+    }
 
     handleInputChange(event) {
+        console.log('name:',event.target.name);
+        console.log('value:',event.target.value);
+
         const field = event.target.name;
-        this.property[field] = event.target.value;
+        if(field === 'indoorAmenities' || field === 'outdoorAmenities'){
+            if(event.target.checked){
+                this.property[field].push(event.target.value);
+            }else{
+                let index_of_amenty = this.property[field].indexOf(event.target.value);
+                    this.property[field].splice(index_of_amenty,1); 
+            }
+            console.log('property[indoorAmenities]:',JSON.stringify(this.property.indoorAmenities));
+        }else{
+            this.property[field] = event.target.value;
+        }
     }
 
     handleCheckboxChange(event) {
@@ -115,6 +148,7 @@ export default class Esx_PropertyInsertForm extends LightningElement {
     getPropertyObject(){
         console.log('property:==>',this.property);
         console.log('object:',JSON.stringify(this.property));
+        if (this.isValidForm()){
         CreateProperty({jsonData:JSON.stringify(this.property)}).then(result=>{
             if(result){
                 this.property = {
@@ -145,12 +179,14 @@ export default class Esx_PropertyInsertForm extends LightningElement {
                     responseFromBrokers: false,
                     indoorAmenities: null,
                     outdoorAmenities: null,
-                    nearbyLandmark: null
+                    nearbyLandmark: null,
+                    currentOwner: this.contactId,
                 };
             }
         }).catch(error => {
             console.error('Error:', error);
         });
+    }
     }
     increaseNumber(event){
         if(event.target.name==='bedrooms'){
@@ -193,5 +229,39 @@ export default class Esx_PropertyInsertForm extends LightningElement {
                 this.property.bathrooms = input.value;
             }
         }
+    }
+
+    isValidForm() {
+        const allValid = [...this.template.querySelectorAll('lightning-input, input')]
+            .reduce((validSoFar, inputCmp) => {
+                if (inputCmp.tagName === 'LIGHTNING-INPUT') {
+                    inputCmp.reportValidity();
+                    return validSoFar && inputCmp.checkValidity();
+                } else if (inputCmp.tagName === 'INPUT') {
+                    if (!inputCmp.checkValidity()) {
+                        inputCmp.reportValidity();
+                        return false;
+                    }
+                }
+                return validSoFar;
+            }, true);
+        return allValid;
+    }
+
+    clickhandler(event) {
+        if(event.target.name === 'outdoorAmenties'){
+            this.showDropdown_outdoor = this.showDropdown_outdoor==true?false:true;
+        }
+        if(event.target.name === 'indoorAmenties'){
+            this.showDropdown_indoor = this.showDropdown_indoor==true?false:true;
+        }
+    }
+    handleRemove(event){
+        console.log('targetField:',event.currentTarget.dataset.field);
+        console.log('property:',this.property[event.currentTarget.dataset.field]);
+        console.log('name:',event.target.name);
+
+        let index_of_amenty = this.property[event.currentTarget.dataset.field].indexOf(event.target.name);
+        this.property[event.currentTarget.dataset.field].splice(index_of_amenty,1);
     }
 }

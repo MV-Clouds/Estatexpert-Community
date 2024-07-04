@@ -61,25 +61,25 @@ public with sharing class ESX_PropertyInsertFormController {
         property.coveredAreaUnit__c = propertyData.coveredAreaUnit;
         property.Floor_No__c = (String)propertyData.floorNumber;
         property.Furnished_Status__c = propertyData.furnishedStatus;
-        property.Indoor_Facilities__c = propertyData.indoorAmenities;
+        property.Indoor_Facilities__c =  propertyData.indoorAmenities.size()>0?String.join(propertyData.indoorAmenities, ';'):null;
         property.Locality__c = propertyData.locality;
         property.Maintenance_Charges__c = propertyData.maintenanceCharges;
         property.Number_of_Bathrooms__c = propertyData.bathrooms;
         property.Number_of_Bedrooms__c = propertyData.bedrooms;
-        property.Number_of_Floors__c = propertyData.totalFloors;
-        property.Outdoor_Facilities__c = propertyData.outdoorAmenities;
+        property.Number_of_Floors__c =  propertyData.totalFloors;
+        property.Outdoor_Facilities__c = propertyData.outdoorAmenities.size()>0?String.join(propertyData.outdoorAmenities, ';'):null;
         property.Possession_Status__c = propertyData.possessionStatus;
         property.Security_Amount__c = propertyData.bookingAmount;
         // Price__c = propertyData.price,
         property.Price_Includes__c = propertyData.priceInclude;
-        property.Name = propertyData.city +propertyData.locality ;
+        property.Name = propertyData.city+' | '+propertyData.locality ;
         property.Property_Type__c = propertyData.propertyType;
         property.Landmark__c = propertyData.nearbyLandmark;
-        // Security_Amount__c = propertyData.securityAmount,
         // Size_Area__c = propertyData.sizeArea,
         // Total_Carpet_Area__c = propertyData.totalCarpetArea,
         // Total_Covered_Area__c = propertyData.totalCoveredArea,
         property.Transaction_Type__c = propertyData.transactionType;
+        property.Current_Owner__c = propertyData.currentOwner;
         insert property;
         return true;
     } catch (Exception e) {
@@ -115,9 +115,10 @@ public with sharing class ESX_PropertyInsertFormController {
         public String maintenanceChargesUnit;
         public String brokerage;
         public Boolean responseFromBrokers;
-        public String indoorAmenities;
-        public String outdoorAmenities;
+        public List<String> indoorAmenities;
+        public List<String> outdoorAmenities;
         public String nearbyLandmark;
+        public String currentOwner;
         
         // Constructor
         // public PropertyInfo() {}
