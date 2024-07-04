@@ -28,6 +28,7 @@
 .propType{
     width: 404px;
     display: block;
+    margin-bottom: 1rem;
 }
 .numberFields{
     display: flex;
@@ -86,7 +87,7 @@
     width:100%;
     height:46px;
     border-radius:6px;
-    padding: 4%;
+    padding: 2%;
     border:1px solid rgba(191, 196, 215, 1);
 }
 .inputDropdown{
