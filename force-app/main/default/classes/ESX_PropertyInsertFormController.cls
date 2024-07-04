@@ -53,6 +53,7 @@ public with sharing class ESX_PropertyInsertFormController {
         System.debug('propertyData:=='+propertyData);
         Property__c property = new Property__c();
         property.Balconies__c = propertyData.balconies;
+        property.Property_Status__c = propertyData.saleOrRent;
         property.Brokerage__c = propertyData.brokerage;
         property.Carpet_Area__c = propertyData.carpetArea;
         property.carpetAreaUnit__c = propertyData.carpetAreaUnit;
@@ -76,8 +77,6 @@ public with sharing class ESX_PropertyInsertFormController {
         property.Property_Type__c = propertyData.propertyType;
         property.Landmark__c = propertyData.nearbyLandmark;
         // Size_Area__c = propertyData.sizeArea,
-        // Total_Carpet_Area__c = propertyData.totalCarpetArea,
-        // Total_Covered_Area__c = propertyData.totalCoveredArea,
         property.Transaction_Type__c = propertyData.transactionType;
         property.Current_Owner__c = propertyData.currentOwner;
         insert property;
@@ -120,9 +119,5 @@ public with sharing class ESX_PropertyInsertFormController {
         public String nearbyLandmark;
         public String currentOwner;
         
-        // Constructor
-        // public PropertyInfo() {}
-    
-        // Method to deserialize JSON string
     }
 }

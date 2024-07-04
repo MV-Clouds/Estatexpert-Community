@@ -23,6 +23,7 @@ export default class Esx_PropertyInsertForm extends LightningElement {
     @track contactId;
     @track showDropdown_outdoor = false;
     @track showDropdown_indoor = false;
+    @track isData = false;
 
     error;
     @track property = {
@@ -108,6 +109,7 @@ export default class Esx_PropertyInsertForm extends LightningElement {
     }
     connectedCallback(){
         this.checkUserIsLoggedIn();
+        console.log('propertydata in connected:==',JSON.stringify(this.property))
     }
 
     checkUserIsLoggedIn() {
@@ -117,6 +119,10 @@ export default class Esx_PropertyInsertForm extends LightningElement {
                 let loggedUserInfoObj = JSON.parse(loggedUserInfo);
                 console.log('contactId:', loggedUserInfoObj.contactId);
                 this.contactId = loggedUserInfoObj.contactId;
+                this.property['currentOwner'] = this.contactId;
+                if (this.contactId !== null && this.contactId !== undefined && this.contactId !== '') {
+                    this.isData = true;
+                }
             }
         } catch (error) {
             console.error({ error });
@@ -240,6 +246,7 @@ export default class Esx_PropertyInsertForm extends LightningElement {
                 } else if (inputCmp.tagName === 'INPUT') {
                     if (!inputCmp.checkValidity()) {
                         inputCmp.reportValidity();
+                        inputCmp.style.border = '1px solid red';
                         return false;
                     }
                 }
@@ -257,10 +264,6 @@ export default class Esx_PropertyInsertForm extends LightningElement {
         }
     }
     handleRemove(event){
-        console.log('targetField:',event.currentTarget.dataset.field);
-        console.log('property:',this.property[event.currentTarget.dataset.field]);
-        console.log('name:',event.target.name);
-
         let index_of_amenty = this.property[event.currentTarget.dataset.field].indexOf(event.target.name);
         this.property[event.currentTarget.dataset.field].splice(index_of_amenty,1);
     }
