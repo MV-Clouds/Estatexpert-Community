@@ -21,12 +21,18 @@
 .propertyDetails{
     width: 70%;
 }
+.content{
+    margin-bottom: 0.5rem;
+}
 /* .details{
     margin-top: 0.5rem;
 } */
 .propType{
     width: 404px;
     display: block;
+}
+.numberFields{
+    display: flex;
 }
 .propertyLocation{
     width: 70%;
@@ -82,5 +88,76 @@
     width:100%;
     height:46px;
     border-radius:6px;
+    padding: 4%;
     border:1px solid rgba(191, 196, 215, 1);
 }
+.inputDropdown{
+    width:100%;
+    height:46px;
+    border-radius:6px;
+    padding: 2%;
+    border:1px solid rgba(191, 196, 215, 1);
+    -webkit-appearance: none;
+}
+.buttons{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+.btn{
+    background-color:rgba(1, 118, 211, 1);
+    border-radius: 30px;
+    width: 160px;
+    height: 47px;
+    color: white;
+    border: 0px;
+}
+.quantity {
+    display: flex;
+    /* justify-content: center; */
+    align-items: center;
+    border-radius:6px;
+    width: 192px;
+    border:1px solid rgba(191, 196, 215, 1);
+ }
+ .quantity button{
+    border: none;
+    cursor: pointer;
+    font-size: 20px;
+    width: 130px;
+    height: 46px;
+    border-radius:6px;
+    text-align: center;
+    transition: background-color 0.2s;
+    background-color: white;
+ }
+ .input-box {
+    /* width: 40px; */
+    text-align: center;
+    border: none;
+    padding: 8px 10px;
+    font-size: 16px;
+    outline: none;
+ }
+ 
+ /* Hide the number input spin buttons */
+ .input-box::-webkit-inner-spin-button,
+ .input-box::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+ }
+ .inputText::-webkit-inner-spin-button,
+ .inputText::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+ }
+
+ .inputDropdown::-webkit-inner-spin-button,
+ .inputDropdown::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+ }
+ 
+ .input-box[type="number"] {
+    -moz-appearance: textfield;
+ }
