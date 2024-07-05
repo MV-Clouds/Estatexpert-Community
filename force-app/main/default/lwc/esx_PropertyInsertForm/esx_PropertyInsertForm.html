@@ -188,6 +188,46 @@
                         </div>
                     </div>
                 </div>
+                <div class="plotArea content">
+                    <div class="propType">
+                        <template if:false={isPlotArea}>
+                            <button style="color: rgba(1, 118, 211, 1);background-color:white; border:1px solid rgba(1, 118, 211, 1);" name="showPlotArea" class="plusIcon slds-m-right_xx-small" aria-label="showPlotArea" onclick={showPlotAreaFields}>
+                                &plus;
+                            </button>
+                            Plot Area
+                        </template>
+                        <template if:true={isPlotArea}>
+                            <button style="color: rgba(1, 118, 211, 1);background-color:white; border:1px solid rgba(1, 118, 211, 1);" name="showPlotArea" class="plusIcon slds-m-right_xx-small" aria-label="showPlotArea" onclick={showPlotAreaFields}>
+                                &minus;
+                            </button>
+                            Plot Area
+                        </template>
+                        <template if:true={isPlotArea}>
+                            <div class="p_Area">
+                                <div class="propType slds-m-right_medium">
+                                    <p class="label">Plot Area</p>
+                                    <input type="number" min="0" class="inputText" value={property.plotArea}
+                                        name="plotArea" placeholder="Plot Area" onchange={handleInputChange}
+                                        ></input>
+                                </div>
+                                <div class="propType slds-m-left_medium">
+                                    <p class="label"> Plot Breadth</p>
+                                    <input type="number" min="0" name="plotBreadth" value={property.plotBreadth}
+                                        class="inputText" placeholder="Plot Breadth"
+                                        onchange={handleInputChange}></input>
+                                </div>
+                            </div>
+                            <div class="p_Area">
+                                <div class="propType">
+                                    <p class="label"> Plot Length</p>
+                                    <input type="number" min="0" name="plotLength" value={property.plotLength}
+                                        class="inputText" placeholder="Plot Length"
+                                        onchange={handleInputChange}></input>
+                                </div>
+                            </div>
+                        </template>
+                    </div>
+                </div>
                 <div class="transactionType content">
                     <h2 class="boxHeading">Transaction Type</h2>
                     <h3 class="innerHeading">Transaction Type</h3>
@@ -242,12 +282,11 @@
                                 name="expectedPrice" placeholder="Expected Price" onchange={handleInputChange}
                                 required></input>
                         </div>
-                        <div class="propType slds-m-left_medium">
-                            <!-- <lightning-input type="text" label="Price per Sq-ft" placeholder=""></lightning-input> -->
+                        <!-- <div class="propType slds-m-left_medium">
                             <p class="label"><abbr class="slds-required" title="required">*</abbr>Price per Sq-ft</p>
                             <input type="number" min="0" name="pricePerSqft" value={property.pricePerSqft}
                                 class="inputText" placeholder="" onchange={handleInputChange} required></input>
-                        </div>
+                        </div> -->
                     </div>
                     <h3 class="innerHeading">Price Includes</h3>
                     <div class="checkbox">
@@ -365,8 +404,6 @@
                                     </ul>
                                 </div>
                             </template>
-
-
                         </div>
                         <div class="propType slds-m-left_medium">
                             <!-- <lightning-combobox name="outdoorAmenities" label="Outdoor Amenities" value={property.outdoorAmenities} placeholder="Select Amenities"
@@ -380,7 +417,7 @@
                                     </template>
                                 </select> -->
                             <lightning-input type="text" name="outdoorAmenties" placeholder="Select Amenities"
-                                label="Indoor Amenities" onclick={clickhandler}>
+                                label="Outdoor Amenities" onclick={clickhandler}>
                             </lightning-input>
                             <div class="selection-summary">
                                 <div class="slds-p-around_x-small">

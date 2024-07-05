@@ -79,6 +79,10 @@ public with sharing class ESX_PropertyInsertFormController {
         // Size_Area__c = propertyData.sizeArea,
         property.Transaction_Type__c = propertyData.transactionType;
         property.Current_Owner__c = propertyData.currentOwner;
+        property.Plot_Area__c = propertyData.plotArea;
+        property.Plot_Breadth__c = propertyData.plotBreadth;
+        property.Plot_Length__c = propertyData.plotLength;
+
         insert property;
         return true;
     } catch (Exception e) {
@@ -116,6 +120,9 @@ public with sharing class ESX_PropertyInsertFormController {
         public List<String> indoorAmenities;
         public List<String> outdoorAmenities;
         public String nearbyLandmark;
+        public Integer plotArea;
+        public Integer plotBreadth;
+        public Integer plotLength;
         public String currentOwner;
         
     }

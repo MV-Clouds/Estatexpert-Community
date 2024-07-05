@@ -24,6 +24,7 @@ export default class Esx_PropertyInsertForm extends LightningElement {
     @track showDropdown_outdoor = false;
     @track showDropdown_indoor = false;
     @track isData = false;
+    @track isPlotArea = false;
 
     error;
     @track property = {
@@ -41,7 +42,7 @@ export default class Esx_PropertyInsertForm extends LightningElement {
         coveredAreaUnit: 'SqFeet',
         carpetArea: 0,
         carpetAreaUnit: 'SqFeet',
-        transactionType: null,
+        transactionType: 'Resale',
         possessionStatus: 'Ready to Move',
         availableFrom: null,
         expectedPrice: null,
@@ -55,6 +56,9 @@ export default class Esx_PropertyInsertForm extends LightningElement {
         indoorAmenities: [],
         outdoorAmenities: [],
         nearbyLandmark: null,
+        plotArea:0,
+        plotBreadth:0,
+        plotLength:0,
         currentOwner: this.contactId,
     };
 
@@ -172,7 +176,7 @@ export default class Esx_PropertyInsertForm extends LightningElement {
                         coveredAreaUnit: 'SqFeet',
                         carpetArea: 0,
                         carpetAreaUnit: 'SqFeet',
-                        transactionType: null,
+                        transactionType: 'Resale',
                         possessionStatus: 'Ready to Move',
                         availableFrom: null,
                         expectedPrice: null,
@@ -186,6 +190,9 @@ export default class Esx_PropertyInsertForm extends LightningElement {
                         indoorAmenities: [],
                         outdoorAmenities: [],
                         nearbyLandmark: null,
+                        plotArea:0,
+                        plotBreadth:0,
+                        plotLength:0,
                         currentOwner: this.contactId,
                     };
                     this.showDropdown_indoor = false;
@@ -268,5 +275,8 @@ export default class Esx_PropertyInsertForm extends LightningElement {
     handleRemove(event) {
         let index_of_amenty = this.property[event.currentTarget.dataset.field].indexOf(event.target.name);
         this.property[event.currentTarget.dataset.field].splice(index_of_amenty, 1);
+    }
+    showPlotAreaFields(event){
+        this.isPlotArea = this.isPlotArea == true ? false : true;
     }
 }
