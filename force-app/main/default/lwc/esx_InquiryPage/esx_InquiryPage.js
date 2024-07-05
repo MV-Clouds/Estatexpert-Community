@@ -80,26 +80,6 @@ export default class Esx_InquiryPage extends LightningElement {
                     this.Data = result.inquiries;
                     this.profilepicUrls = result.contactContentVersions;
                     this.propertyMediaUrls = result.medias;
-                    // const formatDate = (dateStr) => {
-                    //     let date;
-                    //     const parts = dateStr.split(/[-\/]/);
-                    //     if (parts.length === 3) {
-                    //         if (parts[0].length === 4) {
-                    //             date = new Date(parts[0], parts[1] - 1, parts[2]);
-                    //         } else if (parts[2].length === 4) {
-                    //             date = new Date(parts[2], parts[1] - 1, parts[0]);
-                    //         } else {
-                    //             const year = parseInt(parts[2]) > 50 ? '19' + parts[2] : '20' + parts[2];
-                    //             date = new Date(year, parts[1] - 1, parts[0]);
-                    //         }
-                    //     } else {
-                    //         date = new Date(dateStr);
-                    //     }
-                    //     const day = String(date.getDate()).padStart(2, '0');
-                    //     const month = String(date.getMonth() + 1).padStart(2, '0'); // Months are zero-based
-                    //     const year = date.getFullYear();
-                    //     return `${day}/${month}/${year}`;
-                    // };
                     this.Data.forEach((row, index) => {
                         const prop_id = row.Listing__r.Property__r.Id;
                         const conId = row.Contact__r.Id;
