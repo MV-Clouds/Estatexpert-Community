@@ -1,0 +1,24 @@
+<template>
+    <main class="main">
+        <div class="container">
+            <div class="scroll" onmousedown={handleMouseDown} onmouseup={handleMouseUp} onmouseleave={handleMouseLeave}
+                onmousemove={handleMouseMove}>
+                <template for:each={cards} for:item="card">
+                    <div key={card.Id} data-key={card.Id} class="card" onclick={handleCard}>
+                        <div class="card-image">
+                            <template for:each={card.Property_Medias__r} for:item="property">
+                                <img draggable="false" src={property.ExternalLink__c} key={property.Id} loading="lazy"
+                                    class="responsive" alt="Images">
+                            </template>
+                        </div>
+                        <div class="card-inner">
+                            <template for:each={card.Listings__r} for:item="Listings">
+                                <p key={Listings.Id} class="paragraph">{Listings.Property__r.Name}</p>
+                            </template>
+                        </div>
+                    </div>
+                </template>
+            </div>
+        </div>
+    </main>
+</template>
