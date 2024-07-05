@@ -56,9 +56,9 @@ export default class Esx_PropertyInsertForm extends LightningElement {
         indoorAmenities: [],
         outdoorAmenities: [],
         nearbyLandmark: null,
-        plotArea:0,
-        plotBreadth:0,
-        plotLength:0,
+        plotArea: 0,
+        plotBreadth: 0,
+        plotLength: 0,
         currentOwner: this.contactId,
     };
 
@@ -136,7 +136,6 @@ export default class Esx_PropertyInsertForm extends LightningElement {
     handleInputChange(event) {
         console.log('name:', event.target.name);
         console.log('value:', event.target.value);
-
         const field = event.target.name;
         if (field === 'indoorAmenities' || field === 'outdoorAmenities') {
             if (event.target.checked) {
@@ -190,9 +189,9 @@ export default class Esx_PropertyInsertForm extends LightningElement {
                         indoorAmenities: [],
                         outdoorAmenities: [],
                         nearbyLandmark: null,
-                        plotArea:0,
-                        plotBreadth:0,
-                        plotLength:0,
+                        plotArea: 0,
+                        plotBreadth: 0,
+                        plotLength: 0,
                         currentOwner: this.contactId,
                     };
                     this.showDropdown_indoor = false;
@@ -276,7 +275,7 @@ export default class Esx_PropertyInsertForm extends LightningElement {
         let index_of_amenty = this.property[event.currentTarget.dataset.field].indexOf(event.target.name);
         this.property[event.currentTarget.dataset.field].splice(index_of_amenty, 1);
     }
-    showPlotAreaFields(event){
+    showPlotAreaFields(event) {
         this.isPlotArea = this.isPlotArea == true ? false : true;
     }
 }
