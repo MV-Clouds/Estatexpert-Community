@@ -53,7 +53,7 @@ export default class Esx_InquiryPage extends LightningElement {
             let loggedUserInfo = localStorage.getItem('loggedUserInfo');
             if (loggedUserInfo) {
                 let loggedUserInfoObj = JSON.parse(loggedUserInfo);
-                isLoggedInUserDataCorrect({contactId: loggedUserInfoObj.contactId, siteUserId: loggedUserInfoObj.siteUserId})
+                isLoggedInUserDataCorrect({ contactId: loggedUserInfoObj.contactId, siteUserId: loggedUserInfoObj.siteUserId })
                     .then(result => {
                         console.log('isLoggedInUserDataCorrect ** => ', result);
                         if (result) {
@@ -65,76 +65,97 @@ export default class Esx_InquiryPage extends LightningElement {
                         console.log(error);
                     });
 
-            } 
+            }
         } catch (error) {
-            console.error({error});
+            console.error({ error });
         }
     }
 
     fetchInquryData() {
         try {
             getInquiryData({ contactId: this.contactId }).then((result) => {
-                    if (result.inquiries.length >= 0) {
-                        this.isData = true;
-                        this.FilteredData = result.inquiries;
-                        this.Data = result.inquiries;
-                        this.profilepicUrls = result.contactContentVersions;
-                        this.propertyMediaUrls = result.medias;
-                        const formatDate = (dateStr) => {
-                            let date;
-                            const parts = dateStr.split(/[-\/]/);
-                            if (parts.length === 3) {
-                                if (parts[0].length === 4) {
-                                    date = new Date(parts[0], parts[1] - 1, parts[2]);
-                                } else if (parts[2].length === 4) {
-                                    date = new Date(parts[2], parts[1] - 1, parts[0]);
-                                } else {
-                                    const year = parseInt(parts[2]) > 50 ? '19' + parts[2] : '20' + parts[2];
-                                    date = new Date(year, parts[1] - 1, parts[0]);
-                                }
-                            } else {
-                                date = new Date(dateStr);
-                            }
-                            const day = String(date.getDate()).padStart(2, '0');
-                            const month = String(date.getMonth() + 1).padStart(2, '0'); // Months are zero-based
-                            const year = date.getFullYear();
-                            return `${day}/${month}/${year}`;
-                        };
-                        this.Data.forEach((row, index) => {
-                            const prop_id = row.Listing__r.Property__r.Id;
-                            const conId = row.Contact__r.Id;
-                            row.ImageURL = this.propertyMediaUrls[prop_id][0].ExternalLink__c ? this.propertyMediaUrls[prop_id][0].ExternalLink__c : nopropertyfound;
-                            row.Inquiry_Date__c = row.Inquiry_Date__c ? formatDate(row.Inquiry_Date__c) : '';
-                            row.isEdit = false;
-                            if (this.profilepicUrls) {
-                                row.profileUrl = this.profilepicUrls[conId] ? row.profileUrl = 'data:image/jpeg;base64,' + this.profilepicUrls[conId] : Blank_Profile_Photo;
-                            } else {
-                                row.profileUrl = Blank_Profile_Photo;
-                            }
-                            row.number = index + 1;
-                        });
-                        this.FilteredData.forEach((row, index) => {
-                            const prop_id = row.Listing__r.Property__r.Id;
-                            const conId = row.Contact__r.Id;
-                            row.ImageURL = this.propertyMediaUrls[prop_id][0].ExternalLink__c ? this.propertyMediaUrls[prop_id][0].ExternalLink__c : nopropertyfound;
-                            row.Inquiry_Date__c = row.Inquiry_Date__c ? formatDate(row.Inquiry_Date__c) : '';
-                            row.isEdit = false;
-                            if (this.profilepicUrls) {
-                                row.profileUrl = this.profilepicUrls[conId] ? row.profileUrl = 'data:image/jpeg;base64,' + this.profilepicUrls[conId] : Blank_Profile_Photo;
-                            } else {
-                                row.profileUrl = Blank_Profile_Photo;
-                            }
-                            row.number = index + 1;
-                        });
-                    } else {
-                        this.isData = false;
-                    }
+                if (result.inquiries.length >= 0) {
+                    this.isData = true;
+                    this.FilteredData = result.inquiries;
+                    this.Data = result.inquiries;
+                    this.profilepicUrls = result.contactContentVersions;
+                    this.propertyMediaUrls = result.medias;
+                    // const formatDate = (dateStr) => {
+                    //     let date;
+                    //     const parts = dateStr.split(/[-\/]/);
+                    //     if (parts.length === 3) {
+                    //         if (parts[0].length === 4) {
+                    //             date = new Date(parts[0], parts[1] - 1, parts[2]);
+                    //         } else if (parts[2].length === 4) {
+                    //             date = new Date(parts[2], parts[1] - 1, parts[0]);
+                    //         } else {
+                    //             const year = parseInt(parts[2]) > 50 ? '19' + parts[2] : '20' + parts[2];
+                    //             date = new Date(year, parts[1] - 1, parts[0]);
+                    //         }
+                    //     } else {
+                    //         date = new Date(dateStr);
+                    //     }
+                    //     const day = String(date.getDate()).padStart(2, '0');
+                    //     const month = String(date.getMonth() + 1).padStart(2, '0'); // Months are zero-based
+                    //     const year = date.getFullYear();
+                    //     return `${day}/${month}/${year}`;
+                    // };
+                    this.Data.forEach((row, index) => {
+                        const prop_id = row.Listing__r.Property__r.Id;
+                        const conId = row.Contact__r.Id;
+                        row.ImageURL = this.propertyMediaUrls[prop_id][0].ExternalLink__c ? this.propertyMediaUrls[prop_id][0].ExternalLink__c : nopropertyfound;
+                        row.Inquiry_Date__c = row.Inquiry_Date__c ? this.formatDate(row.Inquiry_Date__c) : '';
+                        row.isEdit = false;
+                        if (this.profilepicUrls) {
+                            row.profileUrl = this.profilepicUrls[conId] ? row.profileUrl = 'data:image/jpeg;base64,' + this.profilepicUrls[conId] : Blank_Profile_Photo;
+                        } else {
+                            row.profileUrl = Blank_Profile_Photo;
+                        }
+                        row.number = index + 1;
+                    });
+                    this.FilteredData.forEach((row, index) => {
+                        const prop_id = row.Listing__r.Property__r.Id;
+                        const conId = row.Contact__r.Id;
+                        row.ImageURL = this.propertyMediaUrls[prop_id][0].ExternalLink__c ? this.propertyMediaUrls[prop_id][0].ExternalLink__c : nopropertyfound;
+                        row.Inquiry_Date__c = row.Inquiry_Date__c ? this.formatDate(row.Inquiry_Date__c) : '';
+                        row.isEdit = false;
+                        if (this.profilepicUrls) {
+                            row.profileUrl = this.profilepicUrls[conId] ? row.profileUrl = 'data:image/jpeg;base64,' + this.profilepicUrls[conId] : Blank_Profile_Photo;
+                        } else {
+                            row.profileUrl = Blank_Profile_Photo;
+                        }
+                        row.number = index + 1;
+                    });
+                } else {
+                    this.isData = false;
+                }
             }).catch((fetchError) => {
                 console.error('Error fetching inquiry data:', fetchError);
             });
         } catch (error) {
             console.error('Unexpected error:', error);
         }
+    }
+
+    formatDate(dateStr) {
+        let date;
+        const parts = dateStr.split(/[-\/]/);
+        if (parts.length === 3) {
+            if (parts[0].length === 4) {
+                date = new Date(parts[0], parts[1] - 1, parts[2]);
+            } else if (parts[2].length === 4) {
+                date = new Date(parts[2], parts[1] - 1, parts[0]);
+            } else {
+                const year = parseInt(parts[2]) > 50 ? '19' + parts[2] : '20' + parts[2];
+                date = new Date(year, parts[1] - 1, parts[0]);
+            }
+        } else {
+            date = new Date(dateStr);
+        }
+        const day = String(date.getDate()).padStart(2, '0');
+        const month = String(date.getMonth() + 1).padStart(2, '0'); // Months are zero-based
+        const year = date.getFullYear();
+        return `${day}/${month}/${year}`;
     }
 
     delete_row(event) {
@@ -146,7 +167,7 @@ export default class Esx_InquiryPage extends LightningElement {
             }
         })
     }
-    editStatus(event){
+    editStatus(event) {
         const itemId = event.currentTarget.dataset.key;
         this.FilteredData = this.FilteredData.map(item => {
             if (item.Id === itemId) {
@@ -185,7 +206,7 @@ export default class Esx_InquiryPage extends LightningElement {
                     }
                     return item;
                 });
-                this.updateSaveButtonAfterSave(recordId); 
+                this.updateSaveButtonAfterSave(recordId);
             }
         })
     }
@@ -206,13 +227,13 @@ export default class Esx_InquiryPage extends LightningElement {
             this.allBtnVarient = 'brand-outline';
             this.rentBtnVarient = 'brand-outline';
             this.applyFilter();
-        }else if(event.target.label === 'Rent') {
+        } else if (event.target.label === 'Rent') {
             this.propType = 'For Rent';
             this.buyBtnVarient = 'brand-outline';
             this.allBtnVarient = 'brand-outline';
             this.rentBtnVarient = 'brand';
             this.applyFilter();
-        }else if(event.target.label === 'All') {
+        } else if (event.target.label === 'All') {
             this.propType = '';
             this.buyBtnVarient = 'brand-outline';
             this.allBtnVarient = 'brand';

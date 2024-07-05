@@ -4,6 +4,8 @@
 
 .container {
     padding: 2%;
+    position: relative;
+    z-index: 2;
 }
 
 .bg-image {
