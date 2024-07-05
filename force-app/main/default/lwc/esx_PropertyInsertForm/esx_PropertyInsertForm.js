@@ -1,4 +1,4 @@
-import { LightningElement,track,wire } from 'lwc';
+import { LightningElement, track, wire } from 'lwc';
 import getAllPicklistValues from '@salesforce/apex/ESX_PropertyInsertFormController.getAllPicklistValues';
 import CreateProperty from '@salesforce/apex/ESX_PropertyInsertFormController.CreateProperty';
 export default class Esx_PropertyInsertForm extends LightningElement {
@@ -9,17 +9,17 @@ export default class Esx_PropertyInsertForm extends LightningElement {
             { label: 'Commercial shop', value: 'Commercial shop' },
         ];
     }
-    @track propertyTypes =[];
-    @track floorNumbers =[];
-    @track furnishedStatuses =[];
-    @track transactionTypes =[];
-    @track priceIncludes =[];
-    @track possessionStatus =[];
-    @track indoorFacilities =[];
-    @track outdoorFacilities =[];
+    @track propertyTypes = [];
+    @track floorNumbers = [];
+    @track furnishedStatuses = [];
+    @track transactionTypes = [];
+    @track priceIncludes = [];
+    @track possessionStatus = [];
+    @track indoorFacilities = [];
+    @track outdoorFacilities = [];
     @track brokerages = [];
     @track carpetareaUnits = [];
-    @track coveredareaUnits =[];
+    @track coveredareaUnits = [];
     @track contactId;
     @track showDropdown_outdoor = false;
     @track showDropdown_indoor = false;
@@ -46,7 +46,7 @@ export default class Esx_PropertyInsertForm extends LightningElement {
         availableFrom: null,
         expectedPrice: null,
         pricePerSqft: null,
-        priceInclude:'PLC',
+        priceInclude: 'PLC',
         bookingAmount: 0,
         maintenanceCharges: null,
         maintenanceChargesUnit: null,
@@ -100,16 +100,16 @@ export default class Esx_PropertyInsertForm extends LightningElement {
             this.propertyTypes = [];
             this.floorNumbers = [];
             this.furnishedStatuses = [];
-            this.transactionTypes =[];
-            this.priceIncludes =[];
-            this.possessionStatus =[];
-            this.indoorFacilities =[];
-            this.outdoorFacilities =[];
+            this.transactionTypes = [];
+            this.priceIncludes = [];
+            this.possessionStatus = [];
+            this.indoorFacilities = [];
+            this.outdoorFacilities = [];
         }
     }
-    connectedCallback(){
+    connectedCallback() {
         this.checkUserIsLoggedIn();
-        console.log('propertydata in connected:==',JSON.stringify(this.property))
+        console.log('propertydata in connected:==', JSON.stringify(this.property))
     }
 
     checkUserIsLoggedIn() {
@@ -130,19 +130,19 @@ export default class Esx_PropertyInsertForm extends LightningElement {
     }
 
     handleInputChange(event) {
-        console.log('name:',event.target.name);
-        console.log('value:',event.target.value);
+        console.log('name:', event.target.name);
+        console.log('value:', event.target.value);
 
         const field = event.target.name;
-        if(field === 'indoorAmenities' || field === 'outdoorAmenities'){
-            if(event.target.checked){
+        if (field === 'indoorAmenities' || field === 'outdoorAmenities') {
+            if (event.target.checked) {
                 this.property[field].push(event.target.value);
-            }else{
+            } else {
                 let index_of_amenty = this.property[field].indexOf(event.target.value);
-                    this.property[field].splice(index_of_amenty,1); 
+                this.property[field].splice(index_of_amenty, 1);
             }
-            console.log('property[indoorAmenities]:',JSON.stringify(this.property.indoorAmenities));
-        }else{
+            console.log('property[indoorAmenities]:', JSON.stringify(this.property.indoorAmenities));
+        } else {
             this.property[field] = event.target.value;
         }
     }
@@ -151,89 +151,89 @@ export default class Esx_PropertyInsertForm extends LightningElement {
         const field = event.target.name;
         this.property[field] = event.target.checked;
     }
-    getPropertyObject(){
-        console.log('property:==>',this.property);
-        console.log('object:',JSON.stringify(this.property));
-        if (this.isValidForm()){
-        CreateProperty({jsonData:JSON.stringify(this.property)}).then(result=>{
-            if(result){
-                this.property = {
-                    saleOrRent: 'For Sell',
-                    propertyType: 'Flat / Apartment',
-                    city: null,
-                    locality: null,
-                    bedrooms: 1,
-                    balconies: 1,
-                    floorNumber: 'Lower Basement',
-                    totalFloors: 0,
-                    furnishedStatus: 'Semi-furnished',
-                    bathrooms: 1,
-                    coveredArea: 0,
-                    coveredAreaUnit: 'SqFeet',
-                    carpetArea: 0,
-                    carpetAreaUnit: 'SqFeet',
-                    transactionType: null,
-                    possessionStatus: 'Ready to Move',
-                    availableFrom: null,
-                    expectedPrice: null,
-                    pricePerSqft: null,
-                    priceInclude:'PLC',
-                    bookingAmount: 0,
-                    maintenanceCharges: null,
-                    maintenanceChargesUnit: null,
-                    brokerage: null,
-                    responseFromBrokers: false,
-                    indoorAmenities: [],
-                    outdoorAmenities: [],
-                    nearbyLandmark: null,
-                    currentOwner: this.contactId,
-                };
-                this.showDropdown_indoor = false;
-                this.showDropdown_outdoor = false;
-            }
-        }).catch(error => {
-            console.error('Error:', error);
-        });
+    getPropertyObject() {
+        console.log('property:==>', this.property);
+        console.log('object:', JSON.stringify(this.property));
+        if (this.isValidForm()) {
+            CreateProperty({ jsonData: JSON.stringify(this.property) }).then(result => {
+                if (result) {
+                    this.property = {
+                        saleOrRent: 'For Sell',
+                        propertyType: 'Flat / Apartment',
+                        city: null,
+                        locality: null,
+                        bedrooms: 1,
+                        balconies: 1,
+                        floorNumber: 'Lower Basement',
+                        totalFloors: 0,
+                        furnishedStatus: 'Semi-furnished',
+                        bathrooms: 1,
+                        coveredArea: 0,
+                        coveredAreaUnit: 'SqFeet',
+                        carpetArea: 0,
+                        carpetAreaUnit: 'SqFeet',
+                        transactionType: null,
+                        possessionStatus: 'Ready to Move',
+                        availableFrom: null,
+                        expectedPrice: null,
+                        pricePerSqft: null,
+                        priceInclude: 'PLC',
+                        bookingAmount: 0,
+                        maintenanceCharges: null,
+                        maintenanceChargesUnit: null,
+                        brokerage: null,
+                        responseFromBrokers: false,
+                        indoorAmenities: [],
+                        outdoorAmenities: [],
+                        nearbyLandmark: null,
+                        currentOwner: this.contactId,
+                    };
+                    this.showDropdown_indoor = false;
+                    this.showDropdown_outdoor = false;
+                }
+            }).catch(error => {
+                console.error('Error:', error);
+            });
+        }
     }
-    }
-    increaseNumber(event){
-        if(event.target.name==='bedrooms'){
+    increaseNumber(event) {
+        if (event.target.name === 'bedrooms') {
             var input = this.template.querySelector('.bedrooms_number');
-        }else if(event.target.name==='balconies'){
+        } else if (event.target.name === 'balconies') {
             var input = this.template.querySelector('.balconies_number');
-        }else{
+        } else {
             var input = this.template.querySelector('.bathrooms_number');
         }
         var val = parseInt(input.value, 10);
-        if(val<10){
-            input.value = val+1;
-            if(event.target.name==='bedrooms'){
+        if (val < 10) {
+            input.value = val + 1;
+            if (event.target.name === 'bedrooms') {
                 this.property.bedrooms = input.value;
-            }else if(event.target.name==='balconies'){
+            } else if (event.target.name === 'balconies') {
                 this.property.balconies = input.value;
-            } 
-            else{
+            }
+            else {
                 this.property.bathrooms = input.value;
             }
         }
     }
-    decreaseNumber(event){
-        if(event.target.name==='bedrooms'){
+    decreaseNumber(event) {
+        if (event.target.name === 'bedrooms') {
             var input = this.template.querySelector('.bedrooms_number');
-        }else if(event.target.name==='balconies'){
+        } else if (event.target.name === 'balconies') {
             var input = this.template.querySelector('.balconies_number');
-        }else{
+        } else {
             var input = this.template.querySelector('.bathrooms_number');
         }
         var val = parseInt(input.value, 10);
-        if(val>0){
-            input.value = val-1;
-            if(event.target.name==='bedrooms'){
+        if (val > 0) {
+            input.value = val - 1;
+            if (event.target.name === 'bedrooms') {
                 this.property.bedrooms = input.value;
-            }else if(event.target.name==='balconies'){
+            } else if (event.target.name === 'balconies') {
                 this.property.balconies = input.value;
-            } 
-            else{
+            }
+            else {
                 this.property.bathrooms = input.value;
             }
         }
@@ -258,15 +258,15 @@ export default class Esx_PropertyInsertForm extends LightningElement {
     }
 
     clickhandler(event) {
-        if(event.target.name === 'outdoorAmenties'){
-            this.showDropdown_outdoor = this.showDropdown_outdoor==true?false:true;
+        if (event.target.name === 'outdoorAmenties') {
+            this.showDropdown_outdoor = this.showDropdown_outdoor == true ? false : true;
         }
-        if(event.target.name === 'indoorAmenties'){
-            this.showDropdown_indoor = this.showDropdown_indoor==true?false:true;
+        if (event.target.name === 'indoorAmenties') {
+            this.showDropdown_indoor = this.showDropdown_indoor == true ? false : true;
         }
     }
-    handleRemove(event){
+    handleRemove(event) {
         let index_of_amenty = this.property[event.currentTarget.dataset.field].indexOf(event.target.name);
-        this.property[event.currentTarget.dataset.field].splice(index_of_amenty,1);
+        this.property[event.currentTarget.dataset.field].splice(index_of_amenty, 1);
     }
 }

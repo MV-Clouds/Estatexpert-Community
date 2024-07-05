@@ -71,7 +71,7 @@ public with sharing class ESX_PropertyInsertFormController {
         property.Outdoor_Facilities__c = propertyData.outdoorAmenities.size()>0?String.join(propertyData.outdoorAmenities, ';'):null;
         property.Possession_Status__c = propertyData.possessionStatus;
         property.Security_Amount__c = propertyData.bookingAmount;
-        // Price__c = propertyData.price,
+        property.Price__c = propertyData.expectedPrice;
         property.Price_Includes__c = propertyData.priceInclude;
         property.Name = propertyData.city+' | '+propertyData.locality ;
         property.Property_Type__c = propertyData.propertyType;
@@ -88,7 +88,6 @@ public with sharing class ESX_PropertyInsertFormController {
     }
 
     public class PropertyInfo {
-
         public String saleOrRent;
         public String propertyType;
         public String city;
@@ -106,7 +105,7 @@ public with sharing class ESX_PropertyInsertFormController {
         public String transactionType;
         public String possessionStatus;
         public String availableFrom;
-        public String expectedPrice;
+        public Integer expectedPrice;
         public String pricePerSqft;
         public String priceInclude;
         public Integer bookingAmount;
