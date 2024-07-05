@@ -1,14 +1,7 @@
 <template>
   <div class="container">
-    <h1 style="font-size: 36px;font-weight:700;"><b><span
-          style="border-bottom:1px solid rgba(42, 50, 60, 1)"><b>Buyer</b></span>
-        <span style="border-bottom:1px solid rgba(42, 50, 60, 1)">&nbsp; </span>
-        <span style="border-bottom:1px solid rgba(42, 50, 60, 1)"><b>In</b></span>
-        <span><b>f</b></span>
-        <span style="border-bottom:1px solid rgba(1, 118, 211, 0.5);"><b>orm</b></span>
-        <span><b>a</b></span>
-        <span style="border-bottom:1px solid rgba(1, 118, 211, 0.25);"><b>t</b></span>
-        <span><b>ion</b></span></b></h1>
+    <img src={BgImage} alt="BgImage" class="bg-image"/>
+    <h1 class="title">Buyer Information</h1>
     <br />
     <div class="buttons">
       <lightning-button variant={allBtnVarient} label="All" title="All" onclick={handleFilter}></lightning-button>
@@ -20,32 +13,31 @@
     <br />
     <div class="table">
       <template if:true={isData}>
-        <!-- <table class="slds-table slds-table_bordered" aria-labelledby="element-with-table-label other-element-with-table-label"> -->
         <table aria-labelledby="element-with-table-label other-element-with-table-label">
           <thead>
             <tr class="slds-line-height_reset">
-              <th class="" scope="col">
+              <th scope="col">
                 <div class="slds-truncate rowValue" title="No.">No.</div>
               </th>
-              <th class="" scope="col">
-                <div class="slds-truncate rowValue" title="Property Name">PropertyName</div>
+              <th scope="col">
+                <div class="slds-truncate rowValue" title="Property Name">Property Name</div>
               </th>
-              <th class="" scope="col">
-                <div class="slds-truncate rowValue" title="Buyer Name">BuyerName</div>
+              <th scope="col">
+                <div class="slds-truncate rowValue" title="Buyer Name">Buyer Name</div>
               </th>
-              <th class="" scope="col">
+              <th scope="col">
                 <div class="slds-truncate rowValue" title="Mobile No.">Mobile No.</div>
               </th>
-              <th class="" scope="col">
+              <th scope="col">
                 <div class="slds-truncate rowValue" title="Email Id">Email ID</div>
               </th>
-              <th class="" scope="col">
+              <th scope="col">
                 <div class="slds-truncate rowValue" title="Inquiry Date">Inquiry Date</div>
               </th>
-              <th class="" scope="col">
+              <th scope="col">
                 <div class="slds-truncate rowValue" title="Status">Status</div>
               </th>
-              <th class="" scope="col">
+              <th scope="col">
                 <div class="slds-truncate rowValue" title="Action">Action</div>
               </th>
             </tr>
@@ -65,8 +57,8 @@
                   </div>
                 </td>
                 <td data-label="buyer_name">
-                  <div class="box" style="display: flex;align-items:center;">
-                    <lightning-avatar size="medium" style="margin: 10px;" variant="circle"
+                  <div class="box" >
+                    <lightning-avatar size="medium" variant="circle" class="avatar"
                       src={item.profileUrl}></lightning-avatar>
                     <div class="slds-truncate rowValue" title="buyer name">{item.Contact__r.Name}</div>
                   </div>

@@ -1,67 +1,96 @@
 .slds-m-around_medium {
     margin: 1rem;
 }
-.container{
+
+.container {
     padding: 2%;
-    background: url(/sfsites/c/resource/FavoriteProperties/Bg-Image.png);
-    background-size: cover;
 }
-.bg-image{
+
+.bg-image {
     width: 100%;
     opacity: 70%;
     background-size: cover;
     position: absolute;
     z-index: 1;
 }
-.table { 
-    overflow-y: auto; 
-    max-height: 400px; 
-  } 
-  .slds-button__icon_left{
+
+.title {
+    font-size: 36px;
+    font-weight: 700;
+}
+
+.bg-image {
+    width: 100%;
+    opacity: 70%;
+    background-size: cover;
+    position: absolute;
+    z-index: 1;
+}
+
+.table {
+    overflow-y: auto;
+    max-height: 400px;
+}
+
+.slds-button__icon_left {
     margin-right: 0rem;
-  }
-  .table::-webkit-scrollbar {
-    display: none; /* Hides the scrollbar */
-  }
-  .table thead th { 
-    position: sticky; 
+}
+
+.table::-webkit-scrollbar {
+    display: none;
+}
+
+.table thead th {
+    position: sticky;
     background-color: #eef4ff;
     height: 2rem;
     z-index: 3;
-    top: 0; 
-  }
-  .table tbody tr { 
+    top: 0;
+}
+
+.table tbody tr {
     border-top: 1px solid rgba(223, 226, 233, 1);
-  }
-.rowValue{
+}
+
+.rowValue {
     font-size: 14px;
 }
-.box{
+
+.box {
     display: flex;
-    align-items:center;
+    align-items: center;
 }
-.imgbox{
+
+.avatar {
     margin: 10px;
 }
-.imgbox img{
+
+.imgbox {
+    margin: 10px;
+}
+
+.imgbox img {
     margin: 2px;
 }
-.propTitle{
+
+.propTitle {
     width: 200px;
     text-overflow: ellipsis;
     white-space: normal;
     word-break: break-word;
 }
-.dropdown{
-    /* width: 150px; */
+
+.dropdown {
     display: flex;
-    align-items:center;
+    align-items: center;
 }
-.message{
+
+.message {
     height: 600px;
     display: flex;
     justify-content: center;
 }
-.message h1{
+
+.message h1 {
     font-size: 32px;
 }

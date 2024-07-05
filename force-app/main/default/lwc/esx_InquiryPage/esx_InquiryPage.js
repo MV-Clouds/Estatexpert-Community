@@ -2,10 +2,12 @@ import { LightningElement, track, wire } from 'lwc';
 import backgroundImage from "@salesforce/resourceUrl/FavoriteProperties";
 import { loadStyle } from 'lightning/platformResourceLoader';
 import getInquiryData from '@salesforce/apex/ESX_InquiryPageController.getInquiryData';
-import DeleteInquiry from '@salesforce/apex/ESX_InquiryPageController.DeleteInquiry';
+import DeleteInquiry from '@salesforce/apex/ESX_InquiryPageController.deleteInquiry';
 import customStyles from '@salesforce/resourceUrl/InquiryPageCss';
 import Blank_Profile_Photo from '@salesforce/resourceUrl/Blank_Profile_Photo';
+import nopropertyfound from '@salesforce/resourceUrl/nopropertyfound';
 import updateInquiryStatus from '@salesforce/apex/ESX_InquiryPageController.updateInquiryStatus';
+import isLoggedInUserDataCorrect from '@salesforce/apex/ESX_InquiryPageController.isLoggedInUserDataCorrect';
 export default class Esx_InquiryPage extends LightningElement {
 
     BgImage = backgroundImage + '/Bg-Image.png';
@@ -32,10 +34,11 @@ export default class Esx_InquiryPage extends LightningElement {
     @track selectedStatusMap = new Map();
 
     connectedCallback() {
+        this.loadCssFromResource();
         this.checkUserIsLoggedIn();
     }
 
-    renderedCallback() {
+    loadCssFromResource() {
         loadStyle(this, customStyles)
             .then(() => {
                 console.log('Custom styles loaded successfully.');
@@ -50,56 +53,33 @@ export default class Esx_InquiryPage extends LightningElement {
             let loggedUserInfo = localStorage.getItem('loggedUserInfo');
             if (loggedUserInfo) {
                 let loggedUserInfoObj = JSON.parse(loggedUserInfo);
-                console.log('contactId:', loggedUserInfoObj.contactId);
-                this.contactId = loggedUserInfoObj.contactId;
-                console.log('contactIdFinal:', this.contactId);
-                if (this.contactId !== null && this.contactId !== undefined && this.contactId !== '') {
-                    console.log('contact id geted');
-                    this.fetchInquryData();
-                }
-                // isLoggedInUserDataCorrect({contactId: loggedUserInfoObj.contactId, siteUserId: loggedUserInfoObj.siteUserId})
-                //     .then(result => {
-                //         console.log('isLoggedInUserDataCorrect ** => ', result);
-                //         if (result) {
-                //             console.log('here=====');
-                //             this.contactId = loggedUserInfoObj.contactId;
-                //             console.log('contactId:',this.contactId);
-                //             // Call method if user is logged in
-                //             if(this.contactId !== null && this.contactId !== undefined && this.contactId !== ''){
-                //                 console.log('contact id geted');
-                //                 this.fetchInquryData();
-                //             }
-                //         }
-                //     })
-                //     .catch(error => {
-                //         console.log('incatch');
-                //         console.log(error);
-                //     });
+                isLoggedInUserDataCorrect({contactId: loggedUserInfoObj.contactId, siteUserId: loggedUserInfoObj.siteUserId})
+                    .then(result => {
+                        console.log('isLoggedInUserDataCorrect ** => ', result);
+                        if (result) {
+                            this.contactId = loggedUserInfoObj.contactId;
+                            this.fetchInquryData();
+                        }
+                    })
+                    .catch(error => {
+                        console.log(error);
+                    });
 
-            }
+            } 
         } catch (error) {
-            console.error({ error });
+            console.error({error});
         }
     }
 
     fetchInquryData() {
         try {
             getInquiryData({ contactId: this.contactId }).then((result) => {
-                try {
-                    console.log('inquiryResult', result);
                     if (result.inquiries.length >= 0) {
                         this.isData = true;
                         this.FilteredData = result.inquiries;
                         this.Data = result.inquiries;
                         this.profilepicUrls = result.contactContentVersions;
-                        console.log('profilemap:', this.profilepicUrls);
                         this.propertyMediaUrls = result.medias;
-                        // if ((result != null && result != undefined) && (result.image != null && result.image != undefined)) {
-                        //     this.profileImgUrl = 'data:image/jpeg;base64,' + result.image;
-                        // } else {
-                        //     this.profileImgUrl = Blank_Profile_Photo;
-                        // }
-                        // let number = 0;
                         const formatDate = (dateStr) => {
                             let date;
                             const parts = dateStr.split(/[-\/]/);
@@ -123,7 +103,7 @@ export default class Esx_InquiryPage extends LightningElement {
                         this.Data.forEach((row, index) => {
                             const prop_id = row.Listing__r.Property__r.Id;
                             const conId = row.Contact__r.Id;
-                            row.ImageURL = this.propertyMediaUrls[prop_id][0].ExternalLink__c ? this.propertyMediaUrls[prop_id][0].ExternalLink__c : '/sfsites/c/resource/nopropertyfound';
+                            row.ImageURL = this.propertyMediaUrls[prop_id][0].ExternalLink__c ? this.propertyMediaUrls[prop_id][0].ExternalLink__c : nopropertyfound;
                             row.Inquiry_Date__c = row.Inquiry_Date__c ? formatDate(row.Inquiry_Date__c) : '';
                             row.isEdit = false;
                             if (this.profilepicUrls) {
@@ -136,7 +116,7 @@ export default class Esx_InquiryPage extends LightningElement {
                         this.FilteredData.forEach((row, index) => {
                             const prop_id = row.Listing__r.Property__r.Id;
                             const conId = row.Contact__r.Id;
-                            row.ImageURL = this.propertyMediaUrls[prop_id][0].ExternalLink__c ? this.propertyMediaUrls[prop_id][0].ExternalLink__c : '/sfsites/c/resource/nopropertyfound';
+                            row.ImageURL = this.propertyMediaUrls[prop_id][0].ExternalLink__c ? this.propertyMediaUrls[prop_id][0].ExternalLink__c : nopropertyfound;
                             row.Inquiry_Date__c = row.Inquiry_Date__c ? formatDate(row.Inquiry_Date__c) : '';
                             row.isEdit = false;
                             if (this.profilepicUrls) {
@@ -149,9 +129,6 @@ export default class Esx_InquiryPage extends LightningElement {
                     } else {
                         this.isData = false;
                     }
-                } catch (innerError) {
-                    console.error('Error processing result:', innerError);
-                }
             }).catch((fetchError) => {
                 console.error('Error fetching inquiry data:', fetchError);
             });
@@ -199,8 +176,6 @@ export default class Esx_InquiryPage extends LightningElement {
     saveUpdatedStatus(event) {
         let status = event.currentTarget.dataset.status;
         let recordId = event.currentTarget.dataset.key;
-        console.log('recordIdtoUpdate:', recordId);
-        console.log('statusToUpdate:', status);
         updateInquiryStatus({ Status: status, recordId: recordId }).then((result) => {
             if (result) {
                 this.FilteredData = this.FilteredData.map(item => {
@@ -231,15 +206,13 @@ export default class Esx_InquiryPage extends LightningElement {
             this.allBtnVarient = 'brand-outline';
             this.rentBtnVarient = 'brand-outline';
             this.applyFilter();
-        }
-        if (event.target.label === 'Rent') {
+        }else if(event.target.label === 'Rent') {
             this.propType = 'For Rent';
             this.buyBtnVarient = 'brand-outline';
             this.allBtnVarient = 'brand-outline';
             this.rentBtnVarient = 'brand';
             this.applyFilter();
-        }
-        if (event.target.label === 'All') {
+        }else if(event.target.label === 'All') {
             this.propType = '';
             this.buyBtnVarient = 'brand-outline';
             this.allBtnVarient = 'brand';
