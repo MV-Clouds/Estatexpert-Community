@@ -2,15 +2,18 @@ import { LightningElement, track } from 'lwc';
 import basePath from '@salesforce/community/basePath';
 import getContactdetails from '@salesforce/apex/ProfilePage.getContactdetails';
 import { ShowToastEvent } from 'lightning/platformShowToastEvent';
+import Blank_Profile_Photo from '@salesforce/resourceUrl/Blank_Profile_Photo';
 import myProfilePageBackground from '@salesforce/resourceUrl/ProfilePageBackground';
 
 export default class Esx_ProfilePage extends LightningElement {
 
-    @track contactId = '003dL000001VvuLQAS';
+    // @track contactId = '003dL000001VvuLQAS';
+    @track contactId = '003dL000001DvazQAC';
     @track contact;
     @track profileImage;
     @track recordType;
     @track isLoading = true;
+    @track isDisabled = true;
     backgroundImageUrl = myProfilePageBackground;
     @track Salutationoptions = [
         { label: 'Mr.', value: 'Mr.' },
@@ -21,6 +24,7 @@ export default class Esx_ProfilePage extends LightningElement {
         {label: 'Male', value: 'Male'},
         {label: 'Female', value: 'Female'},
     ];
+    placeholderProfile = Blank_Profile_Photo;
 
     connectedCallback(){
         this.getContact();
@@ -30,9 +34,7 @@ export default class Esx_ProfilePage extends LightningElement {
         getContactdetails({contactId: this.contactId})
             .then(result => {
                 console.log('result: ', result);
-                
                 if(result.contact != null){
-                    // console.log('result.contact', result.contact);
                     this.contact = result.contact;
                     this.recordType = result.contact.RecordType.Name;
                     this.isLoading = false;
@@ -42,7 +44,6 @@ export default class Esx_ProfilePage extends LightningElement {
 
                 if(result.image != null){
                     this.profileImage = 'data:image/jpeg;base64,' + result.image;
-                    // console.log('this.profileImage: ', this.profileImage);
                 }else{
                     console.log('No Image Found');
                 }
@@ -78,9 +79,14 @@ export default class Esx_ProfilePage extends LightningElement {
         console.log('uploadProfileImage');
     }
 
-
-
-
-
-
+    getContactInfo(event){
+        this.isDisabled = false;
+        let button = this.template.querySelector('.save-btn');
+        button.style.backgroundColor = 'rgba(1, 118, 211, 1)';
+    }
+    updateContactInfo(){
+        this.isDisabled = true;
+        let button = this.template.querySelector('.save-btn');
+        button.style.backgroundColor = 'rgba(210, 210, 210, 1)';
+    }
 }

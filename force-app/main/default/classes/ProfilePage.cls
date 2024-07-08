@@ -19,7 +19,6 @@ public without sharing class ProfilePage {
                     wrapper.image = EncodingUtil.Base64Encode(cv.VersionData);
                 }
             }
-
             return wrapper;
 
         }catch(Exception e){

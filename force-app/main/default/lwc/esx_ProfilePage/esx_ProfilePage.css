@@ -12,7 +12,7 @@
 .mainDiv{
     position: relative;
     width: 100%;
-    height: 100vh; /* Adjust as necessary */
+    /* height: 100vh; Adjust as necessary */
     overflow: hidden;
 }
 
@@ -65,25 +65,25 @@
 
 .generalInformation {
     display: flex;
-    align-items: flex-start;
-    margin-bottom: 1.25rem; /* 20px */
 }
 
 .profileImage {
     margin-right: 1.25rem; /* 20px */
     position: relative;
+    min-width: 13rem;
 }
 
 .profileImage img {
     border-radius: 15%;
     width: 12.375rem; /* 150px */
-    height: 14.375rem; /* 150px */
+    height: 15.375rem; /* 150px */
     object-fit: fill;
 }
 
 .uploadButton{
     position: absolute;
-    bottom: 0.625rem; /* 10px */
+    bottom: 2rem;
+    /* bottom: 0.625rem; 10px */
     left: 50%;
     transform: translateX(-50%);
     background-color: whitesmoke ; /*  80% white */
@@ -93,6 +93,10 @@
     cursor: pointer;
     box-shadow: 0px 1px 61px 1px rgba(0, 0, 0, 0.25);
     font-size: x-small;
+}
+
+.generalInfoContent{
+    width: 100%;
 }
 
 .sectionTitle{
@@ -109,4 +113,70 @@
 .formGroup{
     display: flex;
     justify-content: space-between;
+}
+
+.firstName{
+    margin-right: 3rem;
+    margin-left: 3rem;
+}
+
+.formElement .inputBox{
+    width: 25rem;
+}
+.input-age{
+    width: 5rem;
+}
+
+.firstRow{
+    margin-top: 1rem;
+    gap: 2rem;
+}
+
+.genderOptions{
+    display: flex;
+    justify-content: space-between;
+}
+.date-and-age{
+    width: 45%;
+    display: flex;
+    /* justify-content: space-between; */
+}
+.phone-and-email{
+    display: flex;
+    width: 100%;
+}
+.input-half{
+    width: 50%;
+}
+.inputfield{
+    width: 100%;
+}
+.address-line{
+    width: 100%;
+}
+.address-fields{
+    display: flex;
+    width: 100%;
+}
+.buttons {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+.btn {
+    background-color: rgba(1, 118, 211, 1);
+    border-radius: 30px;
+    width: 160px;
+    height: 47px;
+    color: white;
+    border: 0px;
+}
+.save-btn{
+    background-color: rgba(210, 210, 210, 1);
+    border-radius: 30px;
+    width: 160px;
+    height: 47px;
+    color: white;
+    border: 0px;
 }
