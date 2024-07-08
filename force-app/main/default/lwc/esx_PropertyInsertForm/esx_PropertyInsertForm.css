@@ -1,189 +1,246 @@
-.container{
+.container {
     padding: 2%;
-    background: url(/sfsites/c/resource/FavoriteProperties/Bg-Image.png);
-    background-size: cover;
+    position: relative;
+    z-index: 2;
+    /* background: url(/sfsites/c/resource/FavoriteProperties/Bg-Image.png);
+    background-size: cover; */
 }
-.box{
+.title{
+    font-size: 36px;
+    font-weight: 700;
+}
+
+.bg-image {
+    width: 100%;
+    height: 100%;
+    opacity: 70%;
+    background-size: cover;
+    position: absolute;
+    z-index: 1;
+}
+
+.box {
     display: block;
 }
 
-.boxHeading{
-    color: rgba(1, 118, 211, 1) ;
+.box-heading {
+    color: rgba(1, 118, 211, 1);
     font-weight: 700;
     font-size: 26px;
     margin-bottom: 0.5rem;
 }
-.innerHeading{
+
+.inner-heading {
     font-size: 20px;
     font-weight: 600;
     color: black;
 }
-.propertyDetails{
+
+.property-details {
     width: 70%;
 }
-.content{
+
+.content {
     margin-bottom: 0.5rem;
 }
 
-.propType{
+.prop-type {
     width: 404px;
     display: block;
     margin-bottom: 1rem;
 }
-.numberFields{
+
+.numberFields {
     display: flex;
 }
-.propertyLocation{
+
+.property-location {
     width: 70%;
 }
-.location{
+
+.location {
     display: flex;
     /* margin-top: 0.5rem; */
 }
-.features{
+
+.features {
     /* display: flex; */
     width: 70%;
 }
-.dropdowns{
+
+.dropdowns {
     display: flex;
 }
-.quantity input{
+
+.quantity input {
     border: 0px;
     text-align: center;
 }
-.minus{
+
+.minus {
     background-color: white;
     border: 0px;
 }
-.plus{
+
+.plus {
     background-color: white;
     border: 0px;
 }
-.areaBox{
+
+.area-box {
     display: flex;
     width: 70%;
 }
-.availableFrom{
+
+.availableFrom {
     display: flex;
 }
-.prDetails{
+
+.pr-details {
     display: flex;
 }
-.p_Area{
+
+.p_Area {
     display: flex;
 }
-.checkbox{
-    display: flex;
-    width: 70%;
+.plus-icon{
+    color: rgba(1, 118, 211, 1);
+    background-color:white; 
+    border:1px solid rgba(1, 118, 211, 1);
 }
-.tickbox{
+
+.checkbox {
+    display: flex;
+}
+
+.tickbox {
     width: 20%;
 }
-.nearByType{
+
+.near-by-type {
     width: 842px;
 }
-.label{
+
+.label {
     font-size: 16px;
     font-weight: 400;
 }
-.inputText{
-    width:100%;
-    height:46px;
-    border-radius:6px;
+
+.input-text {
+    width: 100%;
+    height: 46px;
+    border-radius: 6px;
     padding: 2%;
-    border:1px solid rgba(191, 196, 215, 1);
+    border: 1px solid rgba(191, 196, 215, 1);
 }
-.inputDropdown{
-    width:100%;
-    height:46px;
-    border-radius:6px;
+
+.input-dropdown {
+    width: 100%;
+    height: 46px;
+    border-radius: 6px;
     padding: 2%;
-    border:1px solid rgba(191, 196, 215, 1);
+    border: 1px solid rgba(191, 196, 215, 1);
     -webkit-appearance: none;
 }
-.buttons{
+
+.buttons {
     width: 100%;
     display: flex;
     justify-content: center;
 }
-.btn{
-    background-color:rgba(1, 118, 211, 1);
+
+.btn {
+    background-color: rgba(1, 118, 211, 1);
     border-radius: 30px;
     width: 160px;
     height: 47px;
     color: white;
     border: 0px;
 }
+
 .quantity {
     display: flex;
     /* justify-content: center; */
     align-items: center;
-    border-radius:6px;
+    border-radius: 6px;
     width: 192px;
-    border:1px solid rgba(191, 196, 215, 1);
- }
- .quantity button{
+    border: 1px solid rgba(191, 196, 215, 1);
+}
+
+.quantity button {
     border: none;
     cursor: pointer;
     font-size: 20px;
     width: 130px;
     height: 46px;
-    border-radius:6px;
+    border-radius: 6px;
     text-align: center;
     transition: background-color 0.2s;
     background-color: white;
- }
- .input-box {
+}
+
+.input-box {
     /* width: 40px; */
     text-align: center;
     border: none;
     padding: 8px 10px;
     font-size: 16px;
     outline: none;
- }
- 
- /* Hide the number input spin buttons */
- .input-box::-webkit-inner-spin-button,
- .input-box::-webkit-outer-spin-button {
-    -webkit-appearance: none;
-    margin: 0;
- }
- .inputText::-webkit-inner-spin-button,
- .inputText::-webkit-outer-spin-button {
-    -webkit-appearance: none;
-    margin: 0;
- }
+}
 
- .inputDropdown::-webkit-inner-spin-button,
- .inputDropdown::-webkit-outer-spin-button {
+/* Hide the number input spin buttons */
+.input-box::-webkit-inner-spin-button,
+.input-box::-webkit-outer-spin-button {
     -webkit-appearance: none;
     margin: 0;
- }
- 
- .input-box[type="number"] {
+}
+
+.input-text::-webkit-inner-spin-button,
+.input-text::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+.input-dropdown::-webkit-inner-spin-button,
+.input-dropdown::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+.input-box[type="number"] {
     -moz-appearance: textfield;
- }
- select{
+}
+
+select {
     padding: 10px;
     padding-right: 30px;
-  
+
     -moz-appearance: none;
     -webkit-appearance: none;
     appearance: none;
     background-image: url(/sfsites/c/resource/dropdownAerrow);
 
-      background-repeat: no-repeat, repeat;
-      background-position: right .7em top 50%, 0 0;
-      background-size: .65em auto, 100%;
-  }
-  .message{
+    background-repeat: no-repeat, repeat;
+    background-position: right .7em top 50%, 0 0;
+    background-size: .65em auto, 100%;
+}
+
+.message {
     height: 600px;
     display: flex;
     justify-content: center;
 }
-.message h1{
+
+.message h1 {
     font-size: 32px;
 }
-.pill{
+
+.pill {
     margin: 0.5vh;
+}
+.amenty-checkboxes{
+    padding: 1.5%;
+}
+.dropdown-list::-webkit-scrollbar {
+    display: none;
 }

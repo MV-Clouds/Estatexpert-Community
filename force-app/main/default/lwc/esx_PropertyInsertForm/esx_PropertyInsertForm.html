@@ -1,475 +1,424 @@
 <template>
-    <div class="container">
-        <div class="box">
-            <div class="heading">
-                <h1 style="font-size: 36px;font-weight:700;"><b><span
-                            style="border-bottom:1px solid rgba(42, 50, 60, 1)"><b>Property</b></span>
-                        <span style="border-bottom:1px solid rgba(42, 50, 60, 1)">&nbsp; </span>
-                        <span style="border-bottom:1px solid rgba(42, 50, 60, 1)"><b>In</b></span>
-                        <span><b>f</b></span>
-                        <span style="border-bottom:1px solid rgba(1, 118, 211, 0.5);"><b>orm</b></span>
-                        <span><b>a</b></span>
-                        <span style="border-bottom:1px solid rgba(1, 118, 211, 0.25);"><b>t</b></span>
-                        <span><b>ion</b></span></b></h1>
-                <br />
-            </div>
-            <template if:true={isData}>
-                <div class="propertyDetails content">
-                    <h2 class="boxHeading">Property Details</h2>
-                    <div class="details">
-                        <div class="checkbox">
-                            <div class="tickbox checkbox1">
-                                <input type="radio" name="saleOrRent" value="For Sell" onchange={handleInputChange}
-                                    checked><span> Sale</span></input>
-                            </div>
-                            <div class="tickbox checkbox1">
-                                <input type="radio" name="saleOrRent" value="For Rent" onchange={handleInputChange}>
-                                <span> Rent/Lease</span></input>
-                            </div>
-                        </div>
-                        <br />
-                        <div class="propType">
-                            <!-- <lightning-combobox name="propertyType" label="Property Type" value={property.propertyType}
-                                    placeholder="Property Type" options={propertyTypes}
-                                    onchange={handleInputChange} required></lightning-combobox> -->
-                            <label class="label"><abbr class="slds-required" title="required">*</abbr>Property
-                                Type</label>
-                            <select name="propertyType" class="inputDropdown" onchange={handleInputChange} required>
-                                <template for:each={propertyTypes} for:item="type">
-                                    <option value={property.propertyType} key={type.label}>{type.label}</option>
-                                </template>
-                            </select>
-                        </div>
-                    </div>
-                </div>
-                <div class="propertyLocation content">
-                    <h2 class="boxHeading">Property Location</h2>
-                    <div class="location">
-                        <div class="propType slds-m-right_medium">
-                            <!-- <lightning-input type="text" label="City" placeholder="Enter City"></lightning-input> -->
-                            <p class="label"><abbr class="slds-required" title="required">*</abbr>City</p>
-                            <input type="text" name="city" class="inputText" placeholder="Enter City"
-                                value={property.city} onchange={handleInputChange} required></input>
-                        </div>
-                        <div class="propType slds-m-left_medium">
-                            <!-- <lightning-input type="text" label="Locality" placeholder="   Enter Locality"></lightning-input> -->
-                            <p class="label"><abbr class="slds-required" title="required">*</abbr>Enter Locality</p>
-                            <input type="text" name="locality" class="inputText" placeholder="Enter Locality"
-                                value={property.locality} onchange={handleInputChange} required></input>
-                        </div>
-                    </div>
-                </div>
-                <div class="propertyFeatures content">
-                    <h2 class="boxHeading">Property Features</h2>
-                    <div class="features">
-                        <div class="propType numberFields ">
-                            <div>
-                                <p>Bedroom</p>
-                                <div class="quantity">
-                                    <button name="bedrooms" class="minus" aria-label="Decrease"
-                                        onclick={decreaseNumber}>
-                                        &minus;
-                                    </button>
-                                    <input type="number" name="bedrooms" class="input-box bedrooms_number inputText"
-                                        value={property.bedrooms} min="1" max="10" onchange={handleInputChange}>
-                                    <button name="bedrooms" class="plus" aria-label="Increase" onclick={increaseNumber}>
-                                        &plus;
-                                    </button>
-                                </div>
-                            </div>
-                            <div class="slds-m-left_medium">
-                                <p>Balconies</p>
-                                <div class="quantity">
-                                    <button name="balconies" class="minus" aria-label="Decrease"
-                                        onclick={decreaseNumber}>
-                                        &minus;
-                                    </button>
-                                    <input type="number" name="balconies" class="input-box balconies_number inputText"
-                                        value={property.balconies} min="1" max="10" onchange={handleInputChange}>
-                                    <button name="balconies" class="plus" aria-label="Increase"
-                                        onclick={increaseNumber}>
-                                        &plus;
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="dropdowns">
-                            <div class="propType slds-m-right_medium">
-                                <!-- <lightning-combobox name="floorNumber" label="Floor No." value={property.floorNumber}
-                                        placeholder="Floor No." options={floorNumbers}
-                                        onchange={handleInputChange} required></lightning-combobox> -->
-                                <label class="label"><abbr class="slds-required" title="required">*</abbr>Floor
-                                    No.</label>
-                                <select name="floorNumber" class="inputDropdown" onchange={handleInputChange} required>
-                                    <template for:each={floorNumbers} for:item="floor">
-                                        <option value={property.floorNumber} key={floor.label}>{floor.label}</option>
-                                    </template>
-                                </select>
-                            </div>
-                            <div class="propType slds-m-left_medium slds-m-right_medium">
-                                <!-- <lightning-combobox name="totalFloors" label="Total Floor" value={property.totalFloors}
-                                        placeholder="Total Floor" options={propTypes}
-                                        onchange={handleInputChange} required></lightning-combobox> -->
-                                <!-- <lightning-input type="number" min="0" name="totalFloors" label="Total Floor" value={property.totalFloors}
-                                        placeholder="Total Floor" onchange={handleInputChange} required></lightning-input> -->
-                                <p class="label"><abbr class="slds-required" title="required">*</abbr>Total Floor</p>
-                                <input type="number" min="0" class="inputText" value={property.totalFloors}
-                                    name="totalFloors" placeholder="Total Floor" onchange={handleInputChange}
-                                    required></input>
-
-                            </div>
-                        </div>
-                        <div class="propType">
-                            <!-- <lightning-combobox name="furnishedStatus" label="Furnished Status" value={property.furnishedStatus}
-                                    placeholder="Furnished Status" options={furnishedStatuses}
-                                    onchange={handleInputChange} required></lightning-combobox> -->
-                            <label class="label"><abbr class="slds-required" title="required">*</abbr>Furnished
-                                Status</label>
-                            <select name="furnishedStatus" class="inputDropdown" onchange={handleInputChange} required>
-                                <template for:each={furnishedStatuses} for:item="status">
-                                    <option value={property.furnishedStatus} key={status.label}>{status.label}</option>
-                                </template>
-                            </select>
-                        </div>
-                        <div>
-                            <p>Bathroom</p>
-                            <div class="quantity">
-                                <button name="bathrooms" class="minus" aria-label="Decrease" onclick={decreaseNumber}>
-                                    &minus;
-                                </button>
-                                <input type="number" name="bathrooms" class="input-box bathrooms_number inputText"
-                                    value={property.bathrooms} min="1" max="10" onchange={handleInputChange}>
-                                <button name="bathrooms" class="plus" aria-label="Increase" onclick={increaseNumber}>
-                                    &plus;
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="area content">
-                    <h2 class="boxHeading">Area</h2>
-                    <div class="areaBox">
-                        <div class="propType slds-m-right_medium">
-                            <!-- <lightning-input type="text" label="Covered Area" placeholder="Covered Area"></lightning-input> -->
-                            <p class="label"> Covered Area</p>
-                            <div style="display: flex;align-items:center">
-                                <input type="number" min="0" name="coveredArea" value={property.coveredArea}
-                                    class="inputText " placeholder="Covered Area" style="width: 274px;"
-                                    onchange={handleInputChange}></input>
-                                <!-- <lightning-combobox name="coveredAreaUnit" label="" value={property.coveredAreaUnit} placeholder="SqFt"
-                                        options={coveredareaUnits} onchange={handleInputChange} class="slds-m-left_medium"></lightning-combobox> -->
-                                <label class="label"></label>
-                                <select name="coveredAreaUnit" class="inputDropdown slds-m-left_medium"
-                                    onchange={handleInputChange}>
-                                    <template for:each={coveredareaUnits} for:item="units">
-                                        <option value={property.coveredAreaUnit} key={units.label}>{units.label}
-                                        </option>
-                                    </template>
-                                </select>
-                            </div>
-                        </div>
-                        <div class="propType slds-m-left_medium">
-                            <!-- <lightning-input type="text" label="Carpet Area" placeholder="Carpet Area"></lightning-input> -->
-                            <p class="label"> Carpet Area</p>
-                            <div style="display: flex;align-items:center">
-                                <input type="number" min="0" name="carpetArea" value={property.carpetArea}
-                                    class="inputText " placeholder="Carpet Area" style="width: 274px;"
-                                    onchange={handleInputChange}></input>
-                                <!-- <lightning-combobox name="carpetAreaUnit" label="" value={property.carpetAreaUnit} placeholder="SqFt"
-                                        options={carpetareaUnits} onchange={handleInputChange}  class="slds-m-left_medium"></lightning-combobox> -->
-                                <label class="label"></label>
-                                <select name="carpetAreaUnit" class="inputDropdown slds-m-left_medium"
-                                    onchange={handleInputChange}>
-                                    <template for:each={carpetareaUnits} for:item="units">
-                                        <option value={property.carpetAreaUnit} key={units.label}>{units.label}</option>
-                                    </template>
-                                </select>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="plotArea content">
-                    <div class="propType">
-                        <template if:false={isPlotArea}>
-                            <button style="color: rgba(1, 118, 211, 1);background-color:white; border:1px solid rgba(1, 118, 211, 1);" name="showPlotArea" class="plusIcon slds-m-right_xx-small" aria-label="showPlotArea" onclick={showPlotAreaFields}>
-                                &plus;
-                            </button>
-                            Plot Area
-                        </template>
-                        <template if:true={isPlotArea}>
-                            <button style="color: rgba(1, 118, 211, 1);background-color:white; border:1px solid rgba(1, 118, 211, 1);" name="showPlotArea" class="plusIcon slds-m-right_xx-small" aria-label="showPlotArea" onclick={showPlotAreaFields}>
-                                &minus;
-                            </button>
-                            Plot Area
-                        </template>
-                        <template if:true={isPlotArea}>
-                            <div class="p_Area">
-                                <div class="propType slds-m-right_medium">
-                                    <p class="label">Plot Area</p>
-                                    <input type="number" min="0" class="inputText" value={property.plotArea}
-                                        name="plotArea" placeholder="Plot Area" onchange={handleInputChange}
-                                        ></input>
-                                </div>
-                                <div class="propType slds-m-left_medium">
-                                    <p class="label"> Plot Breadth</p>
-                                    <input type="number" min="0" name="plotBreadth" value={property.plotBreadth}
-                                        class="inputText" placeholder="Plot Breadth"
-                                        onchange={handleInputChange}></input>
-                                </div>
-                            </div>
-                            <div class="p_Area">
-                                <div class="propType">
-                                    <p class="label"> Plot Length</p>
-                                    <input type="number" min="0" name="plotLength" value={property.plotLength}
-                                        class="inputText" placeholder="Plot Length"
-                                        onchange={handleInputChange}></input>
-                                </div>
-                            </div>
-                        </template>
-                    </div>
-                </div>
-                <div class="transactionType content">
-                    <h2 class="boxHeading">Transaction Type</h2>
-                    <h3 class="innerHeading">Transaction Type</h3>
-                    <!-- <lightning-radio-group name="radioGroup" options={transactionTypes} value={value}
-                            type="radio"></lightning-radio-group> -->
-                    <div class="checkbox">
-                        <template for:each={transactionTypes} for:item="type">
-                            <div class="tickbox checkbox1" key={type.label}>
-                                <input type="radio" name="transactionType" value={property.transactionType}
-                                    onchange={handleInputChange} checked><span> {type.label}</span></input>
-                            </div>
-                        </template>
-                        <!-- <div class="tickbox checkbox1">
-                                    <input type="radio" name="checkbox"><span> Resale</span></input>        
-                                </div> -->
-                    </div>
+    <div class="main-div">
+        <img src={BgImage} alt="BgImage" class="bg-image" />
+        <div class="container">
+            <div class="box">
+                <div class="heading">
+                    <h1 class="title">Property Information</h1>
                     <br />
-                    <h3 class="innerHeading">Possession Status</h3>
-                    <!-- <lightning-radio-group name="radioGroup" options={possessionTypes} value={value}
-                            type="radio"></lightning-radio-group> -->
-                    <div class="checkbox">
-                        <template for:each={possessionStatus} for:item="status">
-                            <div class="tickbox checkbox1" key={status.label}>
-                                <input type="radio" name="possessionStatus" value={property.possessionStatus}
-                                    onchange={handleInputChange} checked><span> {status.label}</span></input>
-                            </div>
-                        </template>
-                        <!-- <div class="tickbox checkbox1">
-                                    <input type="radio" name="checkbox"><span> Ready to Move</span></input>        
+                </div>
+                <template if:true={isData}>
+                    <div class="property-details content">
+                        <h2 class="box-heading">Property Details</h2>
+                        <div class="details">
+                            <div class="checkbox">
+                                <div class="tickbox checkbox1">
+                                    <input type="radio" name="saleOrRent" value="For Sell" onchange={handleInputChange}
+                                        checked><span> Sale</span></input>
                                 </div>
                                 <div class="tickbox checkbox1">
-                                    <input type="radio" name="checkbox"><span> Ongoing</span></input>        
-                                </div> -->
-                    </div>
-                    <br />
-                    <!-- <div class="dropdowns">
-                            <div class="propType availableFrom slds-m-right_medium">
-                                <lightning-combobox name="availableFrom" label="Available From" value={value} placeholder="Floor No."
-                                    options={propTypes} onchange={handleInputChange} class="slds-m-right_medium"></lightning-combobox>
-                                <lightning-combobox name="propertyType" value={value}
-                                    placeholder="Total Floor" options={propTypes} onchange={handleChange}></lightning-combobox>
+                                    <input type="radio" name="saleOrRent" value="For Rent" onchange={handleInputChange}>
+                                    <span> Rent/Lease</span></input>
+                                </div>
                             </div>
-                        </div> -->
-                </div>
-                <div class="priceDetails content">
-                    <h2 class="boxHeading">Price Details</h2>
-                    <div class="prDetails">
-                        <div class="propType slds-m-right_medium">
-                            <!-- <lightning-input type="text" label="Expected Price" placeholder="Expected Price"></lightning-input> -->
-                            <p class="label"><abbr class="slds-required" title="required">*</abbr>Expected Price</p>
-                            <input type="number" min="0" class="inputText" value={property.expectedPrice}
-                                name="expectedPrice" placeholder="Expected Price" onchange={handleInputChange}
-                                required></input>
+                            <br />
+                            <div class="prop-type">
+                                <!-- <lightning-combobox name="propertyType" label="Property Type" value={property.propertyType}
+                                        placeholder="Property Type" options={propertyTypes}
+                                        onchange={handleInputChange} required></lightning-combobox> -->
+                                <label class="label"><abbr class="slds-required" title="required">*</abbr>Property
+                                    Type</label>
+                                <select name="propertyType" class="input-dropdown" onchange={handleInputChange} required>
+                                    <template for:each={propertyTypes} for:item="type">
+                                        <option value={property.propertyType} key={type.label}>{type.label}</option>
+                                    </template>
+                                </select>
+                            </div>
                         </div>
-                        <!-- <div class="propType slds-m-left_medium">
-                            <p class="label"><abbr class="slds-required" title="required">*</abbr>Price per Sq-ft</p>
-                            <input type="number" min="0" name="pricePerSqft" value={property.pricePerSqft}
-                                class="inputText" placeholder="" onchange={handleInputChange} required></input>
-                        </div> -->
                     </div>
-                    <h3 class="innerHeading">Price Includes</h3>
-                    <div class="checkbox">
-                        <template for:each={priceIncludes} for:item="priceItem">
-                            <div class="tickbox checkbox1" key={priceItem.label}>
-                                <input type="radio" name="priceInclude" value={property.priceInclude}
-                                    onchange={handleInputChange} checked><span> {priceItem.label}</span></input>
+                    <div class="property-location content">
+                        <h2 class="box-heading">Property Location</h2>
+                        <div class="location">
+                            <div class="prop-type slds-m-right_medium">
+                                <!-- <lightning-input type="text" label="City" placeholder="Enter City"></lightning-input> -->
+                                <p class="label"><abbr class="slds-required" title="required">*</abbr>City</p>
+                                <input type="text" name="city" class="input-text" placeholder="Enter City"
+                                    value={property.city} onchange={handleInputChange} required></input>
                             </div>
-                            <!-- <div class="tickbox checkbox1" key={priceItem.label}>
-                                <input type="checkbox" name="checkbox"><span> PLC</span></input>
-                                <lightning-input type="checkbox" label={priceItem.label} name="input1"></lightning-input>
-
+                            <div class="prop-type slds-m-left_medium">
+                                <!-- <lightning-input type="text" label="Locality" placeholder="   Enter Locality"></lightning-input> -->
+                                <p class="label"><abbr class="slds-required" title="required">*</abbr>Enter Locality</p>
+                                <input type="text" name="locality" class="input-text" placeholder="Enter Locality"
+                                    value={property.locality} onchange={handleInputChange} required></input>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="property-features content">
+                        <h2 class="box-heading">Property Features</h2>
+                        <div class="features">
+                            <div class="prop-type numberFields ">
+                                <div>
+                                    <p>Bedroom</p>
+                                    <div class="quantity">
+                                        <button name="bedrooms" class="minus" aria-label="Decrease"
+                                            onclick={decreaseNumber}>
+                                            &minus;
+                                        </button>
+                                        <input type="number" name="bedrooms" class="input-box bedrooms_number input-text"
+                                            value={property.bedrooms} min="1" max="10" onchange={handleInputChange}>
+                                        <button name="bedrooms" class="plus" aria-label="Increase" onclick={increaseNumber}>
+                                            &plus;
+                                        </button>
+                                    </div>
+                                </div>
+                                <div class="slds-m-left_medium">
+                                    <p>Balconies</p>
+                                    <div class="quantity">
+                                        <button name="balconies" class="minus" aria-label="Decrease"
+                                            onclick={decreaseNumber}>
+                                            &minus;
+                                        </button>
+                                        <input type="number" name="balconies" class="input-box balconies_number input-text"
+                                            value={property.balconies} min="1" max="10" onchange={handleInputChange}>
+                                        <button name="balconies" class="plus" aria-label="Increase"
+                                            onclick={increaseNumber}>
+                                            &plus;
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="dropdowns">
+                                <div class="prop-type slds-m-right_medium">
+                                    <!-- <lightning-combobox name="floorNumber" label="Floor No." value={property.floorNumber}
+                                            placeholder="Floor No." options={floorNumbers}
+                                            onchange={handleInputChange} required></lightning-combobox> -->
+                                    <label class="label"><abbr class="slds-required" title="required">*</abbr>Floor
+                                        No.</label>
+                                    <select name="floorNumber" class="input-dropdown" onchange={handleInputChange} required>
+                                        <template for:each={floorNumbers} for:item="floor">
+                                            <option value={property.floorNumber} key={floor.label}>{floor.label}</option>
+                                        </template>
+                                    </select>
+                                </div>
+                                <div class="prop-type slds-m-left_medium slds-m-right_medium">
+                                    <!-- <lightning-input type="number" min="0" name="totalFloors" label="Total Floor" value={property.totalFloors}
+                                            placeholder="Total Floor" onchange={handleInputChange} required></lightning-input> -->
+                                    <p class="label"><abbr class="slds-required" title="required">*</abbr>Total Floor</p>
+                                    <input type="number" min="0" class="input-text" value={property.totalFloors}
+                                        name="totalFloors" placeholder="Total Floor" onchange={handleInputChange}
+                                        required></input>
+                                </div>
+                            </div>
+                            <div class="prop-type">
+                                <!-- <lightning-combobox name="furnishedStatus" label="Furnished Status" value={property.furnishedStatus}
+                                        placeholder="Furnished Status" options={furnishedStatuses}
+                                        onchange={handleInputChange} required></lightning-combobox> -->
+                                <label class="label"><abbr class="slds-required" title="required">*</abbr>Furnished
+                                    Status</label>
+                                <select name="furnishedStatus" class="input-dropdown" onchange={handleInputChange} required>
+                                    <template for:each={furnishedStatuses} for:item="status">
+                                        <option value={property.furnishedStatus} key={status.label}>{status.label}</option>
+                                    </template>
+                                </select>
+                            </div>
+                            <div>
+                                <p>Bathroom</p>
+                                <div class="quantity">
+                                    <button name="bathrooms" class="minus" aria-label="Decrease" onclick={decreaseNumber}>
+                                        &minus;
+                                    </button>
+                                    <input type="number" name="bathrooms" class="input-box bathrooms_number input-text"
+                                        value={property.bathrooms} min="1" max="10" onchange={handleInputChange}>
+                                    <button name="bathrooms" class="plus" aria-label="Increase" onclick={increaseNumber}>
+                                        &plus;
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="area content">
+                        <h2 class="box-heading">Area</h2>
+                        <div class="area-box">
+                            <div class="prop-type slds-m-right_medium">
+                                <!-- <lightning-input type="text" label="Covered Area" placeholder="Covered Area"></lightning-input> -->
+                                <p class="label"> Covered Area</p>
+                                <div style="display: flex;align-items:center">
+                                    <input type="number" min="0" name="coveredArea" value={property.coveredArea}
+                                        class="input-text " placeholder="Covered Area" style="width: 274px;"
+                                        onchange={handleInputChange}></input>
+                                    <!-- <lightning-combobox name="coveredAreaUnit" label="" value={property.coveredAreaUnit} placeholder="SqFt"
+                                            options={coveredareaUnits} onchange={handleInputChange} class="slds-m-left_medium"></lightning-combobox> -->
+                                    <label class="label"></label>
+                                    <select name="coveredAreaUnit" class="input-dropdown slds-m-left_medium"
+                                        onchange={handleInputChange}>
+                                        <template for:each={coveredareaUnits} for:item="units">
+                                            <option value={property.coveredAreaUnit} key={units.label}>{units.label}
+                                            </option>
+                                        </template>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="prop-type slds-m-left_medium">
+                                <!-- <lightning-input type="text" label="Carpet Area" placeholder="Carpet Area"></lightning-input> -->
+                                <p class="label"> Carpet Area</p>
+                                <div style="display: flex;align-items:center">
+                                    <input type="number" min="0" name="carpetArea" value={property.carpetArea}
+                                        class="input-text " placeholder="Carpet Area" style="width: 274px;"
+                                        onchange={handleInputChange}></input>
+                                    <!-- <lightning-combobox name="carpetAreaUnit" label="" value={property.carpetAreaUnit} placeholder="SqFt"
+                                            options={carpetareaUnits} onchange={handleInputChange}  class="slds-m-left_medium"></lightning-combobox> -->
+                                    <label class="label"></label>
+                                    <select name="carpetAreaUnit" class="input-dropdown slds-m-left_medium"
+                                        onchange={handleInputChange}>
+                                        <template for:each={carpetareaUnits} for:item="units">
+                                            <option value={property.carpetAreaUnit} key={units.label}>{units.label}</option>
+                                        </template>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="plot-area content">
+                        <div class="prop-type">
+                            <template if:false={isPlotArea}>
+                                <button
+                                    name="showPlotArea" class="plus-icon slds-m-right_xx-small" aria-label="showPlotArea"
+                                    onclick={showPlotAreaFields}>
+                                    &plus;
+                                </button>
+                                Plot Area
+                            </template>
+                            <template if:true={isPlotArea}>
+                                <button
+                                    name="showPlotArea" class="plus-icon slds-m-right_xx-small" aria-label="showPlotArea"
+                                    onclick={showPlotAreaFields}>
+                                    &minus;
+                                </button>
+                                Plot Area
+                            </template>
+                            <template if:true={isPlotArea}>
+                                <div class="p_Area">
+                                    <div class="prop-type slds-m-right_medium">
+                                        <p class="label">Plot Area</p>
+                                        <input type="number" min="0" class="input-text" value={property.plotArea}
+                                            name="plotArea" placeholder="Plot Area" onchange={handleInputChange}></input>
+                                    </div>
+                                    <div class="prop-type slds-m-left_medium">
+                                        <p class="label"> Plot Breadth</p>
+                                        <input type="number" min="0" name="plotBreadth" value={property.plotBreadth}
+                                            class="input-text" placeholder="Plot Breadth"
+                                            onchange={handleInputChange}></input>
+                                    </div>
+                                </div>
+                                <div class="p_Area">
+                                    <div class="prop-type">
+                                        <p class="label"> Plot Length</p>
+                                        <input type="number" min="0" name="plotLength" value={property.plotLength}
+                                            class="input-text" placeholder="Plot Length"
+                                            onchange={handleInputChange}></input>
+                                    </div>
+                                </div>
+                            </template>
+                        </div>
+                    </div>
+                    <div class="transaction-type content">
+                        <h2 class="box-heading">Transaction Type</h2>
+                        <h3 class="inner-heading">Transaction Type</h3>
+                        <div class="checkbox">
+                            <template for:each={transactionTypes} for:item="type">
+                                <div class="tickbox checkbox1" key={type.label}>
+                                    <input type="radio" name="transactionType" value={property.transactionType}
+                                        onchange={handleInputChange} checked><span> {type.label}</span></input>
+                                </div>
+                            </template>
+                            <!-- <div class="tickbox checkbox1">
+                                        <input type="radio" name="checkbox"><span> Resale</span></input>        
+                                    </div> -->
+                        </div>
+                        <br />
+                        <h3 class="inner-heading">Possession Status</h3>
+                        <div class="checkbox">
+                            <template for:each={possessionStatus} for:item="status">
+                                <div class="tickbox checkbox1" key={status.label}>
+                                    <input type="radio" name="possessionStatus" value={property.possessionStatus}
+                                        onchange={handleInputChange} checked><span> {status.label}</span></input>
+                                </div>
+                            </template>
+                            <!-- <div class="tickbox checkbox1">
+                                        <input type="radio" name="checkbox"><span> Ready to Move</span></input>        
+                                    </div>
+                                    <div class="tickbox checkbox1">
+                                        <input type="radio" name="checkbox"><span> Ongoing</span></input>        
+                                    </div> -->
+                        </div>
+                        <br />
+                        <!-- <div class="dropdowns">
+                                <div class="prop-type availableFrom slds-m-right_medium">
+                                    <lightning-combobox name="availableFrom" label="Available From" value={value} placeholder="Floor No."
+                                        options={prop-types} onchange={handleInputChange} class="slds-m-right_medium"></lightning-combobox>
+                                    <lightning-combobox name="propertyType" value={value}
+                                        placeholder="Total Floor" options={prop-types} onchange={handleChange}></lightning-combobox>
+                                </div>
                             </div> -->
-                        </template>
-                        <!-- <div class="tickbox checkbox2"> -->
-                        <!-- <input type="checkbox" name="checkbox"><span> Car Parking</span></input> -->
-                        <!-- <lightning-input type="checkbox" label="Car Parking" name="input1"></lightning-input>
-
+                    </div>
+                    <div class="price-details content">
+                        <h2 class="box-heading">Price Details</h2>
+                        <div class="pr-details">
+                            <div class="prop-type slds-m-right_medium">
+                                <!-- <lightning-input type="text" label="Expected Price" placeholder="Expected Price"></lightning-input> -->
+                                <p class="label"><abbr class="slds-required" title="required">*</abbr>Expected Price</p>
+                                <input type="number" min="0" class="input-text" value={property.expectedPrice}
+                                    name="expectedPrice" placeholder="Expected Price" onchange={handleInputChange}
+                                    required></input>
                             </div>
-                            <div class="tickbox checkbox3"> -->
-                        <!-- <input type="checkbox" name="checkbox"><span> Club Membership</span></input> -->
-                        <!-- <lightning-input type="checkbox" label="Club Membership" name="input1"></lightning-input>
-
-                            </div> -->
-                    </div>
-                    <br />
-                    <div class="prDetails">
-                        <div class="propType slds-m-right_medium">
-                            <!-- <lightning-input type="text" label="Booking/Token Amount" placeholder="Booking/Token Amount"></lightning-input> -->
-                            <p class="label"><abbr class="slds-required" title="required">*</abbr>Booking/Token Amount
-                            </p>
-                            <input type="number" min="0" class="inputText" value={property.bookingAmount}
-                                name="bookingAmount" placeholder="Booking/Token Amount" onchange={handleInputChange}
-                                required></input>
                         </div>
-                        <div class="propType slds-m-left_medium">
-                            <!-- <lightning-input type="text" label="Maintenance Charges" placeholder="Maintenance Charges"></lightning-input> -->
-                            <p class="label"> Maintenance Charges</p>
-                            <input type="number" min="0" name="maintenanceCharges" value={property.maintenanceCharges}
-                                class="inputText" placeholder="Maintenance Charges"
-                                onchange={handleInputChange}></input>
+                        <h3 class="inner-heading">Price Includes</h3>
+                        <div class="checkbox">
+                            <template for:each={priceIncludes} for:item="priceItem">
+                                <div class="tickbox checkbox1" key={priceItem.label}>
+                                    <input type="radio" name="priceInclude" value={property.priceInclude}
+                                        onchange={handleInputChange} checked><span> {priceItem.label}</span></input>
+                                </div>
+                            </template>
                         </div>
-                    </div>
-                    <div class="prDetails">
-                        <div class="propType slds-m-right_medium">
-                            <!-- <lightning-combobox name="maintenanceChargesUnit" label="per" value={value}
-                                    placeholder="Monthely" options={propTypes}
-                                    onchange={handleInputChange}></lightning-combobox> -->
-                            <label class="label">Brokerage(Brokers only)</label>
-                            <select name="brokerage" class="inputDropdown" onchange={handleInputChange}>
-                                <template for:each={brokerages} for:item="brokerage">
-                                    <option value={property.brokerage} key={brokerage.label}>{brokerage.label}</option>
-                                </template>
-                            </select>
+                        <br />
+                        <div class="pr-details">
+                            <div class="prop-type slds-m-right_medium">
+                                <!-- <lightning-input type="text" label="Booking/Token Amount" placeholder="Booking/Token Amount"></lightning-input> -->
+                                <p class="label"><abbr class="slds-required" title="required">*</abbr>Booking/Token Amount
+                                </p>
+                                <input type="number" min="0" class="input-text" value={property.bookingAmount}
+                                    name="bookingAmount" placeholder="Booking/Token Amount" onchange={handleInputChange}
+                                    required></input>
+                            </div>
+                            <div class="prop-type slds-m-left_medium">
+                                <!-- <lightning-input type="text" label="Maintenance Charges" placeholder="Maintenance Charges"></lightning-input> -->
+                                <p class="label"> Maintenance Charges</p>
+                                <input type="number" min="0" name="maintenanceCharges" value={property.maintenanceCharges}
+                                    class="input-text" placeholder="Maintenance Charges"
+                                    onchange={handleInputChange}></input>
+                            </div>
                         </div>
-                        <div class="propType slds-m-left_medium">
-                            <!-- <lightning-combobox name="brokerage" label="Brokerage(Brokers only)" value={property.brokerage} placeholder="Select Brokerage"
-                                options={brokerages}  onchange={handleInputChange} ></lightning-combobox>                      -->
-                            <!-- <label class="label">Brokerage(Brokers only)</label>
-                                <select name="brokerage" class="inputDropdown" onchange={handleInputChange}>
+                        <div class="pr-details">
+                            <div class="prop-type slds-m-right_medium">
+                                <!-- <lightning-combobox name="maintenanceChargesUnit" label="per" value={value}
+                                        placeholder="Monthely" options={prop-types}
+                                        onchange={handleInputChange}></lightning-combobox> -->
+                                <label class="label">Brokerage(Brokers only)</label>
+                                <select name="brokerage" class="input-dropdown" onchange={handleInputChange}>
                                     <template for:each={brokerages} for:item="brokerage">
                                         <option value={property.brokerage} key={brokerage.label}>{brokerage.label}</option>
                                     </template>
-                                </select> -->
-                        </div>
-                    </div>
-                    <h3 class="innerHeading">Response from brokers</h3>
-                    <div class="checkbox">
-                        <div class=" checkbox1">
-                            <!-- <input type="checkbox" name="checkbox"><span> I am not interested in getting response from brokers.</span></input> -->
-                            <lightning-input type="checkbox"
-                                label="I am not interested in getting response from brokers."
-                                name="input1"></lightning-input>
-
-                        </div>
-                    </div>
-                </div>
-                <div class="amenities content">
-                    <h2 class="boxHeading">Amenities</h2>
-                    <div class="prDetails">
-                        <div class="propType slds-m-right_medium">
-                            <!-- <lightning-combobox name="indoorAmenities" label="Indoor Amenities" value={property.indoorAmenities} placeholder="Select Amenities"
-                                options={indoorFacilities} onchange={handleInputChange} ></lightning-combobox>                     -->
-                            <!-- <label class="label"><abbr class="slds-required" title="required">* </abbr>Indoor
-                                    Amenities</label>
-                                <select name="indoorAmenities" aria-describedby="error-01"  class="inputDropdown" onchange={handleInputChange} required>
-                                    <template for:each={indoorFacilities} for:item="inAmenty">
-                                        <option value={property.indoorAmenities} key={inAmenty.label}>{inAmenty.label}</option>
-                                    </template>
-                                </select> -->
-
-                            <lightning-input type="text" placeholder="Select Amenities" name="indoorAmenties"
-                                label="Indoor Amenities" value={property.indoorAmenities} onclick={clickhandler}>
-                            </lightning-input>
-                            <div class="selection-summary">
-                                <div class="slds-p-around_x-small">
-                                    <template for:each={property.indoorAmenities} for:item="selectedItem">
-                                        <lightning-pill class="pill" key={selectedItem} label={selectedItem}
-                                            name={selectedItem} onremove={handleRemove}
-                                            data-field="indoorAmenities"></lightning-pill>
-                                    </template>
-                                </div>
+                                </select>
                             </div>
-                            <template if:true={showDropdown_indoor}>
-                                <div class="slds-box_border " style="width:100%">
-                                    <ul class="dropdown-list slds-dropdown_length-7 slds-p-left_medium">
-                                        <template for:each={indoorFacilities} for:item="profile">
-                                            <li key={profile.label} class="dropdown-item">
-                                                <lightning-input type="checkbox" label={profile.label}
-                                                    value={profile.label} name="indoorAmenities"
-                                                    onchange={handleInputChange}>
-                                                </lightning-input>
-                                            </li>
+                            <div class="prop-type slds-m-left_medium">
+                                <!-- <lightning-combobox name="brokerage" label="Brokerage(Brokers only)" value={property.brokerage} placeholder="Select Brokerage"
+                                    options={brokerages}  onchange={handleInputChange} ></lightning-combobox>                      -->
+                                <!-- <label class="label">Brokerage(Brokers only)</label>
+                                    <select name="brokerage" class="input-dropdown" onchange={handleInputChange}>
+                                        <template for:each={brokerages} for:item="brokerage">
+                                            <option value={property.brokerage} key={brokerage.label}>{brokerage.label}</option>
                                         </template>
-                                    </ul>
-                                </div>
-                            </template>
-                        </div>
-                        <div class="propType slds-m-left_medium">
-                            <!-- <lightning-combobox name="outdoorAmenities" label="Outdoor Amenities" value={property.outdoorAmenities} placeholder="Select Amenities"
-                                options={outdoorFacilities} onchange={handleInputChange} ></lightning-combobox>                      -->
-                            <!-- <label class="label"><abbr class="slds-required" title="required">* </abbr>Outdoor
-                                    Amenities</label>
-                                <select name="outdoorAmenities" class="inputDropdown" onchange={handleInputChange} required>
-                                    <template for:each={outdoorFacilities} for:item="outAmenty">
-                                        <option value={property.outdoorAmenities} key={outAmenty.label}>{outAmenty.label}
-                                        </option>
-                                    </template>
-                                </select> -->
-                            <lightning-input type="text" name="outdoorAmenties" placeholder="Select Amenities"
-                                label="Outdoor Amenities" onclick={clickhandler}>
-                            </lightning-input>
-                            <div class="selection-summary">
-                                <div class="slds-p-around_x-small">
-                                    <template for:each={property.outdoorAmenities} for:item="selectedItem">
-                                        <lightning-pill class="pill" key={selectedItem} label={selectedItem}
-                                            name={selectedItem} onremove={handleRemove}
-                                            data-field="outdoorAmenities"></lightning-pill>
-                                    </template>
-                                </div>
+                                    </select> -->
                             </div>
-                            <template if:true={showDropdown_outdoor}>
-                                <div class="slds-box_border " style="width:100%">
-                                    <ul class="dropdown-list slds-dropdown_length-7 slds-p-left_medium">
-                                        <template for:each={outdoorFacilities} for:item="profile">
-                                            <li key={profile.label} class="dropdown-item">
-                                                <lightning-input type="checkbox" label={profile.label}
-                                                    value={profile.label} name="outdoorAmenities"
-                                                    onchange={handleInputChange}>
-                                                </lightning-input>
-                                            </li>
-                                        </template>
-                                    </ul>
-                                </div>
-                            </template>
                         </div>
-                    </div>
-                </div>
-                <div class="nearBy content">
-                    <h2 class="boxHeading">Near By</h2>
-                    <div class="nearby">
-                        <div class="nearByType slds-m-right_medium">
-                            <!-- <lightning-input type="text" name="nearbyLandmark" label="Near by Landmark" placeholder="Enter a Near by Landmark" onchange={handleInputChange}></lightning-input> -->
-                            <p class="label"> Near by Landmark</p>
-                            <input type="text" name="nearbyLandmark" class="inputText"
-                                placeholder="Enter a Near by Landmark" value={property.nearbyLandmark}
-                                onchange={handleInputChange}></input>
+                        <h3 class="inner-heading">Response from brokers</h3>
+                        <div class="checkbox">
+                            <div class=" checkbox1">
+                                <!-- <input type="checkbox" name="checkbox"><span> I am not interested in getting response from brokers.</span></input> -->
+                                <lightning-input type="checkbox"
+                                    label="I am not interested in getting response from brokers."
+                                    name="input1"></lightning-input>
 
+                            </div>
                         </div>
                     </div>
-                </div>
-            </template>
-            <template if:false={isData}>
-                <div class="message">
-                    <h1>This Page is not available for you.</h1>
+                    <div class="amenities content">
+                        <h2 class="box-heading">Amenities</h2>
+                        <div class="pr-details">
+                            <div class="prop-type slds-m-right_medium">
+                                <lightning-input type="text" placeholder="Select Amenities" name="indoorAmenties"
+                                    label="Indoor Amenities" value={property.indoorAmenities} onclick={clickhandler}>
+                                </lightning-input>
+                                <div class="selection-summary">
+                                    <div class="slds-p-around_x-small">
+                                        <template for:each={property.indoorAmenities} for:item="selectedItem">
+                                            <lightning-pill class="pill slds-m-top_xx-small" key={selectedItem} label={selectedItem}
+                                                name={selectedItem} onremove={handleRemove}
+                                                data-field="indoorAmenities"></lightning-pill>
+                                        </template>
+                                    </div>
+                                </div>
+                                <template if:true={showDropdown_indoor}>
+                                    <div class="slds-box_border amenty-checkboxes ">
+                                        <ul class="dropdown-list slds-dropdown_length-7 slds-p-left_medium">
+                                            <template for:each={indoorFacilities} for:item="profile">
+                                                <li key={profile.label} class="dropdown-item">
+                                                    <lightning-input type="checkbox" label={profile.label}
+                                                        value={profile.label} name="indoorAmenities"
+                                                        onchange={handleInputChange}>
+                                                    </lightning-input>
+                                                </li>
+                                            </template>
+                                        </ul>
+                                    </div>
+                                </template>
+                            </div>
+                            <div class="prop-type slds-m-left_medium">
+                                <lightning-input type="text" name="outdoorAmenties" placeholder="Select Amenities"
+                                    label="Outdoor Amenities" onclick={clickhandler}>
+                                </lightning-input>
+                                <div class="selection-summary">
+                                    <div class="slds-p-around_x-small">
+                                        <template for:each={property.outdoorAmenities} for:item="selectedItem">
+                                            <lightning-pill class="pill slds-m-top_xx-small" key={selectedItem} label={selectedItem}
+                                                name={selectedItem} onremove={handleRemove}
+                                                data-field="outdoorAmenities"></lightning-pill>
+                                        </template>
+                                    </div>
+                                </div>
+                                <template if:true={showDropdown_outdoor}>
+                                    <div class="slds-box_border amenty-checkboxes">
+                                        <ul class="dropdown-list slds-dropdown_length-7 slds-p-left_medium">
+                                            <template for:each={outdoorFacilities} for:item="profile">
+                                                <li key={profile.label} class="dropdown-item">
+                                                    <lightning-input type="checkbox" label={profile.label}
+                                                        value={profile.label} name="outdoorAmenities"
+                                                        onchange={handleInputChange}>
+                                                    </lightning-input>
+                                                </li>
+                                            </template>
+                                        </ul>
+                                    </div>
+                                </template>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="near-by content">
+                        <h2 class="box-heading">Near By</h2>
+                        <div class="nearby">
+                            <div class="near-by-type slds-m-right_medium">
+                                <!-- <lightning-input type="text" name="nearbyLandmark" label="Near by Landmark" placeholder="Enter a Near by Landmark" onchange={handleInputChange}></lightning-input> -->
+                                <p class="label"> Near by Landmark</p>
+                                <input type="text" name="nearbyLandmark" class="input-text"
+                                    placeholder="Enter a Near by Landmark" value={property.nearbyLandmark}
+                                    onchange={handleInputChange}></input>
+                            </div>
+                        </div>
+                    </div>
+                </template>
+                <template if:false={isData}>
+                    <div class="message">
+                        <h1>This Page is not available for you.</h1>
+                    </div>
+                </template>
+            </div>
+            <br />
+            <template if:true={isData}>
+                <div class="buttons">
+                    <button class="btn" onclick={getPropertyObject}>Save</button>
                 </div>
             </template>
         </div>
-        <br />
-        <template if:true={isData}>
-            <div class="buttons">
-                <button class="btn" onclick={getPropertyObject}>Save</button>
-            </div>
-        </template>
     </div>
 </template>

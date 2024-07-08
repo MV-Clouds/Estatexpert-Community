@@ -1,14 +1,10 @@
 import { LightningElement, track, wire } from 'lwc';
+import backgroundImage from "@salesforce/resourceUrl/FavoriteProperties";
 import getAllPicklistValues from '@salesforce/apex/ESX_PropertyInsertFormController.getAllPicklistValues';
 import CreateProperty from '@salesforce/apex/ESX_PropertyInsertFormController.CreateProperty';
+import isLoggedInUserDataCorrect from '@salesforce/apex/ESX_PropertyInsertFormController.isLoggedInUserDataCorrect';
+import dropdownAerrow from '@salesforce/resourceUrl/dropdownAerrow';
 export default class Esx_PropertyInsertForm extends LightningElement {
-    get propTypes() {
-        return [
-            { label: 'Flat / Apartment', value: 'Flat / Apartment' },
-            { label: 'Residential Land / Plot', value: 'Residential Land / Plot' },
-            { label: 'Commercial shop', value: 'Commercial shop' },
-        ];
-    }
     @track propertyTypes = [];
     @track floorNumbers = [];
     @track furnishedStatuses = [];
@@ -25,6 +21,8 @@ export default class Esx_PropertyInsertForm extends LightningElement {
     @track showDropdown_indoor = false;
     @track isData = false;
     @track isPlotArea = false;
+
+    BgImage = backgroundImage + '/Bg-Image.png';
 
     error;
     @track property = {
@@ -65,50 +63,44 @@ export default class Esx_PropertyInsertForm extends LightningElement {
     @wire(getAllPicklistValues)
     wiredPicklistValues({ error, data }) {
         if (data) {
-            this.propertyTypes = data.propertyTypes.map(value => {
-                return { label: value, value: value };
+            const picklistFields = [
+                'propertyTypes',
+                'floorNumbers',
+                'furnishedStatuses',
+                'transactionTypes',
+                'priceIncludes',
+                'possessionStatus',
+                'indoorFacilities',
+                'outdoorFacilities',
+                'brokerages',
+                'carpetareaUnits',
+                'coveredareaUnits'
+            ];
+
+            picklistFields.forEach(field => {
+                this[field] = data[field].map(value => ({ label: value, value: value }));
             });
-            this.floorNumbers = data.floorNumbers.map(value => {
-                return { label: value, value: value };
-            });
-            this.furnishedStatuses = data.furnishedStatuses.map(value => {
-                return { label: value, value: value };
-            });
-            this.transactionTypes = data.transactionTypes.map(value => {
-                return { label: value, value: value };
-            });
-            this.priceIncludes = data.priceIncludes.map(value => {
-                return { label: value, value: value };
-            });
-            this.possessionStatus = data.possessionStatus.map(value => {
-                return { label: value, value: value };
-            });
-            this.indoorFacilities = data.indoorFacilities.map(value => {
-                return { label: value, value: value };
-            });
-            this.outdoorFacilities = data.outdoorFacilities.map(value => {
-                return { label: value, value: value };
-            });
-            this.brokerages = data.brokerages.map(value => {
-                return { label: value, value: value };
-            });
-            this.carpetareaUnits = data.carpetareaUnits.map(value => {
-                return { label: value, value: value };
-            });
-            this.coveredareaUnits = data.coveredareaUnits.map(value => {
-                return { label: value, value: value };
-            });
+
             this.error = undefined;
         } else if (error) {
             this.error = error;
-            this.propertyTypes = [];
-            this.floorNumbers = [];
-            this.furnishedStatuses = [];
-            this.transactionTypes = [];
-            this.priceIncludes = [];
-            this.possessionStatus = [];
-            this.indoorFacilities = [];
-            this.outdoorFacilities = [];
+            const picklistFields = [
+                'propertyTypes',
+                'floorNumbers',
+                'furnishedStatuses',
+                'transactionTypes',
+                'priceIncludes',
+                'possessionStatus',
+                'indoorFacilities',
+                'outdoorFacilities',
+                'brokerages',
+                'carpetareaUnits',
+                'coveredareaUnits'
+            ];
+
+            picklistFields.forEach(field => {
+                this[field] = [];
+            });
         }
     }
     connectedCallback() {
@@ -121,12 +113,18 @@ export default class Esx_PropertyInsertForm extends LightningElement {
             let loggedUserInfo = localStorage.getItem('loggedUserInfo');
             if (loggedUserInfo) {
                 let loggedUserInfoObj = JSON.parse(loggedUserInfo);
-                console.log('contactId:', loggedUserInfoObj.contactId);
-                this.contactId = loggedUserInfoObj.contactId;
-                this.property['currentOwner'] = this.contactId;
-                if (this.contactId !== null && this.contactId !== undefined && this.contactId !== '') {
-                    this.isData = true;
-                }
+                isLoggedInUserDataCorrect({ contactId: loggedUserInfoObj.contactId, siteUserId: loggedUserInfoObj.siteUserId })
+                    .then(result => {
+                        console.log('isLoggedInUserDataCorrect ** => ', result);
+                        if (result) {
+                            this.contactId = loggedUserInfoObj.contactId;
+                            this.property['currentOwner'] = loggedUserInfoObj.contactId;
+                            this.isData = true;
+                        }
+                    })
+                    .catch(error => {
+                        console.log(error);
+                    });
             }
         } catch (error) {
             console.error({ error });
@@ -134,8 +132,6 @@ export default class Esx_PropertyInsertForm extends LightningElement {
     }
 
     handleInputChange(event) {
-        console.log('name:', event.target.name);
-        console.log('value:', event.target.value);
         const field = event.target.name;
         if (field === 'indoorAmenities' || field === 'outdoorAmenities') {
             if (event.target.checked) {
@@ -154,6 +150,7 @@ export default class Esx_PropertyInsertForm extends LightningElement {
         const field = event.target.name;
         this.property[field] = event.target.checked;
     }
+
     getPropertyObject() {
         console.log('property:==>', this.property);
         console.log('object:', JSON.stringify(this.property));
@@ -202,12 +199,13 @@ export default class Esx_PropertyInsertForm extends LightningElement {
             });
         }
     }
+
     increaseNumber(event) {
         if (event.target.name === 'bedrooms') {
             var input = this.template.querySelector('.bedrooms_number');
         } else if (event.target.name === 'balconies') {
             var input = this.template.querySelector('.balconies_number');
-        } else {
+        } else if(event.target.name === 'bathrooms') {
             var input = this.template.querySelector('.bathrooms_number');
         }
         var val = parseInt(input.value, 10);
@@ -217,18 +215,18 @@ export default class Esx_PropertyInsertForm extends LightningElement {
                 this.property.bedrooms = input.value;
             } else if (event.target.name === 'balconies') {
                 this.property.balconies = input.value;
-            }
-            else {
+            } else if(event.target.name === 'bathrooms') {
                 this.property.bathrooms = input.value;
             }
         }
     }
+
     decreaseNumber(event) {
         if (event.target.name === 'bedrooms') {
             var input = this.template.querySelector('.bedrooms_number');
         } else if (event.target.name === 'balconies') {
             var input = this.template.querySelector('.balconies_number');
-        } else {
+        } else if(event.target.name === 'bathrooms') {
             var input = this.template.querySelector('.bathrooms_number');
         }
         var val = parseInt(input.value, 10);
@@ -238,8 +236,7 @@ export default class Esx_PropertyInsertForm extends LightningElement {
                 this.property.bedrooms = input.value;
             } else if (event.target.name === 'balconies') {
                 this.property.balconies = input.value;
-            }
-            else {
+            } else if(event.target.name === 'bathrooms') {
                 this.property.bathrooms = input.value;
             }
         }
@@ -266,8 +263,7 @@ export default class Esx_PropertyInsertForm extends LightningElement {
     clickhandler(event) {
         if (event.target.name === 'outdoorAmenties') {
             this.showDropdown_outdoor = this.showDropdown_outdoor == true ? false : true;
-        }
-        if (event.target.name === 'indoorAmenties') {
+        } else if (event.target.name === 'indoorAmenties') {
             this.showDropdown_indoor = this.showDropdown_indoor == true ? false : true;
         }
     }
