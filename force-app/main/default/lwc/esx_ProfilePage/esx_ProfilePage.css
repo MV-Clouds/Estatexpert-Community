@@ -84,7 +84,7 @@
     position: absolute;
     bottom: 2rem;
     /* bottom: 0.625rem; 10px */
-    left: 50%;
+    left: 48%;
     transform: translateX(-50%);
     background-color: whitesmoke ; /*  80% white */
     border: none;

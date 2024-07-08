@@ -6,10 +6,11 @@ import Blank_Profile_Photo from '@salesforce/resourceUrl/Blank_Profile_Photo';
 import myProfilePageBackground from '@salesforce/resourceUrl/ProfilePageBackground';
 import updateContact from '@salesforce/apex/ProfilePage.updateContact';
 import uploadProfileImage from '@salesforce/apex/ProfilePage.uploadProfileImage';
+import isLoggedInUserDataCorrect from '@salesforce/apex/ESX_PropertyInsertFormController.isLoggedInUserDataCorrect';
 export default class Esx_ProfilePage extends LightningElement {
 
     // @track contactId = '003dL000001VvuLQAS';
-    @track contactId = '003dL000001DvazQAC';
+    @track contactId;
     @track contact;
     @track profileImage;
     @track recordType;
@@ -28,7 +29,29 @@ export default class Esx_ProfilePage extends LightningElement {
     placeholderProfile = Blank_Profile_Photo;
 
     connectedCallback(){
-        this.getContact();
+        this.checkUserIsLoggedIn();
+    }
+
+    checkUserIsLoggedIn() {
+        try {
+            let loggedUserInfo = localStorage.getItem('loggedUserInfo');
+            if (loggedUserInfo) {
+                let loggedUserInfoObj = JSON.parse(loggedUserInfo);
+                isLoggedInUserDataCorrect({ contactId: loggedUserInfoObj.contactId, siteUserId: loggedUserInfoObj.siteUserId })
+                    .then(result => {
+                        console.log('isLoggedInUserDataCorrect ** => ', result);
+                        if (result) {
+                            this.contactId = loggedUserInfoObj.contactId;
+                            this.getContact();
+                        }
+                    })
+                    .catch(error => {
+                        console.log(error);
+                    });
+            }
+        } catch (error) {
+            console.error({ error });
+        }
     }
 
     getContact(){
@@ -42,11 +65,10 @@ export default class Esx_ProfilePage extends LightningElement {
                 }else{
                     this.showToast('Error', 'Error' , 'No Contacts Found');
                 }
-
-                if(result.image != null){
+                if((result != null && result != undefined) && (result.image != null && result.image != undefined)){
                     this.profileImage = 'data:image/jpeg;base64,' + result.image;
                 }else{
-                    console.log('No Image Found');
+                    this.profileImage = this.placeholderProfile;
                 }
             })
             .catch(error => {
@@ -69,18 +91,10 @@ export default class Esx_ProfilePage extends LightningElement {
     }
 
     updateContact(event){
-        // const { name, value } = event.target;
-        // console.log('name: ', name);
-        // console.log('value: ', value);
-        // this.contact[name] = value;
-        // console.log('this.contact: ', this.contact);
         const field = event.target.name;
         this.contact = { ...this.contact, [field]: event.target.value };
     }
 
-    uploadProfileImage(){
-        console.log('uploadProfileImage');
-    }
 
     getContactInfo(event){
         this.isDisabled = false;
@@ -101,7 +115,6 @@ export default class Esx_ProfilePage extends LightningElement {
     }
 
     uploadProfileImage() {
-        // Trigger the file input
         this.template.querySelector('input.hidden-upload').click();
     }
 
@@ -124,24 +137,11 @@ export default class Esx_ProfilePage extends LightningElement {
 
     uploadToSalesforce(file, base64Data) {
         uploadProfileImage({ contactId: this.contact.Id, fileName: file.name, base64Data })
-            .then(contentVersionId => {
-                this.dispatchEvent(
-                    new ShowToastEvent({
-                        title: 'Success',
-                        message: 'Profile image uploaded successfully',
-                        variant: 'success'
-                    })
-                );
-                this.profileImage = 'data:image/jpeg;base64,' + contentVersionId;
+            .then(contentVersion => {
+                this.profileImage = 'data:image/jpeg;base64,' + contentVersion;
             })
             .catch(error => {
-                this.dispatchEvent(
-                    new ShowToastEvent({
-                        title: 'Error uploading profile image',
-                        message: error.body.message,
-                        variant: 'error'
-                    })
-                );
+                console.error(error);
             });
     }
 }

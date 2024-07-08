@@ -4,6 +4,20 @@ public without sharing class ProfilePage {
     }
 
     @AuraEnabled
+    public static Boolean isLoggedInUserDataCorrect(String contactId, String siteUserId) {
+        Boolean returnStatus = false;
+        List<Site_User__c> siteUserList = new List<Site_User__c>();
+        siteUserList = [SELECT Id, Name, Contact__c FROM Site_User__c WHERE Id =: siteUserId AND Contact__c =: contactId];
+
+        if (siteUserList.size() > 0) {
+            returnStatus = true;
+        } else {
+            returnStatus = false;
+        }
+        return returnStatus;
+    }
+
+    @AuraEnabled
     public static ContactImageWrapper getContactdetails(Id contactId){
         System.debug('contactId: '+contactId);
         try{
@@ -11,14 +25,19 @@ public without sharing class ProfilePage {
             Contact con =[SELECT Id, Salutation, FirstName, LastName, Gender__c, Birthdate, Age__c, Phone, Email, MailingStreet, MailingCity, MailingPostalCode, MailingState, MailingCountry, Description, RecordType.Name  FROM Contact WHERE Id =: contactId];
             wrapper.contact = con;
 
-            if(con != null){
-                ContentDocumentLink cdl = [SELECT ContentDocumentId FROM ContentDocumentLink WHERE LinkedEntityId =: con.Id LIMIT 1];
-                ContentDocument document = [SELECT Id, Title, FileExtension, LatestPublishedVersionId FROM ContentDocument WHERE Id =: cdl.ContentDocumentId AND Title like 'ProfileImage%' order by CreatedDate DESC LIMIT 1];
-                if(document != null){
-                    ContentVersion cv = [SELECT Id, VersionData FROM ContentVersion WHERE Id =: document.LatestPublishedVersionId];
-                    wrapper.image = EncodingUtil.Base64Encode(cv.VersionData);
-                }
+            List<ContentDocumentLink> cdlList = [SELECT Id, ContentDocumentId FROM ContentDocumentLink WHERE LinkedEntityId =: con.Id];
+
+            Set<Id> cdIds = new Set<Id>();
+            for (ContentDocumentLink cdl :cdlList) {
+                cdIds.add(cdl.ContentDocumentId);
             }
+
+            List<ContentDocument> document = [SELECT Id, Title, FileExtension, LatestPublishedVersionId FROM ContentDocument WHERE Id IN: cdIds AND Title like 'ProfileImage%' order by CreatedDate DESC LIMIT 1];
+            if(document.size() > 0){
+                ContentVersion cv = [SELECT Id, VersionData FROM ContentVersion WHERE Id =: document[0].LatestPublishedVersionId];
+                wrapper.image = EncodingUtil.Base64Encode(cv.VersionData);
+            }
+
             return wrapper;
 
         }catch(Exception e){
@@ -44,14 +63,24 @@ public without sharing class ProfilePage {
     @AuraEnabled
     public static String uploadProfileImage(String contactId, String fileName, String base64Data) {
         try {
-            ContentVersion contentVersion = new ContentVersion();
-            contentVersion.Title = 'ProfileImage';
-            contentVersion.PathOnClient = fileName;
-            contentVersion.VersionData = EncodingUtil.base64Decode(base64Data);
-            contentVersion.FirstPublishLocationId = contactId;
-            insert contentVersion;
-
-            return EncodingUtil.Base64Encode(contentVersion.VersionData);
+            // List<ContentVersion> existingCV = [SELECT Id, Title, VersionData, PathOnClient,IsMajorVersion
+            //                  FROM ContentVersion
+            //                  WHERE FirstPublishLocationId =:contactId AND Title like 'ProfileImage%' order by CreatedDate DESC LIMIT 1];
+            // if(existingCV.size()>0){
+            //     existingCV[0].VersionData = EncodingUtil.base64Decode(base64Data);
+            //     update existingCV;
+            //     return EncodingUtil.Base64Encode( existingCV[0].VersionData);
+            // }else{
+                ContentVersion contentVersion = new ContentVersion();
+                contentVersion.Title = 'ProfileImage';
+                contentVersion.PathOnClient = fileName;
+                contentVersion.VersionData = EncodingUtil.base64Decode(base64Data);
+                contentVersion.FirstPublishLocationId = contactId;
+                contentVersion.IsMajorVersion = false;
+                insert contentVersion;
+                return EncodingUtil.Base64Encode(contentVersion.VersionData);
+            // }
+            
         } catch (Exception e) {
             System.debug('Error updating contact: ' + e.getMessage());
             throw new AuraHandledException(e.getMessage());
