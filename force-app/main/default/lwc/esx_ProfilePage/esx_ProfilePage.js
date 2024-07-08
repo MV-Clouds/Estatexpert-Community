@@ -4,7 +4,8 @@ import getContactdetails from '@salesforce/apex/ProfilePage.getContactdetails';
 import { ShowToastEvent } from 'lightning/platformShowToastEvent';
 import Blank_Profile_Photo from '@salesforce/resourceUrl/Blank_Profile_Photo';
 import myProfilePageBackground from '@salesforce/resourceUrl/ProfilePageBackground';
-
+import updateContact from '@salesforce/apex/ProfilePage.updateContact';
+import uploadProfileImage from '@salesforce/apex/ProfilePage.uploadProfileImage';
 export default class Esx_ProfilePage extends LightningElement {
 
     // @track contactId = '003dL000001VvuLQAS';
@@ -67,12 +68,14 @@ export default class Esx_ProfilePage extends LightningElement {
         console.log('navigateHome');
     }
 
-    updateContact(){
-        const { name, value } = event.target;
-        console.log('name: ', name);
-        console.log('value: ', value);
-        this.contact[name] = value;
-        console.log('this.contact: ', this.contact);
+    updateContact(event){
+        // const { name, value } = event.target;
+        // console.log('name: ', name);
+        // console.log('value: ', value);
+        // this.contact[name] = value;
+        // console.log('this.contact: ', this.contact);
+        const field = event.target.name;
+        this.contact = { ...this.contact, [field]: event.target.value };
     }
 
     uploadProfileImage(){
@@ -88,5 +91,57 @@ export default class Esx_ProfilePage extends LightningElement {
         this.isDisabled = true;
         let button = this.template.querySelector('.save-btn');
         button.style.backgroundColor = 'rgba(210, 210, 210, 1)';
+        console.log('datacheck:',JSON.stringify(this.contact));
+        updateContact({contact: this.contact}).then(result => {
+            this.isDisabled = true;
+            let button = this.template.querySelector('.save-btn');
+            button.style.backgroundColor = 'rgba(210, 210, 210, 1)';
+            this.getContact();
+        })
+    }
+
+    uploadProfileImage() {
+        // Trigger the file input
+        this.template.querySelector('input.hidden-upload').click();
+    }
+
+    handleFileChange(event) {
+        const files = event.target.files;
+        if (files.length > 0) {
+            this.uploadFile(files[0]);
+        }
+    }
+
+    uploadFile(file) {
+        const reader = new FileReader();
+        reader.onload = () => {
+            const base64 = reader.result.split(',')[1];
+            console.log('imgdata:=',base64);
+            this.uploadToSalesforce(file, base64);
+        };
+        reader.readAsDataURL(file);
+    }
+
+    uploadToSalesforce(file, base64Data) {
+        uploadProfileImage({ contactId: this.contact.Id, fileName: file.name, base64Data })
+            .then(contentVersionId => {
+                this.dispatchEvent(
+                    new ShowToastEvent({
+                        title: 'Success',
+                        message: 'Profile image uploaded successfully',
+                        variant: 'success'
+                    })
+                );
+                this.profileImage = 'data:image/jpeg;base64,' + contentVersionId;
+            })
+            .catch(error => {
+                this.dispatchEvent(
+                    new ShowToastEvent({
+                        title: 'Error uploading profile image',
+                        message: error.body.message,
+                        variant: 'error'
+                    })
+                );
+            });
     }
 }

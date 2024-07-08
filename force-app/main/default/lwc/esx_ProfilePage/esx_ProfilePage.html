@@ -8,24 +8,21 @@
 
     <template if:false={isLoading}>
         <div class="mainDiv">
-
             <div class="backgroundImage">
                 <img src={backgroundImageUrl} alt="Background Image" />
             </div>
 
-
             <div class="mainContent">
-
                 <div class="header">
                     <lightning-icon class="backIcon" size='x-small' icon-name="utility:chevronleft"
                         onclick={navigateHome}></lightning-icon>
                     <div class="headerTitle">{recordType} Details</div>
                 </div>
-
                 <div class="generalInformation">
                     <div class="profileImage">
                         <img src={profileImage} alt="Profile Image" />
                         <button class="uploadButton" onclick={uploadProfileImage}>Upload Image</button>
+                        <input type="file" class="hidden-upload" accept=".jpg,.jpeg,.png" onchange={handleFileChange} />
                     </div>
 
                     <div class="generalInfoContent">
@@ -55,7 +52,7 @@
                             <div class="formElement">
                                 <div class="label">Gender</div>
                                 <lightning-radio-group class="genderOptions" variant="label-hidden"
-                                    disabled={isDisabled} onchange={updateContact} name="gender" label="Gender"
+                                    disabled={isDisabled} onchange={updateContact} name="Gender__c" label="Gender"
                                     options={genderOptions} value={contact.Gender__c}>
                                 </lightning-radio-group>
                             </div>
@@ -64,14 +61,15 @@
                             <div class="date-and-age slds-m-right_medium">
                                 <div class="formElement">
                                     <div class="label">Date of Birth</div>
-                                    <lightning-input type="date" name="birthdate" value={contact.Birthdate} variant="label-hidden"
-                                        disabled={isDisabled}></lightning-input>
+                                    <lightning-input type="date" name="Birthdate" value={contact.Birthdate}
+                                        variant="label-hidden" disabled={isDisabled}
+                                        onchange={updateContact}></lightning-input>
                                 </div>
                                 <template if:true={isDisabled}>
                                     <div class="formElement slds-m-left_medium">
                                         <div class="label">Age</div>
                                         <lightning-input class=" input-age" variant="label-hidden" disabled={isDisabled}
-                                            type="number" min="12" name="age" value={contact.Age__c}
+                                            type="number" min="12" name="Age__c" value={contact.Age__c}
                                             onchange={updateContact}></lightning-input>
                                     </div>
                                 </template>
@@ -85,13 +83,13 @@
                             <div class="formElement input-half slds-m-right_medium">
                                 <div class="label">Phone Number</div>
                                 <lightning-input class="inputfield" variant="label-hidden" disabled={isDisabled}
-                                    type="tel" name="phone" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" value={contact.Phone}
+                                    type="tel" name="Phone" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" value={contact.Phone}
                                     onchange={updateContact}></lightning-input>
                             </div>
                             <div class="formElement input-half slds-m-left_medium">
                                 <div class="label">Email</div>
                                 <lightning-input class="inputfield" variant="label-hidden" disabled={isDisabled}
-                                    type="email" name="LastName" value={contact.Email}
+                                    type="email" name="Email" value={contact.Email}
                                     onchange={updateContact}></lightning-input>
                             </div>
                         </div>
@@ -104,7 +102,7 @@
                         <div class="address-line">
                             <div class="label">Address Line</div>
                             <lightning-input class="inputfield" variant="label-hidden" disabled={isDisabled} type="text"
-                                name="address" value={contact.MailingStreet} onchange={updateContact}></lightning-input>
+                                name="MailingStreet" value={contact.MailingStreet} onchange={updateContact}></lightning-input>
                         </div>
                     </div>
                     <div class="formGroup">
@@ -112,13 +110,13 @@
                             <div class="formElement input-half slds-m-right_medium">
                                 <div class="label">City</div>
                                 <lightning-input class="inputfield" variant="label-hidden" disabled={isDisabled}
-                                    type="text" name="city" value={contact.MailingCity}
+                                    type="text" name="MailingCity" value={contact.MailingCity}
                                     onchange={updateContact}></lightning-input>
                             </div>
                             <div class="formElement input-half slds-m-left_medium">
                                 <div class="label">PinCode</div>
                                 <lightning-input class="inputfield" variant="label-hidden" disabled={isDisabled}
-                                    type="number" name="pincode" value={contact.MailingPostalCode}
+                                    type="number" name="MailingPostalCode" value={contact.MailingPostalCode}
                                     onchange={updateContact}></lightning-input>
                             </div>
                         </div>
@@ -128,13 +126,13 @@
                             <div class="formElement input-half slds-m-right_medium">
                                 <div class="label">State</div>
                                 <lightning-input class="inputfield" variant="label-hidden" disabled={isDisabled}
-                                    type="text" name="state" value={contact.MailingState}
+                                    type="text" name="MailingState" value={contact.MailingState}
                                     onchange={updateContact}></lightning-input>
                             </div>
                             <div class="formElement input-half slds-m-left_medium">
                                 <div class="label">Country</div>
                                 <lightning-input class="inputfield" variant="label-hidden" disabled={isDisabled}
-                                    type="text" name="country" value={contact.MailingCountry}
+                                    type="text" name="MailingCountry" value={contact.MailingCountry}
                                     onchange={updateContact}></lightning-input>
                             </div>
                         </div>
@@ -146,7 +144,7 @@
                         <div class="address-line">
                             <div class="label">Description</div>
                             <lightning-input class="inputfield" variant="label-hidden" disabled={isDisabled}
-                                type="textarea" name="description" value={contact.Description}
+                                type="textarea" name="Description" value={contact.Description}
                                 onchange={updateContact}></lightning-input>
                         </div>
                     </div>
@@ -154,11 +152,10 @@
                 <br />
                 <div class="buttons">
                     <button class="btn slds-m-right_medium" onclick={getContactInfo}>Edit</button>
-                    <button class="save-btn slds-m-left_medium" onclick={updateContactInfo} disabled={isDisabled}>Save</button>
+                    <button class="save-btn slds-m-left_medium" onclick={updateContactInfo}
+                        disabled={isDisabled}>Save</button>
                 </div>
             </div>
-
-
         </div>
     </template>
 </template>

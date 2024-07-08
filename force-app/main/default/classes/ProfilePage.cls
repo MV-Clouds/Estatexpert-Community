@@ -27,6 +27,37 @@ public without sharing class ProfilePage {
         }
     }
 
+    @AuraEnabled
+    public static void updateContact(Contact contact) {
+        try {
+            System.debug('Contact to update: ' + contact);
+            if(contact != null){
+                System.debug('Contact to update: ' + contact);
+                update contact;
+            }
+        } catch (Exception e) {
+            System.debug('Error updating contact: ' + e.getMessage());
+            throw new AuraHandledException(e.getMessage());
+        }
+    }
+
+    @AuraEnabled
+    public static String uploadProfileImage(String contactId, String fileName, String base64Data) {
+        try {
+            ContentVersion contentVersion = new ContentVersion();
+            contentVersion.Title = 'ProfileImage';
+            contentVersion.PathOnClient = fileName;
+            contentVersion.VersionData = EncodingUtil.base64Decode(base64Data);
+            contentVersion.FirstPublishLocationId = contactId;
+            insert contentVersion;
+
+            return EncodingUtil.Base64Encode(contentVersion.VersionData);
+        } catch (Exception e) {
+            System.debug('Error updating contact: ' + e.getMessage());
+            throw new AuraHandledException(e.getMessage());
+        }
+    }
+
     public class ContactImageWrapper{
         @AuraEnabled
         public Contact contact;
