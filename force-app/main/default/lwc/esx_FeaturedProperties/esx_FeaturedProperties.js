@@ -21,7 +21,11 @@ export default class Esx_FeaturedProperties extends LightningElement {
     mobilebathroom = FeaturedProperties + '/FeaturedProperties/mobilebathroom.png';
     mobilearea = FeaturedProperties + '/FeaturedProperties/mobilearea.png';
 
+    background = FeaturedProperties + '/FeaturedProperties/background.png';
+    backgroundimag = FeaturedProperties + '/FeaturedProperties/backgroundimag.png';
+
     @track carouselItems = [];
+    @track carouselItemsAll = [];
     @track currentItem = 0;
     @track mobileView = true;
     @track isLiked = false;
@@ -31,6 +35,7 @@ export default class Esx_FeaturedProperties extends LightningElement {
     connectedCallback() {
         this.handleFormFactor();
         // this.scrollerMethod();
+        console.log('homepage--->', this.homePage);
     }
 
     scrollerMethod() {
@@ -48,15 +53,40 @@ export default class Esx_FeaturedProperties extends LightningElement {
         this.getPropertyInfo();
     }
 
-    handleClick() {
-        this.isLiked = !this.isLiked;
-        this.updateIcon();
+    handleClick(event) {
+        console.log('handleClick--->');
+        let selectLike = event.currentTarget.dataset.id;
+        console.log('selectLike-->', selectLike);
+        this.updateIcon(selectLike);
     }
 
-    updateIcon() {
+    updateIcon(selectLike) {
         // let icon = this.template.querySelector('.like-icon');
-        let icon = this.template.querySelector(`[data-id="${recid}"]`);
-        (icon) ? (this.isLiked) ? icon.classList.add('clicked') : icon.classList.remove('clicked') : null;    
+        let icon = this.template.querySelector(`[data-id="${selectLike}"]`);
+        console.log('icon-->', icon);
+        console.log('icon.classList-->', icon.classList);
+
+        console.log('icon.classList.contains--->', icon.classList.contains('clicked'));
+        icon ? (icon.classList.contains('clicked') ? icon.classList.remove('clicked') : icon.classList.add('clicked')) : null;
+        console.log('icon.classList.contains aaa--->', icon.classList.contains('clicked'));
+    }
+
+    handleChildData(event) {
+        try {
+            console.log('handleChildData this.carouselItems--->', JSON.stringify(this.carouselItems)); 
+
+            console.log('event detail => ', event.detail);
+            let carouselItems = JSON.parse(JSON.stringify(this.carouselItemsAll));
+            carouselItems = (this.carouselItemsAll).find(item => item.Id == event.detail);
+
+            this.carouselItems = [JSON.parse(JSON.stringify(carouselItems))];
+            
+            console.log('carousleItem--->', this.carouselItems); 
+            console.log('carousleItem--->', JSON.stringify(this.carouselItems)); 
+        } catch (error) {
+            console.log('error handleChildData--',JSON.stringify(error));
+        }
+        
     }
 
     getPropertyInfo() {
@@ -68,14 +98,12 @@ export default class Esx_FeaturedProperties extends LightningElement {
                         console.log('result-->',result);
                         let properties = JSON.parse(JSON.stringify(result));
                         properties.forEach(property => {
-                            property['class'] = 'carousel-property';
+                            this.homePage ? property['class'] = 'carousel-property active' : property['class'] = 'carousel-property active';
                         });
 
-                        this.carouselItems = (properties);
-                        console.log('proper',result);
-                        console.log('proper', properties);
-                        console.log('item-->',this.carouselItems);
-                        this.updateCarouselItems();
+                        this.homePage ? this.carouselItems = [(properties[0])]: this.carouselItems = (properties);
+                        this.homePage ? this.carouselItemsAll = (properties): this.carouselItemsAll = [];
+                        this.homePage ? '' : this.updateCarouselItems();
                     } else {
                         console.log({ error });
                         this.showToast('Error', 'Something went Wrong', 'error');

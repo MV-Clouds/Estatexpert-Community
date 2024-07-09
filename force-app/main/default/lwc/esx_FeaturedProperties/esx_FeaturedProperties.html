@@ -1,7 +1,11 @@
 <template>
 
     <div class="container">
-
+        <template if:false={homePage}>
+            <div if:true={mobileView} class="background-image">
+                <img src={backgroundimage} alt="">
+            </div>
+        </template>
         <h1><span>Featured</span>&nbsp;<b>Pr</b><b>o</b><b>p</b><b>erties</b></h1>
         <div class="small-container">
 
@@ -44,7 +48,8 @@
                                         <div if:false={mobileView} class="owner">
                                             <img draggable="false" src={Rectangle} alt="">&nbsp;
                                             <!-- <template for:each={Listings.Property__r.Current_Owner__r} for:item="Owner"> -->
-                                            <p key={Owner.Id}>Owner Name</p>
+                                            <!-- <p key={Owner.Id}>Owner Name</p> -->
+                                            <p>Owner Name</p>
                                             <!-- </template> -->
                                         </div>
                                         <div class="allfeture">
@@ -93,11 +98,8 @@
         </div>
 
         <template if:true={homePage}>
-            <div class="component">
-            <!-- <c-esx_-favourite-properties-card></c-esx_-favourite-properties-card> -->
-        </div>
+            <c-esx_-featured-propertie-card onsenddata={handleChildData}></c-esx_-featured-propertie-card>
         </template>
 
     </div>
-
 </template>

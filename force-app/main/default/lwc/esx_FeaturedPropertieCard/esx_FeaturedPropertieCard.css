@@ -25,7 +25,7 @@
     overflow-x: auto;
     scroll-snap-type: x mandatory;
     padding: 1rem 0;
-    margin: 2.5rem 0;
+    margin: 0.5rem 0;
 }
 
 .main .scroll::-webkit-scrollbar {
@@ -45,9 +45,9 @@
 
 .main .scroll .card-image {
     position: relative;
-    padding-top: 100%;
+    /* padding-top: 100%; */
     /* border-radius: 1rem; */
-    overflow: hidden;
+    /* overflow: hidden; */
 }
 
 .main .scroll .card-image img {

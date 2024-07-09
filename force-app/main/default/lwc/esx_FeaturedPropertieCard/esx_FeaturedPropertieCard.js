@@ -79,7 +79,15 @@ export default class Esx_FeaturedPropertieCard extends LightningElement {
     handleCard(event){
         let selectCard = event.currentTarget.dataset.key;
         console.log('selCard-->', selectCard);
-     
+        this.sendBackParent(selectCard);
+    }
+
+    sendBackParent(selectCard) {
+        this.dispatchEvent(
+            new CustomEvent("senddata", {
+                detail: selectCard
+            })
+        );
     }
     
 }
