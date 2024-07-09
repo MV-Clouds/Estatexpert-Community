@@ -75,9 +75,11 @@
 
 .profileImage img {
     border-radius: 15%;
-    width: 12.375rem; /* 150px */
+    width: 16.125rem;
+    /* width: 12.375rem; 150px */
     height: 15.375rem; /* 150px */
     object-fit: fill;
+    box-shadow: 0 5px 25px 0 rgba(47, 128, 237, 0.2);
 }
 
 .uploadButton{
@@ -97,7 +99,10 @@
 .hidden-upload {
     display: none;
 }
-
+.slds-input{
+    height: 43px;
+    border: 1px solid rgba(191, 196, 215, 1);
+}
 .generalInfoContent{
     width: 100%;
 }

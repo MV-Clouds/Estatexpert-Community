@@ -4,9 +4,12 @@ import getContactdetails from '@salesforce/apex/ProfilePage.getContactdetails';
 import { ShowToastEvent } from 'lightning/platformShowToastEvent';
 import Blank_Profile_Photo from '@salesforce/resourceUrl/Blank_Profile_Photo';
 import myProfilePageBackground from '@salesforce/resourceUrl/ProfilePageBackground';
+import { loadStyle } from 'lightning/platformResourceLoader';
 import updateContact from '@salesforce/apex/ProfilePage.updateContact';
 import uploadProfileImage from '@salesforce/apex/ProfilePage.uploadProfileImage';
 import isLoggedInUserDataCorrect from '@salesforce/apex/ESX_PropertyInsertFormController.isLoggedInUserDataCorrect';
+import profilepagecss from '@salesforce/resourceUrl/profilepageCss';
+
 export default class Esx_ProfilePage extends LightningElement {
 
     // @track contactId = '003dL000001VvuLQAS';
@@ -32,9 +35,11 @@ export default class Esx_ProfilePage extends LightningElement {
         this.checkUserIsLoggedIn();
     }
 
+
     checkUserIsLoggedIn() {
         try {
             let loggedUserInfo = localStorage.getItem('loggedUserInfo');
+            console.log('User info:', loggedUserInfo);
             if (loggedUserInfo) {
                 let loggedUserInfoObj = JSON.parse(loggedUserInfo);
                 isLoggedInUserDataCorrect({ contactId: loggedUserInfoObj.contactId, siteUserId: loggedUserInfoObj.siteUserId })
