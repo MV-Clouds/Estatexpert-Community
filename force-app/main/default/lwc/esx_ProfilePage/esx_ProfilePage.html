@@ -21,8 +21,9 @@
                 <div class="generalInformation">
                     <div class="profileImage">
                         <img src={profileImage} alt="Profile Image" />
-                        <div class="delete-icon" onclick={removeProfile} >
-                            <lightning-icon class="icon" icon-name="utility:delete" title="close" size="x-small" ></lightning-icon>
+                        <div class="delete-icon" onclick={removeProfile}>
+                            <lightning-icon class="icon" icon-name="utility:delete" title="close"
+                                size="x-small"></lightning-icon>
                         </div>
                         <button class="uploadButton" onclick={uploadProfileImage}>Upload Image</button>
                         <input type="file" class="hidden-upload" accept=".jpg,.jpeg,.png" onchange={handleFileChange} />
@@ -37,8 +38,8 @@
                                     value={contact.Salutation} placeholder="Salutation" options={Salutationoptions}
                                     onchange={updateContact}></lightning-combobox> -->
                                 <p class="label">Salutation</p>
-                                <select name="Salutation"  class="input-dropdown otherinput" onchange={updateContact} disabled={isDisabled}
-                                    required>
+                                <select name="Salutation" class="input-dropdown otherinput" onchange={updateContact}
+                                    disabled={isDisabled}>
                                     <template if:true={isDisabled}>
                                         <option value={contact.Salutation}>{contact.Salutation}</option>
                                     </template>
@@ -77,10 +78,14 @@
                                 </lightning-radio-group> -->
                                     <div class="checkbox">
                                         <div class="tickbox checkbox1 slds-m-right_medium">
-                                            <input class="Male" type="radio" name="Gender__c" value="Male" onchange={updateContact} disabled={isDisabled}><span> Male</span></input>
+                                            <input class="Male" type="radio" name="Gender__c" value="Male"
+                                                onchange={updateContact} disabled={isDisabled}><span>
+                                                Male</span></input>
                                         </div>
                                         <div class="tickbox checkbox1 slds-m-left_medium">
-                                            <input class="Female" type="radio" name="Gender__c" value="Female" onchange={updateContact} disabled={isDisabled} ><span> Female</span></input>
+                                            <input class="Female" type="radio" name="Gender__c" value="Female"
+                                                onchange={updateContact} disabled={isDisabled}><span>
+                                                Female</span></input>
                                         </div>
                                     </div>
                                 </div>
@@ -94,8 +99,9 @@
                                         variant="label-hidden" disabled={isDisabled}
                                         onchange={updateContact}></lightning-input> -->
                                     <p class="label">Date of Birth</p>
-                                    <input type="date" name="Birthdate" class="input-text otherinput" value={contact.Birthdate}
-                                        onchange={updateContact} disabled={isDisabled}></input>
+                                    <input type="date" name="Birthdate" class="input-text otherinput"
+                                        value={contact.Birthdate} onchange={updateContact}
+                                        disabled={isDisabled}></input>
                                 </div>
                                 <template if:true={isDisabled}>
                                     <div class="formElement slds-m-left_medium">
@@ -147,8 +153,8 @@
                                 name="MailingStreet" value={contact.MailingStreet}
                                 onchange={updateContact}></lightning-input> -->
                             <p class="label">Address Line</p>
-                            <input type="text" name="MailingStreet" class="input-text longfield" value={contact.MailingStreet}
-                                onchange={updateContact} disabled={isDisabled}></input>
+                            <input type="text" name="MailingStreet" class="input-text longfield"
+                                value={contact.MailingStreet} onchange={updateContact} disabled={isDisabled}></input>
                         </div>
                     </div>
                     <div class="formGroup">
@@ -207,8 +213,8 @@
                                 type="textarea" name="Description" value={contact.Description}
                                 onchange={updateContact}></lightning-textarea> -->
                             <p class="label">Description</p>
-                            <textarea name="Description" class="input-text longfield"
-                                onchange={updateContact} disabled={isDisabled}>{contact.Description}</textarea>
+                            <textarea name="Description" class="input-text longfield" onchange={updateContact}
+                                disabled={isDisabled}>{contact.Description}</textarea>
                         </div>
                     </div>
                 </div>

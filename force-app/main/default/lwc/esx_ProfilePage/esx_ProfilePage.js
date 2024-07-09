@@ -115,16 +115,34 @@ export default class Esx_ProfilePage extends LightningElement {
     }
 
     updateContactInfo() {
-        this.isDisabled = true;
-        let button = this.template.querySelector('.save-btn');
-        button.style.backgroundColor = 'rgba(210, 210, 210, 1)';
-        console.log('datacheck:', JSON.stringify(this.contact));
-        updateContact({ contact: this.contact }).then(result => {
-            this.isDisabled = true;
-            let button = this.template.querySelector('.save-btn');
-            button.style.backgroundColor = 'rgba(210, 210, 210, 1)';
-            this.getContact();
-        })
+        if (this.isValidForm()) {
+            updateContact({ contact: this.contact }).then(result => {
+                this.isDisabled = true;
+                let button = this.template.querySelector('.save-btn');
+                button.style.backgroundColor = 'rgba(210, 210, 210, 1)';
+                this.getContact();
+            })
+                .catch(error => {
+                    console.error(error);
+                });
+        }
+    }
+
+    isValidForm() {
+        const allValid = [...this.template.querySelectorAll('lightning-input, input')]
+            .reduce((validSoFar, inputCmp) => {
+                if (inputCmp.tagName === 'LIGHTNING-INPUT') {
+                    inputCmp.reportValidity();
+                    return validSoFar && inputCmp.checkValidity();
+                } else if (inputCmp.tagName === 'INPUT') {
+                    if (!inputCmp.checkValidity()) {
+                        inputCmp.reportValidity();
+                        return false;
+                    }
+                }
+                return validSoFar;
+            }, true);
+        return allValid;
     }
 
     uploadProfileImage() {
@@ -160,15 +178,15 @@ export default class Esx_ProfilePage extends LightningElement {
 
     removeProfile() {
         removeProfileImage({ ContactId: this.contact.Id }).then(result => {
-            if(result){
+            if (result) {
                 this.template.querySelector('.delete-icon').style.display = 'none';
                 this.profileImage = this.placeholderProfile;
             }
         })
-        .catch(error => {
-            console.log('errormsg:',error.body.message);
-            console.error(error);
-        });
+            .catch(error => {
+                console.log('errormsg:', error.body.message);
+                console.error(error);
+            });
 
     }
 }
