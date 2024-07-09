@@ -9,6 +9,7 @@ import updateContact from '@salesforce/apex/ProfilePage.updateContact';
 import uploadProfileImage from '@salesforce/apex/ProfilePage.uploadProfileImage';
 import isLoggedInUserDataCorrect from '@salesforce/apex/ESX_PropertyInsertFormController.isLoggedInUserDataCorrect';
 import profilepagecss from '@salesforce/resourceUrl/profilepageCss';
+import removeProfileImage from '@salesforce/apex/ProfilePage.removeProfileImage';
 
 export default class Esx_ProfilePage extends LightningElement {
 
@@ -19,6 +20,8 @@ export default class Esx_ProfilePage extends LightningElement {
     @track recordType;
     @track isLoading = true;
     @track isDisabled = true;
+    @track isMale = false;
+    @track isFemale = false;
     backgroundImageUrl = myProfilePageBackground;
     @track Salutationoptions = [
         { label: 'Mr.', value: 'Mr.' },
@@ -26,15 +29,14 @@ export default class Esx_ProfilePage extends LightningElement {
         { label: 'Mrs.', value: 'Mrs.' },
     ];
     @track genderOptions = [
-        {label: 'Male', value: 'Male'},
-        {label: 'Female', value: 'Female'},
+        { label: 'Male', value: 'Male' },
+        { label: 'Female', value: 'Female' },
     ];
     placeholderProfile = Blank_Profile_Photo;
 
-    connectedCallback(){
+    connectedCallback() {
         this.checkUserIsLoggedIn();
     }
-
 
     checkUserIsLoggedIn() {
         try {
@@ -59,21 +61,30 @@ export default class Esx_ProfilePage extends LightningElement {
         }
     }
 
-    getContact(){
-        getContactdetails({contactId: this.contactId})
+    getContact() {
+        getContactdetails({ contactId: this.contactId })
             .then(result => {
                 console.log('result: ', result);
-                if(result.contact != null){
+                if (result.contact != null) {
                     this.contact = result.contact;
                     this.recordType = result.contact.RecordType.Name;
                     this.isLoading = false;
-                }else{
-                    this.showToast('Error', 'Error' , 'No Contacts Found');
+                } else {
+                    this.showToast('Error', 'Error', 'No Contacts Found');
                 }
-                if((result != null && result != undefined) && (result.image != null && result.image != undefined)){
+                if ((result != null && result != undefined) && (result.image != null && result.image != undefined)) {
                     this.profileImage = 'data:image/jpeg;base64,' + result.image;
-                }else{
+                } else {
                     this.profileImage = this.placeholderProfile;
+                }
+                if (result.contact.Gender__c != null && result.contact.Gender__c != undefined) {
+                    let genderClass = result.contact.Gender__c.replace(/[^a-zA-Z0-9-_]/g, ''); // Sanitizing the class name
+                    setTimeout(() => {
+                        let radioButton = this.template.querySelector(`.${genderClass}`);
+                        if (radioButton != null) {
+                            radioButton.checked = true;
+                        }
+                    }, 0);
                 }
             })
             .catch(error => {
@@ -91,27 +102,27 @@ export default class Esx_ProfilePage extends LightningElement {
         this.dispatchEvent(evt);
     }
 
-    navigateHome(){
+    navigateHome() {
         console.log('navigateHome');
     }
 
-    updateContact(event){
+    updateContact(event) {
         const field = event.target.name;
         this.contact = { ...this.contact, [field]: event.target.value };
     }
 
-
-    getContactInfo(event){
+    getContactInfo(event) {
         this.isDisabled = false;
         let button = this.template.querySelector('.save-btn');
         button.style.backgroundColor = 'rgba(1, 118, 211, 1)';
     }
-    updateContactInfo(){
+
+    updateContactInfo() {
         this.isDisabled = true;
         let button = this.template.querySelector('.save-btn');
         button.style.backgroundColor = 'rgba(210, 210, 210, 1)';
-        console.log('datacheck:',JSON.stringify(this.contact));
-        updateContact({contact: this.contact}).then(result => {
+        console.log('datacheck:', JSON.stringify(this.contact));
+        updateContact({ contact: this.contact }).then(result => {
             this.isDisabled = true;
             let button = this.template.querySelector('.save-btn');
             button.style.backgroundColor = 'rgba(210, 210, 210, 1)';
@@ -134,7 +145,7 @@ export default class Esx_ProfilePage extends LightningElement {
         const reader = new FileReader();
         reader.onload = () => {
             const base64 = reader.result.split(',')[1];
-            console.log('imgdata:=',base64);
+            console.log('imgdata:=', base64);
             this.uploadToSalesforce(file, base64);
         };
         reader.readAsDataURL(file);
@@ -148,5 +159,19 @@ export default class Esx_ProfilePage extends LightningElement {
             .catch(error => {
                 console.error(error);
             });
+    }
+    
+    removeProfile() {
+        removeProfileImage({ ContactId: this.contact.Id }).then(result => {
+            if(result){
+                this.template.querySelector('.delete-icon').style.display = 'none';
+                this.profileImage = this.placeholderProfile;
+            }
+        })
+        .catch(error => {
+            console.log('errormsg:',error.body.message);
+            console.error(error);
+        });
+
     }
 }

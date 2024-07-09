@@ -21,6 +21,9 @@
                 <div class="generalInformation">
                     <div class="profileImage">
                         <img src={profileImage} alt="Profile Image" />
+                        <div class="delete-icon" onclick={removeProfile} >
+                            <lightning-icon class="icon" icon-name="utility:delete" title="close" size="x-small" ></lightning-icon>
+                        </div>
                         <button class="uploadButton" onclick={uploadProfileImage}>Upload Image</button>
                         <input type="file" class="hidden-upload" accept=".jpg,.jpeg,.png" onchange={handleFileChange} />
                     </div>
@@ -28,49 +31,82 @@
                     <div class="generalInfoContent">
                         <div class="sectionTitle">General Information</div>
                         <div class="formGroup firstRow">
-                            <div class="formElement">
-                                <div class="label">Salutation</div>
+                            <div class="formElement dropdownfield">
+                                <!-- <div class="label">Salutation</div>
                                 <lightning-combobox variant="label-hidden" disabled={isDisabled} name="Salutation"
                                     value={contact.Salutation} placeholder="Salutation" options={Salutationoptions}
-                                    onchange={updateContact}></lightning-combobox>
+                                    onchange={updateContact}></lightning-combobox> -->
+                                <p class="label">Salutation</p>
+                                <select name="Salutation"  class="input-dropdown otherinput" onchange={updateContact} disabled={isDisabled}
+                                    required>
+                                    <template if:true={isDisabled}>
+                                        <option value={contact.Salutation}>{contact.Salutation}</option>
+                                    </template>
+                                    <template for:each={Salutationoptions} for:item="type">
+                                        <option value={type.label} key={type.label}>{type.label}</option>
+                                    </template>
+                                </select>
                             </div>
-                            <div class="formElement firstName">
-                                <div class="label">First Name</div>
+                            <div class="formElement namefield">
+                                <!-- <div class="label">First Name</div>
                                 <lightning-input class="inputBox" variant="label-hidden" disabled={isDisabled}
                                     type="text" name="FirstName" value={contact.FirstName}
-                                    onchange={updateContact} required></lightning-input>
+                                    onchange={updateContact} required></lightning-input> -->
+                                <p class="label">First Name</p>
+                                <input type="text" name="FirstName" class="input-text" value={contact.FirstName}
+                                    onchange={updateContact} disabled={isDisabled} required></input>
                             </div>
-                            <div class="formElement">
-                                <div class="label">Last Name</div>
+                            <div class="formElement namefield">
+                                <!-- <div class="label">Last Name</div>
                                 <lightning-input class="inputBox" variant="label-hidden" disabled={isDisabled}
                                     type="text" name="LastName" value={contact.LastName}
-                                    onchange={updateContact} required></lightning-input>
+                                    onchange={updateContact} required></lightning-input> -->
+                                <p class="label">Last Name</p>
+                                <input type="text" name="LastName" class="input-text" value={contact.LastName}
+                                    onchange={updateContact} disabled={isDisabled} required></input>
                             </div>
                         </div>
                         <div class="formGroup">
                             <!-- Give 2 radio button for gender -->
                             <div class="formElement">
-                                <div class="label">Gender</div>
-                                <lightning-radio-group class="genderOptions" variant="label-hidden"
+                                <div class="gender-options">
+                                    <div class="label">Gender</div>
+                                    <!-- <lightning-radio-group class="genderOptions" variant="label-hidden"
                                     disabled={isDisabled} onchange={updateContact} name="Gender__c" label="Gender"
                                     options={genderOptions} value={contact.Gender__c}>
-                                </lightning-radio-group>
+                                </lightning-radio-group> -->
+                                    <div class="checkbox">
+                                        <div class="tickbox checkbox1 slds-m-right_medium">
+                                            <input class="Male" type="radio" name="Gender__c" value="Male" onchange={updateContact} disabled={isDisabled}><span> Male</span></input>
+                                        </div>
+                                        <div class="tickbox checkbox1 slds-m-left_medium">
+                                            <input class="Female" type="radio" name="Gender__c" value="Female" onchange={updateContact} disabled={isDisabled} ><span> Female</span></input>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                         <div class="formGroup">
                             <div class="date-and-age slds-m-right_medium">
                                 <div class="formElement">
-                                    <div class="label">Date of Birth</div>
+                                    <!-- <div class="label">Date of Birth</div>
                                     <lightning-input type="date" name="Birthdate" value={contact.Birthdate}
                                         variant="label-hidden" disabled={isDisabled}
-                                        onchange={updateContact}></lightning-input>
+                                        onchange={updateContact}></lightning-input> -->
+                                    <p class="label">Date of Birth</p>
+                                    <input type="date" name="Birthdate" class="input-text otherinput" value={contact.Birthdate}
+                                        onchange={updateContact} disabled={isDisabled}></input>
                                 </div>
                                 <template if:true={isDisabled}>
                                     <div class="formElement slds-m-left_medium">
-                                        <div class="label">Age</div>
+                                        <!-- <div class="label">Age</div>
                                         <lightning-input class=" input-age" variant="label-hidden" disabled={isDisabled}
                                             type="number" min="12" name="Age__c" value={contact.Age__c}
-                                            onchange={updateContact}></lightning-input>
+                                            onchange={updateContact}></lightning-input> -->
+                                        <p class="label">Age</p>
+                                        <input type="number" name="Birthdate" class="input-text otherinput" min="12"
+                                            value={contact.Age__c} onchange={updateContact}
+                                            disabled={isDisabled}></input>
                                     </div>
                                 </template>
                             </div>
@@ -81,16 +117,22 @@
                     <div class="formGroup">
                         <div class="phone-and-email">
                             <div class="formElement input-half slds-m-right_medium">
-                                <div class="label">Phone Number</div>
+                                <!-- <div class="label">Phone Number</div>
                                 <lightning-input class="inputfield" variant="label-hidden" disabled={isDisabled}
                                     type="tel" name="Phone" value={contact.Phone}
-                                    onchange={updateContact} required></lightning-input>
+                                    onchange={updateContact} required></lightning-input> -->
+                                <p class="label">Phone Number</p>
+                                <input type="tel" name="Phone" class="input-text" value={contact.Phone}
+                                    onchange={updateContact} disabled={isDisabled} required></input>
                             </div>
                             <div class="formElement input-half slds-m-left_medium">
-                                <div class="label">Email</div>
+                                <!-- <div class="label">Email</div>
                                 <lightning-input class="inputfield" variant="label-hidden" disabled={isDisabled}
                                     type="email" name="Email" value={contact.Email}
-                                    onchange={updateContact} required></lightning-input>
+                                    onchange={updateContact} required></lightning-input> -->
+                                <p class="label">Email</p>
+                                <input type="email" name="Email" class="input-text" value={contact.Email}
+                                    onchange={updateContact} disabled={isDisabled} required></input>
                             </div>
                         </div>
 
@@ -100,41 +142,58 @@
                     <div class="sectionTitle">Address Details</div>
                     <div class="formGroup">
                         <div class="address-line">
-                            <div class="label">Address Line</div>
+                            <!-- <div class="label">Address Line</div>
                             <lightning-input class="inputfield" variant="label-hidden" disabled={isDisabled} type="text"
                                 name="MailingStreet" value={contact.MailingStreet}
-                                onchange={updateContact}></lightning-input>
+                                onchange={updateContact}></lightning-input> -->
+                            <p class="label">Address Line</p>
+                            <input type="text" name="MailingStreet" class="input-text longfield" value={contact.MailingStreet}
+                                onchange={updateContact} disabled={isDisabled}></input>
                         </div>
                     </div>
                     <div class="formGroup">
                         <div class="address-fields">
                             <div class="formElement input-half slds-m-right_medium">
-                                <div class="label">City</div>
+                                <!-- <div class="label">City</div>
                                 <lightning-input class="inputfield" variant="label-hidden" disabled={isDisabled}
                                     type="text" name="MailingCity" value={contact.MailingCity}
-                                    onchange={updateContact}></lightning-input>
+                                    onchange={updateContact}></lightning-input> -->
+                                <p class="label">City</p>
+                                <input type="text" name="MailingCity" class="input-text" value={contact.MailingCity}
+                                    onchange={updateContact} disabled={isDisabled}></input>
                             </div>
                             <div class="formElement input-half slds-m-left_medium">
-                                <div class="label">PinCode</div>
+                                <!-- <div class="label">PinCode</div>
                                 <lightning-input class="inputfield" variant="label-hidden" disabled={isDisabled}
                                     type="number" name="MailingPostalCode" value={contact.MailingPostalCode}
-                                    onchange={updateContact}></lightning-input>
+                                    onchange={updateContact}></lightning-input> -->
+                                <p class="label">PinCode</p>
+                                <input type="text" name="MailingPostalCode" class="input-text"
+                                    value={contact.MailingPostalCode} onchange={updateContact}
+                                    disabled={isDisabled}></input>
                             </div>
                         </div>
                     </div>
                     <div class="formGroup">
                         <div class="address-fields">
                             <div class="formElement input-half slds-m-right_medium">
-                                <div class="label">State</div>
+                                <!-- <div class="label">State</div>
                                 <lightning-input class="inputfield" variant="label-hidden" disabled={isDisabled}
                                     type="text" name="MailingState" value={contact.MailingState}
-                                    onchange={updateContact}></lightning-input>
+                                    onchange={updateContact}></lightning-input> -->
+                                <p class="label">State</p>
+                                <input type="text" name="MailingState" class="input-text" value={contact.MailingState}
+                                    onchange={updateContact} disabled={isDisabled}></input>
                             </div>
                             <div class="formElement input-half slds-m-left_medium">
-                                <div class="label">Country</div>
+                                <!-- <div class="label">Country</div>
                                 <lightning-input class="inputfield" variant="label-hidden" disabled={isDisabled}
                                     type="text" name="MailingCountry" value={contact.MailingCountry}
-                                    onchange={updateContact}></lightning-input>
+                                    onchange={updateContact}></lightning-input> -->
+                                <p class="label">Country</p>
+                                <input type="text" name="MailingCountry" class="input-text"
+                                    value={contact.MailingCountry} onchange={updateContact}
+                                    disabled={isDisabled}></input>
                             </div>
                         </div>
                     </div>
@@ -143,10 +202,13 @@
                     <div class="sectionTitle">About</div>
                     <div class="formGroup">
                         <div class="address-line">
-                            <div class="label">Description</div>
+                            <!-- <div class="label">Description</div>
                             <lightning-textarea class="inputfield" variant="label-hidden" disabled={isDisabled}
                                 type="textarea" name="Description" value={contact.Description}
-                                onchange={updateContact}></lightning-textarea>
+                                onchange={updateContact}></lightning-textarea> -->
+                            <p class="label">Description</p>
+                            <textarea name="Description" class="input-text longfield"
+                                onchange={updateContact} disabled={isDisabled}>{contact.Description}</textarea>
                         </div>
                     </div>
                 </div>

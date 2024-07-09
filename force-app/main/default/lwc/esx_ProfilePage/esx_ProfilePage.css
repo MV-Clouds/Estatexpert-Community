@@ -74,7 +74,7 @@
 }
 
 .profileImage img {
-    border-radius: 15%;
+    border-radius: 9%;
     width: 16.125rem;
     /* width: 12.375rem; 150px */
     height: 15.375rem; /* 150px */
@@ -84,11 +84,11 @@
 
 .uploadButton{
     position: absolute;
-    bottom: 2rem;
+    bottom: 2.5rem;
     /* bottom: 0.625rem; 10px */
-    left: 48%;
+    left: 50%;
     transform: translateX(-50%);
-    background-color: whitesmoke ; /*  80% white */
+    background-color: rgba(255, 255, 255, 0.8) ; /*  80% white */
     border: none;
     border-radius: 1.25rem; /* 20px */
     padding: 0.3125rem 3.625rem; /* 5px 10px */
@@ -108,9 +108,28 @@
 }
 
 .sectionTitle{
-    font-size: 1.2rem;
+    font-size: 1.625rem;
     font-weight: 700;
     color: #0176D3;
+}
+.delete-icon{
+    position: absolute;
+    top: 3%;
+    left: 82%;
+    /* left: 10.7rem;
+    top: 0.5rem; */
+    cursor: pointer;
+}
+.icon{
+    position: absolute;
+    width: 1.875rem;
+    height: 1.875rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 2%;
+    border-radius: 50%;
+    background-color: rgba(255, 255, 255, 0.8);
 }
 
 .label{
@@ -123,9 +142,13 @@
     justify-content: space-between;
 }
 
-.firstName{
-    margin-right: 3rem;
-    margin-left: 3rem;
+.namefield{
+    /* margin-right: 3rem;
+    margin-left: 3rem; */
+    width: 40%;
+}
+.dropdownfield{
+    width: 10%;
 }
 
 .formElement .inputBox{
@@ -188,3 +211,54 @@
     color: white;
     border: 0px;
 }
+.input-text {
+    width: 100%;
+    height: 46px;
+    border-radius: 6px;
+    padding: 2%;
+    border: 1px solid rgba(191, 196, 215, 1);
+    margin-bottom: 1rem;
+}
+.input-text::-webkit-inner-spin-button,
+.input-text::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+.checkbox {
+    display: flex;
+    margin-bottom: 1rem;
+}
+
+.input-dropdown {
+    width: 100%;
+    height: 46px;
+    border-radius: 6px;
+    padding: 2%;
+    border: 1px solid rgba(191, 196, 215, 1);
+    margin-bottom: 1rem;
+    -webkit-appearance: none;
+}
+.input-dropdown::-webkit-inner-spin-button,
+.input-dropdown::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+.otherinput{
+    width: 100%;
+    height: 46px;
+    border-radius: 6px;
+    padding: 8%;
+    border: 1px solid rgba(191, 196, 215, 1);
+    margin-bottom: 1rem;
+    -webkit-appearance: none;
+}
+.longfield{
+    width: 100%;
+    height: 46px;
+    border-radius: 6px;
+    padding: 1%;
+    border: 1px solid rgba(191, 196, 215, 1);
+    margin-bottom: 1rem;
+    -webkit-appearance: none;
+}
+

@@ -87,6 +87,28 @@ public without sharing class ProfilePage {
         }
     }
 
+    @AuraEnabled
+    public static Boolean removeProfileImage(Id ContactId){
+        try {
+            List<ContentDocumentLink> cdlList = [SELECT Id, ContentDocumentId FROM ContentDocumentLink WHERE LinkedEntityId =: ContactId];
+
+            Set<Id> cdIds = new Set<Id>();
+            for (ContentDocumentLink cdl :cdlList) {
+                cdIds.add(cdl.ContentDocumentId);
+            }
+
+            List<ContentDocument> document = [SELECT Id, Title, FileExtension, LatestPublishedVersionId FROM ContentDocument WHERE Id IN: cdIds AND Title like 'ProfileImage%'];
+            if(document.size() > 0){
+                delete document;
+                return true;
+            }else{
+                return false;
+            }
+        } catch (Exception e) {
+            throw new AuraHandledException(e.getMessage());
+        }
+    }
+
     public class ContactImageWrapper{
         @AuraEnabled
         public Contact contact;
