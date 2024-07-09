@@ -22,10 +22,10 @@ public without sharing class ProfilePage {
         System.debug('contactId: '+contactId);
         try{
             ContactImageWrapper wrapper = new ContactImageWrapper();
-            Contact con =[SELECT Id, Salutation, FirstName, LastName, Gender__c, Birthdate, Age__c, Phone, Email, MailingStreet, MailingCity, MailingPostalCode, MailingState, MailingCountry, Description, RecordType.Name  FROM Contact WHERE Id =: contactId];
-            wrapper.contact = con;
+            List<Contact> con =[SELECT Id, Salutation, FirstName, LastName, Gender__c, Birthdate, Age__c, Phone, Email, MailingStreet, MailingCity, MailingPostalCode, MailingState, MailingCountry, Description, RecordType.Name  FROM Contact WHERE Id =: contactId];
+            wrapper.contact = con[0];
 
-            List<ContentDocumentLink> cdlList = [SELECT Id, ContentDocumentId FROM ContentDocumentLink WHERE LinkedEntityId =: con.Id];
+            List<ContentDocumentLink> cdlList = [SELECT Id, ContentDocumentId FROM ContentDocumentLink WHERE LinkedEntityId =: con[0].Id];
 
             Set<Id> cdIds = new Set<Id>();
             for (ContentDocumentLink cdl :cdlList) {
@@ -115,6 +115,5 @@ public without sharing class ProfilePage {
         @AuraEnabled
         public String image;
     }
-
 
 }

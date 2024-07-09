@@ -20,8 +20,6 @@ export default class Esx_ProfilePage extends LightningElement {
     @track recordType;
     @track isLoading = true;
     @track isDisabled = true;
-    @track isMale = false;
-    @track isFemale = false;
     backgroundImageUrl = myProfilePageBackground;
     @track Salutationoptions = [
         { label: 'Mr.', value: 'Mr.' },
@@ -78,9 +76,8 @@ export default class Esx_ProfilePage extends LightningElement {
                     this.profileImage = this.placeholderProfile;
                 }
                 if (result.contact.Gender__c != null && result.contact.Gender__c != undefined) {
-                    let genderClass = result.contact.Gender__c.replace(/[^a-zA-Z0-9-_]/g, ''); // Sanitizing the class name
                     setTimeout(() => {
-                        let radioButton = this.template.querySelector(`.${genderClass}`);
+                        let radioButton = this.template.querySelector(`.${result.contact.Gender__c}`);
                         if (radioButton != null) {
                             radioButton.checked = true;
                         }
@@ -160,7 +157,7 @@ export default class Esx_ProfilePage extends LightningElement {
                 console.error(error);
             });
     }
-    
+
     removeProfile() {
         removeProfileImage({ ContactId: this.contact.Id }).then(result => {
             if(result){
