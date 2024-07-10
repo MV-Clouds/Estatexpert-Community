@@ -1,19 +1,4 @@
 public without sharing class ESX_InquiryPageController {
-    
-
-    @AuraEnabled
-    public static Boolean isLoggedInUserDataCorrect(String contactId, String siteUserId) {
-        Boolean returnStatus = false;
-        List<Site_User__c> siteUserList = new List<Site_User__c>();
-        siteUserList = [SELECT Id, Name, Contact__c FROM Site_User__c WHERE Id =: siteUserId AND Contact__c =: contactId];
-
-        if (siteUserList.size() > 0) {
-            returnStatus = true;
-        } else {
-            returnStatus = false;
-        }
-        return returnStatus;
-    }
 
     @AuraEnabled
     public static WrapperClass getInquiryData(Id contactId){

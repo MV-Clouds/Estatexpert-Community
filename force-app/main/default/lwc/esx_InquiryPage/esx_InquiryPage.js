@@ -7,7 +7,7 @@ import customStyles from '@salesforce/resourceUrl/InquiryPageCss';
 import Blank_Profile_Photo from '@salesforce/resourceUrl/Blank_Profile_Photo';
 import nopropertyfound from '@salesforce/resourceUrl/nopropertyfound';
 import updateInquiryStatus from '@salesforce/apex/ESX_InquiryPageController.updateInquiryStatus';
-import isLoggedInUserDataCorrect from '@salesforce/apex/ESX_InquiryPageController.isLoggedInUserDataCorrect';
+import isLoggedInUserDataCorrect from '@salesforce/apex/ESX_UserUtil.isLoggedInUserDataCorrect';
 export default class Esx_InquiryPage extends LightningElement {
 
     BgImage = backgroundImage + '/Bg-Image.png';
