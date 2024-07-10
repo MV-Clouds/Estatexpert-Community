@@ -267,7 +267,15 @@ select {
     display: none;
 }
 
-@media only screen and (max-width: 1024px) {}
+@media only screen and (max-width: 1024px) {
+    .input-first-half {
+        margin-right: 0;
+    }
+
+    .input-second-half {
+        margin-left: 0.5rem;
+    }
+}
 
 @media only screen and (max-width: 767px) {
     .location {

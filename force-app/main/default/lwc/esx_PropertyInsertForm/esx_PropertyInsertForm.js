@@ -2,7 +2,7 @@ import { LightningElement, track, wire } from 'lwc';
 import backgroundImage from "@salesforce/resourceUrl/FavoriteProperties";
 import getAllPicklistValues from '@salesforce/apex/ESX_PropertyInsertFormController.getAllPicklistValues';
 import CreateProperty from '@salesforce/apex/ESX_PropertyInsertFormController.CreateProperty';
-import isLoggedInUserDataCorrect from '@salesforce/apex/ESX_PropertyInsertFormController.isLoggedInUserDataCorrect';
+import isLoggedInUserDataCorrect from '@salesforce/apex/ESX_UserUtil.isLoggedInUserDataCorrect';
 import dropdownAerrow from '@salesforce/resourceUrl/dropdownAerrow';
 export default class Esx_PropertyInsertForm extends LightningElement {
     @track propertyTypes = [];
