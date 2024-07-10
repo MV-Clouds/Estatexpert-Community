@@ -7,7 +7,7 @@ import myProfilePageBackground from '@salesforce/resourceUrl/ProfilePageBackgrou
 import { loadStyle } from 'lightning/platformResourceLoader';
 import updateContact from '@salesforce/apex/ProfilePage.updateContact';
 import uploadProfileImage from '@salesforce/apex/ProfilePage.uploadProfileImage';
-import isLoggedInUserDataCorrect from '@salesforce/apex/ESX_PropertyInsertFormController.isLoggedInUserDataCorrect';
+import isLoggedInUserDataCorrect from '@salesforce/apex/ProfilePage.isLoggedInUserDataCorrect';
 import profilepagecss from '@salesforce/resourceUrl/profilepageCss';
 import removeProfileImage from '@salesforce/apex/ProfilePage.removeProfileImage';
 
@@ -42,12 +42,13 @@ export default class Esx_ProfilePage extends LightningElement {
             console.log('User info:', loggedUserInfo);
             if (loggedUserInfo) {
                 let loggedUserInfoObj = JSON.parse(loggedUserInfo);
+                console.log('loggeduserInfo:',loggedUserInfoObj);
                 isLoggedInUserDataCorrect({ contactId: loggedUserInfoObj.contactId, siteUserId: loggedUserInfoObj.siteUserId })
                     .then(result => {
                         console.log('isLoggedInUserDataCorrect ** => ', result);
                         if (result) {
                             this.contactId = loggedUserInfoObj.contactId;
-                            this.getContact();
+                            this.getCurrentContactDetails();
                         }
                     })
                     .catch(error => {
@@ -59,7 +60,7 @@ export default class Esx_ProfilePage extends LightningElement {
         }
     }
 
-    getContact() {
+    getCurrentContactDetails() {
         getContactdetails({ contactId: this.contactId })
             .then(result => {
                 console.log('result: ', result);
