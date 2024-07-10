@@ -23,13 +23,15 @@
                             </div>
                             <br />
                             <div class="prop-type">
-                                <label class="label"><abbr class="slds-required" title="required">*</abbr>Property
-                                    Type</label>
-                                <select name="propertyType" class="input-dropdown" onchange={handleInputChange} required>
-                                    <template for:each={propertyTypes} for:item="type">
-                                        <option value={property.propertyType} key={type.label}>{type.label}</option>
-                                    </template>
-                                </select>
+                                <div class="property-type">
+                                    <label class="label"><abbr class="slds-required" title="required">*</abbr>Property
+                                        Type</label>
+                                    <select name="propertyType" class="input-dropdown" onchange={handleInputChange} required>
+                                        <template for:each={propertyTypes} for:item="type">
+                                            <option value={property.propertyType} key={type.label}>{type.label}</option>
+                                        </template>
+                                    </select>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -130,7 +132,7 @@
                                 <p class="label"> Covered Area</p>
                                 <div style="display: flex;align-items:center">
                                     <input type="number" min="0" name="coveredArea" value={property.coveredArea}
-                                        class="input-text " placeholder="Covered Area" style="width: 274px;"
+                                        class="input-text " placeholder="Covered Area" 
                                         onchange={handleInputChange}></input>
                                     <label class="label"></label>
                                     <select name="coveredAreaUnit" class="input-dropdown slds-m-left_medium"
@@ -146,7 +148,7 @@
                                 <p class="label"> Carpet Area</p>
                                 <div style="display: flex;align-items:center">
                                     <input type="number" min="0" name="carpetArea" value={property.carpetArea}
-                                        class="input-text " placeholder="Carpet Area" style="width: 274px;"
+                                        class="input-text " placeholder="Carpet Area"
                                         onchange={handleInputChange}></input>
                                     <label class="label"></label>
                                     <select name="carpetAreaUnit" class="input-dropdown slds-m-left_medium"
@@ -184,7 +186,7 @@
                                         <input type="number" min="0" class="input-text" value={property.plotArea}
                                             name="plotArea" placeholder="Plot Area" onchange={handleInputChange}></input>
                                     </div>
-                                    <div class="prop-type input-second-half">
+                                    <div class="prop-type input-number-second-half">
                                         <p class="label"> Plot Breadth</p>
                                         <input type="number" min="0" name="plotBreadth" value={property.plotBreadth}
                                             class="input-text" placeholder="Plot Breadth"
