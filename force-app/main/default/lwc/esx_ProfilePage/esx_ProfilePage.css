@@ -239,7 +239,8 @@
 
 .input-text {
     width: 100%;
-    height: 46px;
+    /* height: 46px; */
+    height: 2.875rem;
     border-radius: 6px;
     padding: 2%;
     border: 1px solid rgba(191, 196, 215, 1);
@@ -259,7 +260,8 @@
 
 .input-dropdown {
     width: 100%;
-    height: 46px;
+    /* height: 46px; */
+    height: 2.875rem;
     border-radius: 6px;
     padding: 2%;
     border: 1px solid rgba(191, 196, 215, 1);
@@ -275,7 +277,8 @@
 
 .otherinput {
     width: 100%;
-    height: 46px;
+    /* height: 46px; */
+    height: 2.875rem;
     border-radius: 6px;
     padding: 8%;
     border: 1px solid rgba(191, 196, 215, 1);
@@ -293,7 +296,8 @@
 
 .longfield {
     width: 100%;
-    height: 46px;
+    /* height: 46px; */
+    height: 2.875rem;
     border-radius: 6px;
     padding: 1%;
     border: 1px solid rgba(191, 196, 215, 1);
