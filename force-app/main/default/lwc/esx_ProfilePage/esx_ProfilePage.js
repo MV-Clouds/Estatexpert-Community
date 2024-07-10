@@ -7,7 +7,7 @@ import myProfilePageBackground from '@salesforce/resourceUrl/ProfilePageBackgrou
 import { loadStyle } from 'lightning/platformResourceLoader';
 import updateContact from '@salesforce/apex/ProfilePage.updateContact';
 import uploadProfileImage from '@salesforce/apex/ProfilePage.uploadProfileImage';
-import isLoggedInUserDataCorrect from '@salesforce/apex/ProfilePage.isLoggedInUserDataCorrect';
+import isLoggedInUserDataCorrect from '@salesforce/apex/ESX_UserUtil.isLoggedInUserDataCorrect';
 import profilepagecss from '@salesforce/resourceUrl/profilepageCss';
 import removeProfileImage from '@salesforce/apex/ProfilePage.removeProfileImage';
 

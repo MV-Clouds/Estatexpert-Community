@@ -4,25 +4,6 @@ public without sharing class ProfilePage {
     }
 
     @AuraEnabled
-    public static Boolean isLoggedInUserDataCorrect(String contactId, String siteUserId) {
-        try{
-            Boolean returnStatus = false;
-            List<Site_User__c> siteUserList = new List<Site_User__c>();
-            siteUserList = [SELECT Id, Name, Contact__c FROM Site_User__c WHERE Id =:siteUserId AND Contact__c =:contactId];
-            System.debug('siteUserList:'+siteUserList);
-            if (siteUserList.size() > 0) {
-                returnStatus = true;
-            } else {
-                returnStatus = false;
-            }
-            return returnStatus;
-        }catch(Exception e){
-            System.debug('Error: ' + e.getMessage());
-            return null;
-        }
-    }
-
-    @AuraEnabled
     public static ContactImageWrapper getContactdetails(Id contactId){
         System.debug('contactId: '+contactId);
         try{
