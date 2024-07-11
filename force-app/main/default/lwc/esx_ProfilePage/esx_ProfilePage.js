@@ -42,7 +42,7 @@ export default class Esx_ProfilePage extends LightningElement {
             console.log('User info:', loggedUserInfo);
             if (loggedUserInfo) {
                 let loggedUserInfoObj = JSON.parse(loggedUserInfo);
-                console.log('loggeduserInfo:',loggedUserInfoObj);
+                console.log('loggeduserInfo:', loggedUserInfoObj);
                 isLoggedInUserDataCorrect({ contactId: loggedUserInfoObj.contactId, siteUserId: loggedUserInfoObj.siteUserId })
                     .then(result => {
                         console.log('isLoggedInUserDataCorrect ** => ', result);
@@ -55,8 +55,8 @@ export default class Esx_ProfilePage extends LightningElement {
                         console.log(error);
                     });
             }
-        } catch (error) {
-            console.error({ error });
+        }catch (error) {
+            console.error(error);
         }
     }
 
@@ -75,6 +75,7 @@ export default class Esx_ProfilePage extends LightningElement {
                     this.profileImage = 'data:image/jpeg;base64,' + result.image;
                 } else {
                     this.profileImage = this.placeholderProfile;
+                    this.template.querySelector('.delete-icon').style.display = 'none';
                 }
                 if (result.contact.Gender__c != null && result.contact.Gender__c != undefined) {
                     setTimeout(() => {
@@ -123,9 +124,9 @@ export default class Esx_ProfilePage extends LightningElement {
                 button.style.backgroundColor = 'rgba(210, 210, 210, 1)';
                 this.getContact();
             })
-                .catch(error => {
-                    console.error(error);
-                });
+            .catch(error => {
+                console.error(error);
+            });
         }
     }
 
@@ -184,10 +185,9 @@ export default class Esx_ProfilePage extends LightningElement {
                 this.profileImage = this.placeholderProfile;
             }
         })
-            .catch(error => {
-                console.log('errormsg:', error.body.message);
-                console.error(error);
-            });
-
+        .catch(error => {
+            console.log('errormsg:', error.body.message);
+            console.error(error);
+        });
     }
 }
