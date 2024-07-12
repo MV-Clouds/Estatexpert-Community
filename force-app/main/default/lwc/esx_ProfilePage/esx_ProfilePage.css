@@ -306,7 +306,11 @@
     -webkit-appearance: none;
 }
 
-@media only screen and (max-width: 1024px) {}
+@media only screen and (max-width: 1024px) {
+    .date-first-half {
+        width: 55%;
+    }
+}
 
 @media only screen and (max-width: 767px) {
     .generalInformation {
@@ -316,8 +320,10 @@
 
     .profileImage {
         position: relative;
+        width: 70%;
+        margin: auto;
         margin-bottom: 1.25rem;
-        margin-right: 0;
+        /* margin-right: 0; */
         min-width: 13rem;
     }
 
@@ -356,17 +362,18 @@
     }
 
     .date-first-half {
-        width: 100%;
-        margin-right: 0;
+        width: 60%;
+        margin-right: 1rem;
     }
 
     .date-second-half {
-        width: 100%;
+        width: 40%;
         margin-left: 0;
     }
 
     .date-and-age {
         width: 100%;
+        flex-direction: row;
     }
 
     .otherinput {
@@ -374,9 +381,9 @@
     }
 
     .firstRow {
-        flex-direction: column;
+        flex-direction: row;
         margin-top: 0;
-        gap: 0;
+        gap: 1.5rem;
     }
 
     .namefield {
