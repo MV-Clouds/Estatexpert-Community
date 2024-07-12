@@ -4,11 +4,9 @@ import getContactdetails from '@salesforce/apex/ProfilePage.getContactdetails';
 import { ShowToastEvent } from 'lightning/platformShowToastEvent';
 import Blank_Profile_Photo from '@salesforce/resourceUrl/Blank_Profile_Photo';
 import myProfilePageBackground from '@salesforce/resourceUrl/ProfilePageBackground';
-import { loadStyle } from 'lightning/platformResourceLoader';
 import updateContact from '@salesforce/apex/ProfilePage.updateContact';
 import uploadProfileImage from '@salesforce/apex/ProfilePage.uploadProfileImage';
 import isLoggedInUserDataCorrect from '@salesforce/apex/ESX_UserUtil.isLoggedInUserDataCorrect';
-import profilepagecss from '@salesforce/resourceUrl/profilepageCss';
 import removeProfileImage from '@salesforce/apex/ProfilePage.removeProfileImage';
 
 export default class Esx_ProfilePage extends LightningElement {

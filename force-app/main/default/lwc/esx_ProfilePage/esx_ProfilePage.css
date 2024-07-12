@@ -67,7 +67,6 @@
 
 .profileImage {
     margin-right: 1.25rem;
-    /* 20px */
     position: relative;
     min-width: 13rem;
 }
@@ -105,11 +104,6 @@
 
 .hidden-upload {
     display: none;
-}
-
-.slds-input {
-    height: 43px;
-    border: 1px solid rgba(191, 196, 215, 1);
 }
 
 .generalInfoContent {
@@ -404,10 +398,15 @@
         top: 5%;
         left: 87%;
     }
+
     .input-dropdown {
         padding: 10%;
     }
-    .longfield{
+
+    .longfield {
         padding: 2%;
+    }
+    .namefield input{
+        padding: 5%;
     }
 }
