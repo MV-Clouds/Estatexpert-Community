@@ -64,7 +64,6 @@ export default class Esx_InquiryPage extends LightningElement {
                     .catch(error => {
                         console.log(error);
                     });
-
             }
         } catch (error) {
             console.error({ error });

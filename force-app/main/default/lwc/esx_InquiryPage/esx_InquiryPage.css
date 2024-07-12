@@ -2,22 +2,37 @@
     margin: 1rem;
 }
 
+.mainDiv {
+    position: relative;
+    width: 100%;
+    /* height: 100vh; Adjust as necessary */
+    /* overflow: hidden; */
+}
+
 .container {
     padding: 2%;
     position: relative;
-    z-index: 2;
-}
-
-.bg-image {
-    width: 100%;
-    opacity: 70%;
-    background-size: cover;
-    position: absolute;
     z-index: 1;
 }
 
+.backgroundImage {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+.backgroundImage img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    opacity: 0.6;
+}
+
 .title {
-    font-size: 36px;
+    /* font-size: 36px; */
+    font-size: 2.25rem;
     font-weight: 700;
 }
 
@@ -55,7 +70,7 @@
 }
 
 .rowValue {
-    font-size: 14px;
+    font-size: 0.875rem;
 }
 
 .box {
@@ -64,10 +79,12 @@
 }
 
 .avatar {
+    /* margin: 0.625rem; */
     margin: 10px;
 }
 
 .imgbox {
+    /* margin: 0.625rem; */
     margin: 10px;
 }
 
@@ -95,4 +112,104 @@
 
 .message h1 {
     font-size: 32px;
+}
+
+.card-view {
+    display: none;
+}
+
+.card {
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0 0px 4px 0 rgba(0, 0, 0, 0.25);
+    margin: 1%;
+}
+
+.property-image {
+    border-bottom: 1px solid rgba(149, 149, 149, 1);
+}
+
+.lines {
+    padding: 3%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.actions-buttons {
+    display: flex;
+    padding: 0% 3% 4% 0%;
+    justify-content: flex-end;
+}
+
+.property-image {
+    display: flex;
+    align-items: center;
+}
+
+.card-value {
+    color: rgba(149, 149, 149, 1);
+    font-weight: 400;
+}
+
+@media (min-width: 768px) and (max-width: 1023px) {
+    .table {
+        display: none;
+    }
+
+    .container {
+        padding: 4%;
+    }
+
+    .card-view {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        overflow: auto;
+        justify-content: center;
+        max-height: 705px;
+    }
+
+    .card-view::-webkit-scrollbar {
+        display: none;
+    }
+
+    .title {
+        font-size: 1.625rem;
+        font-weight: 700;
+    }
+
+    .propTitle {
+        width: 260px;
+    }
+}
+
+@media only screen and (max-width: 767px) {
+    .table {
+        display: none;
+    }
+
+    .container {
+        padding: 4%;
+    }
+
+    .card-view {
+        display: flex;
+        flex-direction: column;
+        overflow: auto;
+        max-height: 705px;
+    }
+
+    .card-view::-webkit-scrollbar {
+        display: none;
+    }
+
+    .title {
+        font-size: 1.625rem;
+        font-weight: 700;
+    }
+
+    .propTitle {
+        width: 270px;
+    }
 }
