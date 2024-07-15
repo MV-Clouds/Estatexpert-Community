@@ -191,6 +191,7 @@ svg {
     flex-direction: row;
 }
 
+
 .bed-no,
 .bath-no {
     font-family: Inter;
@@ -225,7 +226,7 @@ svg {
 .mobile-property-middle {
     display: none;
     font-size: 16px;
-    margin-top: 0.5rem;
+    margin-top: 0.8rem;
 }
 @media (min-width: 768px) and (max-width: 1023px) {
     .property-lower{
@@ -236,7 +237,7 @@ svg {
 @media only screen and (max-width: 767px) {
     .main-div {
         background-color: rgba(225, 241, 254, 1);
-        height: 12.5rem;
+        height: 11.5rem;
         margin: 1.638rem 1.638rem 0 1.638rem;
     }
     .area-text{
@@ -258,7 +259,7 @@ svg {
 
     .property-lower {
         width: 100%;
-        margin-top: 0.5rem;
+        margin-top: 0rem;
     }
 
     .price-of-property {
@@ -268,7 +269,7 @@ svg {
 
     .property-image {
         /* width: 19.063rem; */
-        height: 12.5rem;
+        height: 11.5rem;
     }
 
     .property-name {
@@ -278,7 +279,7 @@ svg {
     .image {
         width: 100%;
         /* width: 19.063rem; */
-        height: 12.5rem;
+        height: 11.5rem;
     }
 
     .checkmark {
@@ -300,19 +301,25 @@ svg {
     .bath-desc,
     .area-desc,
     .rank-desc {
-        gap: 1rem;
+        gap: 0.5rem;
+        margin-right: 10px;
     }
 
     .item-name {
         font-size: 2.8vw;
+        display: none;
         /* font-size: 12px; */
 
     }
 
     .mobile-property-middle {
         display: block;
-        font-size: 2.8vw;
+        font-size: 3.0vw;
         /* font-size: 12px; */
+    }
+    .icons{
+        width: 25px;
+        height: 20px;
     }
 
 }

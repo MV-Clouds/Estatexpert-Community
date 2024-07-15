@@ -32,11 +32,7 @@
 
                 </div>
             </div>
-            <div class="mobile-property-middle">
-                <div class="property-amenities">
-                    City view | Elevator | Parking
-                </div>
-            </div>
+            
             <div class="property-lower">
                 <div class="property-bed">
                     <div class="bed-text item-name">
@@ -44,7 +40,7 @@
                     </div>
                     <div class="bed-desc">
                         <div class="bed-icon">
-                            <img src={bedroomIcon} alt="BedroomIcon" class="bedroom-icon" />
+                            <img src={bedroomIcon} alt="BedroomIcon" class="bedroom-icon icons" />
                         </div>
                         <div class="bed-no">
                             {property.bedrooms}
@@ -57,7 +53,7 @@
                     </div>
                     <div class="bath-desc">
                         <div class="bath-icon">
-                            <img src={bathroomIcon} alt="BathroomIcon" class="bathroom-icon" />
+                            <img src={bathroomIcon} alt="BathroomIcon" class="bathroom-icon icons" />
                         </div>
                         <div class="bath-no">
                             {property.bathrooms}
@@ -70,7 +66,7 @@
                     </div>
                     <div class="area-desc">
                         <div class="area-icon">
-                            <img src={areaIcon} alt="AreaIcon" class="area-icon" />
+                            <img src={areaIcon} alt="AreaIcon" class="area-icon icons" />
                         </div>
                         <div class="area-no">
                             {property.area} <span> m<sup>2</sup></span>
@@ -89,6 +85,11 @@
                             {property.status}
                         </div>
                     </div>
+                </div>
+            </div>
+            <div class="mobile-property-middle">
+                <div class="property-amenities">
+                    Floor : {property.floor}
                 </div>
             </div>
             <div class="price-of-property">
