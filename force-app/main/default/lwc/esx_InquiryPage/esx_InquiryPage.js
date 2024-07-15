@@ -8,7 +8,8 @@ import Blank_Profile_Photo from '@salesforce/resourceUrl/Blank_Profile_Photo';
 import nopropertyfound from '@salesforce/resourceUrl/nopropertyfound';
 import updateInquiryStatus from '@salesforce/apex/ESX_InquiryPageController.updateInquiryStatus';
 import isLoggedInUserDataCorrect from '@salesforce/apex/ESX_UserUtil.isLoggedInUserDataCorrect';
-export default class Esx_InquiryPage extends LightningElement {
+import { NavigationMixin } from 'lightning/navigation';
+export default class Esx_InquiryPage extends NavigationMixin(LightningElement){
 
     BgImage = backgroundImage + '/Bg-Image.png';
 
@@ -64,10 +65,22 @@ export default class Esx_InquiryPage extends LightningElement {
                     .catch(error => {
                         console.log(error);
                     });
+            }else {
+                this.handleNavigate();
             }
         } catch (error) {
             console.error({ error });
         }
+    }
+
+    handleNavigate() {
+        let pageApi = 'Login';
+        this[NavigationMixin.Navigate]({
+            type: 'comm__namedPage',
+            attributes: {
+                name: pageApi
+            },
+        });
     }
 
     fetchInquryData() {
