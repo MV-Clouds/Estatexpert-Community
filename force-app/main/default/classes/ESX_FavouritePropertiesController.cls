@@ -1,4 +1,4 @@
-public with sharing class ESX_FavouritePropertiesController {
+public without sharing class ESX_FavouritePropertiesController {
 
     @AuraEnabled(cacheable=true)
     public static List<PropertyWrapper> getFavoritePorperty(){

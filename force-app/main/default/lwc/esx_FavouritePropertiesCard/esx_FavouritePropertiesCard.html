@@ -32,9 +32,14 @@
 
                 </div>
             </div>
+            <div class="mobile-property-middle">
+                <div class="property-amenities">
+                    City view | Elevator | Parking
+                </div>
+            </div>
             <div class="property-lower">
                 <div class="property-bed">
-                    <div class="bed-text">
+                    <div class="bed-text item-name">
                         Bedrooms
                     </div>
                     <div class="bed-desc">
@@ -47,7 +52,7 @@
                     </div>
                 </div>
                 <div class="property-bath">
-                    <div class="bath-text">
+                    <div class="bath-text item-name">
                         Bathrooms
                     </div>
                     <div class="bath-desc">
@@ -60,7 +65,7 @@
                     </div>
                 </div>
                 <div class="property-area">
-                    <div class="area-text">
+                    <div class="area-text item-name">
                         Carpet Area
                     </div>
                     <div class="area-desc">
@@ -68,12 +73,12 @@
                             <img src={areaIcon} alt="AreaIcon" class="area-icon" />
                         </div>
                         <div class="area-no">
-                            {property.area} m<sup>2</sup>
+                            {property.area} <span> m<sup>2</sup></span>
                         </div>
                     </div>
                 </div>
                 <div class="property-rank">
-                    <div class="rank-text">
+                    <div class="rank-text item-name">
                         Safety Rank
                     </div>
                     <div class="rank-desc">
@@ -85,6 +90,9 @@
                         </div>
                     </div>
                 </div>
+            </div>
+            <div class="price-of-property">
+                <p class="price">Rs. {property.price}</p>
             </div>
         </div>
     </div>

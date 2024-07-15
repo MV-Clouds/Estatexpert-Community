@@ -53,3 +53,9 @@
     height: 0.063rem;
     border-top: 1px solid #0176D340;
 }
+@media only screen and (max-width: 767px) {
+    .header-text{
+        font-size: 26px;
+        padding-left: 1.563rem;
+    }
+}
