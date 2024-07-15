@@ -8,8 +8,8 @@ import updateContact from '@salesforce/apex/ProfilePage.updateContact';
 import uploadProfileImage from '@salesforce/apex/ProfilePage.uploadProfileImage';
 import isLoggedInUserDataCorrect from '@salesforce/apex/ESX_UserUtil.isLoggedInUserDataCorrect';
 import removeProfileImage from '@salesforce/apex/ProfilePage.removeProfileImage';
-
-export default class Esx_ProfilePage extends LightningElement {
+import { NavigationMixin } from 'lightning/navigation';
+export default class Esx_ProfilePage extends NavigationMixin(LightningElement) {
 
     // @track contactId = '003dL000001VvuLQAS';
     @track contactId;
@@ -52,6 +52,8 @@ export default class Esx_ProfilePage extends LightningElement {
                     .catch(error => {
                         console.log(error);
                     });
+            }else{
+                this.handleNavigate('Login');
             }
         }catch (error) {
             console.error(error);
@@ -100,7 +102,17 @@ export default class Esx_ProfilePage extends LightningElement {
     }
 
     navigateHome() {
-        console.log('navigateHome');
+        // console.log('navigateHome');
+        this.handleNavigate('Home');
+    }
+    handleNavigate(page) {
+        let pageApi = page;
+        this[NavigationMixin.Navigate]({
+            type: 'comm__namedPage',
+            attributes: {
+                name: pageApi
+            },
+        });
     }
 
     updateContact(event) {

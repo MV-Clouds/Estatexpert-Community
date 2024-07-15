@@ -51,6 +51,7 @@
     align-items: center;
     border: 1px solid #d8dde6;
     margin-right: 10px;
+    cursor: pointer;
 }
 
 .headerTitle {
