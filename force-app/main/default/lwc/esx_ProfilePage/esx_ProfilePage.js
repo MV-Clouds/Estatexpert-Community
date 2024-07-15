@@ -11,7 +11,6 @@ import removeProfileImage from '@salesforce/apex/ProfilePage.removeProfileImage'
 import { NavigationMixin } from 'lightning/navigation';
 export default class Esx_ProfilePage extends NavigationMixin(LightningElement) {
 
-    // @track contactId = '003dL000001VvuLQAS';
     @track contactId;
     @track contact;
     @track profileImage;
@@ -102,7 +101,6 @@ export default class Esx_ProfilePage extends NavigationMixin(LightningElement) {
     }
 
     navigateHome() {
-        // console.log('navigateHome');
         this.handleNavigate('Home');
     }
     handleNavigate(page) {
