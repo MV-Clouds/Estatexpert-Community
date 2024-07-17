@@ -12,7 +12,7 @@ export default class Esx_LatestPropertyCard extends LightningElement {
     featuredIcon = ListedProperties + '/Featured-icon.png';
     forSellIcon = ListedProperties + '/ForSell-icon.png';
     forRentIcon = ListedProperties + '/ForRent-icon.png';
-
+    mobileAddressIcon = ListedProperties + '/mapicon_mobile.png';
     connectedCallback() {
         console.log('properties stringfy=> ', JSON.stringify(this.property));
     }

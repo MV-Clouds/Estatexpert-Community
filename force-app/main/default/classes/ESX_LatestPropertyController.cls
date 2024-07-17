@@ -1,4 +1,4 @@
-public with sharing class ESX_LatestPropertyController {
+public without sharing class ESX_LatestPropertyController {
     @AuraEnabled
     public static List<PropertyWrapper> getPropertiesByStatus(String status) {
         List<Listing__c> listedProperties = new List<Listing__c>();

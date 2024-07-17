@@ -78,3 +78,30 @@
     display: none;
     /* Hides the scrollbar for WebKit browsers */
 }
+
+@media (min-width: 768px) and (max-width: 1023px) {
+    .header-line{
+        width: 80%;
+        text-overflow: ellipsis;
+        white-space: normal;
+        word-break: break-word;
+    }
+}
+@media only screen and (max-width: 767px) {
+    .main-div{
+        padding: 5px 3.5%;
+    }
+    .header-tag{
+        font-size: 1.25rem;
+        font-weight: 700;
+    }
+    .header-line{
+        display: none;
+    }
+    .header-right{
+        display: none;
+    }
+    .listing-property{
+        margin-top: 0rem;
+    }
+}
