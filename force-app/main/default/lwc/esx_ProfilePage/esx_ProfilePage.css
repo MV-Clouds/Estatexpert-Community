@@ -341,11 +341,11 @@
         box-shadow: 0 5px 25px 0 rgba(47, 128, 237, 0.2);
     }
 
-    .formGroup {
+    .formGroup,.address-fields,.phone-and-email,.date-and-age{
         flex-direction: column;
     }
 
-    .address-fields {
+    /* .address-fields {
         flex-direction: column;
     }
 
@@ -355,7 +355,7 @@
 
     .date-and-age {
         flex-direction: column;
-    }
+    } */
 
     .input-first-half {
         width: 100%;
