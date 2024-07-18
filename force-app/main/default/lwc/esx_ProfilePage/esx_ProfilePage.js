@@ -65,6 +65,10 @@ export default class Esx_ProfilePage extends NavigationMixin(LightningElement) {
                 console.log('result: ', result);
                 if (result.contact != null) {
                     this.contact = result.contact;
+                    this.contact = Object.keys(result.contact).reduce((acc, key) => {
+                        acc[key] = result.contact[key] == null ? undefined : result.contact[key];
+                        return acc;
+                    }, {});
                     this.recordType = result.contact.RecordType.Name;
                     this.isLoading = false;
                 } else {
@@ -103,6 +107,7 @@ export default class Esx_ProfilePage extends NavigationMixin(LightningElement) {
     navigateHome() {
         this.handleNavigate('Home');
     }
+    
     handleNavigate(page) {
         let pageApi = page;
         this[NavigationMixin.Navigate]({
@@ -197,5 +202,12 @@ export default class Esx_ProfilePage extends NavigationMixin(LightningElement) {
             console.log('errormsg:', error.body.message);
             console.error(error);
         });
+    }
+
+    cancelAction(){
+        this.isDisabled = true;
+        let button = this.template.querySelector('.save-btn');
+        button.style.backgroundColor = 'rgba(210, 210, 210, 1)';
+        this.getCurrentContactDetails();
     }
 }

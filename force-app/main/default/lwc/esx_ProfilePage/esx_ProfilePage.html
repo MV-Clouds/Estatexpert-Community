@@ -160,7 +160,12 @@
                 </div>
                 <br />
                 <div class="buttons">
-                    <button class="btn slds-m-right_medium" onclick={getContactInfo}>Edit</button>
+                    <template if:true={isDisabled}>
+                        <button class="btn slds-m-right_medium" onclick={getContactInfo}>Edit</button>
+                    </template>
+                    <template if:false={isDisabled}>
+                        <button class="btn slds-m-right_medium" onclick={cancelAction}>Cancel</button>
+                    </template>
                     <button class="save-btn slds-m-left_medium" onclick={updateContactInfo}
                         disabled={isDisabled}>Save</button>
                 </div>

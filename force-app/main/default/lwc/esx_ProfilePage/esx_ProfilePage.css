@@ -238,7 +238,8 @@
     /* height: 46px; */
     height: 2.875rem;
     border-radius: 6px;
-    padding: 2%;
+    padding: 0.875rem 1.0rem 0.875rem 1.0rem;
+    /* padding: 2%; */
     border: 1px solid rgba(191, 196, 215, 1);
     margin-bottom: 1rem;
 }
@@ -259,7 +260,8 @@
     /* height: 46px; */
     height: 2.875rem;
     border-radius: 6px;
-    padding: 2%;
+    padding: 0.875rem 1.0rem 0.875rem 1.0rem;
+    /* padding: 2%; */
     border: 1px solid rgba(191, 196, 215, 1);
     margin-bottom: 1rem;
     -webkit-appearance: none;
@@ -276,7 +278,8 @@
     /* height: 46px; */
     height: 2.875rem;
     border-radius: 6px;
-    padding: 8%;
+    padding: 0.875rem 1.0rem 0.875rem 1.0rem;
+    /* padding: 8%; */
     border: 1px solid rgba(191, 196, 215, 1);
     margin-bottom: 1rem;
     -webkit-appearance: none;
@@ -288,6 +291,7 @@
 
 .date-second-half {
     margin-left: 1rem;
+    width: 20%;
 }
 
 .longfield {
@@ -295,15 +299,22 @@
     /* height: 46px; */
     height: 2.875rem;
     border-radius: 6px;
-    padding: 1%;
+    padding: 0.875rem 1.0rem 0.875rem 1.0rem;
+    /* padding: 1%; */
     border: 1px solid rgba(191, 196, 215, 1);
     margin-bottom: 1rem;
     -webkit-appearance: none;
 }
 
 @media only screen and (max-width: 1024px) {
+    .dropdownfield{
+        width: 15%;
+    }
+    .date-and-age{
+        width: 60%;
+    }
     .date-first-half {
-        width: 55%;
+        width: 50%;
     }
 }
 
@@ -372,7 +383,7 @@
     }
 
     .otherinput {
-        padding: 2%;
+        /* padding: 2%; */
     }
 
     .firstRow {
@@ -397,17 +408,17 @@
 
     .delete-icon {
         top: 5%;
-        left: 87%;
+        left: 85%;
     }
 
     .input-dropdown {
-        padding: 10%;
+        /* padding: 10%; */
     }
 
     .longfield {
-        padding: 2%;
+        /* padding: 2%; */
     }
     .namefield input{
-        padding: 5%;
+        /* padding: 5%; */
     }
 }
