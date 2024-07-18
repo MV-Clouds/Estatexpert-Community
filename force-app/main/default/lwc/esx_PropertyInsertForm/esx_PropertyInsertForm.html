@@ -22,17 +22,32 @@
                                 </div>
                             </div>
                             <br />
+                            <div class="full-box">
                             <div class="prop-type">
                                 <div class="property-type">
                                     <label class="label"><abbr class="slds-required" title="required">*</abbr>Property
                                         Type</label>
-                                    <select name="propertyType" class="input-dropdown" onchange={handleInputChange} required>
+                                    <select name="propertyType" class="input-dropdown" onchange={handleInputChange}
+                                        required>
                                         <template for:each={propertyTypes} for:item="type">
                                             <option value={property.propertyType} key={type.label}>{type.label}</option>
                                         </template>
                                     </select>
                                 </div>
                             </div>
+                            <div class="prop-type extra-tab">
+                                <div class="property-type">
+                                    <!-- <label class="label"><abbr class="slds-required" title="required">*</abbr>Property
+                                        Type</label>
+                                    <select name="propertyType" class="input-dropdown" onchange={handleInputChange}
+                                        required>
+                                        <template for:each={propertyTypes} for:item="type">
+                                            <option value={property.propertyType} key={type.label}>{type.label}</option>
+                                        </template>
+                                    </select> -->
+                                </div>
+                            </div>
+                        </div>
                         </div>
                     </div>
                     <div class="property-location content">
@@ -54,29 +69,32 @@
                         <h2 class="box-heading">Property Features</h2>
                         <div class="features">
                             <div class="prop-type numberFields ">
-                                <div>
+                                <div class="input-number-first-half">
                                     <p>Bedroom</p>
                                     <div class="quantity">
                                         <button name="bedrooms" class="minus" aria-label="Decrease"
                                             onclick={decreaseNumber}>
                                             &minus;
                                         </button>
-                                        <input type="number" name="bedrooms" class="input-box bedrooms_number input-text"
-                                            value={property.bedrooms} min="1" max="10" onchange={handleInputChange}>
-                                        <button name="bedrooms" class="plus" aria-label="Increase" onclick={increaseNumber}>
+                                        <input type="number" name="bedrooms"
+                                            class="input-box bedrooms_number input-text" value={property.bedrooms}
+                                            min="1" max="10" onchange={handleInputChange}>
+                                        <button name="bedrooms" class="plus" aria-label="Increase"
+                                            onclick={increaseNumber}>
                                             &plus;
                                         </button>
                                     </div>
                                 </div>
-                                <div  class="input-number-second-half">
+                                <div class="input-number-second-half">
                                     <p>Balconies</p>
                                     <div class="quantity">
                                         <button name="balconies" class="minus" aria-label="Decrease"
                                             onclick={decreaseNumber}>
                                             &minus;
                                         </button>
-                                        <input type="number" name="balconies" class="input-box balconies_number input-text"
-                                            value={property.balconies} min="1" max="10" onchange={handleInputChange}>
+                                        <input type="number" name="balconies"
+                                            class="input-box balconies_number input-text" value={property.balconies}
+                                            min="1" max="10" onchange={handleInputChange}>
                                         <button name="balconies" class="plus" aria-label="Increase"
                                             onclick={increaseNumber}>
                                             &plus;
@@ -88,37 +106,58 @@
                                 <div class="prop-type input-first-half">
                                     <label class="label"><abbr class="slds-required" title="required">*</abbr>Floor
                                         No.</label>
-                                    <select name="floorNumber" class="input-dropdown" onchange={handleInputChange} required>
+                                    <select name="floorNumber" class="input-dropdown" onchange={handleInputChange}
+                                        required>
                                         <template for:each={floorNumbers} for:item="floor">
-                                            <option value={property.floorNumber} key={floor.label}>{floor.label}</option>
+                                            <option value={property.floorNumber} key={floor.label}>{floor.label}
+                                            </option>
                                         </template>
                                     </select>
                                 </div>
                                 <div class="prop-type input-second-half">
-                                    <p class="label"><abbr class="slds-required" title="required">*</abbr>Total Floor</p>
+                                    <p class="label"><abbr class="slds-required" title="required">*</abbr>Total Floor
+                                    </p>
                                     <input type="number" min="0" class="input-text" value={property.totalFloors}
                                         name="totalFloors" placeholder="Total Floor" onchange={handleInputChange}
                                         required></input>
                                 </div>
                             </div>
+                            <div class="full-box">
                             <div class="prop-type">
                                 <label class="label"><abbr class="slds-required" title="required">*</abbr>Furnished
                                     Status</label>
-                                <select name="furnishedStatus" class="input-dropdown" onchange={handleInputChange} required>
+                                <select name="furnishedStatus" class="input-dropdown" onchange={handleInputChange}
+                                    required>
                                     <template for:each={furnishedStatuses} for:item="status">
-                                        <option value={property.furnishedStatus} key={status.label}>{status.label}</option>
+                                        <option value={property.furnishedStatus} key={status.label}>{status.label}
+                                        </option>
                                     </template>
                                 </select>
+                            </div>
+                            <div class="prop-type extra-tab">
+                                <div class="property-type">
+                                    <!-- <label class="label"><abbr class="slds-required" title="required">*</abbr>Property
+                                        Type</label>
+                                    <select name="propertyType" class="input-dropdown" onchange={handleInputChange}
+                                        required>
+                                        <template for:each={propertyTypes} for:item="type">
+                                            <option value={property.propertyType} key={type.label}>{type.label}</option>
+                                        </template>
+                                    </select> -->
+                                </div>
+                            </div>
                             </div>
                             <div>
                                 <p>Bathroom</p>
                                 <div class="quantity">
-                                    <button name="bathrooms" class="minus" aria-label="Decrease" onclick={decreaseNumber}>
+                                    <button name="bathrooms" class="minus" aria-label="Decrease"
+                                        onclick={decreaseNumber}>
                                         &minus;
                                     </button>
                                     <input type="number" name="bathrooms" class="input-box bathrooms_number input-text"
                                         value={property.bathrooms} min="1" max="10" onchange={handleInputChange}>
-                                    <button name="bathrooms" class="plus" aria-label="Increase" onclick={increaseNumber}>
+                                    <button name="bathrooms" class="plus" aria-label="Increase"
+                                        onclick={increaseNumber}>
                                         &plus;
                                     </button>
                                 </div>
@@ -130,9 +169,9 @@
                         <div class="area-box">
                             <div class="prop-type input-first-half">
                                 <p class="label"> Covered Area</p>
-                                <div style="display: flex;align-items:center">
+                                <div class="full-box">
                                     <input type="number" min="0" name="coveredArea" value={property.coveredArea}
-                                        class="input-text " placeholder="Covered Area" 
+                                        class="input-text " placeholder="Covered Area"
                                         onchange={handleInputChange}></input>
                                     <label class="label"></label>
                                     <select name="coveredAreaUnit" class="input-dropdown slds-m-left_medium"
@@ -146,7 +185,7 @@
                             </div>
                             <div class="prop-type input-second-half">
                                 <p class="label"> Carpet Area</p>
-                                <div style="display: flex;align-items:center">
+                                <div class="full-box">
                                     <input type="number" min="0" name="carpetArea" value={property.carpetArea}
                                         class="input-text " placeholder="Carpet Area"
                                         onchange={handleInputChange}></input>
@@ -154,7 +193,8 @@
                                     <select name="carpetAreaUnit" class="input-dropdown slds-m-left_medium"
                                         onchange={handleInputChange}>
                                         <template for:each={carpetareaUnits} for:item="units">
-                                            <option value={property.carpetAreaUnit} key={units.label}>{units.label}</option>
+                                            <option value={property.carpetAreaUnit} key={units.label}>{units.label}
+                                            </option>
                                         </template>
                                     </select>
                                 </div>
@@ -164,27 +204,30 @@
                     <div class="plot-area content">
                         <div class="prop-type">
                             <template if:false={isPlotArea}>
-                                <button
-                                    name="showPlotArea" class="plus-icon slds-m-right_xx-small" aria-label="showPlotArea"
-                                    onclick={showPlotAreaFields}>
-                                    &plus;
-                                </button>
-                                Plot Area
+                                <div class="plotBtn">
+                                    <button name="showPlotArea" class="plus-icon slds-m-right_xx-small"
+                                        aria-label="showPlotArea" onclick={showPlotAreaFields}>
+                                        &plus;
+                                    </button>
+                                    Plot Area
+                                </div>
                             </template>
                             <template if:true={isPlotArea}>
-                                <button
-                                    name="showPlotArea" class="plus-icon slds-m-right_xx-small" aria-label="showPlotArea"
-                                    onclick={showPlotAreaFields}>
-                                    &minus;
-                                </button>
-                                Plot Area
+                                <div class="plotBtn">
+                                    <button name="showPlotArea" class="plus-icon slds-m-right_xx-small"
+                                        aria-label="showPlotArea" onclick={showPlotAreaFields}>
+                                        &minus;
+                                    </button>
+                                    Plot Area
+                                </div>
                             </template>
                             <template if:true={isPlotArea}>
                                 <div class="p_Area">
                                     <div class="prop-type input-first-half">
                                         <p class="label">Plot Area</p>
                                         <input type="number" min="0" class="input-text" value={property.plotArea}
-                                            name="plotArea" placeholder="Plot Area" onchange={handleInputChange}></input>
+                                            name="plotArea" placeholder="Plot Area"
+                                            onchange={handleInputChange}></input>
                                     </div>
                                     <div class="prop-type input-number-second-half">
                                         <p class="label"> Plot Breadth</p>
@@ -236,6 +279,10 @@
                                     name="expectedPrice" placeholder="Expected Price" onchange={handleInputChange}
                                     required></input>
                             </div>
+                            <div class="prop-type extra-tab">
+                                <div class="property-type">
+                                </div>
+                            </div>
                         </div>
                         <h3 class="inner-heading">Price Includes</h3>
                         <div class="checkbox">
@@ -249,7 +296,8 @@
                         <br />
                         <div class="pr-details">
                             <div class="prop-type input-first-half">
-                                <p class="label"><abbr class="slds-required" title="required">*</abbr>Booking/Token Amount
+                                <p class="label"><abbr class="slds-required" title="required">*</abbr>Booking/Token
+                                    Amount
                                 </p>
                                 <input type="number" min="0" class="input-text" value={property.bookingAmount}
                                     name="bookingAmount" placeholder="Booking/Token Amount" onchange={handleInputChange}
@@ -257,9 +305,9 @@
                             </div>
                             <div class="prop-type input-second-half">
                                 <p class="label"> Maintenance Charges</p>
-                                <input type="number" min="0" name="maintenanceCharges" value={property.maintenanceCharges}
-                                    class="input-text" placeholder="Maintenance Charges"
-                                    onchange={handleInputChange}></input>
+                                <input type="number" min="0" name="maintenanceCharges"
+                                    value={property.maintenanceCharges} class="input-text"
+                                    placeholder="Maintenance Charges" onchange={handleInputChange}></input>
                             </div>
                         </div>
                         <div class="pr-details">
@@ -267,11 +315,14 @@
                                 <label class="label">Brokerage(Brokers only)</label>
                                 <select name="brokerage" class="input-dropdown" onchange={handleInputChange}>
                                     <template for:each={brokerages} for:item="brokerage">
-                                        <option value={property.brokerage} key={brokerage.label}>{brokerage.label}</option>
+                                        <option value={property.brokerage} key={brokerage.label}>{brokerage.label}
+                                        </option>
                                     </template>
                                 </select>
                             </div>
-                            <div class="prop-type">
+                            <div class="prop-type extra-tab">
+                                <div class="property-type">
+                                </div>
                             </div>
                         </div>
                         <h3 class="inner-heading">Response from brokers</h3>
@@ -288,18 +339,24 @@
                         <h2 class="box-heading">Amenities</h2>
                         <div class="pr-details">
                             <div class="prop-type input-first-half ">
-                                <lightning-input type="text" placeholder="Select Amenities" name="indoorAmenties"
-                                    label="Indoor Amenities" value={property.indoorAmenities} onclick={clickhandler}>
-                                </lightning-input>
                                 <div class="selection-summary">
-                                    <div class="slds-p-around_x-small">
+                                    <div class="pillbox">
                                         <template for:each={property.indoorAmenities} for:item="selectedItem">
-                                            <lightning-pill class="pill slds-m-top_xx-small" key={selectedItem} label={selectedItem}
-                                                name={selectedItem} onremove={handleRemove}
-                                                data-field="indoorAmenities"></lightning-pill>
+                                            <!-- <lightning-pill class="pill slds-m-top_xx-small" key={selectedItem}
+                                                label={selectedItem} name={selectedItem} onremove={handleRemove}
+                                                data-field="indoorAmenities"></lightning-pill> -->
+                                                <div class="pill" key={selectedItem}>
+                                                    {selectedItem}
+                                                </div>
                                         </template>
                                     </div>
                                 </div>
+                                <!-- <lightning-input type="text" placeholder="Select Amenities" name="indoorAmenties"
+                                    label="Indoor Amenities" value={property.indoorAmenities} onclick={clickhandler}>
+                                </lightning-input> -->
+                                <p class="label">Indoor Amenities</p>
+                                <input type="text" name="indoorAmenties" class="input-text amenities-input" placeholder="Select Amenities"
+                                     onclick={clickhandler}></input>
                                 <template if:true={showDropdown_indoor}>
                                     <div class="slds-box_border amenty-checkboxes ">
                                         <ul class="dropdown-list slds-dropdown_length-7 slds-p-left_medium">
@@ -316,18 +373,24 @@
                                 </template>
                             </div>
                             <div class="prop-type input-second-half">
-                                <lightning-input type="text" name="outdoorAmenties" placeholder="Select Amenities"
-                                    label="Outdoor Amenities" onclick={clickhandler}>
-                                </lightning-input>
                                 <div class="selection-summary">
-                                    <div class="slds-p-around_x-small">
+                                    <div class="pillbox">
                                         <template for:each={property.outdoorAmenities} for:item="selectedItem">
-                                            <lightning-pill class="pill slds-m-top_xx-small" key={selectedItem} label={selectedItem}
-                                                name={selectedItem} onremove={handleRemove}
-                                                data-field="outdoorAmenities"></lightning-pill>
+                                            <!-- <lightning-pill class="pill slds-m-top_xx-small" key={selectedItem}
+                                                label={selectedItem} name={selectedItem} onremove={handleRemove}
+                                                data-field="outdoorAmenities"></lightning-pill> -->
+                                                <div class="pill" key={selectedItem}>
+                                                    {selectedItem}
+                                                </div>
                                         </template>
                                     </div>
                                 </div>
+                                <!-- <lightning-input type="text" name="outdoorAmenties" placeholder="Select Amenities"
+                                    label="Outdoor Amenities" onclick={clickhandler}>
+                                </lightning-input> -->
+                                <p class="label">Outdoor Amenities</p>
+                                <input type="text" name="outdoorAmenties" class="input-text amenities-input" placeholder="Select Amenities"
+                                    value={property.outdoorAmenities} onclick={clickhandler}></input>
                                 <template if:true={showDropdown_outdoor}>
                                     <div class="slds-box_border amenty-checkboxes">
                                         <ul class="dropdown-list slds-dropdown_length-7 slds-p-left_medium">
