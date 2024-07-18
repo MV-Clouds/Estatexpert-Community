@@ -33,6 +33,8 @@ export default class Esx_InquiryPage extends NavigationMixin(LightningElement){
     @track profileImgUrl;
     @track showSpinner = false;
     @track selectedStatusMap = new Map();
+    @track showSaveBtn = false;
+    @track showEditBtn = true;
 
     connectedCallback() {
         this.loadCssFromResource();

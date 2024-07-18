@@ -98,14 +98,18 @@
                                     </td>
                                     <td data-label="actions">
                                         <div class="slds-truncate rowValue" title="actions">
-                                            <lightning-button icon-name="utility:save" alternative-text="Save"
-                                                class=" save-button my-round-button" title="Save" data-key={item.Id}
-                                                data-status={item.Status__c} data-url={item.ImageURL}
-                                                onclick={saveUpdatedStatus} disabled></lightning-button>
-                                            <lightning-button icon-name="utility:edit" alternative-text="Edit"
-                                                class="slds-m-left_x-small my-round-button" title="Edit"
-                                                data-key={item.Id} data-status={item.Status__c} data-url={item.ImageURL}
-                                                onclick={editStatus}></lightning-button>
+                                            <template if:true={item.isEdit}>
+                                                <lightning-button icon-name="utility:save" alternative-text="Save"
+                                                    class=" save-button my-round-button" title="Save" data-key={item.Id}
+                                                    data-status={item.Status__c} data-url={item.ImageURL}
+                                                    onclick={saveUpdatedStatus} disabled></lightning-button>
+                                            </template>
+                                            <template if:false={item.isEdit}>
+                                                <lightning-button icon-name="utility:edit" alternative-text="Edit"
+                                                    class="slds-m-left_x-small my-round-button" title="Edit"
+                                                    data-key={item.Id} data-status={item.Status__c} data-url={item.ImageURL}
+                                                    onclick={editStatus}></lightning-button>
+                                            </template>
                                             <lightning-button icon-name="utility:delete" alternative-text="Delete"
                                                 class=" slds-m-left_x-small my-round-button" title="Delete"
                                                 data-key={item.Id} data-url={item.ImageURL}
@@ -169,14 +173,18 @@
                         </div>
                         <div class="action-buttons">
                             <div class="slds-truncate rowValue actions-buttons" title="actions">
-                                <lightning-button icon-name="utility:save" alternative-text="Save"
-                                    class=" save-button my-round-button" title="Save" data-key={item.Id}
-                                    data-status={item.Status__c} data-url={item.ImageURL} onclick={saveUpdatedStatus}
-                                    disabled></lightning-button>
-                                <lightning-button icon-name="utility:edit" alternative-text="Edit"
-                                    class="slds-m-left_x-small my-round-button" title="Edit" data-key={item.Id}
-                                    data-status={item.Status__c} data-url={item.ImageURL}
-                                    onclick={editStatus}></lightning-button>
+                                <template if:true={item.isEdit}>
+                                    <lightning-button icon-name="utility:save" alternative-text="Save"
+                                        class=" save-button my-round-button" title="Save" data-key={item.Id}
+                                        data-status={item.Status__c} data-url={item.ImageURL} onclick={saveUpdatedStatus}
+                                        disabled></lightning-button>
+                                </template>
+                                <template if:false={item.isEdit}>
+                                    <lightning-button icon-name="utility:edit" alternative-text="Edit"
+                                        class="slds-m-left_x-small my-round-button" title="Edit" data-key={item.Id}
+                                        data-status={item.Status__c} data-url={item.ImageURL}
+                                        onclick={editStatus}></lightning-button>
+                                </template>
                                 <lightning-button icon-name="utility:delete" alternative-text="Delete"
                                     class=" slds-m-left_x-small my-round-button" title="Delete" data-key={item.Id}
                                     data-url={item.ImageURL} onclick={delete_row}></lightning-button>
