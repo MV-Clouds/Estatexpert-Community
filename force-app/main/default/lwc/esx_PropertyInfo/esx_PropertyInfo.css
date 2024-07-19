@@ -1,0 +1,71 @@
+.container{
+    padding: 1rem;
+}
+.heading{
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: rgba(1, 118, 211, 1);
+}
+.content-box{
+    margin-top: 1rem;
+}
+.text-content{
+    text-align: justify;
+}
+
+.facilities{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0rem 3rem;
+}
+.facilityBox{
+    width: 7.063rem;
+    height: 6.25rem;
+    border: 0px;
+    border-radius: 0.75rem;
+    background-color: rgba(225, 241, 254, 1);
+    margin: 1rem;
+    padding: 1.5rem;
+    color:#6B6B6B;
+    cursor: pointer;
+}
+.facilityBox:hover{
+    background-color: #0176D3;
+    color:white;
+}
+.facilityBox:hover .iconImg{
+    filter: brightness(0) invert(1);
+}
+.facilityBox img{
+    height:31.25px;
+    width:33.75px;
+    cursor:pointer;
+}
+.facilityBox p{
+    font-size:12px;
+    margin-top:5px;
+}
+
+
+.details-boxes{
+    display: flex;
+    gap: 1.5rem;
+}
+.inner-heading{
+    font-size: 1.25rem;
+    font-weight: 600;
+}
+.details{
+    width: 60%;
+}
+.address,.landmark,.locality{
+    margin-bottom: 1rem;
+}
+.map{
+    border: 1px solid black;
+    border-radius: 6px;
+    width: 40%;
+    height: 253px;
+}
