@@ -95,11 +95,11 @@
     border: 0px;
 }
 
-.area-box {
+.area-box,.availableFrom,.pr-details,.p_Area {
     display: flex;
 }
 
-.availableFrom {
+/* .availableFrom {
     display: flex;
 }
 
@@ -109,7 +109,7 @@
 
 .p_Area {
     display: flex;
-}
+} */
 
 .plus-icon {
     color: rgba(1, 118, 211, 1);
