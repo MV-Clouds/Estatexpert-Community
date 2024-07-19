@@ -1,0 +1,106 @@
+<template>
+    <div class="container">
+        <div class="top-box">
+            <div class="box1">
+                <div class="property-image">
+                    <img src={samplePropertyImage}></img>
+                </div>
+            </div>
+            <div class="box2">
+                <div class="property-brief-info">
+                    <div class="title content">Featured Property</div>
+                    <div class="name-and-agent content">
+                        <div class="property-name">
+                            <h1 class="prop-name">Woodland Apartment</h1>
+                            <p class="grey-text">1012 Ocean avanue, New yourk, USA</p>
+                        </div>
+                        <div class="agent-details">
+                            <lightning-avatar variant="circle" size="large"
+                                src="https://www.lightningdesignsystem.com/assets/images/avatar1.jpg" initials="AW"
+                                fallback-icon-name="standard:person_account" alternative-text="Amy Weaver"
+                                class="slds-m-right_small"></lightning-avatar>
+                            <div class="agent-name">
+                                <p class="name">Sandeep S.</p>
+                                <p class="grey-text profession">Partner</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="number-details content">
+                        <div class="bed number-box">
+                            <img src=""></img>
+                            <p class="number-text">4 Beds</p>
+                        </div>
+                        <div class="bathrooms number-box">
+                            <img src=""></img>
+                            <p class="number-text">4 Baths</p>
+                        </div>
+                        <div class="balconies number-box">
+                            <img src=""></img>
+                            <p class="number-text">4 Balconies</p>
+                        </div>
+                        <div class="furnished-status number-box">
+                            <img src=""></img>
+                            <p class="number-text">Semi furnished</p>
+                        </div>
+                    </div>
+                    <div class="price content">
+                        <div class="price-val">Rs. 25 Lac</div>
+                    </div>
+                    <div class="other-info content">
+                        <div class="row-1">
+                            <div class="info-1">
+                                <p class="grey-text column-name">Carpet Area</p>
+                                <p class="column-value">1015 sqft</p>
+                            </div>
+                            <div class="info-2">
+                                <p class="grey-text column-name">Transaction Type</p>
+                                <p class="column-value">Resale</p>
+                            </div>
+                            <div class="info-3">
+                                <p class="grey-text column-name">Status</p>
+                                <p class="column-value">Ready to Move</p>
+                            </div>
+                        </div>
+                        <div class="row-2">
+                            <div class="info-1">
+                                <p class="grey-text column-name">Additional Rooms</p>
+                                <p class="column-value">1 Store Room</p>
+                            </div>
+                            <div class="info-2">
+                                <p class="grey-text column-name">Facing</p>
+                                <p class="column-value">North-East</p>
+                            </div>
+                            <div class="info-3">
+                                <p class="grey-text column-name">Lift</p>
+                                <p class="column-value">1</p>
+                            </div>
+                        </div>
+                        <div class="row-3">
+                            <div class="info-1">
+                                <p class="grey-text column-name">Furnished Status</p>
+                                <p class="column-value">Semi furnished</p>
+                            </div>
+                            <div class="info-2">
+                                <p class="grey-text column-name">Type Of Ownership</p>
+                                <p class="column-value">Freehold</p>
+                            </div>
+                        </div>
+                        <div class="row-4">
+                            <div>
+                                <p class="grey-text column-name">Age Of Construction</p>
+                                <p class="column-value">5 to 10 Years</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="buttons">
+                        <button class="btn slds-m-right_medium" onclick={cancelAction}>Download Brochure</button>
+                        <button class="btn slds-m-left_medium" onclick={updateContactInfo}>Contact Owner</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="bottom-box">
+
+        </div>
+    </div>
+</template>

@@ -1,0 +1,113 @@
+.container{
+    width: 100%;
+    padding: 1rem;
+}
+.top-box{
+    display: flex;
+    align-items: center;
+}
+.box1{
+    /* width:54.375rem; */
+    width: 70%;
+    height: 27.5rem;
+    margin-right: 1rem;
+    border-radius: 1rem;
+}
+.property-image img{
+    width: 100%;
+    height: 27.5rem;
+}
+.box2{
+    height: 27.5rem;
+}
+.content{
+    margin-bottom: 1rem;
+}
+.title{
+    font-size: 0.875rem;
+    font-weight: 600;
+    color:rgba(86, 167, 58, 1);
+}
+.name-and-agent{
+    display: flex;
+    align-items: center;
+}
+.property-name{
+    margin-right: 0.5rem;
+}
+.prop-name{
+    font-size: 1.25rem;
+    font-weight: 600;
+}
+.grey-text{
+    color:rgba(140, 140, 140, 1);
+}
+.agent-details{
+    display: flex;
+    align-items: center;
+}
+.name{
+    font-size: 0.813rem;
+    font-weight: 600;
+}
+.profession{
+    font-size: 0.688rem;
+    font-weight: 400;
+}
+.number-details{
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+}
+.number-box{
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+.number-text{
+    font-weight: 400;
+    font-size: 0.75rem;
+}
+
+.price-val{
+    color: rgba(1, 118, 211, 1);
+    font-weight: 500;
+    font-size: 1.25rem;
+}
+
+.row-1,.row-2,.row-3{
+    display: flex;
+    align-items: center;
+    /* justify-content: space-between; */
+    margin-bottom: 0.5rem;
+}
+.column-name{
+    font-weight: 500;
+    font-size: 0.813rem;
+}
+.column-value{
+    font-weight: 700;
+    font-size: 0.75rem;
+}
+.info-1,.info-2,.info-3{
+    margin-right: 2rem;
+    width: 9rem;
+}
+
+
+.buttons {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+.btn {
+    background-color: rgba(1, 118, 211, 1);
+    border-radius: 1.875rem;
+    font-size: 1.125rem;
+    width: 12.5rem;
+    height: 2.938rem;
+    color: white;
+    border: 0px;
+}
+
