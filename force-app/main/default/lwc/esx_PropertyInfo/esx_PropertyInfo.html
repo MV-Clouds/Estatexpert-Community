@@ -98,11 +98,13 @@
                 <div class="details">
                     <div class="address">
                         <h2 class="inner-heading">Address:-</h2>
-                        <p class="text-content">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Saepe adipisci quam, et natus officia velit ex. Temporibus et dolores non.</p>
+                        <p class="text-content">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Saepe adipisci
+                            quam, et natus officia velit ex. Temporibus et dolores non.</p>
                     </div>
                     <div class="landmark">
                         <h2 class="inner-heading">Landmark:-</h2>
-                        <p class="text-content">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Dolor possimus tempore quo accusamus, repudiandae animi velit distinctio aperiam iure consectetur.</p>
+                        <p class="text-content">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Dolor possimus
+                            tempore quo accusamus, repudiandae animi velit distinctio aperiam iure consectetur.</p>
                     </div>
                     <div class="locality">
                         <h2 class="inner-heading">Locality/Neighborhood:-</h2>
@@ -110,7 +112,9 @@
                     </div>
                 </div>
                 <div class="map">
-
+                    <lightning-map class="map-view" map-markers={mapMarkers} markers-title="Lunch Gems"
+                        onmarkerselect={handleMarkerSelect} selected-marker-value={selectedMarkerValue}>
+                    </lightning-map>
                 </div>
             </div>
         </div>

@@ -163,4 +163,17 @@
     border-radius: 1rem;
     object-fit: cover;
 }
+@media only screen and (max-width: 767px) {
+    .top-box{
+        flex-direction: column;
+    }
+    .box1{
+        width: 100%;
+        margin-bottom: 1rem;
+        margin-right: 0rem;
+    }
+    .box2{
+        width: 100%;
+    }
+}
 

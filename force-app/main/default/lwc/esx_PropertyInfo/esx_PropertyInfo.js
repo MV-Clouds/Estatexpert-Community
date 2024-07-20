@@ -23,4 +23,24 @@ export default class Esx_PropertyInfo extends LightningElement {
     @track HockeyIcon = property_icons +'/golf.png';
     @track LibraryIcon = property_icons +'/library.png';
     @track BabyParkIcon = property_icons +'/babypark.png';
+
+
+    mapMarkers = [
+        {
+            location: {
+                // Location Information
+                City: 'San Francisco',
+                Country: 'USA',
+                PostalCode: '94105',
+                State: 'CA',
+                Street: '50 Fremont St',
+            },
+        }
+    ];
+
+    selectedMarkerValue = 'SF1';
+
+    handleMarkerSelect(event) {
+        this.selectedMarkerValue = event.target.selectedMarkerValue;
+    }
 }
