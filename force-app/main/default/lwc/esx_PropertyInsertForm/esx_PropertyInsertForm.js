@@ -21,7 +21,6 @@ export default class Esx_PropertyInsertForm extends LightningElement {
     @track showDropdown_indoor = false;
     @track isData = false;
     @track isPlotArea = false;
-
     BgImage = backgroundImage + '/Bg-Image.png';
 
     error;
@@ -123,7 +122,7 @@ export default class Esx_PropertyInsertForm extends LightningElement {
                         }
                     })
                     .catch(error => {
-                        console.log(error);
+                        console.error(error);
                     });
             }
         } catch (error) {
