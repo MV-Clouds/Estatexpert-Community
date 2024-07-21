@@ -8,14 +8,13 @@
     z-index: 1;
 }
 
-.mainDiv {
+.main-div {
     position: relative;
     width: 100%;
-    /* height: 100vh; Adjust as necessary */
     overflow: hidden;
 }
 
-.backgroundImage {
+.background-image {
     position: absolute;
     top: 0;
     left: 0;
@@ -23,17 +22,17 @@
     height: 100%;
 }
 
-.backgroundImage img {
+.background-image img {
     width: 100%;
     height: 100%;
     object-fit: cover;
     opacity: 0.6;
 }
 
-.mainContent {
+.main-content {
     position: relative;
     z-index: 1;
-    padding: 20px;
+    padding: 1.25rem;
 }
 
 .header {
@@ -42,62 +41,54 @@
     margin-bottom: 1.375rem;
 }
 
-.backIcon {
-    border-radius: 5px;
-    width: 40px;
-    height: 40px;
+.back-icon {
+    border-radius: 0.313rem;
+    width: 2.5rem;
+    height: 2.5rem;
     display: flex;
     justify-content: center;
     align-items: center;
     border: 1px solid #d8dde6;
-    margin-right: 10px;
+    margin-right: 0.625rem;
     cursor: pointer;
 }
 
-.headerTitle {
+.header-title {
     font-size: 1.5rem;
     font-weight: 600;
     color: #16325c;
     border-bottom: 1px solid #628cdb;
 }
 
-.generalInformation {
+.general-information {
     display: flex;
     flex-direction: row;
 }
 
-.profileImage {
+.profile-image {
     margin-right: 1.25rem;
     position: relative;
     min-width: 13rem;
 }
 
-.profileImage img {
+.profile-image img {
     border-radius: 9%;
     width: 16.125rem;
-    /* width: 12.375rem; 150px */
     height: 15.375rem;
-    /* 150px */
     object-fit: fill;
     box-shadow: 0 5px 25px 0 rgba(47, 128, 237, 0.2);
 }
 
-.uploadButton {
+.upload-button {
     position: absolute;
     bottom: 1.8rem;
-    /* bottom: 0.625rem; 10px */
     left: 50%;
     width: 90%;
-    /* height: 46px; */
     height: 2rem;
     transform: translateX(-50%);
     background-color: rgba(255, 255, 255, 0.8);
-    /*  80% white */
     border: none;
     border-radius: 1.25rem;
-    /* 20px */
-    /* padding: 0.3125rem 3.625rem; */
-    /* 5px 10px */
     cursor: pointer;
     box-shadow: 0px 1px 61px 1px rgba(0, 0, 0, 0.25);
     font-size: 0.938rem;
@@ -107,11 +98,11 @@
     display: none;
 }
 
-.generalInfoContent {
+.general-info-content {
     width: 100%;
 }
 
-.sectionTitle {
+.section-title {
     font-size: 1.2rem;
     font-weight: 700;
     color: #0176D3;
@@ -121,8 +112,6 @@
     position: absolute;
     top: 3%;
     left: 82%;
-    /* left: 10.7rem;
-    top: 0.5rem; */
     cursor: pointer;
 }
 
@@ -143,10 +132,9 @@
     font-weight: 700;
 }
 
-.formGroup {
+.form-group {
     display: flex;
     flex-direction: row;
-    /* justify-content: space-between; */
 }
 
 .namefield {
@@ -157,7 +145,7 @@
     width: 10%;
 }
 
-.formElement .inputBox {
+.form-element .inputBox {
     width: 25rem;
 }
 
@@ -165,7 +153,7 @@
     width: 5rem;
 }
 
-.firstRow {
+.first-row  {
     margin-top: 1rem;
     gap: 3rem;
 }
@@ -178,7 +166,6 @@
 .date-and-age {
     width: 45%;
     display: flex;
-    /* justify-content: space-between; */
 }
 
 .phone-and-email {
@@ -217,29 +204,27 @@
 
 .btn {
     background-color: rgba(1, 118, 211, 1);
-    border-radius: 30px;
-    width: 160px;
-    height: 47px;
+    border-radius: 1.875rem;
+    width: 10rem;
+    height: 2.938rem;
     color: white;
     border: 0px;
 }
 
 .save-btn {
     background-color: rgba(210, 210, 210, 1);
-    border-radius: 30px;
-    width: 160px;
-    height: 47px;
+    border-radius: 1.875rem;
+    width: 10rem;
+    height: 2.938rem;
     color: white;
     border: 0px;
 }
 
 .input-text {
     width: 100%;
-    /* height: 46px; */
     height: 2.875rem;
-    border-radius: 6px;
+    border-radius: 0.375rem;
     padding: 0.875rem 1.0rem 0.875rem 1.0rem;
-    /* padding: 2%; */
     border: 1px solid rgba(191, 196, 215, 1);
     margin-bottom: 1rem;
 }
@@ -257,11 +242,9 @@
 
 .input-dropdown {
     width: 100%;
-    /* height: 46px; */
     height: 2.875rem;
-    border-radius: 6px;
+    border-radius: 0.375rem;
     padding: 0.875rem 1.0rem 0.875rem 1.0rem;
-    /* padding: 2%; */
     border: 1px solid rgba(191, 196, 215, 1);
     margin-bottom: 1rem;
     -webkit-appearance: none;
@@ -275,11 +258,9 @@
 
 .otherinput {
     width: 100%;
-    /* height: 46px; */
     height: 2.875rem;
-    border-radius: 6px;
+    border-radius: 0.375rem;
     padding: 0.875rem 1.0rem 0.875rem 1.0rem;
-    /* padding: 8%; */
     border: 1px solid rgba(191, 196, 215, 1);
     margin-bottom: 1rem;
     -webkit-appearance: none;
@@ -296,11 +277,9 @@
 
 .longfield {
     width: 100%;
-    /* height: 46px; */
     height: 2.875rem;
-    border-radius: 6px;
+    border-radius: 0.375rem;
     padding: 0.875rem 1.0rem 0.875rem 1.0rem;
-    /* padding: 1%; */
     border: 1px solid rgba(191, 196, 215, 1);
     margin-bottom: 1rem;
     -webkit-appearance: none;
@@ -319,21 +298,20 @@
 }
 
 @media only screen and (max-width: 767px) {
-    .generalInformation {
+    .general-information {
         display: flex;
         flex-direction: column;
     }
 
-    .profileImage {
+    .profile-image {
         position: relative;
         width: 70%;
         margin: auto;
         margin-bottom: 1.25rem;
-        /* margin-right: 0; */
         min-width: 13rem;
     }
 
-    .profileImage img {
+    .profile-image img {
         border-radius: 9%;
         width: 100%;
         height: 100%;
@@ -341,21 +319,9 @@
         box-shadow: 0 5px 25px 0 rgba(47, 128, 237, 0.2);
     }
 
-    .formGroup,.address-fields,.phone-and-email,.date-and-age{
+    .form-group ,.address-fields,.phone-and-email,.date-and-age{
         flex-direction: column;
     }
-
-    /* .address-fields {
-        flex-direction: column;
-    }
-
-    .phone-and-email {
-        flex-direction: column;
-    }
-
-    .date-and-age {
-        flex-direction: column;
-    } */
 
     .input-first-half {
         width: 100%;
@@ -382,11 +348,7 @@
         flex-direction: row;
     }
 
-    .otherinput {
-        /* padding: 2%; */
-    }
-
-    .firstRow {
+    .first-row {
         flex-direction: row;
         margin-top: 0;
         gap: 1.5rem;
@@ -400,7 +362,7 @@
         width: 20%;
     }
 
-    .uploadButton {
+    .upload-button {
         bottom: 0.8rem;
         width: 90%;
         height: 2rem;
@@ -409,16 +371,5 @@
     .delete-icon {
         top: 5%;
         left: 85%;
-    }
-
-    .input-dropdown {
-        /* padding: 10%; */
-    }
-
-    .longfield {
-        /* padding: 2%; */
-    }
-    .namefield input{
-        /* padding: 5%; */
     }
 }

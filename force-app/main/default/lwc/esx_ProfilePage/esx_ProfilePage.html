@@ -7,32 +7,32 @@
     </template>
 
     <template if:false={isLoading}>
-        <div class="mainDiv">
-            <div class="backgroundImage">
+        <div class="main-div">
+            <div class="background-image">
                 <img src={backgroundImageUrl} alt="Background Image" />
             </div>
 
-            <div class="mainContent">
+            <div class="main-content">
                 <div class="header">
-                    <lightning-icon class="backIcon" size='x-small' icon-name="utility:chevronleft"
+                    <lightning-icon class="back-icon" size='x-small' icon-name="utility:chevronleft"
                         onclick={navigateHome}></lightning-icon>
-                    <div class="headerTitle">{recordType} Details</div>
+                    <div class="header-title">{recordType} Details</div>
                 </div>
-                <div class="generalInformation">
-                    <div class="profileImage">
+                <div class="general-information">
+                    <div class="profile-image">
                         <img src={profileImage} alt="Profile Image" />
                         <div class="delete-icon" onclick={removeProfile}>
                             <lightning-icon class="icon" icon-name="utility:delete" title="close"
                                 size="x-small"></lightning-icon>
                         </div>
-                        <button class="uploadButton" onclick={uploadProfileImage}>Upload Image</button>
+                        <button class="upload-button" onclick={uploadProfileImage}>Upload Image</button>
                         <input type="file" class="hidden-upload" accept=".jpg,.jpeg,.png" onchange={handleFileChange} />
                     </div>
 
-                    <div class="generalInfoContent">
-                        <div class="sectionTitle">General Information</div>
-                        <div class="formGroup firstRow">
-                            <div class="formElement dropdownfield">
+                    <div class="general-info-content">
+                        <div class="section-title">General Information</div>
+                        <div class="form-group  first-row ">
+                            <div class="form-element dropdownfield">
                                 <p class="label">Salutation</p>
                                 <select name="Salutation" class="input-dropdown otherinput" onchange={updateContact}
                                     disabled={isDisabled}>
@@ -44,19 +44,19 @@
                                     </template>
                                 </select>
                             </div>
-                            <div class="formElement namefield">
+                            <div class="form-element namefield">
                                 <p class="label">First Name</p>
                                 <input type="text" name="FirstName" class="input-text" value={contact.FirstName}
                                     onchange={updateContact} disabled={isDisabled} required></input>
                             </div>
-                            <div class="formElement namefield">
+                            <div class="form-element namefield">
                                 <p class="label">Last Name</p>
                                 <input type="text" name="LastName" class="input-text" value={contact.LastName}
                                     onchange={updateContact} disabled={isDisabled} required></input>
                             </div>
                         </div>
-                        <div class="formGroup">
-                            <div class="formElement">
+                        <div class="form-group ">
+                            <div class="form-element">
                                 <div class="gender-options">
                                     <div class="label">Gender</div>
                                     <div class="checkbox">
@@ -72,16 +72,16 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="formGroup">
+                        <div class="form-group ">
                             <div class="date-and-age">
-                                <div class="formElement date-first-half">
+                                <div class="form-element date-first-half">
                                     <p class="label">Date of Birth</p>
                                     <input type="date" name="Birthdate" class="input-text otherinput"
                                         value={contact.Birthdate} onchange={updateContact}
                                         disabled={isDisabled}></input>
                                 </div>
                                 <template if:true={isDisabled}>
-                                    <div class="formElement date-second-half">
+                                    <div class="form-element date-second-half">
                                         <p class="label">Age</p>
                                         <input type="number" name="Birthdate" class="input-text otherinput" min="12"
                                             value={contact.Age__c} onchange={updateContact}
@@ -93,14 +93,14 @@
                     </div>
                 </div>
                 <div class="other-details">
-                    <div class="formGroup">
+                    <div class="form-group ">
                         <div class="phone-and-email">
-                            <div class="formElement input-first-half">
+                            <div class="form-element input-first-half">
                                 <p class="label">Phone Number</p>
                                 <input type="tel" name="Phone" class="input-text" value={contact.Phone}
                                     onchange={updateContact} disabled={isDisabled} required></input>
                             </div>
-                            <div class="formElement input-second-half">
+                            <div class="form-element input-second-half">
                                 <p class="label">Email</p>
                                 <input type="email" name="Email" class="input-text" value={contact.Email}
                                     onchange={updateContact} disabled={isDisabled} required></input>
@@ -109,22 +109,22 @@
                     </div>
                 </div>
                 <div class="address-info">
-                    <div class="sectionTitle">Address Details</div>
-                    <div class="formGroup">
+                    <div class="section-title">Address Details</div>
+                    <div class="form-group ">
                         <div class="address-line">
                             <p class="label">Address Line</p>
                             <input type="text" name="MailingStreet" class="input-text longfield"
                                 value={contact.MailingStreet} onchange={updateContact} disabled={isDisabled}></input>
                         </div>
                     </div>
-                    <div class="formGroup">
+                    <div class="form-group ">
                         <div class="address-fields">
-                            <div class="formElement input-first-half">
+                            <div class="form-element input-first-half">
                                 <p class="label">City</p>
                                 <input type="text" name="MailingCity" class="input-text" value={contact.MailingCity}
                                     onchange={updateContact} disabled={isDisabled}></input>
                             </div>
-                            <div class="formElement input-second-half">
+                            <div class="form-element input-second-half">
                                 <p class="label">PinCode</p>
                                 <input type="text" name="MailingPostalCode" class="input-text"
                                     value={contact.MailingPostalCode} onchange={updateContact}
@@ -132,14 +132,14 @@
                             </div>
                         </div>
                     </div>
-                    <div class="formGroup">
+                    <div class="form-group ">
                         <div class="address-fields">
-                            <div class="formElement input-first-half">
+                            <div class="form-element input-first-half">
                                 <p class="label">State</p>
                                 <input type="text" name="MailingState" class="input-text" value={contact.MailingState}
                                     onchange={updateContact} disabled={isDisabled}></input>
                             </div>
-                            <div class="formElement input-second-half">
+                            <div class="form-element input-second-half">
                                 <p class="label">Country</p>
                                 <input type="text" name="MailingCountry" class="input-text"
                                     value={contact.MailingCountry} onchange={updateContact}
@@ -149,8 +149,8 @@
                     </div>
                 </div>
                 <div class="about-info">
-                    <div class="sectionTitle">About</div>
-                    <div class="formGroup">
+                    <div class="section-title">About</div>
+                    <div class="form-group ">
                         <div class="address-line">
                             <p class="label">Description</p>
                             <textarea name="Description" class="input-text longfield" onchange={updateContact}
