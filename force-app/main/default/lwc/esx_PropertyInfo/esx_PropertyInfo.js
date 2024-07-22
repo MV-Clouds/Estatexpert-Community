@@ -28,7 +28,6 @@ export default class Esx_PropertyInfo extends LightningElement {
     mapMarkers = [
         {
             location: {
-                // Location Information
                 City: 'San Francisco',
                 Country: 'USA',
                 PostalCode: '94105',
