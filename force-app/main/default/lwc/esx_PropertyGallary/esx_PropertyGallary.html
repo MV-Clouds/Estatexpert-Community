@@ -2,105 +2,58 @@
     <div class="container">
         <div class="content">
             <div class="title-box">
-                <h1 class="title">Living Room(10)</h1>
+                <h1 class="title">Living Room({livingRoomImgsSize})</h1>
             </div>
             <div class="images-box">
-                <div class="card" onclick={handleCard}>
-                    <div class="card-image">
-                        <img draggable="false" src={samplePropertyImage} class="responsive" alt="Images">
+                <template for:each={livingRoomImgs} for:item="livingroom">
+                    <div class="card" onclick={handleCard} key={livingroom.ExternalLink__c}>
+                        <div class="card-image">
+                            <img draggable="false" src={livingroom.ExternalLink__c} class="responsive" alt="Images">
+                        </div>
                     </div>
-                </div>
-                <div class="card" onclick={handleCard}>
-                    <div class="card-image">
-                        <img draggable="false" src={samplePropertyImage} class="responsive" alt="Images">
-                    </div>
-                </div>
-                <div class="card" onclick={handleCard}>
-                    <div class="card-image">
-                        <img draggable="false" src={samplePropertyImage} class="responsive" alt="Images">
-                    </div>
-                </div>
-                <div class="card" onclick={handleCard}>
-                    <div class="card-image">
-                        <img draggable="false" src={samplePropertyImage} class="responsive" alt="Images">
-                    </div>
-                </div>
-                <div class="card" onclick={handleCard}>
-                    <div class="card-image">
-                        <img draggable="false" src={samplePropertyImage} class="responsive" alt="Images">
-                    </div>
-                </div>
-                <div class="card" onclick={handleCard}>
-                    <div class="card-image">
-                        <img draggable="false" src={samplePropertyImage} class="responsive" alt="Images">
-                    </div>
-                </div>
+                </template>
             </div>
         </div>
         <div class="content">
             <div class="title-box">
-                <h1 class="title">Dining Room(10)</h1>
+                <h1 class="title">Dining Room({diningRoomImgsSize})</h1>
             </div>
             <div class="images-box">
-                <div class="card" onclick={handleCard}>
+                <template for:each={diningRoomImgs} for:item="diningroom">
+                <div class="card" onclick={handleCard} key={diningroom.ExternalLink__c}>
                     <div class="card-image">
-                        <img draggable="false" src={samplePropertyImage} class="responsive" alt="Images">
+                        <img draggable="false" src={diningroom.ExternalLink__c} class="responsive" alt="Images">
                     </div>
                 </div>
-                <div class="card" onclick={handleCard}>
-                    <div class="card-image">
-                        <img draggable="false" src={samplePropertyImage} class="responsive" alt="Images">
-                    </div>
-                </div>
-                <div class="card" onclick={handleCard}>
-                    <div class="card-image">
-                        <img draggable="false" src={samplePropertyImage} class="responsive" alt="Images">
-                    </div>
-                </div>
+                </template>
             </div>
         </div>
         <div class="content">
             <div class="title-box">
-                <h1 class="title">Kitchen(10)</h1>
+                <h1 class="title">Kitchen({kitchenImgsSize})</h1>
             </div>
             <div class="images-box">
-                <div class="card" onclick={handleCard}>
-                    <div class="card-image">
-                        <img draggable="false" src={samplePropertyImage} class="responsive" alt="Images">
+                <template for:each={kitchenImgs} for:item="kitchen">
+                <div class="card" onclick={handleCard} key={kitchen.ExternalLink__c}>
+                    <div class="card-image" >
+                        <img draggable="false" src={kitchen.ExternalLink__c} class="responsive" alt="Images">
                     </div>
                 </div>
-                <div class="card" onclick={handleCard}>
-                    <div class="card-image">
-                        <img draggable="false" src={samplePropertyImage} class="responsive" alt="Images">
-                    </div>
-                </div>
-                <div class="card" onclick={handleCard}>
-                    <div class="card-image">
-                        <img draggable="false" src={samplePropertyImage} class="responsive" alt="Images">
-                    </div>
-                </div>
+                </template>
             </div>
         </div>
         <div class="content">
             <div class="title-box">
-                <h1 class="title">Guest Room(10)</h1>
+                <h1 class="title">Guest Room({guestRoomImgsSize})</h1>
             </div>
             <div class="images-box">
-                <div class="card" onclick={handleCard}>
-                    <div class="card-image">
-                        <img draggable="false" src={samplePropertyImage} class="responsive" alt="Images">
+                <template for:each={guestRoomImgs} for:item="guestroom">
+                    <div class="card" onclick={handleCard} key={guestroom.ExternalLink__c}>
+                        <div class="card-image">
+                            <img draggable="false" src={guestroom.ExternalLink__c} class="responsive" alt="Images">
+                        </div>
                     </div>
-                </div>
-                <div class="card" onclick={handleCard}>
-                    <div class="card-image">
-                        <img draggable="false" src={samplePropertyImage} class="responsive" alt="Images">
-                    </div>
-                </div>
-                <div class="card" onclick={handleCard}>
-                    <div class="card-image">
-                        <img draggable="false" src={samplePropertyImage} class="responsive" alt="Images">
-                    </div>
-                </div>
+                </template>
             </div>
         </div>
     </div>

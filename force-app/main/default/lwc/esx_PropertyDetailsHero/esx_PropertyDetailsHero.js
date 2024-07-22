@@ -30,7 +30,7 @@ export default class Esx_PropertyDetailsHero extends LightningElement {
             this.isProperty = true;
         })
         .catch(error => {
-            this.error = error;
+            console.error(error);
         });
     }
 }

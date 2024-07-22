@@ -1,6 +1,6 @@
 .container{
     width: 100%;
-    padding: 1rem;
+    padding: 0rem 1rem;
 }
 .top-box{
     display: flex;
@@ -105,17 +105,18 @@
 .buttons {
     width: 100%;
     display: flex;
-    justify-content: center;
+    /* justify-content: center; */
 }
 
 .btn {
-    background-color: rgba(1, 118, 211, 1);
+    color: rgba(1, 118, 211, 1);
     border-radius: 1.875rem;
     font-size: 1.125rem;
     width: 12.5rem;
     height: 2.938rem;
-    color: white;
+    /* color: white; */
     border: 0px;
+    background-color:rgba(228, 228, 228, 1);
 }
 
 .bottom-box{
