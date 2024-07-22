@@ -16,6 +16,7 @@ export default class Esx_PropertyDetailsHero extends LightningElement {
     @track property;
     @track propertyMainImage;
     @track propertyMedias = [];
+    @track moreImgSize;
     connectedCallback(){
         this.getPropertyInfo();
     }
@@ -26,8 +27,17 @@ export default class Esx_PropertyDetailsHero extends LightningElement {
             console.log("result",result);
             this.property = result.property;
             this.propertyMedias = result.mediaLinks;
+            this.propertyMedias = this.propertyMedias.slice(0,6);
             this.propertyMainImage = this.propertyMedias[0].ExternalLink__c;
             this.isProperty = true;
+            this.moreImgSize = result.mediaLinks.length -5;
+            const targetId = this.propertyMedias[5].Id;
+            console.log("targetId",targetId);
+            setTimeout(() => {
+                console.log('targetElement:',this.template.querySelector('[data-id="'+targetId+'"]'));
+                this.template.querySelector('[data-id="' + targetId + '"]').classList.add("activate");
+            }, 0);
+            
         })
         .catch(error => {
             console.error(error);

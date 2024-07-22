@@ -1,6 +1,6 @@
 import { LightningElement ,track} from 'lwc';
 import property_icons from '@salesforce/resourceUrl/propertyViewIcons';
-
+import getPropertyInformation from '@salesforce/apex/ESX_PropertyDetailsController.getPropertyInformation';
 export default class Esx_PropertyInfo extends LightningElement {
 
     @track PhoneIcon = property_icons +'/phone.png';
@@ -24,7 +24,9 @@ export default class Esx_PropertyInfo extends LightningElement {
     @track LibraryIcon = property_icons +'/library.png';
     @track BabyParkIcon = property_icons +'/babypark.png';
 
-
+    @track isProperty = false;
+    @track property;
+    propertyId = 'a02dL000000xuO1QAI';
     mapMarkers = [
         {
             location: {
@@ -41,5 +43,25 @@ export default class Esx_PropertyInfo extends LightningElement {
 
     handleMarkerSelect(event) {
         this.selectedMarkerValue = event.target.selectedMarkerValue;
+    }
+    connectedCallback(){
+        this.getInfo();
+    }
+
+    getInfo(){
+        getPropertyInformation({propertyId:this.propertyId})
+        .then(result => {
+            this.property = result.property;
+            this.mapMarkers[0].location.City = this.property.City__c;
+            this.mapMarkers[0].location.Country = this.property.Country__c;
+            this.mapMarkers[0].location.State = this.property.State__c;
+            this.mapMarkers[0].location.Street = this.property.Street__c;
+            this.mapMarkers[0].location.PostalCode = this.property.Postal_Code__c;
+            this.isProperty = true;
+
+        })
+        .catch(error => {
+            console.error(error);
+        });
     }
 }

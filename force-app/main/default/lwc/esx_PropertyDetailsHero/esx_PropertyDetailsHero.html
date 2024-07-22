@@ -109,7 +109,7 @@
                         </div>
                         <div class="buttons">
                             <!-- <button class="btn slds-m-right_medium" onclick={cancelAction}>Download Brochure</button> -->
-                            <button class="btn slds-m-left_medium" onclick={updateContactInfo}>Contact Owner</button>
+                            <button class="btn" onclick={updateContactInfo}>Contact Owner</button>
                         </div>
                     </div>
                 </template>
@@ -123,38 +123,11 @@
                             <div class="card-image">
                                 <img draggable="false" src={media.ExternalLink__c} class="responsive" alt="Images">
                             </div>
+                            <div class="black" data-id={media.Id}>
+                                <p>+{moreImgSize}</p>
+                            </div>
                         </div>
                     </template>
-                    <!-- <div class="card" onclick={handleCard}>
-                        <div class="card-image">
-                            <img draggable="false" src={samplePropertyImage} class="responsive" alt="Images">
-                        </div>
-                    </div>
-                    <div class="card" onclick={handleCard}>
-                        <div class="card-image">
-                            <img draggable="false" src={samplePropertyImage} class="responsive" alt="Images">
-                        </div>
-                    </div>
-                    <div class="card" onclick={handleCard}>
-                        <div class="card-image">
-                            <img draggable="false" src={samplePropertyImage} class="responsive" alt="Images">
-                        </div>
-                    </div>
-                    <div class="card" onclick={handleCard}>
-                        <div class="card-image">
-                            <img draggable="false" src={samplePropertyImage} class="responsive" alt="Images">
-                        </div>
-                    </div>
-                    <div class="card" onclick={handleCard}>
-                        <div class="card-image">
-                            <img draggable="false" src={samplePropertyImage} class="responsive" alt="Images">
-                        </div>
-                    </div>
-                    <div class="card" onclick={handleCard}>
-                        <div class="card-image">
-                            <img draggable="false" src={samplePropertyImage} class="responsive" alt="Images">
-                        </div>
-                    </div> -->
                 </div>
             </div>
         </div>
