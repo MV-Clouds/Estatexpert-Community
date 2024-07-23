@@ -452,7 +452,7 @@ select {
     .prop-type {
         width: 100%;
     }
-    .delete_popup{
+    .save_popup{
         width: 21.25rem;
     }
 }
@@ -474,7 +474,7 @@ select {
         flex-direction: column;
         width: 100%;
     }
-    .delete_popup{
+    .save_popup{
         width: 21.25rem;
     }
 }
