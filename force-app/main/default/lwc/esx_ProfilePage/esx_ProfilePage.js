@@ -64,11 +64,29 @@ export default class Esx_ProfilePage extends NavigationMixin(LightningElement) {
             .then(result => {
                 console.log('result: ', result);
                 if (result.contact != null) {
-                    this.contact = result.contact;
-                    this.contact = Object.keys(result.contact).reduce((acc, key) => {
-                        acc[key] = result.contact[key] == null ? undefined : result.contact[key];
-                        return acc;
-                    }, {});
+                    // this.contact = result.contact;
+                    this.contact = {
+                        id: result.contact.Id,
+                        salutation: result.contact.Salutation || '',
+                        firstName: result.contact.FirstName || '',
+                        lastName: result.contact.LastName || '',
+                        gender: result.contact.Gender__c || '',
+                        birthdate: result.contact.Birthdate || '',
+                        age: result.contact.Age__c || '',
+                        phone: result.contact.Phone || '',
+                        email: result.contact.Email || '',
+                        mailingStreet: result.contact.MailingStreet || '',
+                        mailingCity: result.contact.MailingCity || '',
+                        mailingPostalCode: result.contact.MailingPostalCode || '',
+                        mailingState: result.contact.MailingState || '',
+                        mailingCountry: result.contact.MailingCountry || '',
+                        description: result.contact.Description || '',
+                        recordTypeName: result.contact.RecordType ? result.contact.RecordType.Name || '' : ''
+                    };
+                    // this.contact = Object.keys(result.contact).reduce((acc, key) => {
+                    //     acc[key] = result.contact[key] == null || result.contact[key] == '' ? '' : result.contact[key];
+                    //     return acc;
+                    // }, {});
                     this.recordType = result.contact.RecordType.Name;
                     this.isLoading = false;
                 } else {
@@ -90,7 +108,7 @@ export default class Esx_ProfilePage extends NavigationMixin(LightningElement) {
                 }
             })
             .catch(error => {
-                console.log('error: ', error);
+                console.log('error: ', error.message);
             });
     }
 
@@ -120,7 +138,8 @@ export default class Esx_ProfilePage extends NavigationMixin(LightningElement) {
 
     updateContact(event) {
         const field = event.target.name;
-        this.contact = { ...this.contact, [field]: event.target.value };
+        this.contact[field] = event.target.value;
+        // this.contact = { ...this.contact, [field]: event.target.value };
     }
 
     getContactInfo(event) {
@@ -131,7 +150,8 @@ export default class Esx_ProfilePage extends NavigationMixin(LightningElement) {
 
     updateContactInfo() {
         if (this.isValidForm()) {
-            updateContact({ contact: this.contact }).then(result => {
+            console.log('conData:',JSON.stringify(this.contact));
+            updateContact({ contact: JSON.stringify(this.contact)}).then(result => {
                 this.isDisabled = true;
                 let button = this.template.querySelector('.save-btn');
                 button.style.backgroundColor = 'rgba(210, 210, 210, 1)';
@@ -205,9 +225,9 @@ export default class Esx_ProfilePage extends NavigationMixin(LightningElement) {
     }
 
     cancelAction(){
+        this.getCurrentContactDetails();
         this.isDisabled = true;
         let button = this.template.querySelector('.save-btn');
         button.style.backgroundColor = 'rgba(210, 210, 210, 1)';
-        this.getCurrentContactDetails();
     }
 }

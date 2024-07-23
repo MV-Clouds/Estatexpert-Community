@@ -37,7 +37,7 @@
                                 <select name="Salutation" class="input-dropdown otherinput" onchange={updateContact}
                                     disabled={isDisabled}>
                                     <template if:true={isDisabled}>
-                                        <option value={contact.Salutation}>{contact.Salutation}</option>
+                                        <option value={contact.Salutation}>{contact.salutation}</option>
                                     </template>
                                     <template for:each={Salutationoptions} for:item="type">
                                         <option value={type.label} key={type.label}>{type.label}</option>
@@ -46,12 +46,12 @@
                             </div>
                             <div class="form-element namefield">
                                 <p class="label">First Name</p>
-                                <input type="text" name="FirstName" class="input-text" value={contact.FirstName}
+                                <input type="text" name="firstName" class="input-text" value={contact.firstName}
                                     onchange={updateContact} disabled={isDisabled} required></input>
                             </div>
                             <div class="form-element namefield">
                                 <p class="label">Last Name</p>
-                                <input type="text" name="LastName" class="input-text" value={contact.LastName}
+                                <input type="text" name="lastName" class="input-text" value={contact.lastName}
                                     onchange={updateContact} disabled={isDisabled} required></input>
                             </div>
                         </div>
@@ -61,11 +61,11 @@
                                     <div class="label">Gender</div>
                                     <div class="checkbox">
                                         <div class="tickbox checkbox1 slds-m-right_medium">
-                                            <input class="Male" type="radio" name="Gender__c" value="Male"
+                                            <input class="Male" type="radio" name="gender" value="Male"
                                                 onchange={updateContact} disabled={isDisabled}><span> Male</span></input>
                                         </div>
                                         <div class="tickbox checkbox1 slds-m-left_medium">
-                                            <input class="Female" type="radio" name="Gender__c" value="Female"
+                                            <input class="Female" type="radio" name="gender" value="Female"
                                                 onchange={updateContact} disabled={isDisabled}><span> Female</span></input>
                                         </div>
                                     </div>
@@ -76,15 +76,15 @@
                             <div class="date-and-age">
                                 <div class="form-element date-first-half">
                                     <p class="label">Date of Birth</p>
-                                    <input type="date" name="Birthdate" class="input-text otherinput"
-                                        value={contact.Birthdate} onchange={updateContact}
+                                    <input type="date" name="birthdate" class="input-text otherinput"
+                                        value={contact.birthdate} onchange={updateContact}
                                         disabled={isDisabled}></input>
                                 </div>
                                 <template if:true={isDisabled}>
                                     <div class="form-element date-second-half">
                                         <p class="label">Age</p>
                                         <input type="number" name="Birthdate" class="input-text otherinput" min="12"
-                                            value={contact.Age__c} onchange={updateContact}
+                                            value={contact.age} onchange={updateContact}
                                             disabled={isDisabled}></input>
                                     </div>
                                 </template>
@@ -96,13 +96,13 @@
                     <div class="form-group ">
                         <div class="phone-and-email">
                             <div class="form-element input-first-half">
-                                <p class="label">Phone Number</p>
-                                <input type="tel" name="Phone" class="input-text" value={contact.Phone}
+                                <p class="label">Mobile Number</p>
+                                <input type="tel" name="phone" class="input-text" value={contact.phone}
                                     onchange={updateContact} disabled={isDisabled} required></input>
                             </div>
                             <div class="form-element input-second-half">
                                 <p class="label">Email</p>
-                                <input type="email" name="Email" class="input-text" value={contact.Email}
+                                <input type="email" name="email" class="input-text" value={contact.email}
                                     onchange={updateContact} disabled={isDisabled} required></input>
                             </div>
                         </div>
@@ -113,21 +113,21 @@
                     <div class="form-group ">
                         <div class="address-line">
                             <p class="label">Address Line</p>
-                            <input type="text" name="MailingStreet" class="input-text longfield"
-                                value={contact.MailingStreet} onchange={updateContact} disabled={isDisabled}></input>
+                            <input type="text" name="mailingStreet" class="input-text longfield"
+                                value={contact.mailingStreet} onchange={updateContact} disabled={isDisabled}></input>
                         </div>
                     </div>
                     <div class="form-group ">
                         <div class="address-fields">
                             <div class="form-element input-first-half">
                                 <p class="label">City</p>
-                                <input type="text" name="MailingCity" class="input-text" value={contact.MailingCity}
+                                <input type="text" name="mailingCity" class="input-text" value={contact.mailingCity}
                                     onchange={updateContact} disabled={isDisabled}></input>
                             </div>
                             <div class="form-element input-second-half">
-                                <p class="label">PinCode</p>
-                                <input type="text" name="MailingPostalCode" class="input-text"
-                                    value={contact.MailingPostalCode} onchange={updateContact}
+                                <p class="label">PIN Code</p>
+                                <input type="text" name="mailingPostalCode" class="input-text"
+                                    value={contact.mailingPostalCode} onchange={updateContact}
                                     disabled={isDisabled}></input>
                             </div>
                         </div>
@@ -136,13 +136,13 @@
                         <div class="address-fields">
                             <div class="form-element input-first-half">
                                 <p class="label">State</p>
-                                <input type="text" name="MailingState" class="input-text" value={contact.MailingState}
+                                <input type="text" name="mailingState" class="input-text" value={contact.mailingState}
                                     onchange={updateContact} disabled={isDisabled}></input>
                             </div>
                             <div class="form-element input-second-half">
                                 <p class="label">Country</p>
-                                <input type="text" name="MailingCountry" class="input-text"
-                                    value={contact.MailingCountry} onchange={updateContact}
+                                <input type="text" name="mailingCountry" class="input-text"
+                                    value={contact.mailingCountry} onchange={updateContact}
                                     disabled={isDisabled}></input>
                             </div>
                         </div>
@@ -153,8 +153,8 @@
                     <div class="form-group ">
                         <div class="address-line">
                             <p class="label">Description</p>
-                            <textarea name="Description" class="input-text longfield" onchange={updateContact}
-                                disabled={isDisabled}>{contact.Description}</textarea>
+                            <textarea name="description" class="input-text longfield" onchange={updateContact}
+                                disabled={isDisabled}>{contact.description}</textarea>
                         </div>
                     </div>
                 </div>

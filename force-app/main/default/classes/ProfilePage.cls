@@ -33,13 +33,24 @@ public without sharing class ProfilePage {
     }
 
     @AuraEnabled
-    public static void updateContact(Contact contact) {
+    public static void updateContact(String contact) {
         try {
-            System.debug('Contact to update: ' + contact);
-            if(contact != null){
-                System.debug('Contact to update: ' + contact);
-                update contact;
-            }
+            ContactData con = (ContactData) JSON.deserialize(contact, ContactData.class);
+            Contact contactRecord =[SELECT Id, Salutation, FirstName, LastName, Gender__c, Birthdate, Age__c, Phone, Email, MailingStreet, MailingCity, MailingPostalCode, MailingState, MailingCountry, Description, RecordType.Name  FROM Contact WHERE Id =: con.id LIMIT 1];
+            contactRecord.Salutation = con.salutation;
+            contactRecord.FirstName = con.firstName;
+            contactRecord.LastName = con.lastName;
+            contactRecord.Gender__c = con.gender;
+            contactRecord.Birthdate = con.birthdate;
+            contactRecord.Phone = con.phone;
+            contactRecord.Email = con.email;
+            contactRecord.MailingStreet = con.mailingStreet;
+            contactRecord.MailingCity = con.mailingCity;
+            contactRecord.MailingPostalCode = con.mailingPostalCode;
+            contactRecord.MailingState = con.mailingState;
+            contactRecord.MailingCountry = con.mailingCountry;
+            contactRecord.Description = con.description;
+            update contactRecord;
         } catch (Exception e) {
             System.debug('Error updating contact: ' + e.getMessage());
             throw new AuraHandledException(e.getMessage());
@@ -100,6 +111,24 @@ public without sharing class ProfilePage {
         public Contact contact;
         @AuraEnabled
         public String image;
+    }
+
+    public class ContactData {
+        public String id;
+        public String salutation;
+        public String firstName;
+        public String lastName;
+        public String gender;
+        public Date birthdate;
+        public String phone;
+        public String email;
+        public String mailingStreet;
+        public String mailingCity;
+        public String mailingPostalCode;
+        public String mailingState;
+        public String mailingCountry;
+        public String description;
+  
     }
 
 }
