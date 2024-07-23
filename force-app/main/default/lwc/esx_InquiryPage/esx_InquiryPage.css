@@ -151,24 +151,33 @@
     color: rgba(149, 149, 149, 1);
     font-weight: 400;
 }
+
 .overlay {
     position: fixed;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    background-color: rgba(0, 0, 0, 0.5); /* Black with 50% transparency */
-    z-index: 999; /* Ensure it is above other content */
-    display: none; /* Initially hidden */
+    background-color: rgba(0, 0, 0, 0.5);
+    /* Black with 50% transparency */
+    z-index: 999;
+    /* Ensure it is above other content */
+    display: none;
+    /* Initially hidden */
 }
-.delete-confirmation{
+
+.delete-confirmation {
     width: 100%;
     display: flex;
     justify-content: center;
 }
-.delete_popup{
-    position: absolute;
-    top: 20%;
+
+.delete_popup {
+    position: fixed;
+    /* Changed from absolute to fixed */
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
     z-index: 1000;
     width: 31.25rem;
     height: 21.875rem;
@@ -176,25 +185,29 @@
     border-radius: 2rem;
     box-shadow: 0px 12px 44px 0px rgba(1, 118, 211, 0.34);
     box-shadow: 0px -2px 4px 0px rgba(1, 118, 211, 0.12);
-    background: linear-gradient(90deg,rgba(186, 232, 251, 1), rgba(255, 255, 255, 1));
+    background: linear-gradient(120deg, rgba(186, 232, 251, 1), rgba(255, 255, 255, 1));
 
 }
-.close-icon{
+
+.close-icon {
     position: absolute;
     right: 1rem;
     top: 0.5rem;
     cursor: pointer;
 }
-.delete-icon{
+
+.delete-icon {
     display: flex;
     justify-content: center;
     margin-top: 4rem;
 }
-.delete-icon img{
+
+.delete-icon img {
     width: 5.625rem;
     height: 5.625rem;
 }
-.delete-title{
+
+.delete-title {
     font-size: 2.125rem;
     font-weight: 700;
     width: 100%;
@@ -202,14 +215,16 @@
     display: flex;
     justify-content: center;
 }
-.delete-msg{
+
+.delete-msg {
     font-size: 1.125rem;
     font-weight: 400;
     width: 100%;
     display: flex;
     justify-content: center;
 }
-.two-buttons{
+
+.two-buttons {
     width: 100%;
     display: flex;
     justify-content: center;
@@ -217,7 +232,8 @@
     bottom: 0.8rem;
     justify-content: center;
 }
-.btn{
+
+.btn {
     width: 5.938rem;
     height: 2.813rem;
     background-color: rgba(1, 118, 211, 1);
@@ -286,7 +302,8 @@
     .propTitle {
         width: 270px;
     }
-    .delete_popup{
+
+    .delete_popup {
         width: 21.25rem;
     }
 }

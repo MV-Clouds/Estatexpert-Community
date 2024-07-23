@@ -8,14 +8,15 @@
             <template if:true={isModalOpen}>
                 <div class="delete_popup">
                     <div class="close-icon">
-                        <lightning-icon icon-name="utility:close" alternative-text="Utility image" title="close" size="small" onclick={closePopup}></lightning-icon>
+                        <lightning-icon icon-name="utility:close" alternative-text="Utility image" title="close"
+                            size="small" onclick={closePopup}></lightning-icon>
                     </div>
                     <div class="delete-icon"><img src={deleteIcon}></img></div>
                     <div class="delete-title">Delete</div>
                     <div class="delete-msg">Are you sure to delete this inqury?</div>
                     <div class="two-buttons">
-                        <button class="btn slds-m-right_medium" onclick={cancelAction}>No</button>
-                        <button class="btn slds-m-left_medium" onclick={deleteInquiryRecord}>Yes</button>
+                        <button class="btn slds-m-right_small" onclick={cancelAction}>No</button>
+                        <button class="btn slds-m-left_small" onclick={deleteInquiryRecord}>Yes</button>
                     </div>
                 </div>
             </template>
@@ -124,8 +125,8 @@
                                             <template if:false={item.isEdit}>
                                                 <lightning-button icon-name="utility:edit" alternative-text="Edit"
                                                     class="slds-m-left_x-small my-round-button" title="Edit"
-                                                    data-key={item.Id} data-status={item.Status__c} data-url={item.ImageURL}
-                                                    onclick={editStatus}></lightning-button>
+                                                    data-key={item.Id} data-status={item.Status__c}
+                                                    data-url={item.ImageURL} onclick={editStatus}></lightning-button>
                                             </template>
                                             <lightning-button icon-name="utility:delete" alternative-text="Delete"
                                                 class=" slds-m-left_x-small my-round-button" title="Delete"
@@ -193,8 +194,8 @@
                                 <template if:true={item.isEdit}>
                                     <lightning-button icon-name="utility:save" alternative-text="Save"
                                         class=" save-button my-round-button" title="Save" data-key={item.Id}
-                                        data-status={item.Status__c} data-url={item.ImageURL} onclick={saveUpdatedStatus}
-                                        disabled></lightning-button>
+                                        data-status={item.Status__c} data-url={item.ImageURL}
+                                        onclick={saveUpdatedStatus} disabled></lightning-button>
                                 </template>
                                 <template if:false={item.isEdit}>
                                     <lightning-button icon-name="utility:edit" alternative-text="Edit"
