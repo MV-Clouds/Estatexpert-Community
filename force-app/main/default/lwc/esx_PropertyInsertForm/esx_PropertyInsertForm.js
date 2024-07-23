@@ -2,6 +2,7 @@ import { LightningElement, track, wire } from 'lwc';
 import backgroundImage from "@salesforce/resourceUrl/FavoriteProperties";
 import getAllPicklistValues from '@salesforce/apex/ESX_PropertyInsertFormController.getAllPicklistValues';
 import CreateProperty from '@salesforce/apex/ESX_PropertyInsertFormController.CreateProperty';
+import popupIcons from '@salesforce/resourceUrl/popupIcons';
 import isLoggedInUserDataCorrect from '@salesforce/apex/ESX_UserUtil.isLoggedInUserDataCorrect';
 import dropdownAerrow from '@salesforce/resourceUrl/dropdownAerrow';
 export default class Esx_PropertyInsertForm extends LightningElement {
@@ -21,8 +22,9 @@ export default class Esx_PropertyInsertForm extends LightningElement {
     @track showDropdown_indoor = false;
     @track isData = false;
     @track isPlotArea = false;
+    @track isModalOpen = false;
     BgImage = backgroundImage + '/Bg-Image.png';
-
+    saveIcon = popupIcons + '/Vector (17).png';
     error;
     @track property = {
         saleOrRent: 'For Sell',
@@ -192,11 +194,20 @@ export default class Esx_PropertyInsertForm extends LightningElement {
                     };
                     this.showDropdown_indoor = false;
                     this.showDropdown_outdoor = false;
+                    this.isModalOpen = true;
+                    const overlay = this.template.querySelector('.overlay');
+                    overlay.style.display = 'block';
                 }
             }).catch(error => {
                 console.error('Error:', error);
             });
         }
+    }
+    closePopup(){
+        this.inquiryIdtoDelete = '';
+        this.isModalOpen = false;
+        const overlay = this.template.querySelector('.overlay');
+        overlay.style.display = 'none';
     }
 
     increaseNumber(event) {
@@ -250,7 +261,6 @@ export default class Esx_PropertyInsertForm extends LightningElement {
                 } else if (inputCmp.tagName === 'INPUT') {
                     if (!inputCmp.checkValidity()) {
                         inputCmp.reportValidity();
-                        inputCmp.style.border = '1px solid red';
                         return false;
                     }
                 }

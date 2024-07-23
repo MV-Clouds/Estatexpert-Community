@@ -1,6 +1,22 @@
 <template>
     <div class="main-div">
         <img src={BgImage} alt="BgImage" class="bg-image" />
+        <div class="overlay" lwc:dom="manual"></div>
+        <div class="save-confirmation">
+            <template if:true={isModalOpen}>
+                <div class="save_popup">
+                    <div class="close-icon">
+                        <lightning-icon icon-name="utility:close" alternative-text="Utility image" title="close" size="small" onclick={closePopup}></lightning-icon>
+                    </div>
+                    <div class="save-icon"><img src={saveIcon}></img></div>
+                    <div class="save-title">Save</div>
+                    <div class="save-msg">Property Inserted Successfully!!!</div>
+                    <div class="two-buttons">
+                        <button class="ok-btn slds-m-left_medium" onclick={closePopup}>Ok</button>
+                    </div>
+                </div>
+            </template>
+        </div>
         <div class="container">
             <div class="box">
                 <div class="heading">
