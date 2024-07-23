@@ -3,6 +3,23 @@
         <div class="backgroundImage">
             <img src={BgImage} alt="Background Image" />
         </div>
+        <div class="overlay" lwc:dom="manual"></div>
+        <div class="delete-confirmation">
+            <template if:true={isModalOpen}>
+                <div class="delete_popup">
+                    <div class="close-icon">
+                        <lightning-icon icon-name="utility:close" alternative-text="Utility image" title="close" size="small" onclick={closePopup}></lightning-icon>
+                    </div>
+                    <div class="delete-icon"><img src={deleteIcon}></img></div>
+                    <div class="delete-title">Delete</div>
+                    <div class="delete-msg">Are you sure to delete this inqury?</div>
+                    <div class="two-buttons">
+                        <button class="btn slds-m-right_medium" onclick={cancelAction}>No</button>
+                        <button class="btn slds-m-left_medium" onclick={deleteInquiryRecord}>Yes</button>
+                    </div>
+                </div>
+            </template>
+        </div>
         <div class="container">
             <h1 class="title">Buyer Information</h1>
             <br />

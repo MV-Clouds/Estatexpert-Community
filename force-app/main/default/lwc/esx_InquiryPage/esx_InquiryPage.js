@@ -5,14 +5,17 @@ import getInquiryData from '@salesforce/apex/ESX_InquiryPageController.getInquir
 import DeleteInquiry from '@salesforce/apex/ESX_InquiryPageController.deleteInquiry';
 import customStyles from '@salesforce/resourceUrl/InquiryPageCss';
 import Blank_Profile_Photo from '@salesforce/resourceUrl/Blank_Profile_Photo';
+import popupIcons from '@salesforce/resourceUrl/popupIcons';
+
 import nopropertyfound from '@salesforce/resourceUrl/nopropertyfound';
 import updateInquiryStatus from '@salesforce/apex/ESX_InquiryPageController.updateInquiryStatus';
 import isLoggedInUserDataCorrect from '@salesforce/apex/ESX_UserUtil.isLoggedInUserDataCorrect';
 import { NavigationMixin } from 'lightning/navigation';
-export default class Esx_InquiryPage extends NavigationMixin(LightningElement){
+export default class Esx_InquiryPage extends NavigationMixin(LightningElement) {
 
     BgImage = backgroundImage + '/Bg-Image.png';
 
+    deleteIcon = popupIcons + '/Subtract.png';
     options = [
         { label: '--Select--', value: '' },
         { label: 'Open', value: 'Open' },
@@ -33,7 +36,8 @@ export default class Esx_InquiryPage extends NavigationMixin(LightningElement){
     @track profileImgUrl;
     @track showSpinner = false;
     @track selectedStatusMap = new Map();
-
+    @track isModalOpen = false;
+    @track inquiryIdtoDelete;
     connectedCallback() {
         this.loadCssFromResource();
         this.checkUserIsLoggedIn();
@@ -65,7 +69,7 @@ export default class Esx_InquiryPage extends NavigationMixin(LightningElement){
                     .catch(error => {
                         console.log(error);
                     });
-            }else {
+            } else {
                 this.handleNavigate();
             }
         } catch (error) {
@@ -151,13 +155,41 @@ export default class Esx_InquiryPage extends NavigationMixin(LightningElement){
     }
 
     delete_row(event) {
-        console.log('recordIdtoDelete:', event.currentTarget.dataset.key);
-        let inquiryId = event.currentTarget.dataset.key;
-        DeleteInquiry({ inquiryId: inquiryId }).then((result) => {
+        this.isModalOpen = true;
+        const overlay = this.template.querySelector('.overlay');
+        overlay.style.display = 'block';
+        this.inquiryIdtoDelete = event.currentTarget.dataset.key;
+        // console.log('recordIdtoDelete:', event.currentTarget.dataset.key);
+        // let inquiryId = event.currentTarget.dataset.key;
+        // DeleteInquiry({ inquiryId: inquiryId }).then((result) => {
+        //     if (result) {
+        //         this.fetchInquryData();
+        //     }
+        // })
+    }
+    deleteInquiryRecord() {
+        DeleteInquiry({ inquiryId: this.inquiryIdtoDelete }).then((result) => {
             if (result) {
+                this.inquiryIdtoDelete = '';
+                this.isModalOpen = false;
+                const overlay = this.template.querySelector('.overlay');
+                overlay.style.display = 'none';
                 this.fetchInquryData();
             }
         })
+    }
+    cancelAction() {
+        this.inquiryIdtoDelete = '';
+        this.isModalOpen = false;
+        const overlay = this.template.querySelector('.overlay');
+        overlay.style.display = 'none';
+        this.fetchInquryData();
+    }
+    closePopup() {
+        this.inquiryIdtoDelete = '';
+        this.isModalOpen = false;
+        const overlay = this.template.querySelector('.overlay');
+        overlay.style.display = 'none';
     }
     editStatus(event) {
         const itemId = event.currentTarget.dataset.key;
@@ -248,5 +280,4 @@ export default class Esx_InquiryPage extends NavigationMixin(LightningElement){
             this.isData = false;
         }
     }
-
 }
