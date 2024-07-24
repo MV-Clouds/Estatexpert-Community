@@ -8,7 +8,7 @@ public without sharing class ProfilePage {
         System.debug('contactId: '+contactId);
         try{
             ContactImageWrapper wrapper = new ContactImageWrapper();
-            List<Contact> con =[SELECT Id, Salutation, FirstName, LastName, Gender__c, Birthdate, Age__c, Phone, Email, MailingStreet, MailingCity, MailingPostalCode, MailingState, MailingCountry, Description, RecordType.Name  FROM Contact WHERE Id =: contactId];
+            List<Contact> con =[SELECT Id, Salutation, FirstName, LastName, Gender__c, Birthdate, Age__c, Phone,MobilePhone, Email, MailingStreet, MailingCity, MailingPostalCode, MailingState, MailingCountry, Description, RecordType.Name  FROM Contact WHERE Id =: contactId];
             wrapper.contact = con[0];
 
             List<ContentDocumentLink> cdlList = [SELECT Id, ContentDocumentId FROM ContentDocumentLink WHERE LinkedEntityId =: con[0].Id];
@@ -36,7 +36,7 @@ public without sharing class ProfilePage {
     public static void updateContact(String contact) {
         try {
             ContactData con = (ContactData) JSON.deserialize(contact, ContactData.class);
-            Contact contactRecord =[SELECT Id, Salutation, FirstName, LastName, Gender__c, Birthdate, Age__c, Phone, Email, MailingStreet, MailingCity, MailingPostalCode, MailingState, MailingCountry, Description, RecordType.Name  FROM Contact WHERE Id =: con.id LIMIT 1];
+            Contact contactRecord =[SELECT Id, Salutation, FirstName, LastName, Gender__c, Birthdate, Age__c, Phone,MobilePhone, Email, MailingStreet, MailingCity, MailingPostalCode, MailingState, MailingCountry, Description, RecordType.Name  FROM Contact WHERE Id =: con.id LIMIT 1];
             contactRecord.Salutation = con.salutation;
             contactRecord.FirstName = con.firstName;
             contactRecord.LastName = con.lastName;

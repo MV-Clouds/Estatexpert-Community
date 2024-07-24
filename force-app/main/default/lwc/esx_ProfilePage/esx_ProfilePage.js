@@ -1,4 +1,4 @@
-import { LightningElement, track } from 'lwc';
+import { LightningElement,track } from 'lwc';
 import basePath from '@salesforce/community/basePath';
 import getContactdetails from '@salesforce/apex/ProfilePage.getContactdetails';
 import { ShowToastEvent } from 'lightning/platformShowToastEvent';
@@ -12,7 +12,7 @@ import { NavigationMixin } from 'lightning/navigation';
 export default class Esx_ProfilePage extends NavigationMixin(LightningElement) {
 
     @track contactId;
-    @track contact;
+    @track contact={};
     @track profileImage;
     @track recordType;
     @track isLoading = true;
@@ -64,8 +64,7 @@ export default class Esx_ProfilePage extends NavigationMixin(LightningElement) {
             .then(result => {
                 console.log('result: ', result);
                 if (result.contact != null) {
-                    // this.contact = result.contact;
-                    this.contact = {
+                    this.contact  = {
                         id: result.contact.Id,
                         salutation: result.contact.Salutation || '',
                         firstName: result.contact.FirstName || '',
@@ -73,7 +72,7 @@ export default class Esx_ProfilePage extends NavigationMixin(LightningElement) {
                         gender: result.contact.Gender__c || '',
                         birthdate: result.contact.Birthdate || '',
                         age: result.contact.Age__c || '',
-                        phone: result.contact.Phone || '',
+                        phone: result.contact.MobilePhone || '',
                         email: result.contact.Email || '',
                         mailingStreet: result.contact.MailingStreet || '',
                         mailingCity: result.contact.MailingCity || '',
@@ -81,12 +80,7 @@ export default class Esx_ProfilePage extends NavigationMixin(LightningElement) {
                         mailingState: result.contact.MailingState || '',
                         mailingCountry: result.contact.MailingCountry || '',
                         description: result.contact.Description || '',
-                        recordTypeName: result.contact.RecordType ? result.contact.RecordType.Name || '' : ''
                     };
-                    // this.contact = Object.keys(result.contact).reduce((acc, key) => {
-                    //     acc[key] = result.contact[key] == null || result.contact[key] == '' ? '' : result.contact[key];
-                    //     return acc;
-                    // }, {});
                     this.recordType = result.contact.RecordType.Name;
                     this.isLoading = false;
                 } else {
@@ -139,7 +133,6 @@ export default class Esx_ProfilePage extends NavigationMixin(LightningElement) {
     updateContact(event) {
         const field = event.target.name;
         this.contact[field] = event.target.value;
-        // this.contact = { ...this.contact, [field]: event.target.value };
     }
 
     getContactInfo(event) {
@@ -155,7 +148,7 @@ export default class Esx_ProfilePage extends NavigationMixin(LightningElement) {
                 this.isDisabled = true;
                 let button = this.template.querySelector('.save-btn');
                 button.style.backgroundColor = 'rgba(210, 210, 210, 1)';
-                this.getContact();
+                this.getCurrentContactDetails();
             })
             .catch(error => {
                 console.error(error);
@@ -225,6 +218,8 @@ export default class Esx_ProfilePage extends NavigationMixin(LightningElement) {
     }
 
     cancelAction(){
+        console.log('contactdetailsBeforementhodCalled:',JSON.stringify(this.contact));
+        this.isLoading = true;
         this.getCurrentContactDetails();
         this.isDisabled = true;
         let button = this.template.querySelector('.save-btn');
