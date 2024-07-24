@@ -19,12 +19,16 @@
                 <div class="td-txt photo-cell ph-hg-at">
                     <div class="main-file-cmp">
                         <template for:each={propertyMediaImages} for:item="cd" for:index="indexNum">
-                            <div class="slds-m-horizontal_x-small property-card-image" key={cd.ExternalLink__c}
+                            <!-- <div class="slds-m-horizontal_x-small property-card-image" key={cd.ExternalLink__c}
                                 data-cdid={cd.ExternalLink__c} data-cid={cd.ExternalLink__c} data-cdlindex={indexNum}>
                                 <lightning-carousel-image class="carousel-image" description={cd.ExternalLink__c}
-                                    src={cd.ExternalLink__c}></lightning-carousel-image>
-                                    <!-- <img src={cd.ExternalLink__c}></img> -->
-                            </div>
+                                    src={cd.ExternalLink__c}></lightning-carousel-image> -->
+                                    <!-- <div class="img-details" key={cd.ExternalLink__c}> -->
+                                        <img key={cd.ExternalLink__c} src={cd.ExternalLink__c}></img>
+                                        <!-- <div class="description" >{cd.Tags__c}</div> -->
+                                    <!-- </div> -->
+                                
+                            <!-- </div> -->
                         </template>
                     </div>
                 </div>
