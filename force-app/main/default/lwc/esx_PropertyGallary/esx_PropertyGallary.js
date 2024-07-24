@@ -13,6 +13,8 @@ export default class Esx_PropertyGallary extends LightningElement {
     @track diningRoomImgsSize;
     @track kitchenImgsSize;
     @track guestRoomImgsSize;
+    @track propertyImage;
+    @track isModalOpen;
 
     propertyId = 'a02dL000000xuO1QAI';
     connectedCallback(){
@@ -48,6 +50,19 @@ export default class Esx_PropertyGallary extends LightningElement {
         .catch(error => {
             console.error(error);
         });
+    }
+
+    handleCard(event){
+        this.propertyImage = event.currentTarget.dataset.url;
+        this.isModalOpen = true;
+        const overlay = this.template.querySelector('.overlay');
+        overlay.style.display = 'block';
+    }
+    closePopup() {
+        this.propertyImage = '';
+        this.isModalOpen = false;
+        const overlay = this.template.querySelector('.overlay');
+        overlay.style.display = 'none';
     }
 }
 

@@ -1,59 +1,95 @@
 <template>
-    <div class="container">
-        <div class="content">
-            <div class="title-box">
-                <h1 class="title">Living Room({livingRoomImgsSize})</h1>
-            </div>
-            <div class="images-box">
-                <template for:each={livingRoomImgs} for:item="livingroom">
-                    <div class="card" onclick={handleCard} key={livingroom.ExternalLink__c}>
-                        <div class="card-image">
-                            <img draggable="false" src={livingroom.ExternalLink__c} class="responsive" alt="Images">
-                        </div>
-                    </div>
-                </template>
+    <div class="main-div">
+        <div class="overlay">
+            <div class="close-icon">
+                <lightning-icon icon-name="utility:close" alternative-text="Utility image" title="close" size="small"
+                    onclick={closePopup}></lightning-icon>
             </div>
         </div>
-        <div class="content">
-            <div class="title-box">
-                <h1 class="title">Dining Room({diningRoomImgsSize})</h1>
-            </div>
-            <div class="images-box">
-                <template for:each={diningRoomImgs} for:item="diningroom">
-                <div class="card" onclick={handleCard} key={diningroom.ExternalLink__c}>
-                    <div class="card-image">
-                        <img draggable="false" src={diningroom.ExternalLink__c} class="responsive" alt="Images">
+
+        <div class="image-viewer">
+            <template if:true={isModalOpen}>
+                <!-- <div class="img-viewer-popup">
+                    <div class="close-icon">
+                        <lightning-icon icon-name="utility:close" alternative-text="Utility image" title="close"
+                            size="small" onclick={closePopup}></lightning-icon>
+                    </div>
+                    <img src={propertyImage}></img>
+                </div> -->
+                <div class="td-txt photo-cell ph-hg-at">
+                    <div class="main-file-cmp">
+                        <template for:each={propertyMediaImages} for:item="cd" for:index="indexNum">
+                            <div class="slds-m-horizontal_x-small property-card-image" key={cd.ExternalLink__c}
+                                data-cdid={cd.ExternalLink__c} data-cid={cd.ExternalLink__c} data-cdlindex={indexNum}>
+                                <lightning-carousel-image class="carousel-image" description={cd.ExternalLink__c}
+                                    src={cd.ExternalLink__c}></lightning-carousel-image>
+                                    <!-- <img src={cd.ExternalLink__c}></img> -->
+                            </div>
+                        </template>
                     </div>
                 </div>
-                </template>
-            </div>
+            </template>
         </div>
-        <div class="content">
-            <div class="title-box">
-                <h1 class="title">Kitchen({kitchenImgsSize})</h1>
-            </div>
-            <div class="images-box">
-                <template for:each={kitchenImgs} for:item="kitchen">
-                <div class="card" onclick={handleCard} key={kitchen.ExternalLink__c}>
-                    <div class="card-image" >
-                        <img draggable="false" src={kitchen.ExternalLink__c} class="responsive" alt="Images">
-                    </div>
+        <div class="container">
+            <div class="content">
+                <div class="title-box">
+                    <h1 class="title">Living Room(<span class="number-of-imgs">{livingRoomImgsSize}</span>)</h1>
                 </div>
-                </template>
-            </div>
-        </div>
-        <div class="content">
-            <div class="title-box">
-                <h1 class="title">Guest Room({guestRoomImgsSize})</h1>
-            </div>
-            <div class="images-box">
-                <template for:each={guestRoomImgs} for:item="guestroom">
-                    <div class="card" onclick={handleCard} key={guestroom.ExternalLink__c}>
-                        <div class="card-image">
-                            <img draggable="false" src={guestroom.ExternalLink__c} class="responsive" alt="Images">
+                <div class="images-box">
+                    <template for:each={livingRoomImgs} for:item="livingroom">
+                        <div class="card" onclick={handleCard} key={livingroom.ExternalLink__c}
+                            data-url={livingroom.ExternalLink__c}>
+                            <div class="card-image">
+                                <img draggable="false" src={livingroom.ExternalLink__c} class="responsive" alt="Images">
+                            </div>
                         </div>
-                    </div>
-                </template>
+                    </template>
+                </div>
+            </div>
+            <div class="content">
+                <div class="title-box">
+                    <h1 class="title">Dining Room(<span class="number-of-imgs">{diningRoomImgsSize}</span>)</h1>
+                </div>
+                <div class="images-box">
+                    <template for:each={diningRoomImgs} for:item="diningroom">
+                        <div class="card" onclick={handleCard} key={diningroom.ExternalLink__c}
+                            data-url={diningroom.ExternalLink__c}>
+                            <div class="card-image">
+                                <img draggable="false" src={diningroom.ExternalLink__c} class="responsive" alt="Images">
+                            </div>
+                        </div>
+                    </template>
+                </div>
+            </div>
+            <div class="content">
+                <div class="title-box">
+                    <h1 class="title">Kitchen(<span class="number-of-imgs">{kitchenImgsSize}</span>)</h1>
+                </div>
+                <div class="images-box">
+                    <template for:each={kitchenImgs} for:item="kitchen">
+                        <div class="card" onclick={handleCard} key={kitchen.ExternalLink__c}
+                            data-url={kitchen.ExternalLink__c}>
+                            <div class="card-image">
+                                <img draggable="false" src={kitchen.ExternalLink__c} class="responsive" alt="Images">
+                            </div>
+                        </div>
+                    </template>
+                </div>
+            </div>
+            <div class="content">
+                <div class="title-box">
+                    <h1 class="title">Guest Room(<span class="number-of-imgs">{guestRoomImgsSize}</span>)</h1>
+                </div>
+                <div class="images-box">
+                    <template for:each={guestRoomImgs} for:item="guestroom">
+                        <div class="card" onclick={handleCard} key={guestroom.ExternalLink__c}
+                            data-url={guestroom.ExternalLink__c}>
+                            <div class="card-image">
+                                <img draggable="false" src={guestroom.ExternalLink__c} class="responsive" alt="Images">
+                            </div>
+                        </div>
+                    </template>
+                </div>
             </div>
         </div>
     </div>
