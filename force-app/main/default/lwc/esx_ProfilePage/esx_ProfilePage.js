@@ -175,9 +175,9 @@ export default class Esx_ProfilePage extends NavigationMixin(LightningElement) {
                 button.style.backgroundColor = 'rgba(210, 210, 210, 1)';
                 this.getCurrentContactDetails();
             })
-            .catch(error => {
-                console.error(error);
-            });
+                .catch(error => {
+                    console.error(error);
+                });
         }
     }
     isValidForm() {
@@ -242,7 +242,7 @@ export default class Esx_ProfilePage extends NavigationMixin(LightningElement) {
 
         }
     }
-    previewProfileImage(){
+    previewProfileImage() {
         console.log('method called for profile');
         this.profilePreview = true;
         const overlay = this.template.querySelector('.overlay');
