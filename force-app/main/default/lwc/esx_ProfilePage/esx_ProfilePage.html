@@ -8,10 +8,29 @@
 
     <template if:false={isLoading}>
         <div class="main-div">
+            <div class="overlay" lwc:dom="manual"></div>
+            <div class="popup-for-confirmation">
+                <template if:true={isModalOpen}>
+                    <div class="custom_popup">
+                        <div class="show-msg">{popupMessage}</div>
+                        <div class="two-buttons">
+                            <button class="ok-btn" onclick={closePopup}>Ok</button>
+                        </div>
+                    </div>
+                </template>
+                <template if:true={profilePreview}>
+                    <div class="profile-preview-popup">
+                        <div class="close-icon">
+                            <lightning-icon icon-name="utility:close" alternative-text="Utility image" title="close" size="small" onclick={closePopup}></lightning-icon>
+                        </div>
+                        <img src={profileImage}></img>
+                    </div>
+                </template>
+            </div>
             <div class="background-image">
                 <img src={backgroundImageUrl} alt="Background Image" />
             </div>
-
+            
             <div class="main-content">
                 <div class="header">
                     <lightning-icon class="back-icon" size='x-small' icon-name="utility:chevronleft"
@@ -20,7 +39,7 @@
                 </div>
                 <div class="general-information">
                     <div class="profile-image">
-                        <img src={profileImage} alt="Profile Image" />
+                        <img src={profileImage} alt="Profile Image" onclick={previewProfileImage} />
                         <div class="delete-icon" onclick={removeProfile}>
                             <lightning-icon class="icon" icon-name="utility:delete" title="close"
                                 size="x-small"></lightning-icon>
@@ -34,7 +53,7 @@
                         <div class="form-group  first-row ">
                             <div class="form-element dropdownfield">
                                 <p class="label">Salutation</p>
-                                <select name="Salutation" class="input-dropdown otherinput" onchange={updateContact}
+                                <select name="Salutation" class="input-dropdown" onchange={updateContact}
                                     disabled={isDisabled}>
                                     <template if:true={isDisabled}>
                                         <option value={contact.Salutation}>{contact.salutation}</option>
@@ -46,12 +65,12 @@
                             </div>
                             <div class="form-element namefield">
                                 <p class="label">First Name</p>
-                                <input type="text" name="firstName" class="input-text" value={contact.firstName}
+                                <input type="text" name="firstName" data-errmsg="Name should contain 2-50 character." pattern="[A-Za-z\s]{2,50}" class="input-text" value={contact.firstName}
                                     onchange={updateContact} disabled={isDisabled} required></input>
                             </div>
                             <div class="form-element namefield">
                                 <p class="label">Last Name</p>
-                                <input type="text" name="lastName" class="input-text" value={contact.lastName}
+                                <input type="text" name="lastName" data-errmsg="Name should contain 2-50 character." pattern="[A-Za-z\s]{2,50}" class="input-text" value={contact.lastName}
                                     onchange={updateContact} disabled={isDisabled} required></input>
                             </div>
                         </div>
@@ -60,13 +79,17 @@
                                 <div class="gender-options">
                                     <div class="label">Gender</div>
                                     <div class="checkbox">
-                                        <div class="tickbox checkbox1 slds-m-right_medium">
+                                        <div class="tickbox checkbox1">
                                             <input class="Male" type="radio" name="gender" value="Male"
                                                 onchange={updateContact} disabled={isDisabled}><span> Male</span></input>
                                         </div>
-                                        <div class="tickbox checkbox1 slds-m-left_medium">
+                                        <div class="tickbox checkbox1 ">
                                             <input class="Female" type="radio" name="gender" value="Female"
                                                 onchange={updateContact} disabled={isDisabled}><span> Female</span></input>
+                                        </div>
+                                        <div class="tickbox checkbox1 ">
+                                            <input class="Other" type="radio" name="gender" value="Other"
+                                                onchange={updateContact} disabled={isDisabled}><span> Other</span></input>
                                         </div>
                                     </div>
                                 </div>
@@ -78,7 +101,7 @@
                                     <p class="label">Date of Birth</p>
                                     <input type="date" name="birthdate" class="input-text otherinput"
                                         value={contact.birthdate} onchange={updateContact}
-                                        disabled={isDisabled}></input>
+                                        disabled={isDisabled} required></input>
                                 </div>
                                 <template if:true={isDisabled}>
                                     <div class="form-element date-second-half">
@@ -97,12 +120,12 @@
                         <div class="phone-and-email">
                             <div class="form-element input-first-half">
                                 <p class="label">Mobile Number</p>
-                                <input type="tel" name="phone" class="input-text" value={contact.phone}
+                                <input type="tel" name="phone" data-errmsg="Enter Valid Mobile Number." class="input-text" pattern="\d{10}" value={contact.phone}
                                     onchange={updateContact} disabled={isDisabled} required></input>
                             </div>
                             <div class="form-element input-second-half">
                                 <p class="label">Email</p>
-                                <input type="email" name="email" class="input-text" value={contact.email}
+                                <input type="email" name="email" data-errmsg="Enter Valid Email." class="input-text" pattern="[a-z0-9._%+\-]+@[a-z0-9.\-]+\.[a-z]{2,}$" value={contact.email}
                                     onchange={updateContact} disabled={isDisabled} required></input>
                             </div>
                         </div>
@@ -126,7 +149,7 @@
                             </div>
                             <div class="form-element input-second-half">
                                 <p class="label">PIN Code</p>
-                                <input type="text" name="mailingPostalCode" class="input-text"
+                                <input type="text" name="mailingPostalCode" data-errmsg="Must be 6 digits and doesn't start from zero." pattern="[1-9][0-9]{5}" class="input-text"
                                     value={contact.mailingPostalCode} onchange={updateContact}
                                     disabled={isDisabled}></input>
                             </div>
@@ -136,14 +159,23 @@
                         <div class="address-fields">
                             <div class="form-element input-first-half">
                                 <p class="label">State</p>
-                                <input type="text" name="mailingState" class="input-text" value={contact.mailingState}
-                                    onchange={updateContact} disabled={isDisabled}></input>
+                                <input type="text" name="mailingState" class="input-text" data-errmsg="State should contain 2-100 character." pattern="[A-Za-z\s]{2,100}" value={contact.mailingState}
+                                    onchange={updateContact} disabled={isDisabled} required></input>
                             </div>
                             <div class="form-element input-second-half">
                                 <p class="label">Country</p>
-                                <input type="text" name="mailingCountry" class="input-text"
+                                <select name="mailingCountry" class="input-text country-dropdown" onchange={updateContact}
+                                    disabled={isDisabled}>
+                                    <template if:true={isDisabled}>
+                                        <option value={contact.mailingCountry}>{contact.mailingCountry}</option>
+                                    </template>
+                                    <template for:each={countryOptions} for:item="type">
+                                        <option value={type.label} key={type.value}>{type.label}</option>
+                                    </template>
+                                </select>
+                                <!-- <input type="text" name="mailingCountry" class="input-text"
                                     value={contact.mailingCountry} onchange={updateContact}
-                                    disabled={isDisabled}></input>
+                                    disabled={isDisabled}></input> -->
                             </div>
                         </div>
                     </div>
@@ -153,7 +185,7 @@
                     <div class="form-group ">
                         <div class="address-line">
                             <p class="label">Description</p>
-                            <textarea name="description" class="input-text longfield" onchange={updateContact}
+                            <textarea name="description" maxlength="1000" class="input-text longfield decriptionfield" onchange={updateContact}
                                 disabled={isDisabled}>{contact.description}</textarea>
                         </div>
                     </div>

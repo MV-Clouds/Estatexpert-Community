@@ -1,4 +1,4 @@
-import { LightningElement,track } from 'lwc';
+import { LightningElement, track } from 'lwc';
 import basePath from '@salesforce/community/basePath';
 import getContactdetails from '@salesforce/apex/ProfilePage.getContactdetails';
 import { ShowToastEvent } from 'lightning/platformShowToastEvent';
@@ -12,7 +12,7 @@ import { NavigationMixin } from 'lightning/navigation';
 export default class Esx_ProfilePage extends NavigationMixin(LightningElement) {
 
     @track contactId;
-    @track contact={};
+    @track contact = {};
     @track profileImage;
     @track recordType;
     @track isLoading = true;
@@ -22,12 +22,29 @@ export default class Esx_ProfilePage extends NavigationMixin(LightningElement) {
         { label: 'Mr.', value: 'Mr.' },
         { label: 'Ms.', value: 'Ms.' },
         { label: 'Mrs.', value: 'Mrs.' },
+        { label: 'Dr.', value: 'Dr.' },
+        { label: 'Prof.', value: 'Prof.' },
+        { label: 'Mx.', value: 'Prof.' },
     ];
     @track genderOptions = [
         { label: 'Male', value: 'Male' },
         { label: 'Female', value: 'Female' },
+        { label: 'Other', value: 'Other' },
+
     ];
+
+    @track countryOptions = [
+        { label: 'India', value: 'India' },
+        { label: 'UAE', value: 'UAE' },
+        { label: 'United States', value: 'United States' },
+        { label: 'Canada', value: 'Canada' },
+        { label: 'Japan', value: 'Japan' },
+
+    ]
     placeholderProfile = Blank_Profile_Photo;
+    @track isModalOpen = false;
+    @track popupMessage = '';
+    @track profilePreview = false;
 
     connectedCallback() {
         this.checkUserIsLoggedIn();
@@ -51,10 +68,10 @@ export default class Esx_ProfilePage extends NavigationMixin(LightningElement) {
                     .catch(error => {
                         console.log(error);
                     });
-            }else{
+            } else {
                 this.handleNavigate('Login');
             }
-        }catch (error) {
+        } catch (error) {
             console.error(error);
         }
     }
@@ -64,7 +81,7 @@ export default class Esx_ProfilePage extends NavigationMixin(LightningElement) {
             .then(result => {
                 console.log('result: ', result);
                 if (result.contact != null) {
-                    this.contact  = {
+                    this.contact = {
                         id: result.contact.Id,
                         salutation: result.contact.Salutation || '',
                         firstName: result.contact.FirstName || '',
@@ -119,7 +136,7 @@ export default class Esx_ProfilePage extends NavigationMixin(LightningElement) {
     navigateHome() {
         this.handleNavigate('Home');
     }
-    
+
     handleNavigate(page) {
         let pageApi = page;
         this[NavigationMixin.Navigate]({
@@ -137,14 +154,22 @@ export default class Esx_ProfilePage extends NavigationMixin(LightningElement) {
 
     getContactInfo(event) {
         this.isDisabled = false;
+        let dropdownCountry = this.template.querySelector('.country-dropdown');
+        let dropdownSalutation = this.template.querySelector('.input-dropdown');
+        dropdownSalutation.style.backgroundColor = 'white';
+        dropdownCountry.style.backgroundColor = 'white';
         let button = this.template.querySelector('.save-btn');
         button.style.backgroundColor = 'rgba(1, 118, 211, 1)';
     }
 
     updateContactInfo() {
         if (this.isValidForm()) {
-            console.log('conData:',JSON.stringify(this.contact));
-            updateContact({ contact: JSON.stringify(this.contact)}).then(result => {
+            console.log('conData:', JSON.stringify(this.contact));
+            updateContact({ contact: JSON.stringify(this.contact) }).then(result => {
+                this.popupMessage = 'Your details are updated successfully!';
+                this.isModalOpen = true;
+                const overlay = this.template.querySelector('.overlay');
+                overlay.style.display = 'block';
                 this.isDisabled = true;
                 let button = this.template.querySelector('.save-btn');
                 button.style.backgroundColor = 'rgba(210, 210, 210, 1)';
@@ -155,17 +180,42 @@ export default class Esx_ProfilePage extends NavigationMixin(LightningElement) {
             });
         }
     }
-
     isValidForm() {
+        const today = new Date();
         const allValid = [...this.template.querySelectorAll('lightning-input, input')]
             .reduce((validSoFar, inputCmp) => {
+                let valid = true;
+                let errorMessage = '';
                 if (inputCmp.tagName === 'LIGHTNING-INPUT') {
                     inputCmp.reportValidity();
                     return validSoFar && inputCmp.checkValidity();
                 } else if (inputCmp.tagName === 'INPUT') {
-                    if (!inputCmp.checkValidity()) {
+                    inputCmp.setCustomValidity('');
+                    if (inputCmp.type === 'date') {
+                        const birthdate = new Date(inputCmp.value);
+                        const age = today.getFullYear() - birthdate.getFullYear();
+                        const m = today.getMonth() - birthdate.getMonth();
+                        if (m < 0 || (m === 0 && today.getDate() < birthdate.getDate())) {
+                            age--;
+                        }
+
+                        if (isNaN(birthdate) || age < 0 || age > 120) {
+                            errorMessage = 'Please enter a valid birthdate within the last 120 years.';
+                            valid = false;
+                        }
+                    } else {
+                        if (!inputCmp.checkValidity()) {
+                            errorMessage = inputCmp.dataset.errmsg;
+                            valid = false;
+                        }
+                    }
+                    if (!valid) {
+                        inputCmp.setCustomValidity(errorMessage || inputCmp.dataset.errmsg);
                         inputCmp.reportValidity();
-                        return false;
+                        return false
+                    } else {
+                        inputCmp.setCustomValidity('');
+                        inputCmp.reportValidity();
                     }
                 }
                 return validSoFar;
@@ -180,8 +230,29 @@ export default class Esx_ProfilePage extends NavigationMixin(LightningElement) {
     handleFileChange(event) {
         const files = event.target.files;
         if (files.length > 0) {
-            this.uploadFile(files[0]);
+            console.log('filesizein mB:', Math.floor((files[0].size) / 1024));
+            if (Math.floor((files[0].size) / 1024) <= 3000) {
+                this.uploadFile(files[0]);
+            } else {
+                this.popupMessage = 'File size should be less than 3MB';
+                this.isModalOpen = true;
+                const overlay = this.template.querySelector('.overlay');
+                overlay.style.display = 'block';
+            }
+
         }
+    }
+    previewProfileImage(){
+        console.log('method called for profile');
+        this.profilePreview = true;
+        const overlay = this.template.querySelector('.overlay');
+        overlay.style.display = 'block';
+    }
+    closePopup() {
+        this.isModalOpen = false;
+        this.profilePreview = false;
+        const overlay = this.template.querySelector('.overlay');
+        overlay.style.display = 'none';
     }
 
     uploadFile(file) {
@@ -195,7 +266,7 @@ export default class Esx_ProfilePage extends NavigationMixin(LightningElement) {
     }
 
     uploadToSalesforce(file, base64Data) {
-        uploadProfileImage({ contactId: this.contact.Id, fileName: file.name, base64Data })
+        uploadProfileImage({ contactId: this.contactId, fileName: file.name, base64Data })
             .then(contentVersion => {
                 this.profileImage = 'data:image/jpeg;base64,' + contentVersion;
             })
@@ -205,20 +276,22 @@ export default class Esx_ProfilePage extends NavigationMixin(LightningElement) {
     }
 
     removeProfile() {
-        removeProfileImage({ ContactId: this.contact.Id }).then(result => {
+        console.log('conId:', this.contact.Id);
+        console.log('contactId:', this.contactId)
+        removeProfileImage({ ContactId: this.contactId }).then(result => {
             if (result) {
                 this.template.querySelector('.delete-icon').style.display = 'none';
                 this.profileImage = this.placeholderProfile;
             }
         })
-        .catch(error => {
-            console.log('errormsg:', error.body.message);
-            console.error(error);
-        });
+            .catch(error => {
+                console.log('errormsg:', error.body.message);
+                console.error(error);
+            });
     }
 
-    cancelAction(){
-        console.log('contactdetailsBeforementhodCalled:',JSON.stringify(this.contact));
+    cancelAction() {
+        console.log('contactdetailsBeforementhodCalled:', JSON.stringify(this.contact));
         this.isLoading = true;
         this.getCurrentContactDetails();
         this.isDisabled = true;

@@ -42,7 +42,7 @@ public without sharing class ProfilePage {
             contactRecord.LastName = con.lastName;
             contactRecord.Gender__c = con.gender;
             contactRecord.Birthdate = con.birthdate;
-            contactRecord.Phone = con.phone;
+            contactRecord.MobilePhone = con.phone;
             contactRecord.Email = con.email;
             contactRecord.MailingStreet = con.mailingStreet;
             contactRecord.MailingCity = con.mailingCity;
