@@ -73,18 +73,19 @@ export default class Esx_LatestPropertyCard extends NavigationMixin(LightningEle
             console.error(error);
         }
     }
+
     addToFavourite(){
         this.checkUserIsLoggedIn();
         // Call Apex method to add property to favourites
     }
 
     redirectToPropertyDetail(){
-            this[NavigationMixin.Navigate]({
-                type: 'standard__webPage',
-                attributes: {
-                    url: 'https://mvclouds9-dev-ed.develop.my.site.com/z-test-3'
-                }
-            });
+        this[NavigationMixin.Navigate]({
+            type: 'standard__webPage',
+            attributes: {
+                url: 'https://mvclouds9-dev-ed.develop.my.site.com/z-test-3'
+            }
+        });
         // this.handleNavigate('z_Test_3');
     }
 
