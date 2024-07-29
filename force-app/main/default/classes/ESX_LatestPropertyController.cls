@@ -10,7 +10,7 @@ public without sharing class ESX_LatestPropertyController {
             propertyIds.add(listedProperty.Property__c);
         }
 
-        String query = 'SELECT Id, Name, Number_of_Bedrooms__c, Number_of_Bathrooms__c, Landmark__c, City__c, Price__c, Total_Covered_Area__c, Property_Status__c FROM Property__c WHERE Id IN : propertyIds';
+        String query = 'SELECT Id, Name, Number_of_Bedrooms__c, Number_of_Bathrooms__c, Landmark__c, City__c, Price__c, Covered_Area__c, Property_Status__c FROM Property__c WHERE Id IN : propertyIds';
         
         if (status == 'sell') {
             query += ' AND Property_Status__c = \'For Sell\'';
@@ -20,13 +20,13 @@ public without sharing class ESX_LatestPropertyController {
             query += ' AND (Property_Status__c = \'For Sell\' OR Property_Status__c = \'For Rent\')';
         }
 
-        query += 'LIMIT 5';
+        query += ' ORDER BY CreatedDate DESC LIMIT 20';
         
         List<Property__c> properties = Database.query(query);
 
         Map<Id, List<String>> propertyExternalLinksMap = new Map<Id, List<String>>();
         List<Property_Media__c> mediaRecords = new List<Property_Media__c>();
-        mediaRecords = [SELECT Property__c, ExternalLink__c FROM Property_Media__c WHERE Property__c IN :propertyIds];
+        mediaRecords = [SELECT Property__c, ExternalLink__c FROM Property_Media__c WHERE Property__c IN :propertyIds ORDER BY CreatedDate DESC];
         for (Property_Media__c  mediaRecord : mediaRecords){
             if (!propertyExternalLinksMap.containsKey(mediaRecord.Property__c)) {
                 propertyExternalLinksMap.put(mediaRecord.Property__c, new List<String>());

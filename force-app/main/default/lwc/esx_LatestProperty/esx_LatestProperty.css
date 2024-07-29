@@ -78,6 +78,14 @@
     display: none;
     /* Hides the scrollbar for WebKit browsers */
 }
+.no-data-found{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 1px solid black;
+    height: 8rem;
+}
+
 
 @media (min-width: 768px) and (max-width: 1023px) {
     .header-line{
