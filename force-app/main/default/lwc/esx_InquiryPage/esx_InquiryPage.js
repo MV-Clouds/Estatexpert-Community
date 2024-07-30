@@ -73,6 +73,7 @@ export default class Esx_InquiryPage extends NavigationMixin(LightningElement) {
                                     this.fetchInquryData();
                                 } else {
                                     this.isData = false;
+                                    this.handleNavigate();
                                 }
                             });
                         }
