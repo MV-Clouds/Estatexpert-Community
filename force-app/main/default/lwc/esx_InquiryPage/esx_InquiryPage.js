@@ -3,10 +3,10 @@ import backgroundImage from "@salesforce/resourceUrl/FavoriteProperties";
 import { loadStyle } from 'lightning/platformResourceLoader';
 import getInquiryData from '@salesforce/apex/ESX_InquiryPageController.getInquiryData';
 import DeleteInquiry from '@salesforce/apex/ESX_InquiryPageController.deleteInquiry';
+import isUserSeller from '@salesforce/apex/ESX_InquiryPageController.isUserSeller';
 import customStyles from '@salesforce/resourceUrl/InquiryPageCss';
 import Blank_Profile_Photo from '@salesforce/resourceUrl/Blank_Profile_Photo';
-import popupIcons from '@salesforce/resourceUrl/popupIcons';
-
+import popupIcons from '@salesforce/resourceUrl/popupicons1';
 import nopropertyfound from '@salesforce/resourceUrl/nopropertyfound';
 import updateInquiryStatus from '@salesforce/apex/ESX_InquiryPageController.updateInquiryStatus';
 import isLoggedInUserDataCorrect from '@salesforce/apex/ESX_UserUtil.isLoggedInUserDataCorrect';
@@ -15,7 +15,9 @@ export default class Esx_InquiryPage extends NavigationMixin(LightningElement) {
 
     BgImage = backgroundImage + '/Bg-Image.png';
 
-    deleteIcon = popupIcons + '/Subtract.png';
+    deleteIcon = popupIcons + '/delete.png';
+    sucessIcon = popupIcons + '/success.png';
+    errorIcon = popupIcons + '/error.png';
     options = [
         { label: '--Select--', value: '' },
         { label: 'Open', value: 'Open' },
@@ -37,6 +39,9 @@ export default class Esx_InquiryPage extends NavigationMixin(LightningElement) {
     @track showSpinner = false;
     @track selectedStatusMap = new Map();
     @track isModalOpen = false;
+    @track isUpdated = false;
+    @track isError = false;
+    @track errorMsg = ''
     @track inquiryIdtoDelete;
     connectedCallback() {
         this.loadCssFromResource();
@@ -63,7 +68,13 @@ export default class Esx_InquiryPage extends NavigationMixin(LightningElement) {
                         console.log('isLoggedInUserDataCorrect ** => ', result);
                         if (result) {
                             this.contactId = loggedUserInfoObj.contactId;
-                            this.fetchInquryData();
+                            isUserSeller({ contactId: this.contactId }).then(sellerUser => {
+                                if (sellerUser) {
+                                    this.fetchInquryData();
+                                } else {
+                                    this.isData = false;
+                                }
+                            });
                         }
                     })
                     .catch(error => {
@@ -88,50 +99,51 @@ export default class Esx_InquiryPage extends NavigationMixin(LightningElement) {
     }
 
     fetchInquryData() {
-        try {
-            getInquiryData({ contactId: this.contactId }).then((result) => {
-                if (result.inquiries.length >= 0) {
-                    this.isData = true;
-                    this.FilteredData = result.inquiries;
-                    this.Data = result.inquiries;
-                    this.profilepicUrls = result.contactContentVersions;
-                    this.propertyMediaUrls = result.medias;
-                    this.Data.forEach((row, index) => {
-                        const prop_id = row.Listing__r.Property__r.Id;
-                        const conId = row.Contact__r.Id;
-                        row.ImageURL = this.propertyMediaUrls[prop_id][0].ExternalLink__c ? this.propertyMediaUrls[prop_id][0].ExternalLink__c : nopropertyfound;
-                        row.Inquiry_Date__c = row.Inquiry_Date__c ? this.formatDate(row.Inquiry_Date__c) : '';
-                        row.isEdit = false;
-                        if (this.profilepicUrls) {
-                            row.profileUrl = this.profilepicUrls[conId] ? row.profileUrl = 'data:image/jpeg;base64,' + this.profilepicUrls[conId] : Blank_Profile_Photo;
-                        } else {
-                            row.profileUrl = Blank_Profile_Photo;
-                        }
-                        row.number = index + 1;
-                    });
-                    this.FilteredData.forEach((row, index) => {
-                        const prop_id = row.Listing__r.Property__r.Id;
-                        const conId = row.Contact__r.Id;
-                        row.ImageURL = this.propertyMediaUrls[prop_id][0].ExternalLink__c ? this.propertyMediaUrls[prop_id][0].ExternalLink__c : nopropertyfound;
-                        row.Inquiry_Date__c = row.Inquiry_Date__c ? this.formatDate(row.Inquiry_Date__c) : '';
-                        row.isEdit = false;
-                        if (this.profilepicUrls) {
-                            row.profileUrl = this.profilepicUrls[conId] ? row.profileUrl = 'data:image/jpeg;base64,' + this.profilepicUrls[conId] : Blank_Profile_Photo;
-                        } else {
-                            row.profileUrl = Blank_Profile_Photo;
-                        }
-                        row.number = index + 1;
-                    });
-                } else {
-                    this.isData = false;
-                }
-            }).catch((fetchError) => {
-                console.error('Error fetching inquiry data:', fetchError);
-            });
-        } catch (error) {
-            console.error('Unexpected error:', error);
-        }
+        getInquiryData({ contactId: this.contactId }).then((result) => {
+            if (result.inquiries.length >= 0) {
+                this.isData = true;
+                this.FilteredData = result.inquiries;
+                this.Data = result.inquiries;
+                this.profilepicUrls = result.contactContentVersions;
+                this.propertyMediaUrls = result.medias;
+                this.Data.forEach((row, index) => {
+                    const prop_id = row.Listing__r.Property__r.Id;
+                    const conId = row.Contact__r.Id;
+                    row.ImageURL = this.propertyMediaUrls[prop_id][0].ExternalLink__c ? this.propertyMediaUrls[prop_id][0].ExternalLink__c : nopropertyfound;
+                    row.Inquiry_Date__c = row.Inquiry_Date__c ? this.formatDate(row.Inquiry_Date__c) : '';
+                    row.isEdit = false;
+                    if (this.profilepicUrls) {
+                        row.profileUrl = this.profilepicUrls[conId] ? row.profileUrl = 'data:image/jpeg;base64,' + this.profilepicUrls[conId] : Blank_Profile_Photo;
+                    } else {
+                        row.profileUrl = Blank_Profile_Photo;
+                    }
+                    row.number = index + 1;
+                });
+                this.FilteredData.forEach((row, index) => {
+                    const prop_id = row.Listing__r.Property__r.Id;
+                    const conId = row.Contact__r.Id;
+                    row.ImageURL = this.propertyMediaUrls[prop_id][0].ExternalLink__c ? this.propertyMediaUrls[prop_id][0].ExternalLink__c : nopropertyfound;
+                    row.Inquiry_Date__c = row.Inquiry_Date__c ? this.formatDate(row.Inquiry_Date__c) : '';
+                    row.isEdit = false;
+                    if (this.profilepicUrls) {
+                        row.profileUrl = this.profilepicUrls[conId] ? row.profileUrl = 'data:image/jpeg;base64,' + this.profilepicUrls[conId] : Blank_Profile_Photo;
+                    } else {
+                        row.profileUrl = Blank_Profile_Photo;
+                    }
+                    row.number = index + 1;
+                });
+            } else {
+                this.isData = false;
+            }
+        }).catch((fetchError) => {
+            this.isError = true;
+            this.errorMsg = fetchError.body;
+            const overlay = this.template.querySelector('.overlay');
+            overlay.style.display = 'block';
+            console.error('Error fetching inquiry data:', fetchError);
+        });
     }
+
 
     formatDate(dateStr) {
         let date;
@@ -159,13 +171,6 @@ export default class Esx_InquiryPage extends NavigationMixin(LightningElement) {
         const overlay = this.template.querySelector('.overlay');
         overlay.style.display = 'block';
         this.inquiryIdtoDelete = event.currentTarget.dataset.key;
-        // console.log('recordIdtoDelete:', event.currentTarget.dataset.key);
-        // let inquiryId = event.currentTarget.dataset.key;
-        // DeleteInquiry({ inquiryId: inquiryId }).then((result) => {
-        //     if (result) {
-        //         this.fetchInquryData();
-        //     }
-        // })
     }
     deleteInquiryRecord() {
         DeleteInquiry({ inquiryId: this.inquiryIdtoDelete }).then((result) => {
@@ -176,13 +181,24 @@ export default class Esx_InquiryPage extends NavigationMixin(LightningElement) {
                 overlay.style.display = 'none';
                 this.fetchInquryData();
             }
-        })
+        }).catch((error)=>{
+            this.isError = true;
+            this.errorMsg = error.body;
+            const overlay = this.template.querySelector('.overlay');
+            overlay.style.display = 'block';
+        });
     }
     cancelAction() {
         this.inquiryIdtoDelete = '';
         this.isModalOpen = false;
+        this.isUpdated = false;
+        this.isError = false;
         const overlay = this.template.querySelector('.overlay');
         overlay.style.display = 'none';
+        this.fetchInquryData();
+    }
+    clearAll() {
+        this.isEdit = false;
         this.fetchInquryData();
     }
     closePopup() {
@@ -223,6 +239,9 @@ export default class Esx_InquiryPage extends NavigationMixin(LightningElement) {
         let recordId = event.currentTarget.dataset.key;
         updateInquiryStatus({ Status: status, recordId: recordId }).then((result) => {
             if (result) {
+                this.isUpdated = true;
+                const overlay = this.template.querySelector('.overlay');
+                overlay.style.display = 'block';
                 this.FilteredData = this.FilteredData.map(item => {
                     if (item.Id === recordId) {
                         item.isEdit = false;
@@ -232,7 +251,12 @@ export default class Esx_InquiryPage extends NavigationMixin(LightningElement) {
                 });
                 this.updateSaveButtonAfterSave(recordId);
             }
-        })
+        }).catch((error)=>{
+            this.isError = true;
+            this.errorMsg = error.body;
+            const overlay = this.template.querySelector('.overlay');
+            overlay.style.display = 'block';
+        });
     }
 
     updateSaveButtonAfterSave(recordId) {

@@ -4,19 +4,33 @@
             <img src={BgImage} alt="Background Image" />
         </div>
         <div class="overlay" lwc:dom="manual"></div>
-        <div class="delete-confirmation">
+        <div class="confirmation-popup">
             <template if:true={isModalOpen}>
-                <div class="delete_popup">
-                    <div class="close-icon">
-                        <lightning-icon icon-name="utility:close" alternative-text="Utility image" title="close"
-                            size="small" onclick={closePopup}></lightning-icon>
-                    </div>
+                <div class="popup-message">
                     <div class="delete-icon"><img src={deleteIcon}></img></div>
-                    <div class="delete-title">Delete</div>
+                    <!-- <div class="delete-title">Delete</div> -->
                     <div class="delete-msg">Are you sure to delete this inqury?</div>
                     <div class="two-buttons">
-                        <button class="btn slds-m-right_small" onclick={cancelAction}>No</button>
+                        <button class="btn" onclick={cancelAction}>No</button>
                         <button class="btn slds-m-left_small" onclick={deleteInquiryRecord}>Yes</button>
+                    </div>
+                </div>
+            </template>
+            <template if:true={isUpdated}>
+                <div class="popup-message">
+                    <div class="delete-icon"><img src={sucessIcon}></img></div>
+                    <div class="delete-msg">Inquiry status updated successfully!!!</div>
+                    <div class="two-buttons">
+                        <button class="btn" onclick={cancelAction}>Ok</button>
+                    </div>
+                </div>
+            </template>
+            <template if:true={isError}>
+                <div class="popup-message">
+                    <div class="delete-icon"><img src={errorIcon}></img></div>
+                    <div class="delete-msg">{errorMsg}</div>
+                    <div class="two-buttons">
+                        <button class="btn" onclick={cancelAction}>Ok</button>
                     </div>
                 </div>
             </template>
@@ -122,16 +136,24 @@
                                                     data-status={item.Status__c} data-url={item.ImageURL}
                                                     onclick={saveUpdatedStatus} disabled></lightning-button>
                                             </template>
+                                            <template if:true={item.isEdit}>
+                                                <lightning-button icon-name="utility:clear" alternative-text="Clear"
+                                                    class="slds-m-left_x-small my-round-button" title="Save" data-key={item.Id}
+                                                    data-status={item.Status__c} data-url={item.ImageURL}
+                                                    onclick={clearAll} ></lightning-button>
+                                            </template>
                                             <template if:false={item.isEdit}>
                                                 <lightning-button icon-name="utility:edit" alternative-text="Edit"
                                                     class="slds-m-left_x-small my-round-button" title="Edit"
                                                     data-key={item.Id} data-status={item.Status__c}
                                                     data-url={item.ImageURL} onclick={editStatus}></lightning-button>
                                             </template>
-                                            <lightning-button icon-name="utility:delete" alternative-text="Delete"
-                                                class=" slds-m-left_x-small my-round-button" title="Delete"
-                                                data-key={item.Id} data-url={item.ImageURL}
-                                                onclick={delete_row}></lightning-button>
+                                            <template if:false={item.isEdit}>
+                                                <lightning-button icon-name="utility:delete" alternative-text="Delete"
+                                                    class=" slds-m-left_x-small my-round-button" title="Delete"
+                                                    data-key={item.Id} data-url={item.ImageURL}
+                                                    onclick={delete_row}></lightning-button>
+                                            </template>
                                         </div>
                                     </td>
                                 </tr>
@@ -148,69 +170,84 @@
 
             <!-- Mobile-View for inquiry page -->
             <div class="card-view">
-                <template for:each={FilteredData} for:item="item">
-                    <div class="card" key={item.Id}>
-                        <div class="property-image">
-                            <div class="img-box">
-                                <div class="slds-truncate imgbox" title="Thumbnail"><img src={item.ImageURL}
-                                        class="slds-avatar slds-avatar_rectangle slds-avatar_large customimg"
-                                        alt="Thumbnail" /></div>
-                            </div>
-                            <div class="name-box">
-                                <div class="slds-truncate rowValue propTitle" title="Property Name">
-                                    <b>{item.Listing__r.Property__r.Name}</b>
+                <template if:true={isData}>
+                    <template for:each={FilteredData} for:item="item">
+                        <div class="card" key={item.Id}>
+                            <div class="property-image">
+                                <div class="img-box">
+                                    <div class="slds-truncate imgbox" title="Thumbnail"><img src={item.ImageURL}
+                                            class="slds-avatar slds-avatar_rectangle slds-avatar_large customimg"
+                                            alt="Thumbnail" /></div>
                                 </div>
-                                <div class="slds-truncate rowValue " title="Property Name">{item.Contact__r.Name}</div>
-                            </div>
-                        </div>
-                        <div class="information">
-                            <div class="lines">
-                                <div class="slds-truncate rowValue card-value" title="Property Name">Status</div>
-                                <template if:false={item.isEdit}>
-                                    <div class="slds-truncate rowValue" title="date">{item.Status__c}</div>
-                                </template>
-                                <template if:true={item.isEdit}>
-                                    <lightning-select name="status" value={item.Status__c} options={options}
-                                        class="statusDropdown" onchange={handleStatusChange}
-                                        data-key={item.Id}></lightning-select>
-                                </template>
-                            </div>
-                            <div class="lines">
-                                <div class="slds-truncate rowValue card-value" title="Property Name">Mobile No.</div>
-                                <div class="slds-truncate rowValue" title="Property Name">{item.Contact__r.MobilePhone}
+                                <div class="name-box">
+                                    <div class="slds-truncate rowValue propTitle" title="Property Name">
+                                        <b>{item.Listing__r.Property__r.Name}</b>
+                                    </div>
+                                    <div class="slds-truncate rowValue " title="Property Name">{item.Contact__r.Name}</div>
                                 </div>
                             </div>
-                            <div class="lines">
-                                <div class="slds-truncate rowValue card-value" title="Property Name">E-mail</div>
-                                <div class="slds-truncate rowValue" title="Property Name">{item.Contact__r.Email}</div>
+                            <div class="information">
+                                <div class="lines">
+                                    <div class="slds-truncate rowValue card-value" title="Property Name">Status</div>
+                                    <template if:false={item.isEdit}>
+                                        <div class="slds-truncate rowValue status-field" title="date"><span class="dot-to-shows"> </span> {item.Status__c}</div>
+                                    </template>
+                                    <template if:true={item.isEdit}>
+                                        <lightning-select name="status" value={item.Status__c} options={options}
+                                            class="statusDropdown" onchange={handleStatusChange}
+                                            data-key={item.Id}></lightning-select>
+                                    </template>
+                                </div>
+                                <div class="lines">
+                                    <div class="slds-truncate rowValue card-value" title="Property Name">Mobile No.</div>
+                                    <div class="slds-truncate rowValue" title="Property Name">{item.Contact__r.MobilePhone}
+                                    </div>
+                                </div>
+                                <div class="lines">
+                                    <div class="slds-truncate rowValue card-value" title="Property Name">E-mail</div>
+                                    <div class="slds-truncate rowValue" title="Property Name">{item.Contact__r.Email}</div>
+                                </div>
+                                <div class="lines">
+                                    <div class="slds-truncate rowValue card-value" title="Property Name">Inquiry date</div>
+                                    <div class="slds-truncate rowValue" title="Property Name">{item.Inquiry_Date__c}</div>
+                                </div>
                             </div>
-                            <div class="lines">
-                                <div class="slds-truncate rowValue card-value" title="Property Name">Inquiry date</div>
-                                <div class="slds-truncate rowValue" title="Property Name">{item.Inquiry_Date__c}</div>
+                            <div class="action-buttons">
+                                <div class="slds-truncate rowValue actions-buttons" title="actions">
+                                    <template if:true={item.isEdit}>
+                                        <lightning-button icon-name="utility:save" alternative-text="Save"
+                                            class=" save-button my-round-button" title="Save" data-key={item.Id}
+                                            data-status={item.Status__c} data-url={item.ImageURL}
+                                            onclick={saveUpdatedStatus} disabled></lightning-button>
+                                    </template>
+                                    <template if:true={item.isEdit}>
+                                        <lightning-button icon-name="utility:clear" alternative-text="Clear"
+                                            class="slds-m-left_x-small my-round-button" title="Clear" data-key={item.Id}
+                                            data-status={item.Status__c} data-url={item.ImageURL}
+                                            onclick={clearAll} ></lightning-button>
+                                    </template>
+                                    <template if:false={item.isEdit}>
+                                        <lightning-button icon-name="utility:edit" alternative-text="Edit"
+                                            class="slds-m-left_x-small my-round-button" title="Edit" data-key={item.Id}
+                                            data-status={item.Status__c} data-url={item.ImageURL}
+                                            onclick={editStatus}></lightning-button>
+                                    </template>
+                                    <template if:false={item.isEdit}>
+                                        <lightning-button icon-name="utility:delete" alternative-text="Delete"
+                                            class=" slds-m-left_x-small my-round-button" title="Delete" data-key={item.Id}
+                                            data-url={item.ImageURL} onclick={delete_row}></lightning-button>
+                                    </template>
+                                </div>
                             </div>
                         </div>
-                        <div class="action-buttons">
-                            <div class="slds-truncate rowValue actions-buttons" title="actions">
-                                <template if:true={item.isEdit}>
-                                    <lightning-button icon-name="utility:save" alternative-text="Save"
-                                        class=" save-button my-round-button" title="Save" data-key={item.Id}
-                                        data-status={item.Status__c} data-url={item.ImageURL}
-                                        onclick={saveUpdatedStatus} disabled></lightning-button>
-                                </template>
-                                <template if:false={item.isEdit}>
-                                    <lightning-button icon-name="utility:edit" alternative-text="Edit"
-                                        class="slds-m-left_x-small my-round-button" title="Edit" data-key={item.Id}
-                                        data-status={item.Status__c} data-url={item.ImageURL}
-                                        onclick={editStatus}></lightning-button>
-                                </template>
-                                <lightning-button icon-name="utility:delete" alternative-text="Delete"
-                                    class=" slds-m-left_x-small my-round-button" title="Delete" data-key={item.Id}
-                                    data-url={item.ImageURL} onclick={delete_row}></lightning-button>
-                            </div>
-                        </div>
+                        <br key={item.Id} />
+                        <br key={item.Id} />
+                    </template>
+                </template>
+                <template if:false={isData}>
+                    <div class="message">
+                        <h2 class="error-title">No inquiries found for the current user.</h2>
                     </div>
-                    <br key={item.Id} />
-                    <br key={item.Id} />
                 </template>
             </div>
         </div>

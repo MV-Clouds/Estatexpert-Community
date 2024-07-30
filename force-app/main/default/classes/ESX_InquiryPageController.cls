@@ -1,6 +1,20 @@
 public without sharing class ESX_InquiryPageController {
 
     @AuraEnabled
+    public static Boolean isUserSeller(Id contactId){
+        Boolean returnStatus = false;
+        List<Contact> contact =[SELECT Id, Salutation, FirstName, LastName, Gender__c, Birthdate, Age__c, Phone,MobilePhone, Email, MailingStreet, MailingCity, MailingPostalCode, MailingState, MailingCountry, Description, RecordType.Name  FROM Contact WHERE Id =: contactId];
+        if(contact.size()>0){
+            if(contact[0].RecordType.Name =='Seller'){
+                returnStatus = true;
+            }else{
+                returnStatus = false;
+            }
+        }
+        return returnStatus;
+    }
+
+    @AuraEnabled
     public static WrapperClass getInquiryData(Id contactId){
         WrapperClass wc = new WrapperClass();
         try {
@@ -60,7 +74,7 @@ public without sharing class ESX_InquiryPageController {
                 }
 
                 if (!propertyIds.isEmpty()) {
-                    List<Property_Media__c> medias = [SELECT Id, ExternalLink__c, FilenameUrlEncoded__c, Property__c FROM Property_Media__c WHERE Property__c IN :propertyIds];
+                    List<Property_Media__c> medias = [SELECT Id, ExternalLink__c, FilenameUrlEncoded__c, Property__c FROM Property_Media__c WHERE Property__c IN :propertyIds ORDER BY CreatedDate DESC];
 
                     Map<Id, List<Property_Media__c>> propertyMediaUrlsMap = new Map<Id, List<Property_Media__c>>();
                     for (Property_Media__c media : medias) {
