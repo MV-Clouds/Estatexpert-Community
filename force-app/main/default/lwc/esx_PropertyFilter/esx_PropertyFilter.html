@@ -1,0 +1,144 @@
+<template>
+    <div class="main-container">
+        <div class="first-container search-bar">
+            <div class="search">
+                <img src={searchIcon} alt="" srcset="">
+                <input type="text" placeholder="Search">
+            </div>
+            <div class="room-bathroom">
+                <div class="rooms">
+                    <!-- <span class="break-point">|</span>  -->
+                    <span class="icon-text">
+                        <img src={bedroomIcon} alt="" srcset="">
+                        <span>Rooms</span>
+                    </span>
+                    <span>
+                        <span class="operation">-</span>
+                        <span class="input-number">{roomNumber}</span>
+                        <span class="operation">+</span>
+                    </span>
+
+                </div>
+                <div class="bathrooms">
+                    <!-- <span class="break-point">|</span> -->
+                    <img src={bathroomIcon} alt="" srcset="">
+                    <span>Bathroom</span>
+                    <span class="operation">-</span>
+                    <span class="input-number">{bathRoomNumber}</span>
+                    <span class="operation">+</span>
+                </div>
+            </div>
+            <div class="search-button-container">
+                <button class="search-button">Search</button>
+            </div>
+        </div>
+
+        <div class="second-container">
+            <div class="filters">
+                <button class="more-filters" onclick={showModalBox}>More Filters <img src={dropdownIcon} alt=""
+                        srcset=""></button>
+            </div>
+            <div class="sort-by">
+                <div class="sort-by-sub">
+                    <span>Sort by &nbsp;:</span>
+                    <select class="sort-option">
+                        <option value="availability">Availability</option>
+                        <option value="Price High to Low">Price High to Low</option>
+                        <option value="Price Low to High">Price Low to High</option>
+                    </select>
+                    <div class="format-dropdown">
+                        <img src={viewType} alt="" srcset="">
+                        <select class="sort-option">
+                            <option value="List">List</option>
+                            <option value="Grid">Grid</option>
+                            <option value="Column">Column</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+    <!-- modal start -->
+    <template if:true={isShowModal}>
+
+        <section role="dialog" tabindex="-1" aria-labelledby="modal-heading-01" aria-modal="true"
+            aria-describedby="modal-content-id-1" class="slds-modal slds-fade-in-open">
+            <div class="slds-modal__container">
+                <!-- modal body start -->
+                <div class="slds-modal__content slds-p-around_medium" id="modal-content-id-1">
+                    <div class="rooms-section">
+                        <div class="rooms">
+                            <span class="break-point">|</span> <img src={bedroomIcon} alt="" srcset="">
+                            <span>Rooms</span>
+                            <span class="operation">-</span>
+                            <span class="input-number">{roomNumber}</span>
+                            <span class="operation">+</span>
+                        </div>
+                        <div class="bathrooms">
+                            <span class="break-point">|</span> <img src={bathroomIcon} alt="" srcset="">
+                            <span>Bathroom</span>
+                            <span class="operation">-</span>
+                            <span class="input-number">{bathRoomNumber}</span>
+                            <span class="operation">+</span>
+                        </div>
+                    </div>
+
+                    <div class="listing-type-section">
+                        <select class="sort-option">
+                            <option value="">None</option>
+                            <option value="Rent">Rent</option>
+                            <option value="Sale">Sale</option>
+                        </select>
+                    </div>
+
+                    <div class="price-section">
+                        <div class="rooms">
+                            <span>Rooms</span>
+                            <span class="operation">-</span>
+                            <span class="input-number">{roomNumber}</span>
+                            <span class="operation">+</span>
+                        </div>
+                        <div class="bathrooms">
+                            <span>Bathroom</span>
+                            <span class="operation">-</span>
+                            <span class="input-number">{bathRoomNumber}</span>
+                            <span class="operation">+</span>
+                        </div>
+                    </div>
+
+                    <div class="square-section">
+                        <input type="text" placeholder="200">
+                        <img src={searchIcon} alt="" srcset="">
+                    </div>
+
+                    <div class="city-zipcode">
+                        <div class="rooms">
+                            <span>Rooms</span>
+                            <span class="operation">-</span>
+                            <span class="input-number">{roomNumber}</span>
+                            <span class="operation">+</span>
+                        </div>
+                        <div class="bathrooms">
+                            <span>Bathroom</span>
+                            <span class="operation">-</span>
+                            <span class="input-number">{bathRoomNumber}</span>
+                            <span class="operation">+</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- modal footer start-->
+                <footer class="slds-modal__footer">
+                    <button class="slds-button slds-button_neutral" onclick={applyFilter}>Apply</button>
+                    <button class="slds-button slds-button_neutral" onclick={hideModalBox}>Cancel</button>
+                </footer>
+
+            </div>
+        </section>
+        <div class="slds-backdrop slds-backdrop_open"></div>
+    </template>
+    <!-- modal end -->
+</template>

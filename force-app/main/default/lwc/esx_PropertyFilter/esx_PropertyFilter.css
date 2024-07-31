@@ -1,0 +1,140 @@
+body {
+    font-family: Arial, sans-serif;
+}
+
+.main-container{
+    margin: 0 90px;
+    
+}
+
+.search-bar {
+    display: flex;
+    align-items: center;
+    border: 4px solid #0176D3;
+    border-radius: 30px;
+    overflow: hidden;
+    font-weight: bold;
+    justify-content: space-between;
+
+}
+
+.search-bar input[type="text"] {
+    flex: 1;
+    padding: 2px 0 0 10px;
+    border: none;
+    outline: none;
+    font-weight: normal;
+}
+/* 
+.search-bar .rooms,
+.search-bar .bathrooms {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin: 0 10px;
+} */
+
+.rooms{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 50%;
+    gap: 12px;
+}
+
+.search-bar button {
+    border: none;
+    cursor: pointer;
+}
+
+.search{
+    padding: 0 0 0 18px;
+    white-space: nowrap;
+    float: left;
+}
+.room-bathroom{
+    float:left;
+    display: flex;
+    justify-content: space-between;
+        width: 50%;
+}
+
+.icon-text{
+    display: flex;
+    align-items: center;
+    gap: 12px;
+
+}
+
+.search-button-container{
+    float: right;
+}
+
+.break-point{
+    font-size: x-large;
+    font-weight: normal;
+    color: #0176D3;
+}
+
+.operation{
+    font-size: xx-large;
+    font-weight: normal;
+}
+
+.input-number{
+    border: none;
+    text-align: center;
+}
+
+.search-button {
+    margin: 5px 5px;
+    background-color: #007bff;
+    color: white;
+    padding: 6px 30px;
+    border-radius: 30px;
+}
+
+.filters,
+.sort-by {
+    display: flex;
+    align-items: center;
+    margin-top: 10px;
+}
+
+.more-filters {
+    background-color: #007bff;
+    /* Match the blue color from the image */
+    color: white;
+    padding: 10px 20px;
+    border-radius: 30px;
+    cursor: pointer;
+    border: none;
+}
+
+.close {
+    margin-left: 5px;
+    cursor: pointer;
+}
+
+.sort-by {
+    margin-left: auto;
+}
+
+.sort-by-sub span{
+    font-weight: 700;
+    margin: 0 16px 0 0;
+}
+
+.sort-option{
+   border: none;
+   color: #49735A;
+   outline: none;
+   width: 103px;
+}
+
+.second-container{
+    display: flex;
+}
+.sort-by-sub{
+    display: flex;
+}
