@@ -26,3 +26,19 @@
     font-size:12px;
     margin-top:5px;
 }
+
+@media only screen and (max-width: 767px) {
+    .facilityBox{
+        margin: 0.5rem;
+        padding: 0.8rem;
+        width: 6rem;
+        height: 5.375rem;
+    }
+    .iconImg{
+        width: 1.5rem;
+        height: 1.5rem;
+    }
+    .facilityBox p{
+        font-size:10px;
+    }
+}
