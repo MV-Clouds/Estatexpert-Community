@@ -3,7 +3,7 @@
     <apiVersion>61.0</apiVersion>
     <isExposed>true</isExposed>
     <targets>
-      <target>lightningCommunity__Page</target>
-      <target>lightningCommunity__Default</target>
-	  </targets>
-</LightningComponentBundle>
+        <target>lightningCommunity__Page</target>
+        <target>lightningCommunity__Default</target>
+	</targets>
+    </LightningComponentBundle>

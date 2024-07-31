@@ -11,11 +11,15 @@
                 <br />
                 <div class="facility-box">
                     <div class="facilities">
-                        <div class="custom-box slds-box slds-p-around_medium slds-text-align_center facilityBox">
-                            <img src={CarParkingIcon} class="iconImg"></img>
-                            <br />
-                            <p>Car Parking</p>
-                        </div>
+                        <template for:each={property.Amenities__c} for:item="amenity">
+                            <c-esx_-property-amenity key={amenity.name} amenity-name={amenity.name} icon-url={amenity.icon}></c-esx_-property-amenity>
+                        </template>
+                        <!-- 
+                        <div class="custom-box slds-box slds-p-around_medium slds-text-align_center facilityBox" key={amenity.name}>
+                                <img src={CarParkingIcon} class="iconImg"></img>
+                                <br />
+                                <p>Car Parking</p>
+                         </div>
                         <div class="custom-box slds-box slds-p-around_medium slds-text-align_center facilityBox">
                             <img src={SwimmingIcon} class="iconImg"></img>
                             <br />
@@ -80,7 +84,7 @@
                             <img src={BabyParkIcon} class="iconImg"></img>
                             <br />
                             <p>BabyPark</p>
-                        </div>
+                        </div> -->
                     </div>
                 </div>
             </div>

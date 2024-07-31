@@ -1,6 +1,7 @@
 import { LightningElement, track } from 'lwc';
 import samplePropertyImage from '@salesforce/resourceUrl/samplePropertyImage';
 import property_icons from '@salesforce/resourceUrl/propertyViewIcons';
+import Blank_Profile_Photo from '@salesforce/resourceUrl/Blank_Profile_Photo';
 import getPropertyInformation from '@salesforce/apex/ESX_PropertyDetailsController.getPropertyInformation';
 
 export default class Esx_PropertyDetailsHero extends LightningElement {
@@ -18,6 +19,8 @@ export default class Esx_PropertyDetailsHero extends LightningElement {
     @track propertyMedias = [];
     @track allPropertyImages = [];
     @track moreImgSize;
+    @track profileImage ='';
+    placeholderProfile = Blank_Profile_Photo;
     connectedCallback() {
         this.getPropertyInfo();
     }
@@ -26,6 +29,13 @@ export default class Esx_PropertyDetailsHero extends LightningElement {
         getPropertyInformation({ propertyId: this.propertyId })
             .then(result => {
                 console.log("result", result);
+                console.log('profilepicture==========>',result.ownerProfileImage);
+                if ((result != null && result != undefined) && (result.ownerProfileImage != null && result.ownerProfileImage != undefined)) {
+                    this.profileImage = 'data:image/jpeg;base64,'+ result.ownerProfileImage;
+                    console.log('this.profileImage==========>',this.profileImage);
+                } else {
+                    this.profileImage = this.placeholderProfile;
+                }
                 this.property = result.property;
                 this.allPropertyImages = result.mediaLinks;
                 this.propertyMedias = result.mediaLinks;
