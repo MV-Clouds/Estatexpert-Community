@@ -26,20 +26,25 @@ export default class Esx_PropertyGallary extends LightningElement {
         .then(result => {
             console.log("result",result);
             this.propertyMediaImages = result.mediaLinks;
+            console.log('result.mediaLinks:',result.mediaLinks);
             this.livingRoomImgs = this.propertyMediaImages.filter(media =>{
-                const tags = media.Tags__c ? media.Tags__c=='Living Room': true;
+                const tags = media.Tags__c ? media.Tags__c=='Living Room': false;
                 return tags;
             });
+            console.log('livingRoomImgs:',this.livingRoomImgs);
+
             this.diningRoomImgs = this.propertyMediaImages.filter(media =>{
-                const tags = media.Tags__c ? media.Tags__c=='Common Area': true;
+                const tags = media.Tags__c ? media.Tags__c=='Common Area': false;
                 return tags;
             });
+            console.log('livingRoomImgs:',this.livingRoomImgs);
+
             this.kitchenImgs = this.propertyMediaImages.filter(media =>{
-                const tags = media.Tags__c ? media.Tags__c=='Kitchen': true;
+                const tags = media.Tags__c ? media.Tags__c=='Kitchen': false;
                 return tags;
             });
             this.guestRoomImgs = this.propertyMediaImages.filter(media =>{
-                const tags = media.Tags__c ? media.Tags__c=='Others': true;
+                const tags = media.Tags__c ? media.Tags__c=='Others': false;
                 return tags;
             });
             this.livingRoomImgsSize = this.livingRoomImgs.length;
