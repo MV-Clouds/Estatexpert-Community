@@ -77,6 +77,13 @@
 .map-mobile{
     display: none;
 }
+svg use {
+    fill: #00A1E0;
+}
+
+svg use:hover {
+    fill: yellow;
+}
 @media (min-width: 768px) and (max-width: 1023px) {
     .details-boxes{
         flex-direction: column;

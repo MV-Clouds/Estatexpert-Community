@@ -1,6 +1,7 @@
 import { LightningElement, track } from 'lwc';
 import property_icons from '@salesforce/resourceUrl/propertyViewIcons';
 import amenity_icons from '@salesforce/resourceUrl/amenityIcons';
+import SVG_LOGO from "@salesforce/resourceUrl/testSvg";
 import getPropertyInformation from '@salesforce/apex/ESX_PropertyDetailsController.getPropertyInformation';
 export default class Esx_PropertyInfo extends LightningElement {
 
@@ -11,19 +12,19 @@ export default class Esx_PropertyInfo extends LightningElement {
     @track BathroomIcon = property_icons + '/bath.png';
 
     @track CarParkingIcon = property_icons + '/bus.png';
-    @track SwimmingIcon = property_icons + '/swim.png';
-    @track GymIcon = property_icons + '/gym.png';
-    @track RestaurantIcon = property_icons + '/restaurant.png';
-    @track WifiIcon = property_icons + '/wifi.png';
-    @track PetCenterIcon = property_icons + '/pet.png';
-    @track SportsIcon = property_icons + '/sports.png';
-    @track LaundryIcon = property_icons + '/laundry.png';
-    @track ParkIcon = property_icons + '/park.png';
-    @track BicycleIcon = property_icons + '/bicycle.png';
-    @track EmergencyIcon = property_icons + '/phone.png';
-    @track HockeyIcon = property_icons + '/golf.png';
-    @track LibraryIcon = property_icons + '/library.png';
-    @track BabyParkIcon = property_icons + '/babypark.png';
+    // @track SwimmingIcon = property_icons + '/swim.png';
+    // @track GymIcon = property_icons + '/gym.png';
+    // @track RestaurantIcon = property_icons + '/restaurant.png';
+    // @track WifiIcon = property_icons + '/wifi.png';
+    // @track PetCenterIcon = property_icons + '/pet.png';
+    // @track SportsIcon = property_icons + '/sports.png';
+    // @track LaundryIcon = property_icons + '/laundry.png';
+    // @track ParkIcon = property_icons + '/park.png';
+    // @track BicycleIcon = property_icons + '/bicycle.png';
+    // @track EmergencyIcon = property_icons + '/phone.png';
+    // @track HockeyIcon = property_icons + '/golf.png';
+    // @track LibraryIcon = property_icons + '/library.png';
+    // @track BabyParkIcon = property_icons + '/babypark.png';
 
     @track isProperty = false;
     @track property;
@@ -41,13 +42,14 @@ export default class Esx_PropertyInfo extends LightningElement {
     ];
 
     selectedMarkerValue = 'SF1';
-    baseUrl = amenity_icons;
-    sampleUrl = amenity_icons +'/Security.svg'+'#cloud';
-    generateIconUrl(amenity) {
+    // baseUrl = amenity_icons;
+    // sampleUrl = amenity_icons +'/Security.svg';
+    // svgURL = `${SVG_LOGO}#logo`;
+    // generateIconUrl(amenity) {
         // const iconName = amenity.toLowerCase().replace(/[\s\/]+/g, '_') + '.png';
         // console.log('fileName:==', iconName);
-        return `${amenity_icons}/${amenity}.svg`;
-    }
+    //     return `${amenity_icons}/${amenity}.svg`;
+    // }
 
     handleMarkerSelect(event) {
         this.selectedMarkerValue = event.target.selectedMarkerValue;
@@ -59,12 +61,9 @@ export default class Esx_PropertyInfo extends LightningElement {
     getInfo() {
         getPropertyInformation({ propertyId: this.propertyId })
             .then(result => {
-                console.log('amenitycheck-=====>', result);
                 this.property = result.property;
                 if (this.property.Amenities__c) {
-                    console.log('in row amenities', this.property.Amenities__c);
                     const amenitiesArray = this.property.Amenities__c.split(";");
-                    console.log('amenitiesArray', amenitiesArray);
                     this.property.Amenities__c = amenitiesArray.map(amenity => {
                         return {
                             name: amenity,

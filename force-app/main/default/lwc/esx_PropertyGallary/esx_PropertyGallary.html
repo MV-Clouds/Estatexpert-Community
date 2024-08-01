@@ -9,28 +9,17 @@
 
         <div class="image-viewer">
             <template if:true={isModalOpen}>
-                <!-- <div class="img-viewer-popup">
-                    <div class="close-icon">
-                        <lightning-icon icon-name="utility:close" alternative-text="Utility image" title="close"
-                            size="small" onclick={closePopup}></lightning-icon>
-                    </div>
-                    <img src={propertyImage}></img>
-                </div> -->
                 <div class="td-txt photo-cell ph-hg-at">
+                    <lightning-button-icon icon-name="utility:chevronleft" size="large" variant="bare"
+                        onclick={goToPrevious} class="arrow left-arrow"
+                        disabled={leftArrowDisabled}></lightning-button-icon>
                     <div class="main-file-cmp">
-                        <template for:each={propertyMediaImages} for:item="cd" for:index="indexNum">
-                            <!-- <div class="slds-m-horizontal_x-small property-card-image" key={cd.ExternalLink__c}
-                                data-cdid={cd.ExternalLink__c} data-cid={cd.ExternalLink__c} data-cdlindex={indexNum}>
-                                <lightning-carousel-image class="carousel-image" description={cd.ExternalLink__c}
-                                    src={cd.ExternalLink__c}></lightning-carousel-image> -->
-                                    <!-- <div class="img-details" key={cd.ExternalLink__c}> -->
-                                        <img key={cd.ExternalLink__c} src={cd.ExternalLink__c}></img>
-                                        <!-- <div class="description" >{cd.Tags__c}</div> -->
-                                    <!-- </div> -->
-                                
-                            <!-- </div> -->
-                        </template>
+                        <img src={previewImageUrl}></img>
+                        <p class="pagination-number">{currentIndex}/{totalImages}</p>
                     </div>
+                    <lightning-button-icon icon-name="utility:chevronright" size="large" variant="bare"
+                        onclick={goToNext} class="arrow right-arrow"
+                        disabled={rightArrowDisabled}></lightning-button-icon>
                 </div>
             </template>
         </div>

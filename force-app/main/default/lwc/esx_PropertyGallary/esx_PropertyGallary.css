@@ -58,7 +58,7 @@
     left: 0;
     width: 100%;
     height: 100%;
-    background-color: rgba(0, 0, 0, 0.5); /* Black with 50% transparency */
+    background-color: rgba(0, 0, 0, 0.9); /* Black with 50% transparency */
     z-index: 999; /* Ensure it is above other content */
     display: none; /* Initially hidden */
 }
@@ -87,7 +87,6 @@
 }
 .close-icon{
     border-radius: 50%;
-    background-color: white;
     position: absolute;
     right: 1rem;
     top: 0.5rem;
@@ -107,10 +106,10 @@
     cursor: pointer;
  }
  .left-arrow{
-    left: 15%;
+    left: 1%;
  }
  .right-arrow{
-    right: 15%;
+    right: 1%;
  }
 
  .td-txt {
@@ -131,17 +130,19 @@
     position: fixed; /* Changed from absolute to fixed */
     top: 50%;
     left: 50%;
-    display: flex;
+    /* display: flex; */
     align-items: center;
+    justify-content: center;
     transform: translate(-50%, -50%);
     overflow: auto;
     z-index: 1000;
-    flex-direction: row;
+    /* flex-direction: row; */
     /* border: 1px solid rgba(0, 0, 0, 0.3); */
     /* background-color: white; */
-    border-radius: 4px;
-    padding: 8px;
-    width: 95%;
+    /* border-radius: 4px;
+    padding: 8px; */
+    /* width: 95%; */
+    /* height: 100%; */
     /* width: -webkit-fill-available; */
 }
 .main-file-cmp::-webkit-scrollbar {
@@ -152,11 +153,13 @@
     height: 21.875rem;
     margin-right: 1rem;
 }
-.main-file-cmp img{
-    width: 41.25rem;
-    height: 21.875rem;
-    margin-right: 1rem;
+.pagination-number{
+    color: white;
+    text-align: center;
+    margin-top: 1rem;
+    display: none;
 }
+
 /* .main-file-cmp img:hover{
     width: 41.25rem;
     height: 24.875rem;

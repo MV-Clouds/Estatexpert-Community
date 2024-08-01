@@ -15,6 +15,11 @@ export default class Esx_PropertyGallary extends LightningElement {
     @track guestRoomImgsSize;
     @track propertyImage;
     @track isModalOpen;
+    @track previewImageUrl;
+    @track currentIndex;
+    @track leftArrowDisabled = false;
+    @track rightArrowDisabled = false;
+    @track totalImages;
 
     propertyId = 'a02dL000000xuO1QAI';
     connectedCallback(){
@@ -26,6 +31,7 @@ export default class Esx_PropertyGallary extends LightningElement {
         .then(result => {
             console.log("result",result);
             this.propertyMediaImages = result.mediaLinks;
+            this.totalImages = this.propertyMediaImages.length;
             console.log('result.mediaLinks:',result.mediaLinks);
             this.livingRoomImgs = this.propertyMediaImages.filter(media =>{
                 const tags = media.Tags__c ? media.Tags__c=='Living Room': false;
@@ -59,15 +65,41 @@ export default class Esx_PropertyGallary extends LightningElement {
 
     handleCard(event){
         this.propertyImage = event.currentTarget.dataset.url;
+        this.previewImageUrl = event.currentTarget.dataset.url;
+        this.currentIndex = this.propertyMediaImages.findIndex(image => image.ExternalLink__c === this.previewImageUrl);
         this.isModalOpen = true;
         const overlay = this.template.querySelector('.overlay');
         overlay.style.display = 'block';
     }
     closePopup() {
         this.propertyImage = '';
+        this.previewImageUrl = null;
+        this.currentIndex = null;
         this.isModalOpen = false;
         const overlay = this.template.querySelector('.overlay');
         overlay.style.display = 'none';
+    }
+    goToPrevious(){
+        if (this.currentIndex > 0) {
+            this.leftArrowDisabled = false;
+            this.currentIndex -= 1;
+            this.previewImageUrl = this.propertyMediaImages[this.currentIndex].ExternalLink__c;
+        }else{
+            this.leftArrowDisabled = true;
+            this.rightArrowDisabled = false;
+        }
+    }
+    goToNext(){
+        console.log('currentIndex:',this.currentIndex);
+        console.log('livingRoomImgs:',this.propertyMediaImages.length);
+        if (this.currentIndex < this.propertyMediaImages.length - 1) {
+            this.rightArrowDisabled = false;
+            this.currentIndex += 1;
+            this.previewImageUrl = this.propertyMediaImages[this.currentIndex].ExternalLink__c;
+        }else{
+            this.leftArrowDisabled = false;
+            this.rightArrowDisabled = true;
+        }
     }
 }
 
