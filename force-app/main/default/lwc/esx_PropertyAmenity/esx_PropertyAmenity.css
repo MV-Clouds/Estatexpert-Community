@@ -27,6 +27,13 @@
     font-size:12px;
     margin-top:5px;
 }
+svg use {
+    fill: #00A1E0;
+}
+
+svg use:hover {
+    fill: yellow;
+}
 
 @media only screen and (max-width: 767px) {
     .facilityBox{

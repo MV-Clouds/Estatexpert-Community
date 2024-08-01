@@ -20,6 +20,7 @@ export default class Esx_PropertyGallary extends LightningElement {
     @track leftArrowDisabled = false;
     @track rightArrowDisabled = false;
     @track totalImages;
+    @track imageClass = 'active';
 
     propertyId = 'a02dL000000xuO1QAI';
     connectedCallback(){
@@ -82,9 +83,20 @@ export default class Esx_PropertyGallary extends LightningElement {
     goToPrevious(){
         if (this.currentIndex > 0) {
             this.leftArrowDisabled = false;
-            this.currentIndex -= 1;
-            this.previewImageUrl = this.propertyMediaImages[this.currentIndex].ExternalLink__c;
-        }else{
+            // this.currentIndex -= 1;
+            // this.previewImageUrl = this.propertyMediaImages[this.currentIndex].ExternalLink__c;
+            this.imageClass = 'slide-in';
+            setTimeout(() => {
+                this.currentIndex -= 1;
+                this.previewImageUrl = this.propertyMediaImages[this.currentIndex].ExternalLink__c;
+                this.imageClass = 'slide-out';
+                setTimeout(() => {
+                    this.imageClass = 'active';
+                }, 500);
+            }, 500);
+            this.updateNavigationButtons();
+        }
+        else{
             this.leftArrowDisabled = true;
             this.rightArrowDisabled = false;
         }
@@ -94,12 +106,28 @@ export default class Esx_PropertyGallary extends LightningElement {
         console.log('livingRoomImgs:',this.propertyMediaImages.length);
         if (this.currentIndex < this.propertyMediaImages.length - 1) {
             this.rightArrowDisabled = false;
-            this.currentIndex += 1;
-            this.previewImageUrl = this.propertyMediaImages[this.currentIndex].ExternalLink__c;
-        }else{
+            // this.currentIndex += 1;
+            // this.previewImageUrl = this.propertyMediaImages[this.currentIndex].ExternalLink__c;
+            this.imageClass = 'slide-out';
+            setTimeout(() => {
+                this.currentIndex += 1;
+                this.previewImageUrl = this.propertyMediaImages[this.currentIndex].ExternalLink__c;
+                this.imageClass = 'slide-in';
+                setTimeout(() => {
+                    this.imageClass = 'active';
+                }, 500);
+            }, 500);
+            this.updateNavigationButtons();
+        }
+        else{
             this.leftArrowDisabled = false;
             this.rightArrowDisabled = true;
         }
+    }
+
+    updateNavigationButtons() {
+        this.leftArrowDisabled = this.currentIndex === 0;
+        this.rightArrowDisabled = this.currentIndex === this.propertyMediaImages.length - 1;
     }
 }
 

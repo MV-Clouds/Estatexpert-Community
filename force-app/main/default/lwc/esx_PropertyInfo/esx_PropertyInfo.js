@@ -43,8 +43,8 @@ export default class Esx_PropertyInfo extends LightningElement {
 
     selectedMarkerValue = 'SF1';
     // baseUrl = amenity_icons;
-    // sampleUrl = amenity_icons +'/Security.svg';
-    // svgURL = `${SVG_LOGO}#logo`;
+    sampleUrl = amenity_icons +'/Security.svg';
+    svgURL = `${this.sampleUrl}#amenity`;
     // generateIconUrl(amenity) {
     // const iconName = amenity.toLowerCase().replace(/[\s\/]+/g, '_') + '.png';
     // console.log('fileName:==', iconName);
@@ -71,6 +71,7 @@ export default class Esx_PropertyInfo extends LightningElement {
                         };
                     });
                     console.log('row.Amenities__c', this.property.Amenities__c);
+                    console.log("svgURL=====>",this.svgURL);
                 } else {
                     this.property.Amenities__c = [];
                 }

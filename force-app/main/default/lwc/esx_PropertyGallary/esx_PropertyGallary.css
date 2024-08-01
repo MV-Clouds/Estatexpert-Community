@@ -159,6 +159,26 @@
     margin-top: 1rem;
     display: none;
 }
+.image-viewer .main-file-cmp img {
+    transition: transform 0.5s ease-in-out, opacity 0.5s ease-in-out;
+    opacity: 0;
+    transform: translateX(100%);
+}
+
+.image-viewer .main-file-cmp img.active {
+    opacity: 1;
+    transform: translateX(0);
+}
+
+.image-viewer .main-file-cmp img.slide-in {
+    opacity: 0;
+    transform: translateX(100%);
+}
+
+.image-viewer .main-file-cmp img.slide-out {
+    opacity: 0;
+    transform: translateX(-100%);
+}
 
 /* .main-file-cmp img:hover{
     width: 41.25rem;
@@ -189,6 +209,9 @@
     .card-image img {
         width: 6.563rem;
         height: 6.25rem;
+    }
+    .container{
+        margin-top: 1rem;
     }
 }
 
