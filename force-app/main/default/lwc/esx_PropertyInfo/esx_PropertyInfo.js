@@ -44,9 +44,9 @@ export default class Esx_PropertyInfo extends LightningElement {
     baseUrl = amenity_icons;
 
     generateIconUrl(amenity) {
-        const fileName = amenity.toLowerCase().replace(/[\s\/]+/g, '_') + '.png';
-        console.log('fileName:==', fileName);
-        return `${this.baseUrl}/${fileName}`;
+        const iconName = amenity.toLowerCase().replace(/[\s\/]+/g, '_') + '.png';
+        console.log('fileName:==', iconName);
+        return `${this.baseUrl}/${iconName}`;
     }
 
     handleMarkerSelect(event) {
