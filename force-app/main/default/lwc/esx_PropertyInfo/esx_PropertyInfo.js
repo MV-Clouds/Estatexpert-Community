@@ -46,8 +46,8 @@ export default class Esx_PropertyInfo extends LightningElement {
     // sampleUrl = amenity_icons +'/Security.svg';
     // svgURL = `${SVG_LOGO}#logo`;
     // generateIconUrl(amenity) {
-        // const iconName = amenity.toLowerCase().replace(/[\s\/]+/g, '_') + '.png';
-        // console.log('fileName:==', iconName);
+    // const iconName = amenity.toLowerCase().replace(/[\s\/]+/g, '_') + '.png';
+    // console.log('fileName:==', iconName);
     //     return `${amenity_icons}/${amenity}.svg`;
     // }
 
