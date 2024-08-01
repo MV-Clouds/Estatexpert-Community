@@ -33,10 +33,11 @@
 }
 .facilityBox:hover{
     background-color: #0176D3;
-    color:white;
+    color:black;
 }
 .facilityBox:hover .iconImg{
-    filter: brightness(0) invert(1);
+    color:black;
+    /* filter: brightness(0) invert(1); */
 }
 .facilityBox img{
     height:31.25px;

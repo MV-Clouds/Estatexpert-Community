@@ -12,7 +12,8 @@
                 <div class="facility-box">
                     <div class="facilities">
                         <template for:each={property.Amenities__c} for:item="amenity">
-                            <c-esx_-property-amenity key={amenity.name} amenity-name={amenity.name} icon-url={amenity.icon}></c-esx_-property-amenity>
+                            <c-esx_-property-amenity key={amenity.name} amenity-name={amenity.name}
+                                icon-url={amenity.icon}></c-esx_-property-amenity>
                         </template>
                         <!-- 
                         <div class="custom-box slds-box slds-p-around_medium slds-text-align_center facilityBox" key={amenity.name}>
@@ -94,11 +95,12 @@
                     <div class="details">
                         <div class="address">
                             <h2 class="inner-heading">Address:-</h2>
-                                <p class="text-content">{property.Landmark__c}, {property.City__c}, {property.Country__c}</p>
+                            <p class="text-content">{property.Landmark__c}, {property.City__c}, {property.Country__c}
+                            </p>
                         </div>
                         <div class="landmark">
                             <h2 class="inner-heading">Landmark:-</h2>
-                                <p class="text-content">{property.Landmark__c}</p>
+                            <p class="text-content">{property.Landmark__c}</p>
                         </div>
                         <div class="locality">
                             <h2 class="inner-heading">Locality/Neighborhood:-</h2>
@@ -113,10 +115,9 @@
                 </div>
             </div>
         </template>
+        <svg xmlns="http://www.w3.org/2000/svg">
+            <use href={sampleUrl}></use>
+        </svg>
     </div>
-    <!-- <div class="map-mobile">
-        <lightning-map class="map-view-mobile" map-markers={mapMarkers} markers-title="Lunch Gems"
-            onmarkerselect={handleMarkerSelect} selected-marker-value={selectedMarkerValue}>
-        </lightning-map>
-    </div> -->
+
 </template>

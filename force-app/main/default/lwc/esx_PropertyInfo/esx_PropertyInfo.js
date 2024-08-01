@@ -42,11 +42,11 @@ export default class Esx_PropertyInfo extends LightningElement {
 
     selectedMarkerValue = 'SF1';
     baseUrl = amenity_icons;
-
+    sampleUrl = amenity_icons +'/Security.svg'+'#cloud';
     generateIconUrl(amenity) {
-        const iconName = amenity.toLowerCase().replace(/[\s\/]+/g, '_') + '.png';
-        console.log('fileName:==', iconName);
-        return `${this.baseUrl}/${iconName}`;
+        // const iconName = amenity.toLowerCase().replace(/[\s\/]+/g, '_') + '.png';
+        // console.log('fileName:==', iconName);
+        return `${amenity_icons}/${amenity}.svg`;
     }
 
     handleMarkerSelect(event) {
@@ -68,7 +68,7 @@ export default class Esx_PropertyInfo extends LightningElement {
                     this.property.Amenities__c = amenitiesArray.map(amenity => {
                         return {
                             name: amenity,
-                            icon: this.generateIconUrl(amenity) || this.CarParkingIcon
+                            icon: `${amenity_icons}/${amenity}.svg` || this.CarParkingIcon
                         };
                     });
                     console.log('row.Amenities__c', this.property.Amenities__c);
