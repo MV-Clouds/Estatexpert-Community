@@ -409,7 +409,7 @@
                         <div class="nearby">
                             <div class="near-by-type slds-m-right_medium">
                                 <p class="label"> Near by Landmark</p>
-                                <input type="text" name="nearbyLandmark" class="input-text"
+                                <input type="text" name="nearbyLandmark" class="input-text" pattern="^[a-zA-Z0-9._ \t]{1,255}$"
                                     placeholder="Enter a Near by Landmark" value={property.nearbyLandmark}
                                     onchange={handleInputChange}></input>
                             </div>
@@ -431,3 +431,4 @@
         </div>
     </div>
 </template>
+
