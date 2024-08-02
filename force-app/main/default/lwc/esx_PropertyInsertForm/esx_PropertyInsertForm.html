@@ -2,17 +2,22 @@
     <div class="main-div">
         <img src={BgImage} alt="BgImage" class="bg-image" />
         <div class="overlay" lwc:dom="manual"></div>
-        <div class="save-confirmation">
-            <template if:true={isModalOpen}>
-                <div class="save_popup">
-                    <div class="close-icon">
-                        <lightning-icon icon-name="utility:close" alternative-text="Utility image" title="close" size="small" onclick={closePopup}></lightning-icon>
+        <div class="confirmation-popup">
+            <template if:true={isInserted}>
+                <div class="popup-message">
+                    <div class="popup-icon"><img src={sucessIcon}></img></div>
+                    <div class="popup-msg">Property inserted successfully!!!</div>
+                    <div class="popup-buttons">
+                        <button class="btn" onclick={closePopup}>Ok</button>
                     </div>
-                    <div class="save-icon"><img src={saveIcon}></img></div>
-                    <div class="save-title">Save</div>
-                    <div class="save-msg">Property Inserted Successfully!!!</div>
-                    <div class="two-buttons">
-                        <button class="ok-btn slds-m-left_medium" onclick={closePopup}>Ok</button>
+                </div>
+            </template>
+            <template if:true={isError}>
+                <div class="popup-message">
+                    <div class="popup-icon"><img src={errorIcon}></img></div>
+                    <div class="popup-msg">{errorMsg}</div>
+                    <div class="popup-buttons">
+                        <button class="btn" onclick={closePopup}>Ok</button>
                     </div>
                 </div>
             </template>
@@ -47,7 +52,7 @@
                                         <select name="propertyType" class="input-dropdown" onchange={handleInputChange}
                                             required>
                                             <template for:each={propertyTypes} for:item="type">
-                                                <option value={property.propertyType} key={type.label}>{type.label}
+                                                <option value={type.label} key={type.label}>{type.label}
                                                 </option>
                                             </template>
                                         </select>
@@ -66,11 +71,11 @@
                             <div class="prop-type input-first-half">
                                 <p class="label"><abbr class="slds-required" title="required">*</abbr>City</p>
                                 <input type="text" name="city" class="input-text" placeholder="Enter City"
-                                    value={property.city} onchange={handleInputChange} required></input>
+                                    value={property.city} pattern="[a-zA-Z]+" onchange={handleInputChange} required></input>
                             </div>
                             <div class="prop-type input-second-half">
                                 <p class="label"><abbr class="slds-required" title="required">*</abbr>Enter Locality</p>
-                                <input type="text" name="locality" class="input-text" placeholder="Enter Locality"
+                                <input type="text" name="locality" pattern="[a-zA-Z]+" class="input-text" placeholder="Enter Locality"
                                     value={property.locality} onchange={handleInputChange} required></input>
                             </div>
                         </div>
@@ -86,9 +91,9 @@
                                             onclick={decreaseNumber}>
                                             &minus;
                                         </button>
-                                        <input type="number" name="bedrooms"
+                                        <input type="number" name="bedrooms" readonly
                                             class="input-box bedrooms_number input-text" value={property.bedrooms}
-                                            min="1" max="10" onchange={handleInputChange}>
+                                            min="1" max="15" onchange={handleInputChange}>
                                         <button name="bedrooms" class="plus" aria-label="Increase"
                                             onclick={increaseNumber}>
                                             &plus;
@@ -102,9 +107,9 @@
                                             onclick={decreaseNumber}>
                                             &minus;
                                         </button>
-                                        <input type="number" name="balconies"
+                                        <input type="number" name="balconies" readonly
                                             class="input-box balconies_number input-text" value={property.balconies}
-                                            min="1" max="10" onchange={handleInputChange}>
+                                            min="1" max="15" onchange={handleInputChange}>
                                         <button name="balconies" class="plus" aria-label="Increase"
                                             onclick={increaseNumber}>
                                             &plus;
@@ -119,7 +124,7 @@
                                     <select name="floorNumber" class="input-dropdown" onchange={handleInputChange}
                                         required>
                                         <template for:each={floorNumbers} for:item="floor">
-                                            <option value={property.floorNumber} key={floor.label}>{floor.label}
+                                            <option value={floor.label} key={floor.label}>{floor.label}
                                             </option>
                                         </template>
                                     </select>
@@ -139,7 +144,7 @@
                                     <select name="furnishedStatus" class="input-dropdown" onchange={handleInputChange}
                                         required>
                                         <template for:each={furnishedStatuses} for:item="status">
-                                            <option value={property.furnishedStatus} key={status.label}>{status.label}
+                                            <option value={status.label} key={status.label}>{status.label}
                                             </option>
                                         </template>
                                     </select>
@@ -156,8 +161,8 @@
                                         onclick={decreaseNumber}>
                                         &minus;
                                     </button>
-                                    <input type="number" name="bathrooms" class="input-box bathrooms_number input-text"
-                                        value={property.bathrooms} min="1" max="10" onchange={handleInputChange}>
+                                    <input type="number" readonly name="bathrooms" class="input-box bathrooms_number input-text"
+                                        value={property.bathrooms} min="1" max="15" onchange={handleInputChange}>
                                     <button name="bathrooms" class="plus" aria-label="Increase"
                                         onclick={increaseNumber}>
                                         &plus;
@@ -179,7 +184,7 @@
                                     <select name="coveredAreaUnit" class="input-dropdown slds-m-left_medium"
                                         onchange={handleInputChange}>
                                         <template for:each={coveredareaUnits} for:item="units">
-                                            <option value={property.coveredAreaUnit} key={units.label}>{units.label}
+                                            <option value={units.label} key={units.label}>{units.label}
                                             </option>
                                         </template>
                                     </select>
@@ -195,7 +200,7 @@
                                     <select name="carpetAreaUnit" class="input-dropdown slds-m-left_medium"
                                         onchange={handleInputChange}>
                                         <template for:each={carpetareaUnits} for:item="units">
-                                            <option value={property.carpetAreaUnit} key={units.label}>{units.label}
+                                            <option value={units.label} key={units.label}>{units.label}
                                             </option>
                                         </template>
                                     </select>
@@ -277,7 +282,7 @@
                         <div class="pr-details">
                             <div class="prop-type">
                                 <p class="label"><abbr class="slds-required" title="required">*</abbr>Expected Price</p>
-                                <input type="number" min="0" class="input-text" value={property.expectedPrice}
+                                <input type="number" min="10000" max="100000000" class="input-text" value={property.expectedPrice}
                                     name="expectedPrice" placeholder="Expected Price" onchange={handleInputChange}
                                     required></input>
                             </div>
@@ -307,7 +312,7 @@
                             </div>
                             <div class="prop-type input-second-half">
                                 <p class="label"> Maintenance Charges</p>
-                                <input type="number" min="0" name="maintenanceCharges"
+                                <input type="number" name="maintenanceCharges"
                                     value={property.maintenanceCharges} class="input-text"
                                     placeholder="Maintenance Charges" onchange={handleInputChange}></input>
                             </div>
@@ -317,7 +322,7 @@
                                 <label class="label">Brokerage(Brokers only)</label>
                                 <select name="brokerage" class="input-dropdown" onchange={handleInputChange}>
                                     <template for:each={brokerages} for:item="brokerage">
-                                        <option value={property.brokerage} key={brokerage.label}>{brokerage.label}
+                                        <option value={brokerage.label} key={brokerage.label}>{brokerage.label}
                                         </option>
                                     </template>
                                 </select>
@@ -351,7 +356,7 @@
                                     </div>
                                 </div>
                                 <p class="label">Indoor Amenities</p>
-                                <input type="text" name="indoorAmenties" class="input-text amenities-input"
+                                <input type="text" readonly name="indoorAmenties" class="input-text amenities-input"
                                     placeholder="Select Amenities" onclick={clickhandler}></input>
                                 <template if:true={showDropdown_indoor}>
                                     <div class="slds-box_border amenty-checkboxes ">
@@ -379,8 +384,8 @@
                                     </div>
                                 </div>
                                 <p class="label">Outdoor Amenities</p>
-                                <input type="text" name="outdoorAmenties" class="input-text amenities-input"
-                                    placeholder="Select Amenities" value={property.outdoorAmenities}
+                                <input type="text" readonly name="outdoorAmenties" class="input-text amenities-input"
+                                    placeholder="Select Amenities"
                                     onclick={clickhandler}></input>
                                 <template if:true={showDropdown_outdoor}>
                                     <div class="slds-box_border amenty-checkboxes">
@@ -420,7 +425,7 @@
             <br />
             <template if:true={isData}>
                 <div class="buttons">
-                    <button class="btn" onclick={getPropertyObject}>Save</button>
+                    <button class="property-save-btn" onclick={getPropertyObject}>Save</button>
                 </div>
             </template>
         </div>

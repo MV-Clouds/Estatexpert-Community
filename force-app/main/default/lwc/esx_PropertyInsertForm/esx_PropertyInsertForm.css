@@ -162,7 +162,7 @@
     justify-content: center;
 }
 
-.btn {
+.property-save-btn {
     background-color: rgba(1, 118, 211, 1);
     border-radius: 1.875rem;
     width: 10rem;
@@ -170,7 +170,9 @@
     color: white;
     border: 0px;
 }
-
+.property-save-btn:hover {
+    background: #0467b5;
+}
 .quantity {
     display: flex;
     align-items: center;
@@ -285,61 +287,69 @@ select {
     left: 0;
     width: 100%;
     height: 100%;
-    background-color: rgba(0, 0, 0, 0.5); /* Black with 50% transparency */
-    z-index: 999; /* Ensure it is above other content */
-    display: none; /* Initially hidden */
+    background-color: rgba(0, 0, 0, 0.5); 
+    z-index: 999; 
+    display: none; 
 }
-.save-confirmation{
+.confirmation-popup {
     width: 100%;
     display: flex;
     justify-content: center;
 }
-.save_popup{
-    position: fixed; /* Changed from absolute to fixed */
+
+.popup-message {
+    position: fixed;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
     z-index: 1000;
-    width: 31.25rem;
-    height: 21.875rem;
+    width: 27.25rem;
+    height: 10.875rem;
     margin: auto;
     border-radius: 2rem;
     box-shadow: 0px 12px 44px 0px rgba(1, 118, 211, 0.34);
     box-shadow: 0px -2px 4px 0px rgba(1, 118, 211, 0.12);
-    background: linear-gradient(90deg,rgba(186, 232, 251, 1), rgba(255, 255, 255, 1));
+    background: linear-gradient(120deg, rgba(186, 232, 251, 1), rgba(255, 255, 255, 1));
 
 }
-.close-icon{
+
+.close-icon {
     position: absolute;
     right: 1rem;
     top: 0.5rem;
     cursor: pointer;
 }
-.save-icon{
+
+.popup-icon {
     display: flex;
     justify-content: center;
-    margin-top: 4rem;
+    margin-top: 1rem;
 }
-.save-icon img{
-    width: 5.625rem;
-    height: 5.625rem;
+
+.popup-icon img {
+    width: 3.625rem;
+    height: 3.625rem;
 }
-.save-title{
+
+/* .popup-title {
     font-size: 2.125rem;
     font-weight: 700;
     width: 100%;
     margin-top: 1rem;
     display: flex;
     justify-content: center;
-}
-.save-msg{
+} */
+
+.popup-msg {
     font-size: 1.125rem;
     font-weight: 400;
+    margin-top: 0.5rem;
     width: 100%;
     display: flex;
     justify-content: center;
 }
-.two-buttons{
+
+.popup-buttons {
     width: 100%;
     display: flex;
     justify-content: center;
@@ -347,15 +357,15 @@ select {
     bottom: 0.8rem;
     justify-content: center;
 }
-.ok-btn{
-    width: 5.938rem;
-    height: 2.813rem;
+
+.btn {
+    width: 4.938rem;
+    height: 1.813rem;
     background-color: rgba(1, 118, 211, 1);
     color: white;
     border-radius: 3.5rem;
     border: 0px;
 }
-
 
 @media only screen and (max-width: 1024px) {
     .input-first-half {
