@@ -363,7 +363,7 @@
                                         <ul class="dropdown-list slds-dropdown_length-7 slds-p-left_medium">
                                             <template for:each={indoorFacilities} for:item="profile">
                                                 <li key={profile.label} class="dropdown-item">
-                                                    <lightning-input type="checkbox" label={profile.label}
+                                                    <lightning-input type="checkbox" label={profile.label} id={profile.label}
                                                         value={profile.label} name="indoorAmenities"
                                                         onchange={handleInputChange}>
                                                     </lightning-input>
@@ -392,7 +392,7 @@
                                         <ul class="dropdown-list slds-dropdown_length-7 slds-p-left_medium">
                                             <template for:each={outdoorFacilities} for:item="profile">
                                                 <li key={profile.label} class="dropdown-item">
-                                                    <lightning-input type="checkbox" label={profile.label}
+                                                    <lightning-input type="checkbox" label={profile.label} id={profile.label}
                                                         value={profile.label} name="outdoorAmenities"
                                                         onchange={handleInputChange}>
                                                     </lightning-input>
