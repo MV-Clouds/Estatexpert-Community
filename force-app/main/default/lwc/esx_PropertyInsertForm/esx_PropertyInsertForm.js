@@ -401,14 +401,29 @@ export default class Esx_PropertyInsertForm extends LightningElement {
         inputs.forEach(inputCmp => {
             const fieldName = inputCmp.name;
             if (inputCmp.tagName === 'INPUT' || inputCmp.tagName === 'SELECT') {
-                inputCmp.setCustomValidity(''); // Reset custom validity
-                if (!inputCmp.checkValidity()) {
-                    allValid = false;
-                    inputCmp.reportValidity();
-                }
-                if (fieldValues.hasOwnProperty(fieldName)) {
-                    console.log('inputCmp.value::::::====>>>>',inputCmp.value);
-                    fieldValues[fieldName] = parseInt(inputCmp.value, 10);
+                inputCmp.setCustomValidity('');
+                if (inputCmp.name === 'city' || inputCmp.name === 'locality') {
+                    if (!inputCmp.checkValidity()) {
+                        inputCmp.setCustomValidity('This field only containes alphabetic characters');
+                        inputCmp.reportValidity();
+                        allValid = false;
+                    }
+                }else if (inputCmp.name === 'nearbyLandmark') {
+                    if (!inputCmp.checkValidity()) {
+                        inputCmp.setCustomValidity('Please enter value which containes less than 255 characters');
+                        inputCmp.reportValidity();
+                        allValid = false;
+                    }
+                }else{
+                    inputCmp.setCustomValidity(''); // Reset custom validity
+                    if (!inputCmp.checkValidity()) {
+                        allValid = false;
+                        inputCmp.reportValidity();
+                    }
+                    if (fieldValues.hasOwnProperty(fieldName)) {
+                        console.log('inputCmp.value::::::====>>>>',inputCmp.value);
+                        fieldValues[fieldName] = parseInt(inputCmp.value, 10);
+                    }
                 }
             }
         });
@@ -496,5 +511,10 @@ export default class Esx_PropertyInsertForm extends LightningElement {
     }
     showPlotAreaFields(event) {
         this.isPlotArea = this.isPlotArea == true ? false : true;
+    }
+    onlyText(event){
+        var value = String.fromCharCode(event.which);
+        var pattern = new RegExp(/[a-zåäö ]/i);
+        return pattern.test(value);
     }
 }

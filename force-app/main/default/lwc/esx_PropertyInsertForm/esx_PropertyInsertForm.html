@@ -71,7 +71,7 @@
                             <div class="prop-type input-first-half">
                                 <p class="label"><abbr class="slds-required" title="required">*</abbr>City</p>
                                 <input type="text" name="city" class="input-text" placeholder="Enter City"
-                                    value={property.city} pattern="[a-zA-Z]+" onchange={handleInputChange} required></input>
+                                    value={property.city} pattern="[a-zA-Z]+" onkeypress={onlyText} onchange={handleInputChange} required></input>
                             </div>
                             <div class="prop-type input-second-half">
                                 <p class="label"><abbr class="slds-required" title="required">*</abbr>Enter Locality</p>
