@@ -23,6 +23,12 @@
     width:33.75px;
     cursor:pointer;
 }
+svg{
+    height:31.25px;
+    width:33.75px;
+    cursor:pointer;
+}
+
 .facilityBox p{
     font-size:12px;
     margin-top:5px;
