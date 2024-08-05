@@ -257,6 +257,7 @@
     margin-right: 1rem;
     display: flex;
     align-items: center;
+    gap: 0.3rem;
 }
 
 .date-and-age {
@@ -414,6 +415,9 @@
     .otherinput{
         width: 100%;
     }
+    .show-error-message{
+        font-size: 0.7rem;
+    }
     
 }
 
@@ -506,5 +510,8 @@
     }
     .profile-preview-popup img{
         width: 21.25rem;
+    }
+    .show-error-message{
+        font-size: 0.7rem;
     }
 }

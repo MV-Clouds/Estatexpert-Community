@@ -122,6 +122,9 @@ export default class Esx_ProfilePage extends NavigationMixin(LightningElement) {
                 if (result.contact.MailingCountry != null && result.contact.MailingCountry != undefined) {
                     this.countryOptions = this.countryOptions.filter(option => option.value !== result.contact.MailingCountry);
                 }
+                if (result.contact.salutation != null && result.contact.salutation != undefined) {
+                    this.Salutationoptions = this.Salutationoptions.filter(option => option.value !== result.contact.salutation);
+                }
             })
             .catch(error => {
                 console.log('error: ', error.message);
@@ -239,16 +242,21 @@ export default class Esx_ProfilePage extends NavigationMixin(LightningElement) {
             const errorElement = input.nextElementSibling;
             const pattern = input.pattern;
             const value = input.value;
+            console.log('value:',value.length);
             const errorMessage = input.dataset.errmsg;
             console.log('elemenst:', errorElement, pattern, value, errorMessage);
             if (input.required && !value) {
+                console.log("first if");
                 input.style.border = '1px solid red';
                 input.style.marginBottom = '0rem';
                 if(errorElement !=null){
                     errorElement.textContent = 'This field is required';
                     errorElement.style.display = 'block';
                 }
+                allValid = false;
+                console.log("allValid in first if",allValid);
             }else if (pattern!=='' && value.length >0) {
+                console.log("second else if");
                 const regex = new RegExp(pattern);
                 if (!regex.test(value)) {
                     input.style.border = '1px solid red';
@@ -265,13 +273,14 @@ export default class Esx_ProfilePage extends NavigationMixin(LightningElement) {
                     }
                 }
             }else{
+                console.log("else");
                 input.style.border = '1px solid rgba(191, 196, 215, 1)';
                 if(errorElement !=null){
                     errorElement.style.display = 'none';
                 }
             }
         });
-
+        console.log("allValid",allValid);
         return allValid;
     }
 
@@ -281,11 +290,16 @@ export default class Esx_ProfilePage extends NavigationMixin(LightningElement) {
             updateContact({ contact: JSON.stringify(this.contact) }).then(result => {
                 this.popupMessage = 'Your details are updated successfully!';
                 this.isModalOpen = true;
+                window.scrollTo({ top: 0, behavior: 'smooth' });
                 const overlay = this.template.querySelector('.overlay');
                 overlay.style.display = 'block';
                 this.isDisabled = true;
                 let button = this.template.querySelector('.save-btn');
                 button.style.backgroundColor = 'rgba(210, 210, 210, 1)';
+                let dropdownCountry = this.template.querySelector('.country-dropdown');
+                let dropdownSalutation = this.template.querySelector('.input-dropdown');
+                dropdownSalutation.style.backgroundColor = 'light-dark(rgba(239, 239, 239, 0.3), rgba(59, 59, 59, 0.3))';
+                dropdownCountry.style.backgroundColor = 'light-dark(rgba(239, 239, 239, 0.3), rgba(59, 59, 59, 0.3))';
                 this.getCurrentContactDetails();
             })
             .catch(error => {

@@ -56,9 +56,7 @@
                                 <p class="label">Salutation</p>
                                 <select name="salutation" class="input-dropdown" onchange={updateContact}
                                     disabled={isDisabled}>
-                                    <template if:true={isDisabled}>
-                                        <option value={contact.Salutation}>{contact.salutation}</option>
-                                    </template>
+                                    <option value={contact.Salutation}>{contact.salutation}</option>
                                     <template for:each={Salutationoptions} for:item="type">
                                         <option value={type.label} key={type.label}>{type.label}</option>
                                     </template>
@@ -67,16 +65,16 @@
                             <div class="form-element namefield">
                                 <p class="label"><abbr class="slds-required"
                                     title="required">*</abbr>First Name</p>
-                                <input type="text" name="firstName" data-errmsg="Name should contain 2-50 character."
-                                    pattern="[A-Za-z]{2,50}" class="input-text" value={contact.firstName}
+                                <input type="text" name="firstName" data-errmsg="Enter 2-50 alphabetic characters."
+                                    pattern="[A-Za-z\s]{2,50}$" class="input-text" value={contact.firstName}
                                     onchange={updateContact} disabled={isDisabled} required></input>
                                 <p class="show-error-message">Name should contain 2-50 character.</p>
                             </div>
                             <div class="form-element namefield">
                                 <p class="label"><abbr class="slds-required"
                                     title="required">*</abbr>Last Name</p>
-                                <input type="text" name="lastName" data-errmsg="Name should contain 2-50 character."
-                                    pattern="[A-Za-z]{2,50}" class="input-text" value={contact.lastName}
+                                <input type="text" name="lastName" data-errmsg="Enter 2-50 alphabetic characters."
+                                    pattern="[A-Za-z\s]{2,50}$" class="input-text" value={contact.lastName}
                                     onchange={updateContact} disabled={isDisabled} required></input>
                                 <p class="show-error-message">Name should contain 2-50 character.</p>
                             </div>
@@ -87,19 +85,13 @@
                                     <div class="label">Gender</div>
                                     <div class="checkbox">
                                         <div class="tickbox checkbox1">
-                                            <input class="Male" type="radio" name="gender" value="Male"
-                                                onchange={updateContact} disabled={isDisabled}>
-                                            <label class="gender-option">Male</label>
+                                            <input class="Male" type="radio" name="gender" value="Male" onchange={updateContact} disabled={isDisabled}> Male
                                         </div>
                                         <div class="tickbox checkbox1 ">
-                                            <input class="Female" type="radio" name="gender" value="Female"
-                                                onchange={updateContact} disabled={isDisabled}>
-                                            <label class="gender-option">Female</label>
+                                            <input class="Female" type="radio" name="gender" value="Female" onchange={updateContact} disabled={isDisabled}> Female
                                         </div>
                                         <div class="tickbox checkbox1 ">
-                                            <input class="Other" type="radio" name="gender" value="Other"
-                                                onchange={updateContact} disabled={isDisabled}>
-                                            <label class="gender-option">Other</label>
+                                            <input class="Other"  type="radio" name="gender" value="Other" onchange={updateContact} disabled={isDisabled}> Other	
                                         </div>
                                     </div>
                                 </div>
@@ -161,14 +153,14 @@
                         <div class="address-fields">
                             <div class="form-element input-first-half">
                                 <p class="label">City</p>
-                                <input type="text" name="mailingCity" class="input-text" value={contact.mailingCity}
-                                    onchange={updateContact} disabled={isDisabled} pattern="[A-Za-z\s]{2,100}"></input>
-                                <p class="show-error-message">Invalid</p>
+                                <input type="text" data-errmsg="Enter valid city name" name="mailingCity" class="input-text" value={contact.mailingCity}
+                                    onchange={updateContact} disabled={isDisabled} pattern="[A-Za-z\s]{2,100}$"></input>
+                                <p class="show-error-message"></p>
                             </div>
                             <div class="form-element input-second-half">
                                 <p class="label">PIN Code</p>
-                                <input type="number" name="mailingPostalCode"
-                                    data-errmsg="Invalid Pincode" pattern="[1-9][0-9]{5}"
+                                <input type="number" name="mailingPostalCode" max="6"
+                                    data-errmsg="Invalid Pincode" pattern="^[1-9][0-9]{5}$"
                                     class="input-text" value={contact.mailingPostalCode} onchange={updateContact}
                                     disabled={isDisabled}></input>
                                 <p class="show-error-message">Invalid Pincode</p>
@@ -181,10 +173,10 @@
                                 <p class="label"><abbr class="slds-required"
                                     title="required">*</abbr>State</p>
                                 <input type="text" name="mailingState" class="input-text"
-                                    data-errmsg="State should contain 2-100 character." pattern="[A-Za-z\s]{2,100}"
+                                    data-errmsg="State should contain 2-100 character." pattern="[A-Za-z\s]{2,100}$"
                                     value={contact.mailingState} onchange={updateContact} disabled={isDisabled}
                                     required></input>
-                                <p class="show-error-message">State should contain 2-100 character.</p>
+                                <p class="show-error-message">Enter valid state name</p>
                             </div>
                             <div class="form-element input-second-half">
                                 <p class="label">Country</p>
@@ -209,7 +201,7 @@
                             <p class="label">Description</p>
                             <textarea name="description" maxlength="1000" class="input-text longfield decriptionfield"
                                 onchange={updateContact} disabled={isDisabled} >{contact.description}</textarea>
-                            <p class="show-error-message">State should contain 2-100 character.</p>
+                            <p class="show-error-message">About should contain 2-100 character.</p>
                         </div>
                     </div>
                 </div>
