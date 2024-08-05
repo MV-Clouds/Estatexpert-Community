@@ -39,7 +39,6 @@ export default class Esx_ProfilePage extends NavigationMixin(LightningElement) {
         { label: 'United States', value: 'United States' },
         { label: 'Canada', value: 'Canada' },
         { label: 'Japan', value: 'Japan' },
-
     ]
     placeholderProfile = Blank_Profile_Photo;
     @track isModalOpen = false;
@@ -101,36 +100,32 @@ export default class Esx_ProfilePage extends NavigationMixin(LightningElement) {
                     this.recordType = result.contact.RecordType.Name;
                     this.isLoading = false;
                 } else {
-                    this.showToast('Error', 'Error', 'No Contacts Found');
+                    console.log('no data found');
                 }
                 if ((result != null && result != undefined) && (result.image != null && result.image != undefined)) {
                     this.profileImage = 'data:image/jpeg;base64,' + result.image;
                 } else {
                     this.profileImage = this.placeholderProfile;
-                    this.template.querySelector('.delete-icon').style.display = 'none';
+                    setTimeout(() => {
+                        this.template.querySelector('.delete-icon').style.display = 'none';
+                    }, 0);
                 }
                 if (result.contact.Gender__c != null && result.contact.Gender__c != undefined) {
                     setTimeout(() => {
-                        let radioButton = this.template.querySelector(`.${result.contact.Gender__c}`);
+                        let radioButton = this.template.querySelector("." + result.contact.Gender__c);
+                        console.log("here gender check", radioButton);
                         if (radioButton != null) {
                             radioButton.checked = true;
                         }
                     }, 0);
                 }
+                if (result.contact.MailingCountry != null && result.contact.MailingCountry != undefined) {
+                    this.countryOptions = this.countryOptions.filter(option => option.value !== result.contact.MailingCountry);
+                }
             })
             .catch(error => {
                 console.log('error: ', error.message);
             });
-    }
-
-    showToast(variant, title, message) {
-        let evt = new ShowToastEvent({
-            variant: variant,
-            title: title,
-            message: message,
-            duration: 3000,
-        });
-        this.dispatchEvent(evt);
     }
 
     navigateHome() {
@@ -147,9 +142,83 @@ export default class Esx_ProfilePage extends NavigationMixin(LightningElement) {
         });
     }
 
+    handleValidation(event) {
+        console.log('called');
+        let field = event.target;
+        let pattern = field.pattern;
+        let value = field.value;
+        let errorMessage = field.dataset.errmsg;
+        let errorElement = field.nextElementSibling;
+        console.log('elemenst:', field, pattern, value, errorElement);
+        console.log('value:',value.length);
+        
+        if (field.required && !value) {
+            console.log("first if");
+            field.style.border = '1px solid red';
+            field.style.marginBottom = '0rem';
+            if(errorElement !=null){
+                errorElement.textContent = 'This field is required';
+                errorElement.style.display = 'block';
+            }
+        }else if(pattern!=='' && value.length > 0) {
+            console.log("second else if");
+            const regex = new RegExp(pattern);
+            console.log('regex:', JSON.stringify(regex));
+            if (!regex.test(value)) {
+                console.log('testfailed');
+                console.log('elemenst:', field, pattern, value, errorElement);
+                field.style.border = '1px solid red';
+                field.style.marginBottom = '0rem';
+                if(errorElement !=null){
+                    errorElement.textContent = errorMessage;
+                    errorElement.style.display = 'block';
+                }
+            } else {
+                field.style.border = '1px solid rgba(191, 196, 215, 1)';
+                if(errorElement !=null){
+                    errorElement.style.display = 'none';
+                }
+                console.log('here');
+
+            }
+        }else if(field.name === 'birthdate') {
+            console.log("third else if");
+            let today = new Date();
+            let birthdate = new Date(value);
+            let age = today.getFullYear() - birthdate.getFullYear();
+            let m = today.getMonth() - birthdate.getMonth();
+            if (m < 0 || (m === 0 && today.getDate() < birthdate.getDate())) {
+                age--;
+            }
+            if (isNaN(birthdate) || age < 0 || age > 120) {
+                field.style.border = '1px solid red';
+                field.style.marginBottom = '0rem';
+                if(errorElement !=null){
+                    errorElement.style.display = 'block';
+                }
+            }else{
+                field.style.border = '1px solid rgba(191, 196, 215, 1)';
+                if(errorElement !=null){
+                    errorElement.style.display = 'none';
+                }
+            }
+        }else{
+            console.log("final else");
+            field.style.border = '1px solid rgba(191, 196, 215, 1)';
+            if(errorElement !=null){
+                errorElement.style.display = 'none';
+            }
+        }
+    }
+
     updateContact(event) {
+        console.log('field value:', event.target.value);
         const field = event.target.name;
         this.contact[field] = event.target.value;
+        console.log("event.target.name",event.target.name);
+        if(event.target.name !=="mailingCountry" && event.target.name!=="salutation"  && event.target.type!=="radio"){
+            this.handleValidation(event);
+        }
     }
 
     getContactInfo(event) {
@@ -162,8 +231,52 @@ export default class Esx_ProfilePage extends NavigationMixin(LightningElement) {
         button.style.backgroundColor = 'rgba(1, 118, 211, 1)';
     }
 
+    validateAllFields() {
+        const inputs = this.template.querySelectorAll('input,textarea');
+        let allValid = true;
+
+        inputs.forEach(input => {
+            const errorElement = input.nextElementSibling;
+            const pattern = input.pattern;
+            const value = input.value;
+            const errorMessage = input.dataset.errmsg;
+            console.log('elemenst:', errorElement, pattern, value, errorMessage);
+            if (input.required && !value) {
+                input.style.border = '1px solid red';
+                input.style.marginBottom = '0rem';
+                if(errorElement !=null){
+                    errorElement.textContent = 'This field is required';
+                    errorElement.style.display = 'block';
+                }
+            }else if (pattern!=='' && value.length >0) {
+                const regex = new RegExp(pattern);
+                if (!regex.test(value)) {
+                    input.style.border = '1px solid red';
+                    input.style.marginBottom = '0rem';
+                    if(errorElement !=null){
+                        errorElement.textContent = errorMessage;
+                        errorElement.style.display = 'block';
+                    }
+                    allValid = false;
+                } else {
+                    input.style.border = '1px solid rgba(191, 196, 215, 1)';
+                    if(errorElement !=null){
+                        errorElement.style.display = 'none';
+                    }
+                }
+            }else{
+                input.style.border = '1px solid rgba(191, 196, 215, 1)';
+                if(errorElement !=null){
+                    errorElement.style.display = 'none';
+                }
+            }
+        });
+
+        return allValid;
+    }
+
     updateContactInfo() {
-        if (this.isValidForm()) {
+        if (this.validateAllFields()) {
             console.log('conData:', JSON.stringify(this.contact));
             updateContact({ contact: JSON.stringify(this.contact) }).then(result => {
                 this.popupMessage = 'Your details are updated successfully!';
@@ -178,50 +291,52 @@ export default class Esx_ProfilePage extends NavigationMixin(LightningElement) {
             .catch(error => {
                 console.error(error);
             });
+        } else {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
         }
     }
-    isValidForm() {
-        const today = new Date();
-        const allValid = [...this.template.querySelectorAll('lightning-input, input')]
-            .reduce((validSoFar, inputCmp) => {
-                let valid = true;
-                let errorMessage = '';
-                if (inputCmp.tagName === 'LIGHTNING-INPUT') {
-                    inputCmp.reportValidity();
-                    return validSoFar && inputCmp.checkValidity();
-                } else if (inputCmp.tagName === 'INPUT') {
-                    inputCmp.setCustomValidity('');
-                    if (inputCmp.type === 'date') {
-                        const birthdate = new Date(inputCmp.value);
-                        const age = today.getFullYear() - birthdate.getFullYear();
-                        const m = today.getMonth() - birthdate.getMonth();
-                        if (m < 0 || (m === 0 && today.getDate() < birthdate.getDate())) {
-                            age--;
-                        }
+    // isValidForm() {
+    //     const today = new Date();
+    //     const allValid = [...this.template.querySelectorAll('lightning-input, input')]
+    //         .reduce((validSoFar, inputCmp) => {
+    //             let valid = true;
+    //             let errorMessage = '';
+    //             if (inputCmp.tagName === 'LIGHTNING-INPUT') {
+    //                 inputCmp.reportValidity();
+    //                 return validSoFar && inputCmp.checkValidity();
+    //             } else if (inputCmp.tagName === 'INPUT') {
+    //                 inputCmp.setCustomValidity('');
+    //                 if (inputCmp.type === 'date') {
+    //                     const birthdate = new Date(inputCmp.value);
+    //                     const age = today.getFullYear() - birthdate.getFullYear();
+    //                     const m = today.getMonth() - birthdate.getMonth();
+    //                     if (m < 0 || (m === 0 && today.getDate() < birthdate.getDate())) {
+    //                         age--;
+    //                     }
 
-                        if (isNaN(birthdate) || age < 0 || age > 120) {
-                            errorMessage = 'Please enter a valid birthdate within the last 120 years.';
-                            valid = false;
-                        }
-                    } else {
-                        if (!inputCmp.checkValidity()) {
-                            errorMessage = inputCmp.dataset.errmsg;
-                            valid = false;
-                        }
-                    }
-                    if (!valid) {
-                        inputCmp.setCustomValidity(errorMessage || inputCmp.dataset.errmsg);
-                        inputCmp.reportValidity();
-                        return false
-                    } else {
-                        inputCmp.setCustomValidity('');
-                        inputCmp.reportValidity();
-                    }
-                }
-                return validSoFar;
-            }, true);
-        return allValid;
-    }
+    //                     if (isNaN(birthdate) || age < 0 || age > 120) {
+    //                         errorMessage = 'Please enter a valid birthdate within the last 120 years.';
+    //                         valid = false;
+    //                     }
+    //                 } else {
+    //                     if (!inputCmp.checkValidity()) {
+    //                         errorMessage = inputCmp.dataset.errmsg;
+    //                         valid = false;
+    //                     }
+    //                 }
+    //                 if (!valid) {
+    //                     inputCmp.setCustomValidity(errorMessage || inputCmp.dataset.errmsg);
+    //                     inputCmp.reportValidity();
+    //                     return false
+    //                 } else {
+    //                     inputCmp.setCustomValidity('');
+    //                     inputCmp.reportValidity();
+    //                 }
+    //             }
+    //             return validSoFar;
+    //         }, true);
+    //     return allValid;
+    // }
 
     uploadProfileImage() {
         this.template.querySelector('input.hidden-upload').click();
@@ -284,10 +399,10 @@ export default class Esx_ProfilePage extends NavigationMixin(LightningElement) {
                 this.profileImage = this.placeholderProfile;
             }
         })
-        .catch(error => {
-            console.log('errormsg:', error.body.message);
-            console.error(error);
-        });
+            .catch(error => {
+                console.log('errormsg:', error.body.message);
+                console.error(error);
+            });
     }
 
     cancelAction() {
