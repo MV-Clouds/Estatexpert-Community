@@ -395,8 +395,10 @@ export default class Esx_ProfilePage extends NavigationMixin(LightningElement) {
     }
 
     uploadToSalesforce(file, base64Data) {
+        this.isLoading = true;
         uploadProfileImage({ contactId: this.contactId, fileName: file.name, base64Data })
             .then(contentVersion => {
+                this.isLoading = false;
                 this.profileImage = 'data:image/jpeg;base64,' + contentVersion;
             })
             .catch(error => {

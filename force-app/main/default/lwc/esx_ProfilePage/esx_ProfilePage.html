@@ -41,12 +41,14 @@
                 <div class="general-information">
                     <div class="profile-image">
                         <img src={profileImage} alt="Profile Image" onclick={previewProfileImage} />
-                        <div class="delete-icon" onclick={removeProfile}>
-                            <lightning-icon class="icon" icon-name="utility:delete" title="close"
-                                size="x-small"></lightning-icon>
-                        </div>
-                        <button class="upload-button" onclick={uploadProfileImage}>Upload Image</button>
-                        <input type="file" class="hidden-upload" accept=".jpg,.jpeg,.png" onchange={handleFileChange} />
+                        <template if:false={isDisabled}>
+                            <div class="delete-icon" onclick={removeProfile}>
+                                <lightning-icon class="icon" icon-name="utility:delete" title="close"
+                                    size="x-small"></lightning-icon>
+                            </div>
+                            <button class="upload-button" onclick={uploadProfileImage}>Upload Image</button>
+                            <input type="file" class="hidden-upload" accept=".jpg,.jpeg,.png" onchange={handleFileChange} />
+                        </template>
                     </div>
 
                     <div class="general-info-content">
@@ -125,7 +127,7 @@
                                 <p class="label"><abbr class="slds-required"
                                     title="required">*</abbr>Mobile Number</p>
                                 <input type="tel" name="phone" data-errmsg="Enter Valid Mobile Number."
-                                    class="input-text" pattern="^[6-9]\d{9}$" value={contact.phone} onchange={updateContact}
+                                    class="input-text" pattern="^\d{10}$" value={contact.phone} onchange={updateContact}
                                     disabled={isDisabled} required></input>
                                 <p class="show-error-message">Enter Valid Mobile Number.</p>
                             </div>
