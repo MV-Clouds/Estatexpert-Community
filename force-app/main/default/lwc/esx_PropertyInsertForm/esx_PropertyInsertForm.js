@@ -153,6 +153,7 @@ export default class Esx_PropertyInsertForm extends LightningElement {
             this.checkValidations(event);
         }
     }
+
     checkValidations(event){
         const field = event.target;
         const value = field.value;

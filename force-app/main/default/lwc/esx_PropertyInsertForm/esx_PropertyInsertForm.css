@@ -262,6 +262,12 @@ select {
 .inner-plot-area{
     display: flex;
 }
+.selected-amenities{
+    display: flex;
+}
+.selection-summary{
+    width: 25.25rem;
+}
 
 .pill {
     margin: 0.5vh;

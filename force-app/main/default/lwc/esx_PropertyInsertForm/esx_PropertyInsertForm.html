@@ -222,27 +222,27 @@
                         </div>
                     </div>
                     <div class="plot-area content">
-                        <div class="prop-type">
-                            <template if:false={isPlotArea}>
-                                <div class="plotBtn">
-                                    <button name="showPlotArea" class="plus-icon slds-m-right_xx-small"
-                                        aria-label="showPlotArea" onclick={showPlotAreaFields}>
-                                        &plus;
-                                    </button>
-                                    Plot Area
-                                </div>
-                            </template>
-                            <template if:true={isPlotArea}>
-                                <div class="plotBtn">
-                                    <button name="showPlotArea" class="plus-icon slds-m-right_xx-small"
-                                        aria-label="showPlotArea" onclick={showPlotAreaFields}>
-                                        &minus;
-                                    </button>
-                                    Plot Area
-                                </div>
-                            </template>
-                            <template if:true={isPlotArea}>
-                                <div class="p_Area">
+
+                        <template if:false={isPlotArea}>
+                            <div class="plotBtn">
+                                <button name="showPlotArea" class="plus-icon slds-m-right_xx-small"
+                                    aria-label="showPlotArea" onclick={showPlotAreaFields}>
+                                    &plus;
+                                </button>
+                                Plot Area
+                            </div>
+                        </template>
+                        <template if:true={isPlotArea}>
+                            <div class="plotBtn">
+                                <button name="showPlotArea" class="plus-icon slds-m-right_xx-small"
+                                    aria-label="showPlotArea" onclick={showPlotAreaFields}>
+                                    &minus;
+                                </button>
+                                Plot Area
+                            </div>
+                        </template>
+                        <template if:true={isPlotArea}>
+                            <!-- <div class="p_Area">
                                     <div class="prop-type input-first-half">
                                         <p class="label">Plot Area</p>
                                         <input type="number" id="plotArea" min="0" class="input-text"
@@ -257,17 +257,37 @@
                                             onchange={handleInputChange}></input>
                                         <p class="show-error-message" data-for="plotBreadth">Enter valid value</p>
                                     </div>
+                                </div> -->
+                            <div class="location">
+                                <div class="prop-type input-first-half">
+                                    <p class="label">Plot Area</p>
+                                    <input type="number" id="plotArea" min="0" class="input-text"
+                                        value={property.plotArea} name="plotArea" placeholder="Plot Area"
+                                        onchange={handleInputChange}></input>
+                                    <p class="show-error-message" data-for="plotArea">Enter valid value</p>
                                 </div>
-                                <div class="p_Area">
-                                    <div class="prop-type">
-                                        <p class="label"> Plot Length</p>
-                                        <input type="number" id="plotLength" min="0" name="plotLength"
-                                            value={property.plotLength} class="input-text" placeholder="Plot Length"
-                                            onchange={handleInputChange}></input>
-                                        <p class="show-error-message" data-for="plotLength">Enter valid value</p>
+                                <div class="prop-type input-second-half">
+                                    <p class="label"> Plot Breadth</p>
+                                    <input type="number" id="plotBreadth" min="0" name="plotBreadth"
+                                        value={property.plotBreadth} class="input-text" placeholder="Plot Breadth"
+                                        onchange={handleInputChange}></input>
+                                    <p class="show-error-message" data-for="plotBreadth">Enter valid value</p>
+                                </div>
+                            </div>
+                            <div class="p_Area">
+                                <div class="prop-type">
+                                    <p class="label"> Plot Length</p>
+                                    <input type="number" id="plotLength" min="0" name="plotLength"
+                                        value={property.plotLength} class="input-text" placeholder="Plot Length"
+                                        onchange={handleInputChange}></input>
+                                    <p class="show-error-message" data-for="plotLength">Enter valid value</p>
+                                </div>
+                                <div class="prop-type extra-tab">
+                                    <div class="property-type">
                                     </div>
                                 </div>
-                                <!-- <div class="full-box">
+                            </div>
+                            <!-- <div class="full-box">
                                     <div class="prop-type input-first-half inner-plot-area">
                                         <div class="innerbox">
                                         <p class="label">Plot Area</p>
@@ -295,8 +315,8 @@
                                         <p class="show-error-message" data-for="plotLength">Enter valid value</p>
                                     </div>
                                 </div> -->
-                            </template>
-                        </div>
+                        </template>
+
                     </div>
                     <div class="transaction-type content">
                         <h2 class="box-heading">Transaction Type</h2>
@@ -390,6 +410,26 @@
                     </div>
                     <div class="amenities content">
                         <h2 class="box-heading">Amenities</h2>
+                        <!-- <div class="selected-amenities">
+                            <div class="selection-summary input-first-half">
+                                <div class="pillbox">
+                                    <template for:each={property.indoorAmenities} for:item="selectedItem">
+                                        <div class="pill" key={selectedItem}>
+                                            {selectedItem}
+                                        </div>
+                                    </template>
+                                </div>
+                            </div>
+                            <div class="selection-summary input-second-half">
+                                <div class="pillbox">
+                                    <template for:each={property.outdoorAmenities} for:item="selectedItem">
+                                        <div class="pill" key={selectedItem}>
+                                            {selectedItem}
+                                        </div>
+                                    </template>
+                                </div>
+                            </div>
+                        </div> -->
                         <div class="pr-details">
                             <div class="prop-type input-first-half ">
                                 <div class="selection-summary">
