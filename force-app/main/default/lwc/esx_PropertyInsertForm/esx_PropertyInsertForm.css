@@ -18,6 +18,13 @@
     z-index: 1;
 }
 
+.show-error-message{
+    font-size: 0.8rem;
+    font-weight: 400;
+    display: none;
+    color: red;
+}
+
 .box {
     display: block;
 }
@@ -249,6 +256,12 @@ select {
     display: flex;
     flex-wrap: wrap;
 }
+.innerbox{
+    width: 100%;
+}
+.inner-plot-area{
+    display: flex;
+}
 
 .pill {
     margin: 0.5vh;
@@ -278,7 +291,7 @@ select {
 }
 .full-box{
     display: flex;
-    align-items: center;
+    /* align-items: center; */
 }
 
 .overlay {
