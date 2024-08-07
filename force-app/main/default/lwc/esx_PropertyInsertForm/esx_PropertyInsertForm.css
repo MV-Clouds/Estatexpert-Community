@@ -389,6 +389,10 @@ select {
 .input-small-field{
     padding: 4%;
 }
+.tickbox input{
+    cursor: pointer;
+}
+
 @media only screen and (max-width: 1024px) {
     .input-first-half {
         margin-right: 0;

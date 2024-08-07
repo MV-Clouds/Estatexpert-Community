@@ -77,7 +77,7 @@
                             </div>
                             <div class="prop-type input-second-half">
                                 <p class="label"><abbr class="slds-required" title="required">*</abbr>Enter Locality</p>
-                                <input type="text" id="locality" name="locality" pattern="[a-zA-Z]+" data-errmsg="Enter valid locality name" class="input-text"
+                                <input type="text" id="locality" name="locality" pattern="[A-Za-z\s]{2,100}$" data-errmsg="Enter valid locality name" class="input-text"
                                     placeholder="Enter Locality" value={property.locality} onchange={handleInputChange}
                                     required></input>
                                 <p class="show-error-message" data-for="locality">Enter valid value</p>
