@@ -386,6 +386,9 @@ select {
     border: 0px;
 }
 
+.input-small-field{
+    padding: 4%;
+}
 @media only screen and (max-width: 1024px) {
     .input-first-half {
         margin-right: 0;
@@ -417,6 +420,9 @@ select {
     }
     .quantity{
         width: 10rem;
+    }
+    .selection-summary{
+        width: 100%;
     }
 }
 

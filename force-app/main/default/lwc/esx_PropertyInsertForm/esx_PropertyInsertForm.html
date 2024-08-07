@@ -71,13 +71,13 @@
                             <div class="prop-type input-first-half">
                                 <p class="label"><abbr class="slds-required" title="required">*</abbr>City</p>
                                 <input type="text" id="city" name="city" class="input-text" placeholder="Enter City"
-                                    value={property.city} pattern="[a-zA-Z]+" onkeypress={onlyText}
+                                    value={property.city} pattern="[A-Za-z\s]{2,100}$" data-errmsg="Enter valid city name"
                                     onchange={handleInputChange} required></input>
                                 <p class="show-error-message" data-for="city">Enter valid value</p>
                             </div>
                             <div class="prop-type input-second-half">
                                 <p class="label"><abbr class="slds-required" title="required">*</abbr>Enter Locality</p>
-                                <input type="text" id="locality" name="locality" pattern="[a-zA-Z]+" class="input-text"
+                                <input type="text" id="locality" name="locality" pattern="[a-zA-Z]+" data-errmsg="Enter valid locality name" class="input-text"
                                     placeholder="Enter Locality" value={property.locality} onchange={handleInputChange}
                                     required></input>
                                 <p class="show-error-message" data-for="locality">Enter valid value</p>
@@ -186,7 +186,7 @@
                                 <div class="full-box">
                                     <div class="innerbox">
                                         <input type="number" id="coveredArea" min="0" name="coveredArea"
-                                            value={property.coveredArea} class="input-text " placeholder="Covered Area"
+                                            value={property.coveredArea} class="input-text input-small-field" placeholder="Covered Area"
                                             onchange={handleInputChange}></input>
                                         <p class="show-error-message" data-for="coveredArea">Enter valid value</p>
                                     </div>
@@ -205,9 +205,9 @@
                                 <div class="full-box">
                                     <div class="innerbox">
                                         <input type="number" id="carpetArea" min="0" name="carpetArea"
-                                            value={property.carpetArea} class="input-text " placeholder="Carpet Area"
+                                            value={property.carpetArea} class="input-text input-small-field" placeholder="Carpet Area"
                                             onchange={handleInputChange}></input>
-                                        <span class="show-error-message" data-for="carpetArea">Enter valid value</span>
+                                        <p class="show-error-message" data-for="carpetArea">Enter valid value</p>
                                     </div>
                                     <label class="label"></label>
                                     <select name="carpetAreaUnit" class="input-dropdown slds-m-left_medium"
@@ -511,7 +511,8 @@
             <br />
             <template if:true={isData}>
                 <div class="buttons">
-                    <button class="property-save-btn" onclick={getPropertyObject}>Save</button>
+                    <button class="property-save-btn" onclick={navigatePage}>Cancel</button>
+                    <button class="property-save-btn slds-m-left_medium" onclick={getPropertyObject}>Save</button>
                 </div>
             </template>
         </div>
