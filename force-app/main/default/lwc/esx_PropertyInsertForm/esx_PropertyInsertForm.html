@@ -443,7 +443,7 @@
                                 </div>
                                 <p class="label">Indoor Amenities</p>
                                 <input type="text" readonly name="indoorAmenties" class="input-text amenities-input"
-                                    placeholder="Select Amenities" onclick={clickhandler}></input>
+                                    placeholder="Select Amenities" onclick={clickhandler} onblur={clickhandler}></input>
                                 <template if:true={showDropdown_indoor}>
                                     <div class="slds-box_border amenty-checkboxes ">
                                         <ul class="dropdown-list slds-dropdown_length-7 slds-p-left_medium">
@@ -471,7 +471,7 @@
                                 </div>
                                 <p class="label">Outdoor Amenities</p>
                                 <input type="text" readonly name="outdoorAmenties" class="input-text amenities-input"
-                                    placeholder="Select Amenities" onclick={clickhandler}></input>
+                                    placeholder="Select Amenities" onclick={clickhandler} onblur={clickhandler}></input>
                                 <template if:true={showDropdown_outdoor}>
                                     <div class="slds-box_border amenty-checkboxes">
                                         <ul class="dropdown-list slds-dropdown_length-7 slds-p-left_medium">
