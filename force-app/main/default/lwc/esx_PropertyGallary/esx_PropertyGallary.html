@@ -9,13 +9,13 @@
 
         <div class="image-viewer">
             <template if:true={isModalOpen}>
-                <div class="td-txt photo-cell ph-hg-at">
+                <div class="td-txt photo-cell ph-hg-at" ontouchstart={handleTouchStart} ontouchmove={handleTouchMove} ontouchend={handleTouchEnd}>
                     <lightning-button-icon icon-name="utility:chevronleft" size="large" variant="bare"
                         onclick={goToPrevious} class="arrow left-arrow"
                         disabled={leftArrowDisabled}></lightning-button-icon>
                     <div class="main-file-cmp">
                         <img src={previewImageUrl} class={imageClass}></img>
-                        <p class="pagination-number">{currentIndex}/{totalImages}</p>
+                        <p class="pagination-number">Swipe left for next image...</p>
                     </div>
                     <lightning-button-icon icon-name="utility:chevronright" size="large" variant="bare"
                         onclick={goToNext} class="arrow right-arrow"

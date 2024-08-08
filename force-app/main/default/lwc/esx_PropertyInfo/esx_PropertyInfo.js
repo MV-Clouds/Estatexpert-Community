@@ -67,6 +67,7 @@ export default class Esx_PropertyInfo extends LightningElement {
                     this.property.Amenities__c = amenitiesArray.map(amenity => {
                         return {
                             name: amenity,
+                            // icon: `${amenity_icons}/${amenity}.svg#amenity` || this.CarParkingIcon
                             icon: `${amenity_icons}/${amenity}.svg` || this.CarParkingIcon
                         };
                     });

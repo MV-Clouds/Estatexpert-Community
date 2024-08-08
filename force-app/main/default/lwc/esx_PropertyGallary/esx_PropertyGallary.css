@@ -213,6 +213,15 @@
     .container{
         margin-top: 1rem;
     }
+    .arrow{
+        display: none;
+    }
+    .main-file-cmp{
+        width: 96%;
+    }
+    .pagination-number{
+        display: block;
+    }
 }
 
 

@@ -1,9 +1,12 @@
 import { LightningElement, track } from 'lwc';
-
-export default class Esx_PropertyDetails extends LightningElement {
+import { NavigationMixin } from 'lightning/navigation';
+import property_icons from '@salesforce/resourceUrl/propertyViewIcons';
+export default class Esx_PropertyDetails extends NavigationMixin(LightningElement) {
 
     @track isDescription = true;
     @track isGallary = false;
+    @track backIcon = property_icons + '/backIcon.png'
+
     handleNavigation(event) {
         const navigationName = event.currentTarget.dataset.name;
         const descElement = this.template.querySelector('.description');
@@ -28,5 +31,14 @@ export default class Esx_PropertyDetails extends LightningElement {
             descElement.style.background = inactiveStyle;
             galleryElement.style.background = activeStyle;
         }
+    }
+    
+    navigateHome(){
+        this[NavigationMixin.Navigate]({
+            type: 'comm__namedPage',
+            attributes: {
+                name: 'Home'
+            },
+        });
     }
 }

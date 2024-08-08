@@ -80,6 +80,30 @@ export default class Esx_PropertyGallary extends LightningElement {
         const overlay = this.template.querySelector('.overlay');
         overlay.style.display = 'none';
     }
+
+
+    touchStartX = 0;
+    touchEndX = 0;
+
+    handleTouchStart(event) {
+        this.touchStartX = event.touches[0].clientX;
+    }
+
+    handleTouchMove(event) {
+        this.touchEndX = event.touches[0].clientX;
+    }
+
+    handleTouchEnd() {
+        if (this.touchStartX - this.touchEndX > 50) {
+            this.goToNext();
+        }
+
+        if (this.touchEndX - this.touchStartX > 50) {
+            this.goToPrevious();
+        }
+    }
+
+    
     goToPrevious(){
         if (this.currentIndex > 0) {
             this.leftArrowDisabled = false;
