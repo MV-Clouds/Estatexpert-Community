@@ -65,7 +65,7 @@ export default class Esx_PropertyInsertForm extends NavigationMixin(LightningEle
         plotLength: null,
         currentOwner: this.contactId,
     };
-
+    dropDownAerrowIcon = dropdownAerrow; 
     @wire(getAllPicklistValues)
     wiredPicklistValues({ error, data }) {
         if (data) {
@@ -127,6 +127,17 @@ export default class Esx_PropertyInsertForm extends NavigationMixin(LightningEle
                             this.contactId = loggedUserInfoObj.contactId;
                             this.property['currentOwner'] = loggedUserInfoObj.contactId;
                             this.isData = true;
+                            setTimeout(() => {
+                                const dropdowns = this.template.querySelectorAll('select');
+                                console.log('dropdowns: ', dropdowns);
+                                dropdowns.forEach((selector) =>{
+                                    console.log('selector',selector);
+                                    selector.style.backgroundImage=`url(${this.dropDownAerrowIcon})`});
+                                const amenitiesDropdowns = this.template.querySelectorAll('.amenities-input');
+                                amenitiesDropdowns.forEach((selector) =>{
+                                    console.log('selector',selector);
+                                    selector.style.backgroundImage=`url(${this.dropDownAerrowIcon})`});
+                            }, 0);  
                         }
                     })
                     .catch(error => {
