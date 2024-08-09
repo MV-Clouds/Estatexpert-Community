@@ -12,8 +12,7 @@
                 <div class="facility-box">
                     <div class="facilities">
                         <template for:each={property.Amenities__c} for:item="amenity">
-                            <c-esx_-property-amenity key={amenity.name} amenity-name={amenity.name}
-                                icon-url={amenity.icon}></c-esx_-property-amenity>
+                            <c-esx_-property-amenity key={amenity.name} amenity-name={amenity.name}></c-esx_-property-amenity>
                         </template>
                         <!-- 
                         <div class="custom-box slds-box slds-p-around_medium slds-text-align_center facilityBox" key={amenity.name}>

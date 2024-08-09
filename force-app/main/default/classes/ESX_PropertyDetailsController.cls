@@ -22,11 +22,20 @@ public without sharing class ESX_PropertyDetailsController {
                 ContentVersion cv = [SELECT Id, VersionData FROM ContentVersion WHERE Id =: document[0].LatestPublishedVersionId];
                 image = EncodingUtil.Base64Encode(cv.VersionData);
             }
+
+            List<String> picklistValues = new List<String>();
+            Schema.DescribeFieldResult fieldResult = Schema.SObjectType.Property_Media__c.fields.getMap().get('Tags__c').getDescribe();
+            List<Schema.PicklistEntry> picklistEntries = fieldResult.getPicklistValues();
+
+            for (Schema.PicklistEntry entry : picklistEntries) {
+                picklistValues.add(entry.getLabel());
+            }
             PropertyWrapper propertyInfo = new PropertyWrapper();
 
             propertyInfo.property = property[0];
             propertyInfo.mediaLinks = mediaRecords;
             propertyInfo.ownerProfileImage = image;
+            propertyInfo.mediaTags = picklistValues;
             return propertyInfo;
         } catch (Exception e) {
             return null;
@@ -43,5 +52,8 @@ public without sharing class ESX_PropertyDetailsController {
         
         @AuraEnabled
         public List<Property_Media__c> mediaLinks { get; set; }
+
+        @AuraEnabled
+        public List<String> mediaTags { get; set; }
     }
 }

@@ -20,6 +20,7 @@ export default class Esx_PropertyGallary extends LightningElement {
     @track leftArrowDisabled = false;
     @track rightArrowDisabled = false;
     @track totalImages;
+    @track isImages = false;
     @track imageClass = 'active';
 
     propertyId = 'a02dL000000xuO1QAI';
@@ -27,37 +28,65 @@ export default class Esx_PropertyGallary extends LightningElement {
         this.getImages();
     }
 
+    @track gallaryImages = [];
+    @track mediaTags = [];
     getImages(){
         getPropertyImages({propertyId:this.propertyId})
         .then(result => {
             console.log("result",result);
             this.propertyMediaImages = result.mediaLinks;
-            this.totalImages = this.propertyMediaImages.length;
+            if(this.propertyMediaImages.length >0){
+                this.isImages = true;
+            }else{
+                this.isImages = false;
+            };
+            this.mediaTags = result.mediaTags;
             console.log('result.mediaLinks:',result.mediaLinks);
-            this.livingRoomImgs = this.propertyMediaImages.filter(media =>{
-                const tags = media.Tags__c ? media.Tags__c=='Living Room': false;
-                return tags;
-            });
-            console.log('livingRoomImgs:',this.livingRoomImgs);
 
-            this.diningRoomImgs = this.propertyMediaImages.filter(media =>{
-                const tags = media.Tags__c ? media.Tags__c=='Common Area': false;
-                return tags;
+            this.mediaTags.forEach(value => {
+                this.gallaryImages.push({
+                    name: value,
+                    images: this.propertyMediaImages.filter(media =>{
+                        const tags = media.Tags__c ? media.Tags__c==value: false;
+                        return tags;
+                    }),
+                    imageCount: this.propertyMediaImages.filter(media =>{
+                        const tags = media.Tags__c? media.Tags__c==value: false;
+                        return tags;
+                    }).length,
+                    show: this.propertyMediaImages.filter(media =>{
+                        const tags = media.Tags__c? media.Tags__c==value: false;
+                        return tags;
+                    }).length > 0 ? true : false
+                });
             });
-            console.log('livingRoomImgs:',this.livingRoomImgs);
+            console.log('mediaTags:',this.mediaTags);
+            console.log('mediaTags:',JSON.stringify(this.mediaTags));
+            console.log('gallaryImages:',JSON.stringify(this.gallaryImages));
+            // this.livingRoomImgs = this.propertyMediaImages.filter(media =>{
+            //     const tags = media.Tags__c ? media.Tags__c=='Living Room': false;
+            //     return tags;
+            // });
+            // console.log('livingRoomImgs:',this.livingRoomImgs);
 
-            this.kitchenImgs = this.propertyMediaImages.filter(media =>{
-                const tags = media.Tags__c ? media.Tags__c=='Kitchen': false;
-                return tags;
-            });
-            this.guestRoomImgs = this.propertyMediaImages.filter(media =>{
-                const tags = media.Tags__c ? media.Tags__c=='Others': false;
-                return tags;
-            });
-            this.livingRoomImgsSize = this.livingRoomImgs.length;
-            this.diningRoomImgsSize = this.diningRoomImgs.length;
-            this.kitchenImgsSize = this.kitchenImgs.length;
-            this.guestRoomImgsSize = this.guestRoomImgs.length;
+            // this.diningRoomImgs = this.propertyMediaImages.filter(media =>{
+            //     const tags = media.Tags__c ? media.Tags__c=='Common Area': false;
+            //     return tags;
+            // });
+            // console.log('livingRoomImgs:',this.livingRoomImgs);
+
+            // this.kitchenImgs = this.propertyMediaImages.filter(media =>{
+            //     const tags = media.Tags__c ? media.Tags__c=='Kitchen': false;
+            //     return tags;
+            // });
+            // this.guestRoomImgs = this.propertyMediaImages.filter(media =>{
+            //     const tags = media.Tags__c ? media.Tags__c=='Others': false;
+            //     return tags;
+            // });
+            // this.livingRoomImgsSize = this.livingRoomImgs.length;
+            // this.diningRoomImgsSize = this.diningRoomImgs.length;
+            // this.kitchenImgsSize = this.kitchenImgs.length;
+            // this.guestRoomImgsSize = this.guestRoomImgs.length;
         })
         .catch(error => {
             console.error(error);

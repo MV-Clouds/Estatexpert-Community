@@ -9,7 +9,8 @@
 
         <div class="image-viewer">
             <template if:true={isModalOpen}>
-                <div class="td-txt photo-cell ph-hg-at" ontouchstart={handleTouchStart} ontouchmove={handleTouchMove} ontouchend={handleTouchEnd}>
+                <div class="td-txt photo-cell ph-hg-at" ontouchstart={handleTouchStart} ontouchmove={handleTouchMove}
+                    ontouchend={handleTouchEnd}>
                     <lightning-button-icon icon-name="utility:chevronleft" size="large" variant="bare"
                         onclick={goToPrevious} class="arrow left-arrow"
                         disabled={leftArrowDisabled}></lightning-button-icon>
@@ -24,22 +25,35 @@
             </template>
         </div>
         <div class="container">
-            <div class="content">
-                <div class="title-box">
-                    <h1 class="title">Living Room(<span class="number-of-imgs">{livingRoomImgsSize}</span>)</h1>
-                </div>
-                <div class="images-box">
-                    <template for:each={livingRoomImgs} for:item="livingroom">
-                        <div class="card" onclick={handleCard} key={livingroom.ExternalLink__c}
-                            data-url={livingroom.ExternalLink__c}>
-                            <div class="card-image">
-                                <img draggable="false" src={livingroom.ExternalLink__c} class="responsive" alt="Images">
+            <template if:true={isImages}>
+                <template for:each={gallaryImages} for:item="catagory">
+                    <template if:true={catagory.show}>
+                        <div class="content" key={catagory.name}>
+                            <div class="title-box">
+                                <h1 class="title">{catagory.name}(<span class="number-of-imgs">{catagory.imageCount}</span>)
+                                </h1>
+                            </div>
+                            <div class="images-box">
+                                <template for:each={catagory.images} for:item="img">
+                                    <div class="card" onclick={handleCard} key={img.ExternalLink__c}
+                                        data-url={img.ExternalLink__c}>
+                                        <div class="card-image">
+                                            <img draggable="false" src={img.ExternalLink__c} class="responsive" alt="Images">
+                                        </div>
+                                    </div>
+                                </template>
                             </div>
                         </div>
                     </template>
+                </template>
+            </template>
+            <template if:false={isImages}>
+                <div class="content">
+                    <h1 class="no-image-text"><b>Images not found...</b></h1>
                 </div>
-            </div>
-            <div class="content">
+            </template>
+
+            <!-- <div class="content">
                 <div class="title-box">
                     <h1 class="title">Dining Room(<span class="number-of-imgs">{diningRoomImgsSize}</span>)</h1>
                 </div>
@@ -83,7 +97,7 @@
                         </div>
                     </template>
                 </div>
-            </div>
+            </div> -->
         </div>
     </div>
 </template>

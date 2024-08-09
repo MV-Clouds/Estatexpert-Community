@@ -29,7 +29,6 @@ export default class Esx_PropertyDetailsHero extends LightningElement {
         getPropertyInformation({ propertyId: this.propertyId })
             .then(result => {
                 console.log("result", result);
-                console.log('profilepicture==========>',result.ownerProfileImage);
                 if ((result != null && result != undefined) && (result.ownerProfileImage != null && result.ownerProfileImage != undefined)) {
                     this.profileImage = 'data:image/jpeg;base64,'+ result.ownerProfileImage;
                     console.log('this.profileImage==========>',this.profileImage);
@@ -40,7 +39,7 @@ export default class Esx_PropertyDetailsHero extends LightningElement {
                 this.allPropertyImages = result.mediaLinks;
                 this.propertyMedias = result.mediaLinks;
                 this.propertyMedias = this.propertyMedias.slice(0, 6);
-                this.propertyMainImage = this.propertyMedias[0].ExternalLink__c;
+                this.propertyMainImage = this.propertyMedias.length>0 ?this.propertyMedias[0].ExternalLink__c :this.samplePropertyImage;
                 this.isProperty = true;
                 this.moreImgSize = result.mediaLinks.length - 5;
                 const targetId = this.propertyMedias[5].Id;

@@ -14,32 +14,22 @@
     background-color: #0176D3;
     color:white;
 }
-.facilityBox:hover .iconImg{
-    /* fill:black; */
-    filter: brightness(0) invert(1);
-}
 .facilityBox img{
     height:31.25px;
     width:33.75px;
     cursor:pointer;
 }
-svg{
+.iconImg svg{
     height:31.25px;
-    width:25.75px;
+    width:33.75px;
     cursor:pointer;
 }
 
 .facilityBox p{
     font-size:12px;
-    margin-top:5px;
-}
-svg use {
-    fill: #00A1E0;
+    margin-top:0.5rem;
 }
 
-svg use:hover {
-    fill: yellow;
-}
 
 @media only screen and (max-width: 767px) {
     .facilityBox{
@@ -47,10 +37,6 @@ svg use:hover {
         padding: 0.8rem;
         width: 6rem;
         height: 5.375rem;
-    }
-    .iconImg{
-        width: 1.5rem;
-        height: 1.5rem;
     }
     .facilityBox p{
         font-size:10px;
