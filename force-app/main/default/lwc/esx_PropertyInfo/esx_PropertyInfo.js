@@ -1,7 +1,6 @@
 import { LightningElement, track } from 'lwc';
 import property_icons from '@salesforce/resourceUrl/propertyViewIcons';
 import amenity_icons from '@salesforce/resourceUrl/amenityIcons';
-import SVG_LOGO from "@salesforce/resourceUrl/testSvg";
 import getPropertyInformation from '@salesforce/apex/ESX_PropertyDetailsController.getPropertyInformation';
 export default class Esx_PropertyInfo extends LightningElement {
 

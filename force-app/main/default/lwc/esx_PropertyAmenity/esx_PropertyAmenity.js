@@ -224,6 +224,9 @@ export default class Esx_PropertyAmenity extends LightningElement {
     ];
 
     connectedCallback() {
+        this.template.addEventListener("notification", (evt) => {
+            console.log("Notification event", evt);
+          });
         this.setIcon();
     }
 
@@ -234,7 +237,6 @@ export default class Esx_PropertyAmenity extends LightningElement {
         if (iconData) {
             setTimeout(() => {
                 const targetDiv = this.template.querySelector('.iconImg');
-                console.log('targetDiv', JSON.stringify(targetDiv));
                 if (targetDiv) {
                     targetDiv.innerHTML = iconData.icon;
                 } else {
@@ -242,9 +244,10 @@ export default class Esx_PropertyAmenity extends LightningElement {
                     console.error(`Element with ID '#${this.amenityName}' not found.`);
                 }
             }, 0);
-
         }
     }
+
+
 
 }
 

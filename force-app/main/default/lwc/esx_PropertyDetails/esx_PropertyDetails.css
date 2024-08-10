@@ -3,11 +3,11 @@
     align-items: center;
     margin-bottom: 1.375rem;
     margin-left: 1rem;
-    cursor: pointer;
 }
 .header img{
     height: 1.25rem;
     width: 1.875rem;
+    cursor: pointer;
 }
 .navigation{
     padding: 0rem 1rem;

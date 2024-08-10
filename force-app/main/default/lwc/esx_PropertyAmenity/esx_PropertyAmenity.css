@@ -29,7 +29,12 @@
     font-size:12px;
     margin-top:0.5rem;
 }
-
+.amenity-icon path{
+    fill: yellow !important;
+}
+.amenity-icon path:hover{
+    fill: white !important;
+}
 
 @media only screen and (max-width: 767px) {
     .facilityBox{

@@ -30,6 +30,7 @@ export default class Esx_PropertyDetails extends NavigationMixin(LightningElemen
             this.isGallary = true;
             descElement.style.background = inactiveStyle;
             galleryElement.style.background = activeStyle;
+            galleryElement.style.transition = 'background 0.3s'
         }
     }
     

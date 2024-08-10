@@ -1,5 +1,5 @@
 import { LightningElement, track } from 'lwc';
-import samplePropertyImage from '@salesforce/resourceUrl/samplePropertyImage';
+import samplePropertyImage from '@salesforce/resourceUrl/nopropertyfound';
 import property_icons from '@salesforce/resourceUrl/propertyViewIcons';
 import Blank_Profile_Photo from '@salesforce/resourceUrl/Blank_Profile_Photo';
 import getPropertyInformation from '@salesforce/apex/ESX_PropertyDetailsController.getPropertyInformation';
