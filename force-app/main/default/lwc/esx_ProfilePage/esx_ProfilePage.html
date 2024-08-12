@@ -10,6 +10,7 @@
             <div class="popup-for-confirmation">
                 <template if:true={isModalOpen}>
                     <div class="custom_popup">
+                        <div class="message-icon"><img src={popupIcon}></img></div>
                         <div class="show-msg">{popupMessage}</div>
                         <div class="two-buttons">
                             <button class="ok-btn" onclick={closePopup}>Ok</button>

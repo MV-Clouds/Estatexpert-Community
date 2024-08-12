@@ -8,15 +8,21 @@ import updateContact from '@salesforce/apex/ProfilePage.updateContact';
 import uploadProfileImage from '@salesforce/apex/ProfilePage.uploadProfileImage';
 import isLoggedInUserDataCorrect from '@salesforce/apex/ESX_UserUtil.isLoggedInUserDataCorrect';
 import removeProfileImage from '@salesforce/apex/ProfilePage.removeProfileImage';
+import popupIcons from '@salesforce/resourceUrl/popupicons1';
 import { NavigationMixin } from 'lightning/navigation';
 export default class Esx_ProfilePage extends NavigationMixin(LightningElement) {
 
+    deleteIcon = popupIcons + '/delete.png';
+    sucessIcon = popupIcons + '/success.png';
+    errorIcon = popupIcons + '/error.png';
+
     @track contactId;
     @track contact = {};
-    @track contactValues ={};
+    @track contactValues = {};
     @track profileImage;
     @track contactProfile;
     @track recordType;
+    @track popupIcon = this.sucessIcon;
     @track isLoading = true;
     @track isDisabled = true;
     backgroundImageUrl = myProfilePageBackground;
@@ -87,69 +93,13 @@ export default class Esx_ProfilePage extends NavigationMixin(LightningElement) {
                     this.populateImageDetails(result.image);
                     this.setCountryAndSalutationOptions(result.contact);
                     this.isLoading = false;
-                    // this.contact = {
-                    //     id: result.contact.Id,
-                    //     salutation: result.contact.Salutation || '',
-                    //     firstName: result.contact.FirstName || '',
-                    //     lastName: result.contact.LastName || '',
-                    //     gender: result.contact.Gender__c || '',
-                    //     birthdate: result.contact.Birthdate || '',
-                    //     age: result.contact.Age__c || '',
-                    //     phone: result.contact.MobilePhone || '',
-                    //     email: result.contact.Email || '',
-                    //     mailingStreet: result.contact.MailingStreet || '',
-                    //     mailingCity: result.contact.MailingCity || '',
-                    //     mailingPostalCode: result.contact.MailingPostalCode || '',
-                    //     mailingState: result.contact.MailingState || '',
-                    //     mailingCountry: result.contact.MailingCountry || '',
-                    //     description: result.contact.Description || '',
-                    // };
-                    // this.contactValues = {
-                    //     id: result.contact.Id,
-                    //     salutation: result.contact.Salutation || '',
-                    //     firstName: result.contact.FirstName || '',
-                    //     lastName: result.contact.LastName || '',
-                    //     gender: result.contact.Gender__c || '',
-                    //     birthdate: result.contact.Birthdate || '',
-                    //     age: result.contact.Age__c || '',
-                    //     phone: result.contact.MobilePhone || '',
-                    //     email: result.contact.Email || '',
-                    //     mailingStreet: result.contact.MailingStreet || '',
-                    //     mailingCity: result.contact.MailingCity || '',
-                    //     mailingPostalCode: result.contact.MailingPostalCode || '',
-                    //     mailingState: result.contact.MailingState || '',
-                    //     mailingCountry: result.contact.MailingCountry || '',
-                    //     description: result.contact.Description || '',
-                    // };
-                    // this.recordType = result.contact.RecordType.Name;
                 } else {
                     console.log('no data found');
                 }
-                // if ((result != null && result != undefined) && (result.image != null && result.image != undefined)) {
-                    
-                // }
-                    // this.profileImage = 'data:image/jpeg;base64,' + result.image;
-                    // this.contactProfile = 'data:image/jpeg;base64,' + result.image;
-                // } else {
-                //     this.profileImage = this.placeholderProfile;
-                //     this.contactProfile = this.placeholderProfile;
-                // }
-                // if (result.contact.Gender__c != null && result.contact.Gender__c != undefined) {
-                //     setTimeout(() => {
-                //         let radioButton = this.template.querySelector("." + result.contact.Gender__c);
-                //         if (radioButton != null) {
-                //             radioButton.checked = true;
-                //         }
-                //     }, 0);
-                // }
-                // if (result.contact.MailingCountry != null && result.contact.MailingCountry != undefined) {
-                //     this.countryOptions = this.countryOptions.filter(option => option.value !== result.contact.MailingCountry);
-                // }
-                // if (result.contact.salutation != null && result.contact.salutation != undefined) {
-                //     this.salutationoptions = this.salutationoptions.filter(option => option.value !== result.contact.salutation);
-                // }
             })
             .catch(error => {
+                let errorMessage = this.returnErrorMsg(error);
+                // this.showPopupMessage(errorMessage, this.errorIcon);
                 console.log('error: ', error.message);
             });
     }
@@ -224,41 +174,41 @@ export default class Esx_ProfilePage extends NavigationMixin(LightningElement) {
     updateContact(event) {
         const field = event.target.name;
         this.contact[field] = event.target.value;
-        if(event.target.name !=="mailingCountry" && event.target.name!=="salutation"  && event.target.type!=="radio"){
+        if (event.target.name !== "mailingCountry" && event.target.name !== "salutation" && event.target.type !== "radio") {
             this.handleValidation(event);
         }
     }
-    
+
     handleValidation(event) {
         let field = event.target;
         let pattern = field.pattern;
         let value = field.value;
         let errorMessage = field.dataset.errmsg;
         let errorElement = field.nextElementSibling;
-        
+
         if (field.required && !value) {
             field.style.border = '1px solid red';
             field.style.marginBottom = '0rem';
-            if(errorElement !=null){
+            if (errorElement != null) {
                 errorElement.textContent = 'This field is required';
                 errorElement.style.display = 'block';
             }
-        }else if(pattern!=='' && value.length > 0) {
+        } else if (pattern !== '' && value.length > 0) {
             const regex = new RegExp(pattern);
             if (!regex.test(value)) {
                 field.style.border = '1px solid red';
                 field.style.marginBottom = '0rem';
-                if(errorElement !=null){
+                if (errorElement != null) {
                     errorElement.textContent = errorMessage;
                     errorElement.style.display = 'block';
                 }
             } else {
                 field.style.border = '1px solid rgba(191, 196, 215, 1)';
-                if(errorElement !=null){
+                if (errorElement != null) {
                     errorElement.style.display = 'none';
                 }
             }
-        }else if(field.name === 'birthdate') {
+        } else if (field.name === 'birthdate') {
             let today = new Date();
             let birthdate = new Date(value);
             let age = today.getFullYear() - birthdate.getFullYear();
@@ -269,18 +219,18 @@ export default class Esx_ProfilePage extends NavigationMixin(LightningElement) {
             if (isNaN(birthdate) || age < 0 || age > 120) {
                 field.style.border = '1px solid red';
                 field.style.marginBottom = '0rem';
-                if(errorElement !=null){
+                if (errorElement != null) {
                     errorElement.style.display = 'block';
                 }
-            }else{
+            } else {
                 field.style.border = '1px solid rgba(191, 196, 215, 1)';
-                if(errorElement !=null){
+                if (errorElement != null) {
                     errorElement.style.display = 'none';
                 }
             }
-        }else{
+        } else {
             field.style.border = '1px solid rgba(191, 196, 215, 1)';
-            if(errorElement !=null){
+            if (errorElement != null) {
                 errorElement.style.display = 'none';
             }
         }
@@ -294,7 +244,7 @@ export default class Esx_ProfilePage extends NavigationMixin(LightningElement) {
         dropdownCountry.style.backgroundColor = 'white';
         let button = this.template.querySelector('.save-btn');
         button.style.backgroundColor = 'rgba(1, 118, 211, 1)';
-        if(this.profileImage === this.placeholderProfile){
+        if (this.profileImage === this.placeholderProfile) {
             setTimeout(() => {
                 this.template.querySelector('.delete-icon').style.display = 'none';
             }, 0);
@@ -312,30 +262,30 @@ export default class Esx_ProfilePage extends NavigationMixin(LightningElement) {
             if (input.required && !value) {
                 input.style.border = '1px solid red';
                 input.style.marginBottom = '0rem';
-                if(errorElement !=null){
+                if (errorElement != null) {
                     errorElement.textContent = 'This field is required';
                     errorElement.style.display = 'block';
                 }
                 allValid = false;
-            }else if (pattern!=='' && value.length >0) {
+            } else if (pattern !== '' && value.length > 0) {
                 const regex = new RegExp(pattern);
                 if (!regex.test(value)) {
                     input.style.border = '1px solid red';
                     input.style.marginBottom = '0rem';
-                    if(errorElement !=null){
+                    if (errorElement != null) {
                         errorElement.textContent = errorMessage;
                         errorElement.style.display = 'block';
                     }
                     allValid = false;
                 } else {
                     input.style.border = '1px solid rgba(191, 196, 215, 1)';
-                    if(errorElement !=null){
+                    if (errorElement != null) {
                         errorElement.style.display = 'none';
                     }
                 }
-            }else{
+            } else {
                 input.style.border = '1px solid rgba(191, 196, 215, 1)';
-                if(errorElement !=null){
+                if (errorElement != null) {
                     errorElement.style.display = 'none';
                 }
             }
@@ -346,12 +296,12 @@ export default class Esx_ProfilePage extends NavigationMixin(LightningElement) {
     updateContactInfo() {
         if (this.validateAllFields()) {
             this.isLoading = true;
-            if(this.imgFile !=='' && this.base64Data !==''){
-                this.uploadToSalesforce(this.imgFile,this.base64Data);
+            if (this.imgFile !== '' && this.base64Data !== '') {
+                this.uploadToSalesforce(this.imgFile, this.base64Data);
             }
             updateContact({ contact: JSON.stringify(this.contact) }).then(result => {
                 this.isLoading = false;
-                this.showPopupMessage('Your details are updated successfully!');
+                this.showPopupMessage('Your details are updated successfully!', this.sucessIcon);
                 this.setRadioButtons(this.contact.gender);
                 this.applyDisabledCss();
                 // this.popupMessage = 'Your details are updated successfully!';
@@ -360,7 +310,7 @@ export default class Esx_ProfilePage extends NavigationMixin(LightningElement) {
                 //     overlay.style.display = 'block';
                 //     this.isModalOpen = true;
                 // }, 0);
-                
+
                 // window.scrollTo({ top: 0, behavior: 'smooth' });
                 // if (this.contact.gender != null && this.contact.gender != undefined) {
                 //     setTimeout(() => {
@@ -378,9 +328,11 @@ export default class Esx_ProfilePage extends NavigationMixin(LightningElement) {
                 // dropdownCountry.style.backgroundColor = 'light-dark(rgba(239, 239, 239, 0.3), rgba(59, 59, 59, 0.3))';
                 // this.getCurrentContactDetails();
             })
-            .catch(error => {
-                console.error(error);
-            });
+                .catch(error => {
+                    let errorMessage = this.returnErrorMsg(error);
+                    // this.showPopupMessage(errorMessage, this.errorIcon);
+                    console.error(error);
+                });
         } else {
             window.scrollTo({ top: 0, behavior: 'smooth' });
         }
@@ -403,7 +355,7 @@ export default class Esx_ProfilePage extends NavigationMixin(LightningElement) {
             }
         }
     }
-    
+
     uploadFile(file) {
         const reader = new FileReader();
         reader.onload = () => {
@@ -423,15 +375,10 @@ export default class Esx_ProfilePage extends NavigationMixin(LightningElement) {
                 this.profileImage = 'data:image/jpeg;base64,' + contentVersion;
                 this.contactProfile = 'data:image/jpeg;base64,' + contentVersion;
                 this.applyDisabledCss();
-                // let button = this.template.querySelector('.save-btn');
-                // button.style.backgroundColor = 'rgba(210, 210, 210, 1)';
-                // let dropdownCountry = this.template.querySelector('.country-dropdown');
-                // let dropdownSalutation = this.template.querySelector('.input-dropdown');
-                // dropdownSalutation.style.backgroundColor = 'light-dark(rgba(239, 239, 239, 0.3), rgba(59, 59, 59, 0.3))';
-                // dropdownCountry.style.backgroundColor = 'light-dark(rgba(239, 239, 239, 0.3), rgba(59, 59, 59, 0.3))';
-                // this.getCurrentContactDetails();
             })
             .catch(error => {
+                let errorMessage = this.returnErrorMsg(error);
+                // this.showPopupMessage(errorMessage, this.errorIcon);
                 console.error(error);
             });
     }
@@ -443,23 +390,15 @@ export default class Esx_ProfilePage extends NavigationMixin(LightningElement) {
                 this.isLoading = false;
                 this.profileImage = this.placeholderProfile;
                 this.contactProfile = this.placeholderProfile;
-                setTimeout(() => {
-                    this.template.querySelector('.delete-icon').style.display = 'none';
-                }, 0);
                 this.setRadioButtons(this.contact.gender);
                 this.applyDisabledCss();
-                // let button = this.template.querySelector('.save-btn');
-                // button.style.backgroundColor = 'rgba(210, 210, 210, 1)';
-                // let dropdownCountry = this.template.querySelector('.country-dropdown');
-                // let dropdownSalutation = this.template.querySelector('.input-dropdown');
-                // dropdownSalutation.style.backgroundColor = 'light-dark(rgba(239, 239, 239, 0.3), rgba(59, 59, 59, 0.3))';
-                // dropdownCountry.style.backgroundColor = 'light-dark(rgba(239, 239, 239, 0.3), rgba(59, 59, 59, 0.3))';
             }
         })
-        .catch(error => {
-            console.log('errormsg:', error.body.message);
-            console.error(error);
-        });
+            .catch(error => {
+                let errorMessage = this.returnErrorMsg(error);
+                // this.showPopupMessage(errorMessage, this.errorIcon);
+                console.error(error);
+            });
     }
 
     previewProfileImage() {
@@ -473,12 +412,6 @@ export default class Esx_ProfilePage extends NavigationMixin(LightningElement) {
         this.contact = { ...this.contactValues };
         this.profileImage = this.contactProfile;
         this.applyDisabledCss();
-        // let button = this.template.querySelector('.save-btn');
-        // button.style.backgroundColor = 'rgba(210, 210, 210, 1)';
-        // let dropdownCountry = this.template.querySelector('.country-dropdown');
-        // let dropdownSalutation = this.template.querySelector('.input-dropdown');
-        // dropdownSalutation.style.backgroundColor = 'light-dark(rgba(239, 239, 239, 0.3), rgba(59, 59, 59, 0.3))';
-        // dropdownCountry.style.backgroundColor = 'light-dark(rgba(239, 239, 239, 0.3), rgba(59, 59, 59, 0.3))';
     }
 
     navigateHome() {
@@ -495,8 +428,8 @@ export default class Esx_ProfilePage extends NavigationMixin(LightningElement) {
         });
     }
 
-    applyDisabledCss(){
-        this.isDisabled= true;
+    applyDisabledCss() {
+        this.isDisabled = true;
         let button = this.template.querySelector('.save-btn');
         button.style.backgroundColor = 'rgba(210, 210, 210, 1)';
         let dropdownCountry = this.template.querySelector('.country-dropdown');
@@ -505,12 +438,28 @@ export default class Esx_ProfilePage extends NavigationMixin(LightningElement) {
         dropdownCountry.style.backgroundColor = 'light-dark(rgba(239, 239, 239, 0.3), rgba(59, 59, 59, 0.3))';
     }
 
-    showPopupMessage(message) {
+    returnErrorMsg(error) {
+        let errorMessage = 'Unknown error';
+        if (error && error.body) {
+            if (error.body.message) {
+                errorMessage = error.body.message;
+            } else if (error.body.pageErrors && error.body.pageErrors.length > 0) {
+                errorMessage = error.body.pageErrors[0].message;
+            }
+        } else if (error && error.message) {
+            errorMessage = error.message;
+        }
+
+        return { errorMessage, errorObject: error };
+    }
+
+    showPopupMessage(message, icon) {
         setTimeout(() => {
             const overlay = this.template.querySelector('.overlay');
             overlay.style.display = 'block';
         }, 0);
         this.popupMessage = message;
+        this.popupIcon = icon;
         this.isModalOpen = true;
     }
 
