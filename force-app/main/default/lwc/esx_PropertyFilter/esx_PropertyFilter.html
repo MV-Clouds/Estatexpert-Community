@@ -1,64 +1,166 @@
 <template>
-    <div class="main-container">
-        <div class="first-container search-bar">
-            <div class="search">
-                <img src={searchIcon} alt="" srcset="">
-                <input type="text" placeholder="Search">
+    <div class="main" if:false={deviceType}>
+        <div class="first-container">
+            <div class="search-bar">
+                <svg width="15" height="15" viewBox="0 0 15 15" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path
+                        d="M14.7583 13.575L11.925 10.75C12.8392 9.58538 13.3352 8.14722 13.3333 6.66667C13.3333 5.34813 12.9423 4.0592 12.2098 2.96287C11.4773 1.86654 10.4361 1.01206 9.21789 0.507473C7.99972 0.00288854 6.65927 -0.129134 5.36607 0.128101C4.07286 0.385336 2.88497 1.02027 1.95262 1.95262C1.02027 2.88497 0.385336 4.07286 0.128101 5.36607C-0.129134 6.65927 0.00288854 7.99972 0.507473 9.21789C1.01206 10.4361 1.86654 11.4773 2.96287 12.2098C4.0592 12.9423 5.34813 13.3333 6.66667 13.3333C8.14722 13.3352 9.58538 12.8392 10.75 11.925L13.575 14.7583C13.6525 14.8364 13.7446 14.8984 13.8462 14.9407C13.9477 14.9831 14.0567 15.0048 14.1667 15.0048C14.2767 15.0048 14.3856 14.9831 14.4872 14.9407C14.5887 14.8984 14.6809 14.8364 14.7583 14.7583C14.8364 14.6809 14.8984 14.5887 14.9407 14.4872C14.9831 14.3856 15.0048 14.2767 15.0048 14.1667C15.0048 14.0567 14.9831 13.9477 14.9407 13.8462C14.8984 13.7446 14.8364 13.6525 14.7583 13.575ZM1.66667 6.66667C1.66667 5.67776 1.95991 4.71106 2.50932 3.88882C3.05873 3.06657 3.83962 2.42571 4.75325 2.04727C5.66688 1.66883 6.67222 1.56982 7.64212 1.76274C8.61203 1.95567 9.50294 2.43187 10.2022 3.13114C10.9015 3.8304 11.3777 4.72131 11.5706 5.69122C11.7635 6.66112 11.6645 7.66646 11.2861 8.58009C10.9076 9.49372 10.2668 10.2746 9.44452 10.824C8.62228 11.3734 7.65558 11.6667 6.66667 11.6667C5.34059 11.6667 4.06882 11.1399 3.13114 10.2022C2.19345 9.26452 1.66667 7.99275 1.66667 6.66667Z"
+                        fill="#181A18" />
+                </svg>
+
+                <input type="text" data-label="search" value={searchValue} placeholder="Search" maxlength="255"
+                    class="search-input" onchange={handleInputChange} />
             </div>
             <div class="room-bathroom">
-                <div class="rooms">
-                    <!-- <span class="break-point">|</span>  -->
-                    <span class="icon-text">
-                        <img src={bedroomIcon} alt="" srcset="">
+                <div class="room">
+                    <div class="room-icon">
+                        <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path
+                                d="M13.8 6.58824C14.3602 6.5882 14.8994 6.83962 15.3074 7.29119C15.7155 7.74277 15.9618 8.36049 15.996 9.01835L16 9.17647V15.2941C16 15.473 15.9422 15.6451 15.8384 15.7758C15.7346 15.9065 15.5926 15.986 15.4409 15.9981C15.2892 16.0103 15.1393 15.9543 15.0214 15.8415C14.9034 15.7286 14.8263 15.5673 14.8056 15.3901L14.8 15.2941V13.1765H1.2V15.2941C1.19999 15.4647 1.14749 15.6295 1.05219 15.7581C0.956887 15.8866 0.825243 15.9702 0.6816 15.9934L0.6 16C0.45501 16 0.314926 15.9382 0.205655 15.8261C0.0963846 15.714 0.0253186 15.5591 0.00559998 15.3901L2.71084e-09 15.2941V9.17647C-2.77914e-05 8.51738 0.213674 7.8831 0.597515 7.40301C0.981355 6.92293 1.50642 6.63321 2.0656 6.59294L2.2 6.58824H13.8ZM3.8 3.18923e-09H12.2C12.7602 -3.26958e-05 13.2994 0.251381 13.7074 0.702958C14.1155 1.15454 14.3618 1.77226 14.396 2.43012L14.4 2.58824V5.64706H12L11.9944 5.53694C11.9733 5.32686 11.8927 5.13124 11.7656 4.98166C11.6384 4.83208 11.4722 4.73725 11.2936 4.71247L11.2 4.70588H9.6C9.40405 4.70591 9.21493 4.79055 9.0685 4.94373C8.92207 5.09692 8.82853 5.308 8.8056 5.53694L8.8 5.64706H7.2L7.1944 5.53694C7.17334 5.32686 7.09274 5.13124 6.96559 4.98166C6.83845 4.83208 6.67217 4.73725 6.4936 4.71247L6.4 4.70588H4.8C4.60405 4.70591 4.41493 4.79055 4.2685 4.94373C4.12207 5.09692 4.02853 5.308 4.0056 5.53694L4 5.64706H1.6V2.58824C1.59997 1.92914 1.81367 1.29486 2.19751 0.814779C2.58136 0.334694 3.10642 0.0449706 3.6656 0.00470599L3.8 3.18923e-09Z"
+                                fill="#181A18" />
+                        </svg>
                         <span>Rooms</span>
-                    </span>
-                    <span>
-                        <span class="operation">-</span>
-                        <span class="input-number">{roomNumber}</span>
-                        <span class="operation">+</span>
-                    </span>
+                    </div>
+                    <div class="number">
+                        <span data-name="room" onclick={decreaseHandle}>-</span>
+                        <span>{roomNumber}</span>
+                        <span data-name="room" onclick={increaseHandle}>+</span>
+                    </div>
+                </div>
+                <div class="bathroom">
+                    <div class="bathroom-icon">
+                        <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path
+                                d="M1 12C1.00086 12.4199 1.09039 12.8348 1.26271 13.2176C1.43504 13.6005 1.68629 13.9426 2 14.2216V15.5C2 15.6326 2.05268 15.7598 2.14645 15.8536C2.24021 15.9473 2.36739 16 2.5 16H3.5C3.63261 16 3.75979 15.9473 3.85355 15.8536C3.94732 15.7598 4 15.6326 4 15.5V15H12V15.5C12 15.6326 12.0527 15.7598 12.1464 15.8536C12.2402 15.9473 12.3674 16 12.5 16H13.5C13.6326 16 13.7598 15.9473 13.8536 15.8536C13.9473 15.7598 14 15.6326 14 15.5V14.2216C14.3137 13.9426 14.565 13.6005 14.7373 13.2176C14.9096 12.8348 14.9991 12.4199 15 12V10.5001H1V12ZM15.5 8.00009H2.5V2.16422C2.50028 2.03299 2.53943 1.90479 2.61249 1.79578C2.68555 1.68677 2.78926 1.60184 2.91053 1.5517C3.0318 1.50156 3.16521 1.48846 3.29392 1.51404C3.42263 1.53963 3.54088 1.60276 3.63375 1.69547L4.23594 2.29734C3.82562 3.23108 3.99812 4.14451 4.50531 4.78888L4.5 4.79419C4.40659 4.88791 4.35414 5.01483 4.35414 5.14715C4.35414 5.27947 4.40659 5.4064 4.5 5.50012L4.85344 5.85355C4.89987 5.89999 4.95499 5.93683 5.01566 5.96197C5.07633 5.9871 5.14136 6.00004 5.20703 6.00004C5.2727 6.00004 5.33773 5.9871 5.3984 5.96197C5.45907 5.93683 5.51419 5.89999 5.56063 5.85355L8.85344 2.56078C8.89988 2.51435 8.93672 2.45922 8.96185 2.39855C8.98699 2.33788 8.99992 2.27286 8.99992 2.20719C8.99992 2.14152 8.98699 2.07649 8.96185 2.01582C8.93672 1.95515 8.89988 1.90003 8.85344 1.8536L8.5 1.50016C8.40624 1.40647 8.27911 1.35383 8.14656 1.35383C8.01401 1.35383 7.88688 1.40647 7.79313 1.50016L7.78781 1.50547C7.14344 0.998293 6.23062 0.825795 5.29625 1.2361L4.69438 0.633922C4.39172 0.33124 4.00611 0.125107 3.5863 0.0415921C3.16649 -0.0419225 2.73134 0.000932933 2.33589 0.164739C1.94043 0.328544 1.60244 0.605942 1.36465 0.961849C1.12687 1.31776 0.999965 1.73619 1 2.16422V8.00009H0.5C0.367392 8.00009 0.240215 8.05277 0.146447 8.14653C0.0526784 8.2403 0 8.36748 0 8.50008L0 9.00008C0 9.13268 0.0526784 9.25986 0.146447 9.35363C0.240215 9.4474 0.367392 9.50007 0.5 9.50007H15.5C15.6326 9.50007 15.7598 9.4474 15.8536 9.35363C15.9473 9.25986 16 9.13268 16 9.00008V8.50008C16 8.36748 15.9473 8.2403 15.8536 8.14653C15.7598 8.05277 15.6326 8.00009 15.5 8.00009Z"
+                                fill="#181A18" />
+                        </svg>
 
-                </div>
-                <div class="bathrooms">
-                    <!-- <span class="break-point">|</span> -->
-                    <img src={bathroomIcon} alt="" srcset="">
-                    <span>Bathroom</span>
-                    <span class="operation">-</span>
-                    <span class="input-number">{bathRoomNumber}</span>
-                    <span class="operation">+</span>
+                        <span>Bathroom</span>
+                    </div>
+                    <div class="number">
+                        <span data-name="bathroom" onclick={decreaseHandle}>-</span>
+                        <span>{bathRoomNumber}</span>
+                        <span data-name="bathroom" onclick={increaseHandle}>+</span>
+                    </div>
                 </div>
             </div>
-            <div class="search-button-container">
-                <button class="search-button">Search</button>
+
+            <div class="search-button">
+                <button data-label="search-button" class="search-button-icon" onclick={handleApplyFilter}>Search</button>
             </div>
+
         </div>
-
-        <div class="second-container">
-            <div class="filters">
-                <button class="more-filters" onclick={showModalBox}>More Filters <img src={dropdownIcon} alt=""
-                        srcset=""></button>
+        <div class="sec-container">
+            <div class="more-filters">
+                <button class="more-filters-icon" onclick={showModalBox}>More Filters
+                    <svg class="filter-side-icon" width="20" height="20" viewBox="0 0 20 20" fill="none"
+                        xmlns="http://www.w3.org/2000/svg">
+                        <path
+                            d="M10 14.1667C9.78725 14.1656 9.57742 14.1172 9.38571 14.0249C9.19401 13.9327 9.02524 13.7989 8.89166 13.6333L5.38333 9.38332C5.17833 9.12746 5.04932 8.81916 5.01101 8.49355C4.9727 8.16793 5.02664 7.83811 5.16666 7.54166C5.28023 7.28401 5.46556 7.0645 5.70051 6.90934C5.93547 6.75418 6.21012 6.66993 6.49166 6.66666H13.5083C13.7899 6.66993 14.0645 6.75418 14.2995 6.90934C14.5344 7.0645 14.7198 7.28401 14.8333 7.54166C14.9734 7.83811 15.0273 8.16793 14.989 8.49355C14.9507 8.81916 14.8217 9.12746 14.6167 9.38332L11.1083 13.6333C10.9747 13.7989 10.806 13.9327 10.6143 14.0249C10.4226 14.1172 10.2127 14.1656 10 14.1667Z"
+                            fill="white" />
+                    </svg>
+                </button>
             </div>
-            <div class="sort-by">
-                <div class="sort-by-sub">
-                    <span>Sort by &nbsp;:</span>
-                    <select class="sort-option">
-                        <option value="availability">Availability</option>
+
+            <div class="sort-view">
+                <div class="sort">
+                    <label for="Sort-by">Sort by :</label>
+                    <select data-label="sort-price" name="Sort-by" id="Sort-by" value={sortValue}
+                        onchange={handleInputChange}>
                         <option value="Price High to Low">Price High to Low</option>
                         <option value="Price Low to High">Price Low to High</option>
                     </select>
-                    <div class="format-dropdown">
-                        <img src={viewType} alt="" srcset="">
-                        <select class="sort-option">
-                            <option value="List">List</option>
-                            <option value="Grid">Grid</option>
-                            <option value="Column">Column</option>
-                        </select>
+
+                </div>
+                <div class="view-type" data-label="view-type" onclick={handleViewType}>
+                    <div class="type-icon">
+                        <!-- list  -->
+                        <template if:true={list}>
+                            <svg width="28" height="20" viewBox="0 0 28 20" fill="none"
+                                xmlns="http://www.w3.org/2000/svg">
+                                <path
+                                    d="M2.45455 5C3.81015 5 4.90909 3.88071 4.90909 2.5C4.90909 1.11929 3.81015 0 2.45455 0C1.09894 0 0 1.11929 0 2.5C0 3.88071 1.09894 5 2.45455 5Z"
+                                    fill="white" />
+                                <path
+                                    d="M2.45455 12.5C3.81015 12.5 4.90909 11.3807 4.90909 10C4.90909 8.61929 3.81015 7.5 2.45455 7.5C1.09894 7.5 0 8.61929 0 10C0 11.3807 1.09894 12.5 2.45455 12.5Z"
+                                    fill="white" />
+                                <path
+                                    d="M2.45455 20C3.81015 20 4.90909 18.8807 4.90909 17.5C4.90909 16.1193 3.81015 15 2.45455 15C1.09894 15 0 16.1193 0 17.5C0 18.8807 1.09894 20 2.45455 20Z"
+                                    fill="white" />
+                                <path d="M9.81818 2.5H27H9.81818ZM9.81818 10H27H9.81818ZM9.81818 17.5H27H9.81818Z"
+                                    fill="white" />
+                                <path d="M9.81818 2.5H27M9.81818 10H27M9.81818 17.5H27" stroke="white" stroke-width="2"
+                                    stroke-linecap="round" stroke-linejoin="round" />
+                            </svg>
+                        </template>
+
+                        <!-- columm  -->
+                        <template if:true={columm}>
+                            <svg width="28" height="21" viewBox="0 0 28 21" fill="none"
+                                xmlns="http://www.w3.org/2000/svg">
+                                <rect x="1" y="1" width="26" height="19" rx="1" stroke="white" stroke-width="2" />
+                                <path d="M7 2L7 19" stroke="white" stroke-width="2" stroke-linecap="round" />
+                                <path d="M14 2L14 19" stroke="white" stroke-width="2" stroke-linecap="round" />
+                                <path d="M21 2V19" stroke="white" stroke-width="2" stroke-linecap="round" />
+                            </svg>
+                        </template>
+
+                        <!-- grid -->
+                        <template if:true={grid}>
+                            <svg width="27" height="26" viewBox="0 0 27 26" fill="none"
+                                xmlns="http://www.w3.org/2000/svg">
+                                <rect width="10" height="10" rx="1" fill="white" />
+                                <rect y="16" width="10" height="10" rx="1" fill="white" />
+                                <rect x="17" width="10" height="10" rx="1" fill="white" />
+                                <rect x="17" y="16" width="10" height="10" rx="1" fill="white" />
+                            </svg>
+                        </template>
                     </div>
+
+                    <select name="view" id="view" data-label="view-type" value={viewType} class="select-view-type">
+                        <option value="List">List</option>
+                        <option value="Columm">columm</option>
+                        <option value="Grid">grid</option>
+                    </select>
+
                 </div>
             </div>
         </div>
     </div>
 
+    <!-- mobile view  -->
+    <div class="mobile-view" if:true={deviceType}>
+        <div class="search-mobile">
+            <input type="text" data-label="search" value={searchValue} placeholder="Search" maxlength="255"
+                class="search-input" onchange={handleInputChange} />
+            <svg data-label="search-button" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" onclick={handleApplyFilter}>
+                <path fill-rule="evenodd" clip-rule="evenodd"
+                    d="M11.2754 2.71429C16.003 2.71429 19.8364 6.54668 19.8364 11.2752C19.8364 16.0038 16.003 19.8362 11.2754 19.8362C6.54686 19.8362 2.71448 16.0038 2.71448 11.2752C2.71448 6.54668 6.54686 2.71429 11.2754 2.71429Z"
+                    stroke="#6C7884" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                <path fill-rule="evenodd" clip-rule="evenodd"
+                    d="M19.899 18.4876C20.678 18.4876 21.3095 19.12 21.3095 19.8981C21.3095 20.6781 20.678 21.3095 19.899 21.3095C19.1199 21.3095 18.4875 20.6781 18.4875 19.8981C18.4875 19.12 19.1199 18.4876 19.899 18.4876Z"
+                    stroke="#6C7884" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+            </svg>
+
+        </div>
+        <div class="filter-button-mobile" onclick={showModalBox}>
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path opacity="0.4"
+                    d="M10.0828 15.958H3.50728C2.67506 15.958 1.99951 16.6217 1.99951 17.4393C1.99951 18.2559 2.67506 18.9207 3.50728 18.9207H10.0828C10.915 18.9207 11.5906 18.2559 11.5906 17.4393C11.5906 16.6217 10.915 15.958 10.0828 15.958Z"
+                    fill="white" />
+                <path opacity="0.4"
+                    d="M21.9995 6.37861C21.9995 5.56208 21.3239 4.89838 20.4928 4.89838H13.9173C13.0851 4.89838 12.4095 5.56208 12.4095 6.37861C12.4095 7.19623 13.0851 7.85994 13.9173 7.85994H20.4928C21.3239 7.85994 21.9995 7.19623 21.9995 6.37861Z"
+                    fill="white" />
+                <path
+                    d="M8.87725 6.37862C8.87725 8.24529 7.33837 9.75827 5.43838 9.75827C3.5395 9.75827 1.99951 8.24529 1.99951 6.37862C1.99951 4.51304 3.5395 3.00006 5.43838 3.00006C7.33837 3.00006 8.87725 4.51304 8.87725 6.37862Z"
+                    fill="white" />
+                <path
+                    d="M21.9996 17.3993C21.9996 19.2649 20.4607 20.7779 18.5607 20.7779C16.6618 20.7779 15.1218 19.2649 15.1218 17.3993C15.1218 15.5326 16.6618 14.0197 18.5607 14.0197C20.4607 14.0197 21.9996 15.5326 21.9996 17.3993Z"
+                    fill="white" />
+            </svg>
+        </div>
+    </div>
+    <!-- mobile view  -->
 
 
     <!-- modal start -->
@@ -67,78 +169,114 @@
         <section role="dialog" tabindex="-1" aria-labelledby="modal-heading-01" aria-modal="true"
             aria-describedby="modal-content-id-1" class="slds-modal slds-fade-in-open">
             <div class="slds-modal__container">
+
                 <!-- modal body start -->
-                <div class="slds-modal__content slds-p-around_medium" id="modal-content-id-1">
-                    <div class="rooms-section">
-                        <div class="rooms">
-                            <span class="break-point">|</span> <img src={bedroomIcon} alt="" srcset="">
-                            <span>Rooms</span>
-                            <span class="operation">-</span>
-                            <span class="input-number">{roomNumber}</span>
-                            <span class="operation">+</span>
-                        </div>
-                        <div class="bathrooms">
-                            <span class="break-point">|</span> <img src={bathroomIcon} alt="" srcset="">
-                            <span>Bathroom</span>
-                            <span class="operation">-</span>
-                            <span class="input-number">{bathRoomNumber}</span>
-                            <span class="operation">+</span>
-                        </div>
+                <div class="slds-modal__content slds-p-around_medium model-popup" id="modal-content-id-1">
+                    <div class="close-button slds-clearfix">
+                        <button
+                            class="slds-button slds-button_icon slds-modal__close slds-button_icon-inverse slds-float_right"
+                            title="Close" onclick={hideModalBox}>
+                            <lightning-icon icon-name="utility:close" alternative-text="close" variant="inverse"
+                                size="small"></lightning-icon>
+                            <span class="slds-assistive-text">Close</span>
+                        </button>
                     </div>
 
-                    <div class="listing-type-section">
-                        <select class="sort-option">
-                            <option value="">None</option>
-                            <option value="Rent">Rent</option>
-                            <option value="Sale">Sale</option>
-                        </select>
-                    </div>
 
-                    <div class="price-section">
-                        <div class="rooms">
-                            <span>Rooms</span>
-                            <span class="operation">-</span>
-                            <span class="input-number">{roomNumber}</span>
-                            <span class="operation">+</span>
+                    <div class="main-model">
+                        <div class="bed-bath">
+                            <div class="bedromm-pop">
+                                <label>Bedroom</label>
+                                <div class="backcolor bedroom-pop">
+                                    <span data-name="room-filter-input" onclick={decreaseHandle}>-</span>
+                                    <span>{roomNumberFilterInput}</span>
+                                    <span data-name="room-filter-input" onclick={increaseHandle}>+</span>
+                                </div>
+                            </div>
+                            <div class="bathromm-pop">
+                                <label>Bathroom</label>
+                                <div class="backcolor bathroom-pop">
+                                    <span data-name="bathroom-filter-input" onclick={decreaseHandle}>-</span>
+                                    <span>{bathRoomNumberFilterInput}</span>
+                                    <span data-name="bathroom-filter-input" onclick={increaseHandle}>+</span>
+                                </div>
+                            </div>
                         </div>
-                        <div class="bathrooms">
-                            <span>Bathroom</span>
-                            <span class="operation">-</span>
-                            <span class="input-number">{bathRoomNumber}</span>
-                            <span class="operation">+</span>
+                        <div class="listing-type">
+                            <label for="">Listing type</label>
+                            <div class="backcolor listing-sub">
+                                <select name="listing" id="listing" data-label="listing" onchange={handleInputChange}>
+                                    <option value="">-None-</option>
+                                    <template for:each={listType} for:item="list" for:index="index">
+                                        <option key={list.index} value={list.value}>{list.label}</option>
+                                    </template>
+                                </select>
+                            </div>
+
+                        </div>
+                        <div class="max-min-price">
+                            <div class="min-price-pop">
+                                <label>Min Price</label>
+                                <div class="backcolor min-pop">
+                                    <span>Rs.</span>
+                                    <input type="number" data-label="min-price" value={minPrice} placeholder="Min Price"
+                                        min="0" onkeypress={handleKeyPress} onchange={handleInputChange}>
+                                </div>
+                            </div>
+                            <div class="max-price-pop">
+                                <label>Max Price</label>
+                                <div class="backcolor max-pop">
+                                    <span>Rs.</span>
+                                    <input type="number" data-label="max-price" value={maxPrice} placeholder="Max Price"
+                                        min="0" onkeypress={handleKeyPress} onchange={handleInputChange}>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="square-footage">
+                            <label for="">Square Footage &nbsp;(<span>m<sup>2</sup></span>)</label>
+                            <div class="backcolor square-sub">
+                                <div class="input-squr">
+                                    <input type="number" data-label="square" value={square} placeholder="Square Footage"
+                                        min="0" onkeypress={handleKeyPress} onchange={handleInputChange}>
+                                </div>
+                                <div>
+                                    <svg width="20" height="20" class="squ-icon" viewBox="0 0 20 20" fill="none"
+                                        xmlns="http://www.w3.org/2000/svg">
+                                        <path
+                                            d="M1.66667 3.61111C1.66667 2.53778 2.53778 1.66667 3.61111 1.66667H5.27778C5.49879 1.66667 5.71075 1.57887 5.86703 1.42259C6.02331 1.26631 6.11111 1.05435 6.11111 0.833333C6.11111 0.61232 6.02331 0.400358 5.86703 0.244078C5.71075 0.0877973 5.49879 0 5.27778 0H3.61111C2.65338 0 1.73488 0.380455 1.05767 1.05767C0.380455 1.73488 0 2.65338 0 3.61111V5.27778C0 5.49879 0.0877973 5.71075 0.244078 5.86703C0.400358 6.02331 0.61232 6.11111 0.833333 6.11111C1.05435 6.11111 1.26631 6.02331 1.42259 5.86703C1.57887 5.71075 1.66667 5.49879 1.66667 5.27778V3.61111ZM16.3889 1.66667C17.4622 1.66667 18.3333 2.53778 18.3333 3.61111V5.27778C18.3333 5.49879 18.4211 5.71075 18.5774 5.86703C18.7337 6.02331 18.9457 6.11111 19.1667 6.11111C19.3877 6.11111 19.5996 6.02331 19.7559 5.86703C19.9122 5.71075 20 5.49879 20 5.27778V3.61111C20 2.65338 19.6195 1.73488 18.9423 1.05767C18.2651 0.380455 17.3466 0 16.3889 0H14.7222C14.5012 0 14.2892 0.0877973 14.133 0.244078C13.9767 0.400358 13.8889 0.61232 13.8889 0.833333C13.8889 1.05435 13.9767 1.26631 14.133 1.42259C14.2892 1.57887 14.5012 1.66667 14.7222 1.66667H16.3889ZM16.3889 18.3333C16.9046 18.3333 17.3992 18.1285 17.7638 17.7638C18.1285 17.3992 18.3333 16.9046 18.3333 16.3889V14.7222C18.3333 14.5012 18.4211 14.2892 18.5774 14.133C18.7337 13.9767 18.9457 13.8889 19.1667 13.8889C19.3877 13.8889 19.5996 13.9767 19.7559 14.133C19.9122 14.2892 20 14.5012 20 14.7222V16.3889C20 17.3466 19.6195 18.2651 18.9423 18.9423C18.2651 19.6195 17.3466 20 16.3889 20H14.7222C14.5012 20 14.2892 19.9122 14.133 19.7559C13.9767 19.5996 13.8889 19.3877 13.8889 19.1667C13.8889 18.9457 13.9767 18.7337 14.133 18.5774C14.2892 18.4211 14.5012 18.3333 14.7222 18.3333H16.3889ZM3.61111 18.3333C3.09541 18.3333 2.60084 18.1285 2.23618 17.7638C1.87153 17.3992 1.66667 16.9046 1.66667 16.3889V14.7222C1.66667 14.5012 1.57887 14.2892 1.42259 14.133C1.26631 13.9767 1.05435 13.8889 0.833333 13.8889C0.61232 13.8889 0.400358 13.9767 0.244078 14.133C0.0877973 14.2892 0 14.5012 0 14.7222V16.3889C0 17.3466 0.380455 18.2651 1.05767 18.9423C1.73488 19.6195 2.65338 20 3.61111 20H5.27778C5.49879 20 5.71075 19.9122 5.86703 19.7559C6.02331 19.5996 6.11111 19.3877 6.11111 19.1667C6.11111 18.9457 6.02331 18.7337 5.86703 18.5774C5.71075 18.4211 5.49879 18.3333 5.27778 18.3333H3.61111ZM5.83333 3.33333C5.17029 3.33333 4.53441 3.59673 4.06557 4.06557C3.59673 4.53441 3.33333 5.17029 3.33333 5.83333V14.1667C3.33333 14.8297 3.59673 15.4656 4.06557 15.9344C4.53441 16.4033 5.17029 16.6667 5.83333 16.6667H14.1667C14.8297 16.6667 15.4656 16.4033 15.9344 15.9344C16.4033 15.4656 16.6667 14.8297 16.6667 14.1667V5.83333C16.6667 5.17029 16.4033 4.53441 15.9344 4.06557C15.4656 3.59673 14.8297 3.33333 14.1667 3.33333H5.83333Z"
+                                            fill="#0176D3" />
+                                    </svg>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="city-zipcode">
+                            <div class="citys-pop">
+                                <label>City</label>
+                                <div class="backcolor city-pop">
+                                    <input type="text" data-label="city" value={city} maxlength="25" placeholder="City"
+                                        onchange={handleInputChange}>
+                                </div>
+                            </div>
+                            <div class="zipcodes-pop">
+                                <label>Postal Code</label>
+                                <div class="backcolor zipcode-pop">
+                                    <input type="number" data-label="zipcode" size="6" value={zipcode}
+                                        placeholder="Zipcode" min="0" onkeypress={handleKeyPress}
+                                        onchange={handleInputChange}>
+                                </div>
+                            </div>
                         </div>
                     </div>
-
-                    <div class="square-section">
-                        <input type="text" placeholder="200">
-                        <img src={searchIcon} alt="" srcset="">
-                    </div>
-
-                    <div class="city-zipcode">
-                        <div class="rooms">
-                            <span>Rooms</span>
-                            <span class="operation">-</span>
-                            <span class="input-number">{roomNumber}</span>
-                            <span class="operation">+</span>
-                        </div>
-                        <div class="bathrooms">
-                            <span>Bathroom</span>
-                            <span class="operation">-</span>
-                            <span class="input-number">{bathRoomNumber}</span>
-                            <span class="operation">+</span>
-                        </div>
+                    <div class="button-apply-cancel">
+                        <button data-label="apply-filter" class="button-apply" onclick={handleApplyFilter}>Apply</button>
+                        <button class="button-cancel" onclick={handleCancleFilter}>Clear</button>
                     </div>
                 </div>
-
-                <!-- modal footer start-->
-                <footer class="slds-modal__footer">
-                    <button class="slds-button slds-button_neutral" onclick={applyFilter}>Apply</button>
-                    <button class="slds-button slds-button_neutral" onclick={hideModalBox}>Cancel</button>
-                </footer>
-
             </div>
         </section>
         <div class="slds-backdrop slds-backdrop_open"></div>
     </template>
     <!-- modal end -->
+
+
 </template>
