@@ -1,11 +1,11 @@
 .spinnerDiv {
-    position: absolute;
+    position: fixed;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
     background-color: rgba(0, 0, 0, 0.5);
-    z-index: 1;
+    z-index: 999;
 }
 
 .main-div {
@@ -365,6 +365,12 @@
     border: 1px solid rgba(191, 196, 215, 1);
     margin-bottom: 1rem;
     -webkit-appearance: none;
+}
+.enabled-dropdown{
+    background-color: white;
+}
+.disabled-dropdown{
+    background-color: light-dark(rgba(239, 239, 239, 0.3), rgba(59, 59, 59, 0.3));
 }
 
 .otherinput {
