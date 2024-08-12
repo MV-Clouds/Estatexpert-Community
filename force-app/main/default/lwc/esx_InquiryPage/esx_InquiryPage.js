@@ -102,15 +102,22 @@ export default class Esx_InquiryPage extends NavigationMixin(LightningElement) {
     fetchInquryData() {
         getInquiryData({ contactId: this.contactId }).then((result) => {
             if (result.inquiries.length >= 0) {
+                console.log('data:',result);
                 this.isData = true;
                 this.FilteredData = result.inquiries;
                 this.Data = result.inquiries;
                 this.profilepicUrls = result.contactContentVersions;
                 this.propertyMediaUrls = result.medias;
+                
                 this.Data.forEach((row, index) => {
                     const prop_id = row.Listing__r.Property__r.Id;
                     const conId = row.Contact__r.Id;
-                    row.ImageURL = this.propertyMediaUrls[prop_id][0].ExternalLink__c ? this.propertyMediaUrls[prop_id][0].ExternalLink__c : nopropertyfound;
+                    console.log('imageurl',this.propertyMediaUrls[prop_id]);
+                    if(this.propertyMediaUrls[prop_id]!==undefined){
+                        row.ImageURL = this.propertyMediaUrls[prop_id][0].ExternalLink__c ? this.propertyMediaUrls[prop_id][0].ExternalLink__c : nopropertyfound;
+                    }else{
+                        row.ImageURL = nopropertyfound;
+                    }
                     row.Inquiry_Date__c = row.Inquiry_Date__c ? this.formatDate(row.Inquiry_Date__c) : '';
                     row.isEdit = false;
                     if (this.profilepicUrls) {
@@ -123,7 +130,11 @@ export default class Esx_InquiryPage extends NavigationMixin(LightningElement) {
                 this.FilteredData.forEach((row, index) => {
                     const prop_id = row.Listing__r.Property__r.Id;
                     const conId = row.Contact__r.Id;
-                    row.ImageURL = this.propertyMediaUrls[prop_id][0].ExternalLink__c ? this.propertyMediaUrls[prop_id][0].ExternalLink__c : nopropertyfound;
+                    if(this.propertyMediaUrls[prop_id]!==undefined){
+                        row.ImageURL = this.propertyMediaUrls[prop_id][0].ExternalLink__c ? this.propertyMediaUrls[prop_id][0].ExternalLink__c : nopropertyfound;
+                    }else{
+                        row.ImageURL = nopropertyfound;
+                    }
                     row.Inquiry_Date__c = row.Inquiry_Date__c ? this.formatDate(row.Inquiry_Date__c) : '';
                     row.isEdit = false;
                     if (this.profilepicUrls) {
@@ -138,7 +149,7 @@ export default class Esx_InquiryPage extends NavigationMixin(LightningElement) {
             }
         }).catch((fetchError) => {
             this.isError = true;
-            this.errorMsg = fetchError.body;
+            this.errorMsg = 'Something went wrong!!';
             const overlay = this.template.querySelector('.overlay');
             overlay.style.display = 'block';
             console.error('Error fetching inquiry data:', fetchError);
@@ -184,7 +195,7 @@ export default class Esx_InquiryPage extends NavigationMixin(LightningElement) {
             }
         }).catch((error)=>{
             this.isError = true;
-            this.errorMsg = error.body;
+            this.errorMsg = 'Something went wrong!!';
             const overlay = this.template.querySelector('.overlay');
             overlay.style.display = 'block';
         });
@@ -254,7 +265,7 @@ export default class Esx_InquiryPage extends NavigationMixin(LightningElement) {
             }
         }).catch((error)=>{
             this.isError = true;
-            this.errorMsg = error.body;
+            this.errorMsg = 'Something went wrong!!';
             const overlay = this.template.querySelector('.overlay');
             overlay.style.display = 'block';
         });
