@@ -31,7 +31,6 @@ export default class Esx_PropertyDetailsHero extends LightningElement {
                 console.log("result", result);
                 if ((result != null && result != undefined) && (result.ownerProfileImage != null && result.ownerProfileImage != undefined)) {
                     this.profileImage = 'data:image/jpeg;base64,'+ result.ownerProfileImage;
-                    console.log('this.profileImage==========>',this.profileImage);
                 } else {
                     this.profileImage = this.placeholderProfile;
                 }
@@ -43,9 +42,7 @@ export default class Esx_PropertyDetailsHero extends LightningElement {
                 this.isProperty = true;
                 this.moreImgSize = result.mediaLinks.length - 5;
                 const targetId = this.propertyMedias[5].Id;
-                console.log("targetId", targetId);
                 setTimeout(() => {
-                    console.log('targetElement:', this.template.querySelector('[data-id="' + targetId + '"]'));
                     this.template.querySelector('[data-id="' + targetId + '"]').classList.add("activate");
                 }, 0);
 

@@ -41,7 +41,6 @@ export default class Esx_PropertyGallary extends LightningElement {
                 this.isImages = false;
             };
             this.mediaTags = result.mediaTags;
-            console.log('result.mediaLinks:',result.mediaLinks);
 
             this.mediaTags.forEach(value => {
                 this.gallaryImages.push({
@@ -60,9 +59,6 @@ export default class Esx_PropertyGallary extends LightningElement {
                     }).length > 0 ? true : false
                 });
             });
-            console.log('mediaTags:',this.mediaTags);
-            console.log('mediaTags:',JSON.stringify(this.mediaTags));
-            console.log('gallaryImages:',JSON.stringify(this.gallaryImages));
             // this.livingRoomImgs = this.propertyMediaImages.filter(media =>{
             //     const tags = media.Tags__c ? media.Tags__c=='Living Room': false;
             //     return tags;
@@ -136,8 +132,6 @@ export default class Esx_PropertyGallary extends LightningElement {
     goToPrevious(){
         if (this.currentIndex > 0) {
             this.leftArrowDisabled = false;
-            // this.currentIndex -= 1;
-            // this.previewImageUrl = this.propertyMediaImages[this.currentIndex].ExternalLink__c;
             this.imageClass = 'slide-in';
             setTimeout(() => {
                 this.currentIndex -= 1;
@@ -159,8 +153,6 @@ export default class Esx_PropertyGallary extends LightningElement {
         console.log('livingRoomImgs:',this.propertyMediaImages.length);
         if (this.currentIndex < this.propertyMediaImages.length - 1) {
             this.rightArrowDisabled = false;
-            // this.currentIndex += 1;
-            // this.previewImageUrl = this.propertyMediaImages[this.currentIndex].ExternalLink__c;
             this.imageClass = 'slide-out';
             setTimeout(() => {
                 this.currentIndex += 1;

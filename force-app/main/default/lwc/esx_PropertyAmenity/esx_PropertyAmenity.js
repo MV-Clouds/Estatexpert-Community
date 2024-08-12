@@ -124,15 +124,15 @@ export default class Esx_PropertyAmenity extends LightningElement {
                                        </svg>` 
         },
         {
-            name: 'Shared Gym', icon: `<svg class="amenity-icon" width="33.75" height="31.25" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-                                        <rect width="24" height="24" fill="url(#pattern0_4_16766)"/>
+            name: 'Shared Gym', icon: `<svg class="amenity-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                                        <rect width="24" height="24" fill="url(#pattern0_4_16767)"/>
                                         <defs>
-                                        <pattern id="pattern0_4_16766" patternContentUnits="objectBoundingBox" width="1" height="1">
-                                        <use xlink:href="#image0_4_16766" transform="scale(0.01)"/>
+                                        <pattern id="pattern0_4_16767" patternContentUnits="objectBoundingBox" width="1" height="1">
+                                        <use xlink:href="#image0_4_16767" transform="scale(0.01)"/>
                                         </pattern>
-                                        <image id="image0_4_16766" width="100" height="100" xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAGQAAABkCAYAAABw4pVUAAAACXBIWXMAAAsTAAALEwEAmpwYAAAEnklEQVR4nO2cW4gcVRCGq4z3W0RRUQyIiCgiiCiIID4IXvCCIBEEIwiStxCy2aqZ9WV89NWnEAQfFASDoCBGRDAgolFXd6dq3MWIRjcqIirxlqhRW2Z2sxNmErdvZ+p0d31QsDDLnnP+r/tMbU/3ADiOU2dY70TWD5Hkg/7P1tNpMAkCSQtJ/kHWZLnkX2R9CjrJSdazaxZb9p2LrC8PRYwU6W7Y1jvfeprNYLp3PZJ+fkIZq1LkK2jrTdbTrTcteQRJf19TxlDKYSB93Hra9WPLvtOQ9OnUIsZKnoNt755hvYx6wN3LkPS9/DJW6yNozV1uvZxqQ3Ibkn5XgoyjW9gPMK13WC+roi2tbkXSI6XJGNbfQPqkt8ZpocVzkOWlACJG31deha1z5wU9rirPjFyNJAvhZaxuYZ9Bq3ud9bLjhHoPI+tvE5MxlHIYWB6zXn48dPac3L/cMXERPFY7odM7FRrN9vmLkOWtCGQkK+8r7wAtXgqNhLq3Ism39hJ0ZAvT74G6t0OjINmMrH+Zh88nlHKkfyV50H7Xmk7vbCR90TxwTi3mFWjNroda0p6/ClnVPGTOLOVT4E+uhVpBvfuR9KB5uJxXivwKLA9B5dm4a91ySzv4JC+pQe2EzbOnQCWZ+fhCZH0zghCTkutteGLhEqgUJDciy5cRhJeEKfkGWG+ByrS0JH/ah6YTao1jpbP/dCR91jwonvjZ8gJsnz8LoqLduxJZu/bhqNXZsgis10AUkN6LpD+Zh8LWJb/AtD4Y2Y1qTS9ZvlFv4651k3XRXrgAWd6wD0DjLJI9MCMXT0YGdW9A1i/MF82RF+kB4O7NYWVM66PIesh8sVyVkj/6N2uEaWlZnrFfoFazSJ+HzuyZ5ciY0g1I8r75orjqJXPQliuKyeDu3cjyo/1itCYlPwPJAzlMeEuL4aRkfIZlrWcvvJJSMkj1DEvaZy+8knKk/N8zLC29z1tatTjYDvWzH/PRv8Z/nP1ur58NWvZ7yN7j/hM5JoT0wMgv7hg8KOPbU1JmBiuZ7hjbusa3LLkHWb9G0v1Auml45vh7BpYp5Cikmwa7Ul/GdO+uNVqtY7cyF4IhhOTFhWjthbzWf24w5bOFu+s2fnRCUoVx7HW0uo1fFOsJYcPHj25C2PDxJz6hrK9jzcZ3IQ0Ukq6LiSQQzBtYzi4s9d9PG1ipXUyVheTswqAooQestBAIn8/EB3QhGQl9BMYuBEueHxSlagvGyOeXS0KZAxZ9PTQuJGMgoXEhGQMJjQvJGEhoXEjGQELjQjIGEhoXUjAQ9La3Wn0+Rj4/KEroAWMXshYuhF1ItiPQL78nUW1Zg9vsp3RD3r8PVdmyBp+FyOvRb1llB4I1H9+FjOBCMoINHz+6CWHDxw8/IetbOdlvJc3XhU3l62JiHx+KUnogDS9wIWouwYWwffAuhO3DdiFsH7ALYftQXQjbB+lC2D48F8L2gbmQCEJCF2IfDLoQ+zAwgvJLJ2wvwYWwffAuhO3DdiFsH7ALYftQXQjbBxmPkPHvYvTivBnIUmEhK183vuQitOCBKEuZvlvRcRzHcRzHgfL4D1xnXS1zGwXcAAAAAElFTkSuQmCC"/>
+                                        <image id="image0_4_16767" width="100" height="100" xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAGQAAABkCAYAAABw4pVUAAAACXBIWXMAAAsTAAALEwEAmpwYAAAFwUlEQVR4nO2dTYwUVRCAq9CNPwcPRi4oqAdQbkQPJhAMhkTF6En5SfRk4nrCZJepGtDDctREo2CIoomJYsSY4AEN4gE14npaYadqNhgQ8YcIgmgAjbhsXPN6xmTY6ent7unp7p1XXzLZZHe2p7u+rtev39R7DWAYhmEYhmEYhmGUA6qtRJZPkfUPJD2OrDthy6H5Hd8/dPhmJHkBScaR9AySHEPSXcC6PNf9Lj0j0/NgcGwg0f+wbkDSy8g6feVLvoNqfVH7+2trkORi+/ubL5KXYe0HV4HXbB5fgiwfIcsFZLmEJKNQ1VXpZfwfXD3eJqV6+DYkPdHxfxqv7eAtVLsLWc6FBPMykK6PlME6NUtgU0uJdUL0HZvlbiT9PSKY4VJYl8aS0Y0Ukj3gFVS7IzQz4kvh2ELSSCE9DT6BpB8nCGb+Ukj+Bm8YmZ7XuIAnCmbOUuQoeMPg2EDQm0oSyLylkG4Dn0CS0cRCcpMiF2BYF4JXVHVV5D1EgVKgUn8QvITrj6WWwjoFVXmifZsynGw78gNsGr+9kOMvJWxSygeblPLBJqV8sEkpH6TrC+99uaH7qO9TvINKIeXNQo69tFDBUkjPFHLcpYYKlEL6VyHHXHqoKCnyWSHHOyeg3KVMQkVXFHKscwbOrUs8BSSPF3KMcw7uuZTw9xhNKvVlkF/zNeUKJ9r+ZjQZOXFt0PUk3QozYVmXuZQtcmfb74wWSJ5sCeTzkEfzZXQGSQ61BjG3TDFCYF0eFkSTUhDI8knE2Z1982Xd3BBcgTPVVrtBvdmC2JNMYVkXtlt+MTg2AKwPIMkbyHI2SRBNSpZTDqi2Gknejqzrnf2s/jl06kI3meKGTKi2Erxg49EbgPTZ5oSadBJaM4TlmY6f1VXzJQehrxkcGwCqDSVtkqJfcgqGvr4u8nPTSnHXE5fFfclQ/UYkOZCdiGZ2xL2pSyVFLkBfMvztTa5gOWsZSLI70X4kl/Iu9GV1O+m+Hsg46Ma4Eu9PXCmuo0BHFkDfwfWnshXhgik7UsmIL+Uk0MRi6Ds2Hr0GWX7KKCN+CaYFbB5fksm+OSmsk+GZ0Y8yHCxPdydCziLp60B6X096O8Gcdv2yIUbOB/PT+7KZaoKs36TIhN+Q5R2o6iOJ56kbEVTqyxJkwr/BTNeK3t+//f4w6MgCJH0ruEMOlpHQfb2qqEDSl+IKAdKHwTtoYrG7YIUEZDL70c1pRJIfYzZRB8DP5Sr0ZFRXMlMpmybuiZ0d3hUTcO2WSBk9kIKsL8bMjouzjkP1G8jyXvweThZSpuM3Vyzvg28g65/Jup1dSqnoitjNVUUfBa8IVklIsDBLBlKQ9bXYzdXI2PXgG8jyVWIhaaSwLkeS/Qm2vwu8pFq7t2df+LsLsitioyvrpmI1VyQPgbd0WwMbJsUtNhYMc6Ta5hkbFumJFN2aanssO3I6FUtOL4rISKqJt2PFzGXKFLHsKI0USvm1qxfkLYVkt8loJazdzkWKnLL5F21BkrWNAOpzuV3oSU+7n17ejUcyY5FhN4cul7l6I59fndMRzr3MmBnE3DLFaKuoaC9zyTtTjAbI+sVsQTQpOeJWY45zZpuUnEhS8m9SciDO/DyTkidbDs13y9OZlDIxrAtTSMm+S1y1lRJMSqmxTCkhJqWEmJSC4dqa4JELrVTri5LOD+/JfUrVtyefbZq4NahaJD1RTikyCj6BpK+2nJEllCKXvCoFagt2r6Vw0pJVOe/VbKnQB231UgrP8ujT9iZrL/gEsv7a4YJaguZLzvXv1OMOIOuHnc/OTKS4pVSXJpci51wZKniHe/JZZJPRlZTodW2pkxRfZTRBllcyl9KoXtkQ71F4Mtq4lrlJ+bLXu2aqw8Iv2yIurBeDm8eZOCnho8STiSdpDo4NeNWbikXjbN3jaqWQ5J9msLdHPsEy+D5FdyLr98HyeyT77SkBhmEYhmEYhmEYUBr+A150N7whsuJfAAAAAElFTkSuQmCC"/>
                                         </defs>
-                                       </svg>` 
+                                        </svg>` 
         },
         {
             name: 'Security', icon: `<svg class="amenity-icon" width="33.75" height="31.25" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -222,17 +222,12 @@ export default class Esx_PropertyAmenity extends LightningElement {
                                         </svg>` 
         }
     ];
-
     connectedCallback() {
-        this.template.addEventListener("notification", (evt) => {
-            console.log("Notification event", evt);
-          });
         this.setIcon();
     }
 
     setIcon() {
         const iconData = this.facilityIcons.find(icon => icon.name === this.amenityName);
-        console.log('iconData', JSON.stringify(iconData));
 
         if (iconData) {
             setTimeout(() => {
@@ -244,6 +239,42 @@ export default class Esx_PropertyAmenity extends LightningElement {
                     console.error(`Element with ID '#${this.amenityName}' not found.`);
                 }
             }, 0);
+        }
+    }
+
+    addHoverEffect(event) {
+        const svgElement = event.currentTarget.querySelector('svg');        
+        if (svgElement) {
+            const pathElements = svgElement.querySelectorAll('path');
+            if(pathElements.length>0){
+                pathElements.forEach(path => {
+                    path.style.fill = 'white';
+                    });
+            }else{
+                const svgElement = event.currentTarget.querySelector('.amenity-icon image');
+                svgElement.style.filter = 'brightness(0) invert(1)';
+            }
+            
+        }else{
+            console.error('Element not found')
+        }
+    }
+
+    // Method to remove hover effect
+    removeHoverEffect(event) {
+        const svgElement = event.currentTarget.querySelector('svg');
+        if (svgElement) {
+            const pathElements = svgElement.querySelectorAll('path');
+            if(pathElements.length>0){
+                pathElements.forEach(path => {
+                path.style.fill = '';
+            });
+            }else{
+                const svgElement = event.currentTarget.querySelector('.amenity-icon image');
+                svgElement.style.filter = '';
+            }
+        }else{
+            console.error('Element not found')
         }
     }
 

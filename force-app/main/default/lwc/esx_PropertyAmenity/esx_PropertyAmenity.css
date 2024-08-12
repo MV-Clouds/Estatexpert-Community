@@ -14,6 +14,9 @@
     background-color: #0176D3;
     color:white;
 }
+.facilityBox:hover svg path{
+    fill: white;
+}
 .facilityBox img{
     height:31.25px;
     width:33.75px;
@@ -29,11 +32,9 @@
     font-size:12px;
     margin-top:0.5rem;
 }
-.amenity-icon path{
-    fill: yellow !important;
-}
-.amenity-icon path:hover{
-    fill: white !important;
+
+.amenity-icon:hover{
+    fill: white !important; /* Change fill color on hover */
 }
 
 @media only screen and (max-width: 767px) {

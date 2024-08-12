@@ -71,12 +71,9 @@ export default class Esx_PropertyInfo extends LightningElement {
                             // icon: amenity!=='Central A/C & Heating'?`${amenity_icons}/${amenity}.svg`: `${amenity_icons}/Central AC & Heating.svg`
                         };
                     });
-                    console.log('row.Amenities__c', this.property.Amenities__c);
-                    console.log("svgURL=====>",this.svgURL);
                 } else {
                     this.property.Amenities__c = [];
                 }
-                console.log('amenitycheck-=====>', this.property);
                 this.mapMarkers[0].location.City = this.property.City__c;
                 this.mapMarkers[0].location.Country = this.property.Country__c;
                 this.mapMarkers[0].location.State = this.property.State__c;
