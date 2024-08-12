@@ -1,4 +1,10 @@
 <template>
+    <template if:true={isLoading}>
+        <div class="spinnerDiv">
+            <lightning-spinner alternative-text="Loading" size="medium"></lightning-spinner>
+        </div>
+    </template>
+    <template if:false={isLoading}>
     <div class="main-div">
         <img src={BgImage} alt="BgImage" class="bg-image" />
         <div class="overlay" lwc:dom="manual"></div>
@@ -517,4 +523,5 @@
             </template>
         </div>
     </div>
+    </template>
 </template>
