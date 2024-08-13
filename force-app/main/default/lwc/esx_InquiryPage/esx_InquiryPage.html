@@ -86,9 +86,9 @@
                                     </td>
                                     <td data-label="Title">
                                         <div class="box">
-                                            <div class="slds-truncate imgbox" title="Thumbnail"><img src={item.ImageURL}
-                                                    class="slds-avatar slds-avatar_rectangle slds-avatar_large customimg"
-                                                    alt="Thumbnail" /></div>
+                                            <div class="slds-truncate imgbox" title="Images"><img src={item.ImageURL}
+                                                    class="slds-avatar slds-avatar_rectangle slds-avatar_large customimg responsive"
+                                                    alt="Images" draggable="false" onerror={handleErrro} loading="lazy"/></div>
                                             <div class="slds-truncate rowValue propTitle" title="Property Name">
                                                 {item.Listing__r.Property__r.Name}</div>
                                         </div>
@@ -175,9 +175,9 @@
                         <div class="card" key={item.Id}>
                             <div class="property-image">
                                 <div class="img-box">
-                                    <div class="slds-truncate imgbox" title="Thumbnail"><img src={item.ImageURL}
-                                            class="slds-avatar slds-avatar_rectangle slds-avatar_large customimg"
-                                            alt="Thumbnail" /></div>
+                                    <div class="slds-truncate imgbox" title="Images"><img src={item.ImageURL}
+                                            class="slds-avatar slds-avatar_rectangle slds-avatar_large customimg responsive"
+                                            alt="Images" onerror={handleErrro} draggable="false" loading="lazy"/></div>
                                 </div>
                                 <div class="name-box">
                                     <div class="slds-truncate rowValue propTitle" title="Property Name">

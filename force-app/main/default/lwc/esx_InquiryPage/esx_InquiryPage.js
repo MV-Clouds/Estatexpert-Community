@@ -7,7 +7,7 @@ import isUserSeller from '@salesforce/apex/ESX_InquiryPageController.isUserSelle
 import customStyles from '@salesforce/resourceUrl/InquiryPageCss';
 import Blank_Profile_Photo from '@salesforce/resourceUrl/Blank_Profile_Photo';
 import popupIcons from '@salesforce/resourceUrl/popupicons1';
-import nopropertyfound from '@salesforce/resourceUrl/nopropertyfound';
+import nopropertyfound from '@salesforce/resourceUrl/ImageNotFound';
 import updateInquiryStatus from '@salesforce/apex/ESX_InquiryPageController.updateInquiryStatus';
 import isLoggedInUserDataCorrect from '@salesforce/apex/ESX_UserUtil.isLoggedInUserDataCorrect';
 import { NavigationMixin } from 'lightning/navigation';
@@ -43,6 +43,7 @@ export default class Esx_InquiryPage extends NavigationMixin(LightningElement) {
     @track isError = false;
     @track errorMsg = ''
     @track inquiryIdtoDelete;
+    @track imageNot = nopropertyfound;
     connectedCallback() {
         this.loadCssFromResource();
         this.checkUserIsLoggedIn();
@@ -114,9 +115,9 @@ export default class Esx_InquiryPage extends NavigationMixin(LightningElement) {
                     const conId = row.Contact__r.Id;
                     console.log('imageurl',this.propertyMediaUrls[prop_id]);
                     if(this.propertyMediaUrls[prop_id]!==undefined){
-                        row.ImageURL = this.propertyMediaUrls[prop_id][0].ExternalLink__c ? this.propertyMediaUrls[prop_id][0].ExternalLink__c : nopropertyfound;
+                        row.ImageURL = this.propertyMediaUrls[prop_id][0].ExternalLink__c ? this.propertyMediaUrls[prop_id][0].ExternalLink__c : this.imageNot;
                     }else{
-                        row.ImageURL = nopropertyfound;
+                        row.ImageURL = this.imageNot;
                     }
                     row.Inquiry_Date__c = row.Inquiry_Date__c ? this.formatDate(row.Inquiry_Date__c) : '';
                     row.isEdit = false;
@@ -131,9 +132,9 @@ export default class Esx_InquiryPage extends NavigationMixin(LightningElement) {
                     const prop_id = row.Listing__r.Property__r.Id;
                     const conId = row.Contact__r.Id;
                     if(this.propertyMediaUrls[prop_id]!==undefined){
-                        row.ImageURL = this.propertyMediaUrls[prop_id][0].ExternalLink__c ? this.propertyMediaUrls[prop_id][0].ExternalLink__c : nopropertyfound;
+                        row.ImageURL = this.propertyMediaUrls[prop_id][0].ExternalLink__c ? this.propertyMediaUrls[prop_id][0].ExternalLink__c : this.imageNot;
                     }else{
-                        row.ImageURL = nopropertyfound;
+                        row.ImageURL = this.imageNot;
                     }
                     row.Inquiry_Date__c = row.Inquiry_Date__c ? this.formatDate(row.Inquiry_Date__c) : '';
                     row.isEdit = false;
@@ -315,5 +316,10 @@ export default class Esx_InquiryPage extends NavigationMixin(LightningElement) {
         } else {
             this.isData = false;
         }
+    }
+
+    handleErrro(event){
+        event.target.src = this.imageNot;
+        event.target.onerror = null;
     }
 }
