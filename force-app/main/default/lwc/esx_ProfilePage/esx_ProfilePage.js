@@ -100,7 +100,7 @@ export default class Esx_ProfilePage extends NavigationMixin(LightningElement) {
             .catch(error => {
                 let errorMessage = this.returnErrorMsg(error);
                 // this.showPopupMessage(errorMessage, this.errorIcon);
-                console.log('error: ', error.message);
+                console.log('error: ', errorMessage);
             });
     }
 
@@ -328,11 +328,12 @@ export default class Esx_ProfilePage extends NavigationMixin(LightningElement) {
                 // dropdownCountry.style.backgroundColor = 'light-dark(rgba(239, 239, 239, 0.3), rgba(59, 59, 59, 0.3))';
                 // this.getCurrentContactDetails();
             })
-                .catch(error => {
-                    let errorMessage = this.returnErrorMsg(error);
-                    // this.showPopupMessage(errorMessage, this.errorIcon);
-                    console.error(error);
-                });
+            .catch(error => {
+                let errorMessage = this.returnErrorMsg(error);
+                // this.showPopupMessage(errorMessage, this.errorIcon);
+                console.log(errorMessage);
+                console.error(error);
+            });
         } else {
             window.scrollTo({ top: 0, behavior: 'smooth' });
         }
@@ -379,6 +380,7 @@ export default class Esx_ProfilePage extends NavigationMixin(LightningElement) {
             .catch(error => {
                 let errorMessage = this.returnErrorMsg(error);
                 // this.showPopupMessage(errorMessage, this.errorIcon);
+                console.log(errorMessage);
                 console.error(error);
             });
     }
@@ -394,11 +396,12 @@ export default class Esx_ProfilePage extends NavigationMixin(LightningElement) {
                 this.applyDisabledCss();
             }
         })
-            .catch(error => {
-                let errorMessage = this.returnErrorMsg(error);
-                // this.showPopupMessage(errorMessage, this.errorIcon);
-                console.error(error);
-            });
+        .catch(error => {
+            let errorMessage = this.returnErrorMsg(error);
+            // this.showPopupMessage(errorMessage, this.errorIcon);
+            console.log(errorMessage);
+            console.error(error);
+        });
     }
 
     previewProfileImage() {
