@@ -1,9 +1,9 @@
 import { LightningElement,track } from 'lwc';
-import samplePropertyImage from'@salesforce/resourceUrl/samplePropertyImage';
+import ImageNotFound from'@salesforce/resourceUrl/ImageNotFound';
 import getPropertyImages from '@salesforce/apex/ESX_PropertyDetailsController.getPropertyInformation';
 
 export default class Esx_PropertyGallary extends LightningElement {
-    samplePropertyImage = samplePropertyImage;
+    imageNot = ImageNotFound;    
     @track propertyMediaImages= [];
     @track livingRoomImgs = [];
     @track diningRoomImgs = [];
@@ -149,6 +149,11 @@ export default class Esx_PropertyGallary extends LightningElement {
     updateNavigationButtons() {
         this.leftArrowDisabled = this.currentIndex === 0;
         this.rightArrowDisabled = this.currentIndex === this.propertyMediaImages.length - 1;
+    }
+
+    handleErrro(event) {
+        event.target.src = this.imageNot;
+        event.target.onerror = null;
     }
 }
 

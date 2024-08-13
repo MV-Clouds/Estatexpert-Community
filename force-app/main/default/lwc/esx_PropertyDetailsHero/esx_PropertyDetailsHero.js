@@ -1,12 +1,12 @@
 import { LightningElement, track } from 'lwc';
-import samplePropertyImage from '@salesforce/resourceUrl/nopropertyfound';
+import samplePropertyImage from '@salesforce/resourceUrl/ImageNotFound';
 import property_icons from '@salesforce/resourceUrl/propertyViewIcons';
 import Blank_Profile_Photo from '@salesforce/resourceUrl/Blank_Profile_Photo';
 import getPropertyInformation from '@salesforce/apex/ESX_PropertyDetailsController.getPropertyInformation';
 
 export default class Esx_PropertyDetailsHero extends LightningElement {
 
-    samplePropertyImage = samplePropertyImage;
+    imageNot = samplePropertyImage;
     @track bedroomIcon = property_icons + '/bed.png';
     @track bathroomIcon = property_icons + '/bath.png';
     @track balconyIcon = property_icons + '/balcony.png';
@@ -21,6 +21,7 @@ export default class Esx_PropertyDetailsHero extends LightningElement {
     @track moreImgSize;
     @track profileImage ='';
     placeholderProfile = Blank_Profile_Photo;
+
     connectedCallback() {
         this.getPropertyInfo();
     }
@@ -38,7 +39,7 @@ export default class Esx_PropertyDetailsHero extends LightningElement {
                 this.allPropertyImages = result.mediaLinks;
                 this.propertyMedias = result.mediaLinks;
                 this.propertyMedias = this.propertyMedias.slice(0, 6);
-                this.propertyMainImage = this.propertyMedias.length>0 ?this.propertyMedias[0].ExternalLink__c :this.samplePropertyImage;
+                this.propertyMainImage = this.propertyMedias.length>0 ?this.propertyMedias[0].ExternalLink__c :this.imageNot;
                 this.isProperty = true;
                 this.moreImgSize = result.mediaLinks.length - 5;
                 const targetId = this.propertyMedias[5].Id;
@@ -60,5 +61,10 @@ export default class Esx_PropertyDetailsHero extends LightningElement {
         });
         scrollBox.style.justifyContent = 'normal';
         this.propertyMedias = this.allPropertyImages;
+    }
+
+    handleErrro(event) {
+        event.target.src = this.imageNot;
+        event.target.onerror = null;
     }
 }

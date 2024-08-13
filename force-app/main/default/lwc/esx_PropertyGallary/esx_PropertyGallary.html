@@ -14,7 +14,7 @@
                         onclick={goToPrevious} class="arrow left-arrow"
                         disabled={leftArrowDisabled}></lightning-button-icon>
                     <div class="main-file-cmp">
-                        <img src={previewImageUrl} class={imageClass}></img>
+                        <img draggable="false" loading="lazy" onerror={handleErrro} src={previewImageUrl} class={imageClass}></img>
                         <p class="pagination-number">Swipe left for next image...</p>
                     </div>
                     <lightning-button-icon icon-name="utility:chevronright" size="large" variant="bare"
@@ -37,7 +37,7 @@
                                     <div class="card" onclick={handleCard} key={img.ExternalLink__c}
                                         data-url={img.ExternalLink__c}>
                                         <div class="card-image">
-                                            <img draggable="false" src={img.ExternalLink__c} class="responsive" alt="Images">
+                                            <img draggable="false" loading="lazy" onerror={handleErrro} src={img.ExternalLink__c} class="responsive" alt="Images">
                                         </div>
                                     </div>
                                 </template>

@@ -3,7 +3,7 @@
         <div class="top-box">
             <div class="box1">
                 <div class="property-image">
-                    <img src={propertyMainImage}></img>
+                    <img class="responsive" draggable="false" loading="lazy" onerror={handleErrro} src={propertyMainImage} alt=“Images”></img>
                 </div>
             </div>
             <div class="box2">
@@ -103,7 +103,7 @@
                     <template for:each={propertyMedias} for:item="media">
                         <div class="card" key={media.ExternalLink__c}>
                             <div class="card-image">
-                                <img draggable="false" src={media.ExternalLink__c} class="responsive" alt="Images">
+                                <img draggable="false" loading="lazy" onerror={handleErrro} src={media.ExternalLink__c} class="responsive" alt="Images">
                             </div>
                             <div class="black" data-id={media.Id} onclick={showMoreImages}>
                                 <p>+{moreImgSize}</p>
