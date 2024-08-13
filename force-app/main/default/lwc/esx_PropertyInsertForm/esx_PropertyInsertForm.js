@@ -66,45 +66,29 @@ export default class Esx_PropertyInsertForm extends NavigationMixin(LightningEle
         plotLength: null,
         currentOwner: this.contactId,
     };
-    dropDownAerrowIcon = dropdownAerrow; 
+    dropDownAerrowIcon = dropdownAerrow;
     @wire(getAllPicklistValues)
     wiredPicklistValues({ error, data }) {
+        const picklistFields = [
+            'propertyTypes',
+            'floorNumbers',
+            'furnishedStatuses',
+            'transactionTypes',
+            'priceIncludes',
+            'possessionStatus',
+            'indoorFacilities',
+            'outdoorFacilities',
+            'brokerages',
+            'carpetareaUnits',
+            'coveredareaUnits'
+        ];
         if (data) {
-            const picklistFields = [
-                'propertyTypes',
-                'floorNumbers',
-                'furnishedStatuses',
-                'transactionTypes',
-                'priceIncludes',
-                'possessionStatus',
-                'indoorFacilities',
-                'outdoorFacilities',
-                'brokerages',
-                'carpetareaUnits',
-                'coveredareaUnits'
-            ];
-
             picklistFields.forEach(field => {
                 this[field] = data[field].map(value => ({ label: value, value: value }));
             });
-
             this.error = undefined;
         } else if (error) {
             this.error = error;
-            const picklistFields = [
-                'propertyTypes',
-                'floorNumbers',
-                'furnishedStatuses',
-                'transactionTypes',
-                'priceIncludes',
-                'possessionStatus',
-                'indoorFacilities',
-                'outdoorFacilities',
-                'brokerages',
-                'carpetareaUnits',
-                'coveredareaUnits'
-            ];
-
             picklistFields.forEach(field => {
                 this[field] = [];
             });
@@ -113,7 +97,6 @@ export default class Esx_PropertyInsertForm extends NavigationMixin(LightningEle
 
     connectedCallback() {
         this.checkUserIsLoggedIn();
-        console.log('propertydata in connected:==', JSON.stringify(this.property))
     }
 
     checkUserIsLoggedIn() {
@@ -123,22 +106,20 @@ export default class Esx_PropertyInsertForm extends NavigationMixin(LightningEle
                 let loggedUserInfoObj = JSON.parse(loggedUserInfo);
                 isLoggedInUserDataCorrect({ contactId: loggedUserInfoObj.contactId, siteUserId: loggedUserInfoObj.siteUserId })
                     .then(result => {
-                        console.log('isLoggedInUserDataCorrect ** => ', result);
                         if (result) {
                             this.contactId = loggedUserInfoObj.contactId;
                             this.property['currentOwner'] = loggedUserInfoObj.contactId;
                             this.isData = true;
                             setTimeout(() => {
                                 const dropdowns = this.template.querySelectorAll('select');
-                                console.log('dropdowns: ', dropdowns);
-                                dropdowns.forEach((selector) =>{
-                                    console.log('selector',selector);
-                                    selector.style.backgroundImage=`url(${this.dropDownAerrowIcon})`});
+                                dropdowns.forEach((selector) => {
+                                    selector.style.backgroundImage = `url(${this.dropDownAerrowIcon})`
+                                });
                                 const amenitiesDropdowns = this.template.querySelectorAll('.amenities-input');
-                                amenitiesDropdowns.forEach((selector) =>{
-                                    console.log('selector',selector);
-                                    selector.style.backgroundImage=`url(${this.dropDownAerrowIcon})`});
-                            }, 0);  
+                                amenitiesDropdowns.forEach((selector) => {
+                                    selector.style.backgroundImage = `url(${this.dropDownAerrowIcon})`
+                                });
+                            }, 0);
                         }
                     })
                     .catch(error => {
@@ -159,7 +140,6 @@ export default class Esx_PropertyInsertForm extends NavigationMixin(LightningEle
                 let index_of_amenty = this.property[field].indexOf(event.target.value);
                 this.property[field].splice(index_of_amenty, 1);
             }
-            console.log('property[indoorAmenities]:', JSON.stringify(this.property.indoorAmenities));
         } else {
             console.log('event.target.value==', event.target.value);
             this.property[field] = event.target.value;
@@ -173,8 +153,6 @@ export default class Esx_PropertyInsertForm extends NavigationMixin(LightningEle
         const pattern = field.pattern;
         const errorMessage = field.dataset.errmsg || 'Invalid value';
         const errorElement = this.template.querySelector(`p[data-for="${field.name}"]`);
-
-        console.log('values for validations:', field, value, errorMessage, errorElement);
 
         // Helper function to show error
         const showError = (input, message) => {
@@ -227,8 +205,6 @@ export default class Esx_PropertyInsertForm extends NavigationMixin(LightningEle
     }
 
     getPropertyObject() {
-        console.log('property:==>', this.property);
-        console.log('object:', JSON.stringify(this.property));
         if (this.isValidForm()) {
             this.isLoading = true;
             CreateProperty({ jsonData: JSON.stringify(this.property) }).then(result => {
@@ -277,7 +253,7 @@ export default class Esx_PropertyInsertForm extends NavigationMixin(LightningEle
                         const overlay = this.template.querySelector('.overlay');
                         overlay.style.display = 'block';
                     }, 0);
-                    
+
                     this.connectedCallback();
                 }
             }).catch(error => {
@@ -345,7 +321,6 @@ export default class Esx_PropertyInsertForm extends NavigationMixin(LightningEle
         if (event.target.name === 'outdoorAmenties') {
             this.showDropdown_outdoor = this.showDropdown_outdoor == true ? false : true;
             this.showDropdown_indoor = false;
-            console.log('outdoorFacilities:', this.outdoorFacilities);
             setTimeout(() => {
                 const checkboxes = this.template.querySelectorAll('lightning-input');
                 checkboxes.forEach(checkbox => {

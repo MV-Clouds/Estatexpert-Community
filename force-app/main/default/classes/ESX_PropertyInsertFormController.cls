@@ -11,7 +11,6 @@ public with sharing class ESX_PropertyInsertFormController {
         @AuraEnabled public List<String> brokerages { get; set; }
         @AuraEnabled public List<String> carpetareaUnits { get; set; }
         @AuraEnabled public List<String> coveredareaUnits { get; set; }
-
     }
 
     @AuraEnabled(cacheable=true)
@@ -28,7 +27,6 @@ public with sharing class ESX_PropertyInsertFormController {
         wrapper.brokerages = getPicklistValues('Brokerage__c');
         wrapper.carpetareaUnits = getPicklistValues('carpetAreaUnit__c');
         wrapper.coveredareaUnits = getPicklistValues('coveredAreaUnit__c');
-
         return wrapper;
     }
 
@@ -36,21 +34,16 @@ public with sharing class ESX_PropertyInsertFormController {
         List<String> picklistValues = new List<String>();
         Schema.DescribeFieldResult fieldResult = Schema.SObjectType.Property__c.fields.getMap().get(fieldName).getDescribe();
         List<Schema.PicklistEntry> picklistEntries = fieldResult.getPicklistValues();
-
         for (Schema.PicklistEntry entry : picklistEntries) {
             picklistValues.add(entry.getLabel());
         }
-
         return picklistValues;
     }
 
     @AuraEnabled
     public static Boolean CreateProperty(String jsonData ){
         try {
-        System.debug('jsonData:=='+jsonData);
-
         PropertyInfo propertyData = (PropertyInfo) JSON.deserialize(jsonData, PropertyInfo.class);
-        System.debug('propertyData:=='+propertyData);
         Property__c property = new Property__c();
         property.Balconies__c = propertyData.balconies;
         property.Property_Status__c = propertyData.saleOrRent;
@@ -76,7 +69,6 @@ public with sharing class ESX_PropertyInsertFormController {
         property.Name = propertyData.city+' | '+propertyData.locality ;
         property.Property_Type__c = propertyData.propertyType;
         property.Landmark__c = propertyData.nearbyLandmark;
-        // Size_Area__c = propertyData.sizeArea,
         property.Transaction_Type__c = propertyData.transactionType;
         property.Current_Owner__c = propertyData.currentOwner;
         property.Plot_Area__c = propertyData.plotArea;
