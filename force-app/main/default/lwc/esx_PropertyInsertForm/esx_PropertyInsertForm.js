@@ -142,11 +142,11 @@ export default class Esx_PropertyInsertForm extends NavigationMixin(LightningEle
                         }
                     })
                     .catch(error => {
-                        console.error(error);
+                        console.error(error.stack);
                     });
             }
         } catch (error) {
-            console.error({ error });
+            console.error(error.stack);
         }
     }
 
@@ -167,154 +167,6 @@ export default class Esx_PropertyInsertForm extends NavigationMixin(LightningEle
         }
     }
 
-    // checkValidations(event){
-    //     const field = event.target;
-    //     const value = field.value;
-    //     const pattern = field.pattern;
-    //     const errorMessage = field.dataset.errmsg || 'Invalid value';
-    //     const errorElement = this.template.querySelector(`p[data-for="${field.name}"]`);
-
-    //     console.log('values for validations:',field,value,errorMessage,errorElement);
-
-    //     // const errorElement = field.nextElementSibling;
-
-    //     // Reset the field's border color and error message
-    //     field.style.border = '1px solid rgba(191, 196, 215, 1)';
-    //     if (errorElement) {
-    //         errorElement.style.display = 'none';
-    //     }
-
-    //     // Perform validation based on field type and pattern
-    //     if (field.required && !value) {
-    //         field.style.border = '1px solid red';
-    //         if (errorElement) {
-    //             errorElement.textContent = 'This field is required';
-    //             errorElement.style.display = 'block';
-    //         }
-    //         return;
-    //     }
-
-    //     if (pattern) {
-    //         const regex = new RegExp(pattern);
-    //         if (!regex.test(value)) {
-    //             field.style.border = '1px solid red';
-    //             if (errorElement) {
-    //                 errorElement.textContent = errorMessage || 'Invalid format';
-    //                 errorElement.style.display = 'block';
-    //             }
-    //         }
-    //     }
-    //     if(field.name==='totalFloors'){
-    //         if (value !== null && value <= 0) {
-    //             const totalFloorsInput = this.template.querySelector('input[name="totalFloors"]');
-    //             // const errorElement = totalFloorsInput.nextElementSibling;
-    //             const errorElement = this.template.querySelector('p[data-for="totalFloors"]');
-    //             console.log('errorElement',errorElement);
-    //             console.log('totalFloorsInput',totalFloorsInput);
-    //             totalFloorsInput.style.border = '1px solid red';
-    //             if (errorElement != null) {
-    //                 errorElement.textContent = 'Total floors must be a positive integer.';
-    //                 errorElement.style.display = 'block';
-    //             }
-    //         }
-    //     }
-    //     if(field.name==='carpetArea'){
-    //         if (value !== null && value <= 0) {
-    //             const carpetAreaInput = this.template.querySelector('input[name="carpetArea"]');
-    //             const errorElement = carpetAreaInput.nextElementSibling;
-    //             // const errorElement = this.template.querySelector(`p[data-for="carpetArea"]`);
-    //             carpetAreaInput.style.border = '1px solid red';
-    //             if (errorElement != null) {
-    //                 errorElement.textContent = 'Carpet area must be a positive integer.';
-    //                 errorElement.style.display = 'block';
-    //             }
-    //         }
-    //     }
-    //     if(field.name==='coveredArea'){
-    //         if (value !== null && value <= 0) {
-    //             const coveredAreaInput = this.template.querySelector('input[name="coveredArea"]');
-    //             const errorElement = coveredAreaInput.nextElementSibling;
-    //             // const errorElement = this.template.querySelector(`p[data-for="coveredArea"]`);
-    //             coveredAreaInput.style.border = '1px solid red';
-    //             if (errorElement != null) {
-    //                 errorElement.textContent = 'Covered area must be a positive integer.';
-    //                 errorElement.style.display = 'block';
-    //             }
-    //         }
-    //     }
-    //     if(field.name==='bookingAmount'){
-    //         if (value !== null && value <= 0) {
-    //             const bookingAmountInput = this.template.querySelector('input[name="bookingAmount"]');
-    //             const errorElement = bookingAmountInput.nextElementSibling;
-    //             // const errorElement = this.template.querySelector(`p[data-for="bookingAmount"]`);
-    //             bookingAmountInput.style.border = '1px solid red';
-    //             if (errorElement != null) {
-    //                 errorElement.textContent = 'Booking amount must be a positive integer.';
-    //                 errorElement.style.display = 'block';
-    //             }
-    //         }
-    //     }
-    //     if(field.name==='expectedPrice'){
-    //         if (value !== null && (value<10000 || value>100000000)) {
-    //             const bookingAmountInput = this.template.querySelector('input[name="expectedPrice"]');
-    //             const errorElement = bookingAmountInput.nextElementSibling;
-    //             // const errorElement = this.template.querySelector(`p[data-for="expectedPrice"]`);
-    //             bookingAmountInput.style.border = '1px solid red';
-    //             if (errorElement != null) {
-    //                 errorElement.textContent = 'Value must be between 10,000 and 100,000,000.';
-    //                 errorElement.style.display = 'block';
-    //             }
-    //         }
-    //     }
-    //     if(field.name==='maintenanceCharges'){
-    //         if (value !== null && value <= 0) {
-    //             const maintenanceChargeInput = this.template.querySelector('input[name="maintenanceCharges"]');
-    //             const errorElement = maintenanceChargeInput.nextElementSibling;
-    //             // const errorElement = this.template.querySelector(`p[data-for="maintenanceCharges"]`);
-    //             maintenanceChargeInput.style.border = '1px solid red';
-    //             if (errorElement != null) {
-    //                 errorElement.textContent = 'Maintenance charge must be a positive integer.';
-    //                 errorElement.style.display = 'block';
-    //             }
-    //         }
-    //     }
-    //     if(field.name==='plotArea'){
-    //         if (value !== null && value <= 0) {
-    //             const maintenanceChargeInput = this.template.querySelector('input[name="plotArea"]');
-    //             const errorElement = maintenanceChargeInput.nextElementSibling;
-    //             // const errorElement = this.template.querySelector(`p[data-for="maintenanceCharges"]`);
-    //             maintenanceChargeInput.style.border = '1px solid red';
-    //             if (errorElement != null) {
-    //                 errorElement.textContent = 'Value must be a positive integer.';
-    //                 errorElement.style.display = 'block';
-    //             }
-    //         }
-    //     }
-    //     if(field.name==='plotBreadth'){
-    //         if (value !== null && value <= 0) {
-    //             const maintenanceChargeInput = this.template.querySelector('input[name="plotBreadth"]');
-    //             const errorElement = maintenanceChargeInput.nextElementSibling;
-    //             // const errorElement = this.template.querySelector(`p[data-for="maintenanceCharges"]`);
-    //             maintenanceChargeInput.style.border = '1px solid red';
-    //             if (errorElement != null) {
-    //                 errorElement.textContent = 'Value must be a positive integer.';
-    //                 errorElement.style.display = 'block';
-    //             }
-    //         }
-    //     }
-    //     if(field.name==='plotBreadth'){
-    //         if (value !== null && value <= 0) {
-    //             const maintenanceChargeInput = this.template.querySelector('input[name="plotLength"]');
-    //             const errorElement = maintenanceChargeInput.nextElementSibling;
-    //             // const errorElement = this.template.querySelector(`p[data-for="maintenanceCharges"]`);
-    //             maintenanceChargeInput.style.border = '1px solid red';
-    //             if (errorElement != null) {
-    //                 errorElement.textContent = 'Value must be a positive integer.';
-    //                 errorElement.style.display = 'block';
-    //             }
-    //         }
-    //     }
-    // }
     checkValidations(event) {
         const field = event.target;
         const value = field.value;
@@ -433,7 +285,7 @@ export default class Esx_PropertyInsertForm extends NavigationMixin(LightningEle
                 this.errorMsg = 'Something went wrong';
                 const overlay = this.template.querySelector('.overlay');
                 overlay.style.display = 'block';
-                console.error('Error:', error);
+                console.error('Error:', error.stack);
             });
         } else {
             window.scrollTo({ top: 0, behavior: 'smooth' });
