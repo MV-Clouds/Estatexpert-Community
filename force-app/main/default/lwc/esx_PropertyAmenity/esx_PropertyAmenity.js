@@ -236,7 +236,7 @@ export default class Esx_PropertyAmenity extends LightningElement {
                     targetDiv.innerHTML = iconData.icon;
                 } else {
                     // Element not found, log an error
-                    console.error(`Element with ID '#${this.amenityName}' not found.`);
+                    console.log(`Element with ID '#${this.amenityName}' not found.`);
                 }
             }, 0);
         }
@@ -277,8 +277,5 @@ export default class Esx_PropertyAmenity extends LightningElement {
             console.error('Element not found')
         }
     }
-
-
-
 }
 
