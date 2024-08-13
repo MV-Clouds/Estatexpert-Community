@@ -89,36 +89,6 @@
                                     <p class="column-value">{property.Age_Of_Construction__c} Years</p>
                                 </div>
                             </div>
-                            <!-- <div class="row-2">
-                                <div class="info-1">
-                                    <p class="grey-text column-name">Additional Rooms</p>
-                                    <p class="column-value">1 Store Room</p>
-                                </div>
-                                <div class="info-2">
-                                    <p class="grey-text column-name">Facing</p>
-                                    <p class="column-value">North-East</p>
-                                </div>
-                                <div class="info-3">
-                                    <p class="grey-text column-name">Lift</p>
-                                    <p class="column-value">1</p>
-                                </div>
-                            </div>
-                            <div class="row-3">
-                                <div class="info-1">
-                                    <p class="grey-text column-name">Furnished Status</p>
-                                    <p class="column-value">{property.Furnished_Status__c}</p>
-                                </div>
-                                <div class="info-2">
-                                    <p class="grey-text column-name">Type Of Ownership</p>
-                                    <p class="column-value">Freehold</p>
-                                </div>
-                            </div>
-                            <div class="row-4">
-                                <div>
-                                    <p class="grey-text column-name">Age Of Construction</p>
-                                    <p class="column-value">{property.Age_Of_Construction__c} Years</p>
-                                </div>
-                            </div> -->
                         </div>
                         <div class="buttons">
                             <button class="btn" onclick={updateContactInfo}>Contact Owner</button>
@@ -130,8 +100,6 @@
         <div class="bottom-box">
             <div class="images">
                 <div class="scroll">
-                    <!-- <lightning-button-icon icon-name="utility:chevronleft" size="large" variant="bare" onclick={goToPrevious}
-                                class="arrow left-arrow" disabled={left_arrow_disabled}></lightning-button-icon> -->
                     <template for:each={propertyMedias} for:item="media">
                         <div class="card" key={media.ExternalLink__c}>
                             <div class="card-image">
@@ -142,8 +110,6 @@
                             </div>
                         </div>
                     </template>
-                    <!-- <lightning-button-icon icon-name="utility:chevronright" size="large" variant="bare" onclick={goToPrevious}
-                                class="arrow left-arrow" disabled={left_arrow_disabled}></lightning-button-icon> -->
                 </div>
             </div>
         </div>

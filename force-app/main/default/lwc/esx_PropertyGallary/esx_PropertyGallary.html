@@ -6,7 +6,6 @@
                     onclick={closePopup}></lightning-icon>
             </div>
         </div>
-
         <div class="image-viewer">
             <template if:true={isModalOpen}>
                 <div class="td-txt photo-cell ph-hg-at" ontouchstart={handleTouchStart} ontouchmove={handleTouchMove}
@@ -52,52 +51,6 @@
                     <h1 class="no-image-text"><b>Images not found...</b></h1>
                 </div>
             </template>
-
-            <!-- <div class="content">
-                <div class="title-box">
-                    <h1 class="title">Dining Room(<span class="number-of-imgs">{diningRoomImgsSize}</span>)</h1>
-                </div>
-                <div class="images-box">
-                    <template for:each={diningRoomImgs} for:item="diningroom">
-                        <div class="card" onclick={handleCard} key={diningroom.ExternalLink__c}
-                            data-url={diningroom.ExternalLink__c}>
-                            <div class="card-image">
-                                <img draggable="false" src={diningroom.ExternalLink__c} class="responsive" alt="Images">
-                            </div>
-                        </div>
-                    </template>
-                </div>
-            </div>
-            <div class="content">
-                <div class="title-box">
-                    <h1 class="title">Kitchen(<span class="number-of-imgs">{kitchenImgsSize}</span>)</h1>
-                </div>
-                <div class="images-box">
-                    <template for:each={kitchenImgs} for:item="kitchen">
-                        <div class="card" onclick={handleCard} key={kitchen.ExternalLink__c}
-                            data-url={kitchen.ExternalLink__c}>
-                            <div class="card-image">
-                                <img draggable="false" src={kitchen.ExternalLink__c} class="responsive" alt="Images">
-                            </div>
-                        </div>
-                    </template>
-                </div>
-            </div>
-            <div class="content">
-                <div class="title-box">
-                    <h1 class="title">Guest Room(<span class="number-of-imgs">{guestRoomImgsSize}</span>)</h1>
-                </div>
-                <div class="images-box">
-                    <template for:each={guestRoomImgs} for:item="guestroom">
-                        <div class="card" onclick={handleCard} key={guestroom.ExternalLink__c}
-                            data-url={guestroom.ExternalLink__c}>
-                            <div class="card-image">
-                                <img draggable="false" src={guestroom.ExternalLink__c} class="responsive" alt="Images">
-                            </div>
-                        </div>
-                    </template>
-                </div>
-            </div> -->
         </div>
     </div>
 </template>

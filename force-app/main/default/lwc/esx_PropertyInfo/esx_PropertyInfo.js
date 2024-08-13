@@ -10,21 +10,6 @@ export default class Esx_PropertyInfo extends LightningElement {
     @track BedroomIcon = property_icons + '/bed.png';
     @track BathroomIcon = property_icons + '/bath.png';
 
-    @track CarParkingIcon = property_icons + '/bus.png';
-    // @track SwimmingIcon = property_icons + '/swim.png';
-    // @track GymIcon = property_icons + '/gym.png';
-    // @track RestaurantIcon = property_icons + '/restaurant.png';
-    // @track WifiIcon = property_icons + '/wifi.png';
-    // @track PetCenterIcon = property_icons + '/pet.png';
-    // @track SportsIcon = property_icons + '/sports.png';
-    // @track LaundryIcon = property_icons + '/laundry.png';
-    // @track ParkIcon = property_icons + '/park.png';
-    // @track BicycleIcon = property_icons + '/bicycle.png';
-    // @track EmergencyIcon = property_icons + '/phone.png';
-    // @track HockeyIcon = property_icons + '/golf.png';
-    // @track LibraryIcon = property_icons + '/library.png';
-    // @track BabyParkIcon = property_icons + '/babypark.png';
-
     @track isProperty = false;
     @track property;
     propertyId = 'a02dL000000xuO1QAI';
@@ -41,15 +26,6 @@ export default class Esx_PropertyInfo extends LightningElement {
     ];
 
     selectedMarkerValue = 'SF1';
-    // baseUrl = amenity_icons;
-    // sampleUrl = amenity_icons +'/Security.svg';
-    // svgURL = `${this.sampleUrl}#amenity`;
-    // generateIconUrl(amenity) {
-    // const iconName = amenity.toLowerCase().replace(/[\s\/]+/g, '_') + '.png';
-    // console.log('fileName:==', iconName);
-    //     return `${amenity_icons}/${amenity}.svg`;
-    // }
-
     handleMarkerSelect(event) {
         this.selectedMarkerValue = event.target.selectedMarkerValue;
     }
@@ -67,8 +43,6 @@ export default class Esx_PropertyInfo extends LightningElement {
                     this.property.Amenities__c = amenitiesArray.map(amenity => {
                         return {
                             name: amenity,
-                            // icon: `${amenity_icons}/${amenity}.svg#amenity` || this.CarParkingIcon
-                            // icon: amenity!=='Central A/C & Heating'?`${amenity_icons}/${amenity}.svg`: `${amenity_icons}/Central AC & Heating.svg`
                         };
                     });
                 } else {

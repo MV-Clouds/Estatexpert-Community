@@ -59,30 +59,6 @@ export default class Esx_PropertyGallary extends LightningElement {
                     }).length > 0 ? true : false
                 });
             });
-            // this.livingRoomImgs = this.propertyMediaImages.filter(media =>{
-            //     const tags = media.Tags__c ? media.Tags__c=='Living Room': false;
-            //     return tags;
-            // });
-            // console.log('livingRoomImgs:',this.livingRoomImgs);
-
-            // this.diningRoomImgs = this.propertyMediaImages.filter(media =>{
-            //     const tags = media.Tags__c ? media.Tags__c=='Common Area': false;
-            //     return tags;
-            // });
-            // console.log('livingRoomImgs:',this.livingRoomImgs);
-
-            // this.kitchenImgs = this.propertyMediaImages.filter(media =>{
-            //     const tags = media.Tags__c ? media.Tags__c=='Kitchen': false;
-            //     return tags;
-            // });
-            // this.guestRoomImgs = this.propertyMediaImages.filter(media =>{
-            //     const tags = media.Tags__c ? media.Tags__c=='Others': false;
-            //     return tags;
-            // });
-            // this.livingRoomImgsSize = this.livingRoomImgs.length;
-            // this.diningRoomImgsSize = this.diningRoomImgs.length;
-            // this.kitchenImgsSize = this.kitchenImgs.length;
-            // this.guestRoomImgsSize = this.guestRoomImgs.length;
         })
         .catch(error => {
             console.error(error);
