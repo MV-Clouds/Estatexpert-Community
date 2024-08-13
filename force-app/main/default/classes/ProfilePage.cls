@@ -5,7 +5,6 @@ public without sharing class ProfilePage {
 
     @AuraEnabled
     public static ContactImageWrapper getContactdetails(Id contactId){
-        System.debug('contactId: '+contactId);
         try{
             ContactImageWrapper wrapper = new ContactImageWrapper();
             List<Contact> con =[SELECT Id, Salutation, FirstName, LastName, Gender__c, Birthdate, Age__c, Phone,MobilePhone, Email, MailingStreet, MailingCity, MailingPostalCode, MailingState, MailingCountry, Description, RecordType.Name  FROM Contact WHERE Id =: contactId];
@@ -60,24 +59,14 @@ public without sharing class ProfilePage {
     @AuraEnabled
     public static String uploadProfileImage(String contactId, String fileName, String base64Data) {
         try {
-            // List<ContentVersion> existingCV = [SELECT Id, Title, VersionData, PathOnClient,IsMajorVersion
-            //                  FROM ContentVersion
-            //                  WHERE FirstPublishLocationId =:contactId AND Title like 'ProfileImage%' order by CreatedDate DESC LIMIT 1];
-            // if(existingCV.size()>0){
-            //     existingCV[0].VersionData = EncodingUtil.base64Decode(base64Data);
-            //     update existingCV;
-            //     return EncodingUtil.Base64Encode( existingCV[0].VersionData);
-            // }else{
-                ContentVersion contentVersion = new ContentVersion();
-                contentVersion.Title = 'ProfileImage';
-                contentVersion.PathOnClient = fileName;
-                contentVersion.VersionData = EncodingUtil.base64Decode(base64Data);
-                contentVersion.FirstPublishLocationId = contactId;
-                contentVersion.IsMajorVersion = false;
-                insert contentVersion;
-                return EncodingUtil.Base64Encode(contentVersion.VersionData);
-            // }
-            
+            ContentVersion contentVersion = new ContentVersion();
+            contentVersion.Title = 'ProfileImage';
+            contentVersion.PathOnClient = fileName;
+            contentVersion.VersionData = EncodingUtil.base64Decode(base64Data);
+            contentVersion.FirstPublishLocationId = contactId;
+            contentVersion.IsMajorVersion = false;
+            insert contentVersion;
+            return EncodingUtil.Base64Encode(contentVersion.VersionData);            
         } catch (Exception e) {
             System.debug('Error updating contact: ' + e.getMessage());
             throw new AuraHandledException(e.getMessage());
@@ -128,7 +117,6 @@ public without sharing class ProfilePage {
         public String mailingState;
         public String mailingCountry;
         public String description;
-  
     }
 
 }

@@ -62,23 +62,21 @@ export default class Esx_ProfilePage extends NavigationMixin(LightningElement) {
             let loggedUserInfo = localStorage.getItem('loggedUserInfo');
             if (loggedUserInfo) {
                 let loggedUserInfoObj = JSON.parse(loggedUserInfo);
-                console.log('loggeduserInfo:', loggedUserInfoObj);
                 isLoggedInUserDataCorrect({ contactId: loggedUserInfoObj.contactId, siteUserId: loggedUserInfoObj.siteUserId })
                     .then(result => {
-                        console.log('isLoggedInUserDataCorrect ** => ', result);
                         if (result) {
                             this.contactId = loggedUserInfoObj.contactId;
                             this.getCurrentContactDetails();
                         }
                     })
                     .catch(error => {
-                        console.log(error);
+                        console.error(error.stack);
                     });
             } else {
                 this.handleNavigate('Login');
             }
         } catch (error) {
-            console.error(error);
+            console.error(error.stack);
         }
     }
 
@@ -98,9 +96,7 @@ export default class Esx_ProfilePage extends NavigationMixin(LightningElement) {
                 }
             })
             .catch(error => {
-                let errorMessage = this.returnErrorMsg(error);
-                // this.showPopupMessage(errorMessage, this.errorIcon);
-                console.log('error: ', errorMessage);
+                console.error(error.stack);
             });
     }
 
@@ -304,35 +300,9 @@ export default class Esx_ProfilePage extends NavigationMixin(LightningElement) {
                 this.showPopupMessage('Your details are updated successfully!', this.sucessIcon);
                 this.setRadioButtons(this.contact.gender);
                 this.applyDisabledCss();
-                // this.popupMessage = 'Your details are updated successfully!';
-                // setTimeout(() => {
-                //     const overlay = this.template.querySelector('.overlay');
-                //     overlay.style.display = 'block';
-                //     this.isModalOpen = true;
-                // }, 0);
-
-                // window.scrollTo({ top: 0, behavior: 'smooth' });
-                // if (this.contact.gender != null && this.contact.gender != undefined) {
-                //     setTimeout(() => {
-                //         let radioButton = this.template.querySelector("." + this.contact.gender);
-                //         if (radioButton != null) {
-                //             radioButton.checked = true;
-                //         }
-                //     }, 0);
-                // }
-                // let button = this.template.querySelector('.save-btn');
-                // button.style.backgroundColor = 'rgba(210, 210, 210, 1)';
-                // let dropdownCountry = this.template.querySelector('.country-dropdown');
-                // let dropdownSalutation = this.template.querySelector('.input-dropdown');
-                // dropdownSalutation.style.backgroundColor = 'light-dark(rgba(239, 239, 239, 0.3), rgba(59, 59, 59, 0.3))';
-                // dropdownCountry.style.backgroundColor = 'light-dark(rgba(239, 239, 239, 0.3), rgba(59, 59, 59, 0.3))';
-                // this.getCurrentContactDetails();
             })
             .catch(error => {
-                let errorMessage = this.returnErrorMsg(error);
-                // this.showPopupMessage(errorMessage, this.errorIcon);
-                console.log(errorMessage);
-                console.error(error);
+                console.error(error.stack);
             });
         } else {
             window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -365,7 +335,6 @@ export default class Esx_ProfilePage extends NavigationMixin(LightningElement) {
             this.imgFile = file;
             this.base64Data = base64;
             this.profileImage = 'data:image/jpeg;base64,' + base64;
-            // this.uploadToSalesforce(file, base64);
         };
         reader.readAsDataURL(file);
     }
@@ -378,10 +347,7 @@ export default class Esx_ProfilePage extends NavigationMixin(LightningElement) {
                 this.applyDisabledCss();
             })
             .catch(error => {
-                let errorMessage = this.returnErrorMsg(error);
-                // this.showPopupMessage(errorMessage, this.errorIcon);
-                console.log(errorMessage);
-                console.error(error);
+                console.error(error.stack);
             });
     }
 
@@ -397,10 +363,7 @@ export default class Esx_ProfilePage extends NavigationMixin(LightningElement) {
             }
         })
         .catch(error => {
-            let errorMessage = this.returnErrorMsg(error);
-            // this.showPopupMessage(errorMessage, this.errorIcon);
-            console.log(errorMessage);
-            console.error(error);
+            console.error(error.stack);
         });
     }
 
@@ -439,21 +402,6 @@ export default class Esx_ProfilePage extends NavigationMixin(LightningElement) {
         let dropdownSalutation = this.template.querySelector('.input-dropdown');
         dropdownSalutation.style.backgroundColor = 'light-dark(rgba(239, 239, 239, 0.3), rgba(59, 59, 59, 0.3))';
         dropdownCountry.style.backgroundColor = 'light-dark(rgba(239, 239, 239, 0.3), rgba(59, 59, 59, 0.3))';
-    }
-
-    returnErrorMsg(error) {
-        let errorMessage = 'Unknown error';
-        if (error && error.body) {
-            if (error.body.message) {
-                errorMessage = error.body.message;
-            } else if (error.body.pageErrors && error.body.pageErrors.length > 0) {
-                errorMessage = error.body.pageErrors[0].message;
-            }
-        } else if (error && error.message) {
-            errorMessage = error.message;
-        }
-
-        return { errorMessage, errorObject: error };
     }
 
     showPopupMessage(message, icon) {
