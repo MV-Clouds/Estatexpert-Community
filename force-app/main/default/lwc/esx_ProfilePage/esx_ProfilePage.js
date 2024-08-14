@@ -34,14 +34,6 @@ export default class Esx_ProfilePage extends NavigationMixin(LightningElement) {
         { label: 'Prof.', value: 'Prof.' },
         { label: 'Mx.', value: 'Prof.' },
     ];
-    @track tempSalutationOptions = [
-        { label: 'Mr.', value: 'Mr.' },
-        { label: 'Ms.', value: 'Ms.' },
-        { label: 'Mrs.', value: 'Mrs.' },
-        { label: 'Dr.', value: 'Dr.' },
-        { label: 'Prof.', value: 'Prof.' },
-        { label: 'Mx.', value: 'Prof.' },
-    ];
     @track genderOptions = [
         { label: 'Male', value: 'Male' },
         { label: 'Female', value: 'Female' },
@@ -49,14 +41,6 @@ export default class Esx_ProfilePage extends NavigationMixin(LightningElement) {
 
     ];
     @track countryOptions = [
-        { label: 'India', value: 'India' },
-        { label: 'UAE', value: 'UAE' },
-        { label: 'United States', value: 'United States' },
-        { label: 'Canada', value: 'Canada' },
-        { label: 'Japan', value: 'Japan' },
-    ];
-
-    @track tempCountryOptions = [
         { label: 'India', value: 'India' },
         { label: 'UAE', value: 'UAE' },
         { label: 'United States', value: 'United States' },
@@ -81,7 +65,7 @@ export default class Esx_ProfilePage extends NavigationMixin(LightningElement) {
                 isLoggedInUserDataCorrect({ contactId: loggedUserInfoObj.contactId, siteUserId: loggedUserInfoObj.siteUserId })
                     .then(result => {
                         if (result) {
-                            this.contactId = loggedUserInfoObj.contactId;
+                            this.contactId = loggedUserInfoObj.contactId;                            
                             this.getCurrentContactDetails();
                         }
                     })
@@ -105,7 +89,6 @@ export default class Esx_ProfilePage extends NavigationMixin(LightningElement) {
                 if (result.contact != null) {
                     this.populateContactDetails(result.contact);
                     this.populateImageDetails(result.image);
-                    // this.setCountryAndSalutationOptions(result.contact);
                     this.isLoading = false;
                 } else {
                     console.log('no data found');
@@ -169,10 +152,13 @@ export default class Esx_ProfilePage extends NavigationMixin(LightningElement) {
         if (countryDropdown) {
             countryDropdown.value = this.contact.mailingCountry;
         }
-
         const salutationDropdown = this.template.querySelector(`select[name="salutation"]`);
         if (salutationDropdown) {
             salutationDropdown.value = this.contact.salutation;
+        }
+        const descriptionField = this.template.querySelector(`textarea[name="description"]`);
+        if (descriptionField) {
+            descriptionField.value = this.contact.description;
         }
     }
 
