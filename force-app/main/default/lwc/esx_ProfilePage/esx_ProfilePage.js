@@ -18,7 +18,7 @@ export default class Esx_ProfilePage extends NavigationMixin(LightningElement) {
 
     @track contactId;
     @track contact = {};
-    @track contactValues = {};
+    contactValues = {};
     @track profileImage;
     @track contactProfile;
     @track recordType;
@@ -26,7 +26,15 @@ export default class Esx_ProfilePage extends NavigationMixin(LightningElement) {
     @track isLoading = true;
     @track isDisabled = true;
     backgroundImageUrl = myProfilePageBackground;
-    @track salutationoptions = [
+    @track salutationOptions = [
+        { label: 'Mr.', value: 'Mr.' },
+        { label: 'Ms.', value: 'Ms.' },
+        { label: 'Mrs.', value: 'Mrs.' },
+        { label: 'Dr.', value: 'Dr.' },
+        { label: 'Prof.', value: 'Prof.' },
+        { label: 'Mx.', value: 'Prof.' },
+    ];
+    @track tempSalutationOptions = [
         { label: 'Mr.', value: 'Mr.' },
         { label: 'Ms.', value: 'Ms.' },
         { label: 'Mrs.', value: 'Mrs.' },
@@ -46,7 +54,15 @@ export default class Esx_ProfilePage extends NavigationMixin(LightningElement) {
         { label: 'United States', value: 'United States' },
         { label: 'Canada', value: 'Canada' },
         { label: 'Japan', value: 'Japan' },
-    ]
+    ];
+
+    @track tempCountryOptions = [
+        { label: 'India', value: 'India' },
+        { label: 'UAE', value: 'UAE' },
+        { label: 'United States', value: 'United States' },
+        { label: 'Canada', value: 'Canada' },
+        { label: 'Japan', value: 'Japan' },
+    ];
     placeholderProfile = Blank_Profile_Photo;
     @track isModalOpen = false;
     @track popupMessage = '';
@@ -89,7 +105,7 @@ export default class Esx_ProfilePage extends NavigationMixin(LightningElement) {
                 if (result.contact != null) {
                     this.populateContactDetails(result.contact);
                     this.populateImageDetails(result.image);
-                    this.setCountryAndSalutationOptions(result.contact);
+                    // this.setCountryAndSalutationOptions(result.contact);
                     this.isLoading = false;
                 } else {
                     console.log('no data found');
@@ -136,6 +152,7 @@ export default class Esx_ProfilePage extends NavigationMixin(LightningElement) {
             description: contact.Description || '',
         };
         this.recordType = contact.RecordType.Name;
+        this.setCountryAndSalutationOptions();
         this.setRadioButtons(contact.Gender__c);
     }
 
@@ -147,18 +164,25 @@ export default class Esx_ProfilePage extends NavigationMixin(LightningElement) {
         }
     }
 
-    setCountryAndSalutationOptions(contact) {
-        this.countryOptions = this.filterOptions(this.countryOptions, contact.MailingCountry);
-        this.salutationOptions = this.filterOptions(this.salutationOptions, contact.Salutation);
-    }
+    setCountryAndSalutationOptions() {
+        const countryDropdown = this.template.querySelector(`select[name="mailingCountry"]`);
+        if (countryDropdown) {
+            countryDropdown.value = this.contact.mailingCountry;
+        }
 
-    filterOptions(options, value) {
-        return options.filter(option => option.value !== value);
+        const salutationDropdown = this.template.querySelector(`select[name="salutation"]`);
+        if (salutationDropdown) {
+            salutationDropdown.value = this.contact.salutation;
+        }
     }
 
     setRadioButtons(gender) {
         if (gender) {
             setTimeout(() => {
+                const radioButtons = this.template.querySelectorAll(`input[type="radio"]`);
+                radioButtons.forEach(radioButton => {
+                    radioButton.removeAttribute('checked');
+                });
                 const radioButton = this.template.querySelector(`.${gender}`);
                 if (radioButton) {
                     radioButton.checked = true;
@@ -296,9 +320,9 @@ export default class Esx_ProfilePage extends NavigationMixin(LightningElement) {
                 this.uploadToSalesforce(this.imgFile, this.base64Data);
             }
             updateContact({ contact: JSON.stringify(this.contact) }).then(result => {
+                this.contactValues = { ...this.contact };
                 this.isLoading = false;
                 this.showPopupMessage('Your details are updated successfully!', this.sucessIcon);
-                this.setRadioButtons(this.contact.gender);
                 this.applyDisabledCss();
             })
             .catch(error => {
@@ -376,8 +400,10 @@ export default class Esx_ProfilePage extends NavigationMixin(LightningElement) {
     cancelAction() {
         this.isDisabled = true;
         this.contact = { ...this.contactValues };
+        this.setCountryAndSalutationOptions();
+        this.setRadioButtons(this.contact.gender);
         this.profileImage = this.contactProfile;
-        this.applyDisabledCss();
+        this.applyDisabledCss();     
     }
 
     navigateHome() {
@@ -402,6 +428,14 @@ export default class Esx_ProfilePage extends NavigationMixin(LightningElement) {
         let dropdownSalutation = this.template.querySelector('.input-dropdown');
         dropdownSalutation.style.backgroundColor = 'light-dark(rgba(239, 239, 239, 0.3), rgba(59, 59, 59, 0.3))';
         dropdownCountry.style.backgroundColor = 'light-dark(rgba(239, 239, 239, 0.3), rgba(59, 59, 59, 0.3))';
+        const inputs = this.template.querySelectorAll('input,textarea');
+        inputs.forEach(input => {
+            const errorElement = input.nextElementSibling;
+            input.style.border = '1px solid rgba(191, 196, 215, 1)';
+            if (errorElement != null) {
+                errorElement.style.display = 'none';
+            }
+        });
     }
 
     showPopupMessage(message, icon) {

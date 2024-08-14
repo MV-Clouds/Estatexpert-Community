@@ -404,7 +404,7 @@
     -webkit-appearance: none;
 }
 .decriptionfield{
-    height: 5.25rem;
+    /* height: 5.25rem; */
 }
 .message-icon {
     display: flex;

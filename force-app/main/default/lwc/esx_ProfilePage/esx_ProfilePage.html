@@ -4,8 +4,7 @@
             <lightning-spinner alternative-text="Loading" size="medium"></lightning-spinner>
         </div>
     </template>
-    <template if:false={isLoading}>
-        <div class="main-div">
+    <div class="main-div">
             <div class="overlay" lwc:dom="manual"></div>
             <div class="popup-for-confirmation">
                 <template if:true={isModalOpen}>
@@ -57,9 +56,9 @@
                                 <p class="label">Salutation</p>
                                 <select name="salutation" class="input-dropdown" onchange={updateContact}
                                     disabled={isDisabled}>
-                                    <option value={contact.Salutation}>{contact.salutation}</option>
-                                    <template for:each={salutationoptions} for:item="type">
-                                        <option value={type.label} key={type.label}>{type.label}</option>
+                                    <!-- <option value={contact.salutation}>{contact.salutation}</option> -->
+                                    <template for:each={salutationOptions} for:item="type">
+                                        <option value={type.value} key={type.label}>{type.label}</option>
                                     </template>
                                 </select>
                             </div>
@@ -67,16 +66,16 @@
                                 <p class="label"><abbr class="slds-required"
                                     title="required">*</abbr>First Name</p>
                                 <input type="text" name="firstName" data-errmsg="Enter 2-50 alphabetic characters."
-                                    pattern="[A-Za-z\s]{2,50}$" class="input-text" value={contact.firstName}
-                                    onchange={updateContact} disabled={isDisabled} required></input>
+                                    pattern="[A-Za-z]{2,50}$" class="input-text" value={contact.firstName}
+                                    onchange={updateContact} onkeyup={handleValidation} disabled={isDisabled} required></input>
                                 <p class="show-error-message">Name should contain 2-50 character.</p>
                             </div>
                             <div class="form-element namefield">
                                 <p class="label"><abbr class="slds-required"
                                     title="required">*</abbr>Last Name</p>
                                 <input type="text" name="lastName" data-errmsg="Enter 2-50 alphabetic characters."
-                                    pattern="[A-Za-z\s]{2,50}$" class="input-text" value={contact.lastName}
-                                    onchange={updateContact} disabled={isDisabled} required></input>
+                                    pattern="[A-Za-z]{2,50}$" class="input-text" value={contact.lastName}
+                                    onchange={updateContact} onkeyup={handleValidation} disabled={isDisabled} required></input>
                                 <p class="show-error-message">Name should contain 2-50 character.</p>
                             </div>
                         </div>
@@ -104,7 +103,7 @@
                                     <p class="label"><abbr class="slds-required"
                                         title="required">*</abbr>Date of Birth</p>
                                     <input type="date" name="birthdate" class="input-text otherinput" data-errmsg="Please enter a valid birthdate within the last 120 years."
-                                        value={contact.birthdate} onchange={updateContact} disabled={isDisabled}
+                                        value={contact.birthdate} onchange={updateContact} onkeyup={handleValidation} disabled={isDisabled}
                                         required></input>
                                     <p class="show-error-message">Please enter a valid birthdate within the last 120 years.</p>
                                 </div>
@@ -126,7 +125,7 @@
                                 <p class="label"><abbr class="slds-required"
                                     title="required">*</abbr>Mobile Number</p>
                                 <input type="tel" name="phone" data-errmsg="Mobile number should be a 10 digit number."
-                                    class="input-text" pattern="^\d{10}$" value={contact.phone} onchange={updateContact}
+                                    class="input-text" pattern="^\d{10}$" value={contact.phone} onkeyup={handleValidation} onchange={updateContact}
                                     disabled={isDisabled} required></input>
                                 <p class="show-error-message">Enter Valid Mobile Number.</p>
                             </div>
@@ -135,7 +134,7 @@
                                     title="required">*</abbr>Email</p>
                                 <input type="email" name="email" data-errmsg="Enter Valid Email." class="input-text"
                                     pattern="[a-z0-9._%+\-]+@[a-z0-9.\-]+\.[a-z]{2,}$" value={contact.email}
-                                    onchange={updateContact} disabled={isDisabled} required></input>
+                                    onchange={updateContact} onkeyup={handleValidation} disabled={isDisabled} required></input>
                                 <p class="show-error-message">Enter Valid Email.</p>
                             </div>
                         </div>
@@ -155,14 +154,14 @@
                             <div class="form-element input-first-half">
                                 <p class="label">City</p>
                                 <input type="text" data-errmsg="Enter valid city name" name="mailingCity" class="input-text" value={contact.mailingCity}
-                                    onchange={updateContact} disabled={isDisabled} pattern="[A-Za-z\s]{2,100}$"></input>
+                                    onchange={updateContact} onkeyup={handleValidation} disabled={isDisabled} pattern="[A-Za-z]{2,100}$"></input>
                                 <p class="show-error-message"></p>
                             </div>
                             <div class="form-element input-second-half">
                                 <p class="label">PIN Code</p>
                                 <input type="number" name="mailingPostalCode" max="6"
                                     data-errmsg="Invalid Pincode" pattern="^[1-9][0-9]{5}$"
-                                    class="input-text" value={contact.mailingPostalCode} onchange={updateContact}
+                                    class="input-text" value={contact.mailingPostalCode} onkeyup={handleValidation} onchange={updateContact}
                                     disabled={isDisabled}></input>
                                 <p class="show-error-message">Invalid Pincode</p>
                             </div>
@@ -174,8 +173,8 @@
                                 <p class="label"><abbr class="slds-required"
                                     title="required">*</abbr>State</p>
                                 <input type="text" name="mailingState" class="input-text"
-                                    data-errmsg="State should contain 2-100 character." pattern="[A-Za-z\s]{2,100}$"
-                                    value={contact.mailingState} onchange={updateContact} disabled={isDisabled}
+                                    data-errmsg="State should contain 2-100 character." pattern="[A-Za-z]{2,100}$"
+                                    value={contact.mailingState} onkeyup={handleValidation} onchange={updateContact} disabled={isDisabled}
                                     required></input>
                                 <p class="show-error-message">Enter valid state name</p>
                             </div>
@@ -183,9 +182,9 @@
                                 <p class="label">Country</p>
                                 <select name="mailingCountry" class="input-text country-dropdown"
                                     onchange={updateContact} disabled={isDisabled}>
-                                    <option value={contact.mailingCountry}>{contact.mailingCountry}</option>
+                                    <!-- <option value={contact.mailingCountry}>{contact.mailingCountry}</option> -->
                                     <template for:each={countryOptions} for:item="type">
-                                        <option value={type.label} key={type.value} class={type.label}>{type.label}</option>
+                                        <option value={type.value} key={type.value} class={type.label}>{type.label}</option>
                                     </template>
                                 </select>
                                 <!-- <input type="text" name="mailingCountry" class="input-text"
@@ -200,8 +199,13 @@
                     <div class="form-group ">
                         <div class="address-line">
                             <p class="label">Description</p>
-                            <textarea name="description" maxlength="1000" class="input-text longfield decriptionfield"
-                                onchange={updateContact} disabled={isDisabled} >{contact.description}</textarea>
+                            <input type="text" size="2" name="description" class="input-text longfield decriptionfield"
+                                onchange={updateContact} disabled={isDisabled} value={contact.description}></input>
+                            <!-- <textarea name="description" maxlength="1000" class="input-text longfield decriptionfield"
+                                onchange={updateContact} disabled={isDisabled}>{contact.description}</textarea> -->
+                                <!-- <lightning-textarea type="text" size="2" name="description"
+                                onchange={updateContact} disabled={isDisabled} value={contact.description} variant="label-hidden"></lightning-textarea> -->
+
                             <p class="show-error-message">About should contain 2-100 character.</p>
                         </div>
                     </div>
@@ -218,6 +222,5 @@
                         disabled={isDisabled}>Save</button>
                 </div>
             </div>
-        </div>
-    </template>
+    </div>
 </template>
