@@ -1,8 +1,9 @@
-import { LightningElement,track } from 'lwc';
+import { LightningElement,track,api } from 'lwc';
 import ImageNotFound from'@salesforce/resourceUrl/ImageNotFound';
 import getPropertyImages from '@salesforce/apex/ESX_PropertyDetailsController.getPropertyInformation';
 
 export default class Esx_PropertyGallary extends LightningElement {
+    @api propertyid;
     imageNot = ImageNotFound;    
     @track propertyMediaImages= [];
     @track livingRoomImgs = [];
@@ -23,7 +24,8 @@ export default class Esx_PropertyGallary extends LightningElement {
     @track isImages = false;
     @track imageClass = 'active';
 
-    propertyId = 'a02dL000000xuO1QAI';
+    // @api propertyId;
+    // propertyId = 'a02dL000000xuO1QAI';
     connectedCallback(){
         this.getImages();
     }
@@ -31,7 +33,7 @@ export default class Esx_PropertyGallary extends LightningElement {
     @track gallaryImages = [];
     @track mediaTags = [];
     getImages(){
-        getPropertyImages({propertyId:this.propertyId})
+        getPropertyImages({propertyId:this.propertyid})
         .then(result => {
             console.log("result",result);
             this.propertyMediaImages = result.mediaLinks;

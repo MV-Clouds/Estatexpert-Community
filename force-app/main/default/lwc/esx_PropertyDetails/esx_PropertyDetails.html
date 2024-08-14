@@ -5,7 +5,7 @@
         </div>
         
         <div class="property-brief">
-            <c-esx_-property-details-hero></c-esx_-property-details-hero>
+            <c-esx_-property-details-hero propertyid={propertyId}></c-esx_-property-details-hero>
         </div>
 
         <div class="navigation">
@@ -18,12 +18,12 @@
         <div class="content">
             <template if:true={isDescription}>
                 <div class="description-content">
-                    <c-esx_-property-info></c-esx_-property-info>
+                    <c-esx_-property-info propertyid={propertyId}></c-esx_-property-info>
                 </div>
             </template>
             <template if:true={isGallary}>
                 <div class="gallary-content">
-                    <c-esx_-property-gallary></c-esx_-property-gallary>
+                    <c-esx_-property-gallary propertyid={propertyId}></c-esx_-property-gallary>
                 </div>
             </template>
         </div>

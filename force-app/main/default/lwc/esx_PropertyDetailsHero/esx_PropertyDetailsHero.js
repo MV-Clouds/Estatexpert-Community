@@ -1,11 +1,11 @@
-import { LightningElement, track } from 'lwc';
+import { LightningElement, track,api } from 'lwc';
 import samplePropertyImage from '@salesforce/resourceUrl/ImageNotFound';
 import property_icons from '@salesforce/resourceUrl/propertyViewIcons';
 import Blank_Profile_Photo from '@salesforce/resourceUrl/Blank_Profile_Photo';
 import getPropertyInformation from '@salesforce/apex/ESX_PropertyDetailsController.getPropertyInformation';
 
 export default class Esx_PropertyDetailsHero extends LightningElement {
-
+    @api propertyid;
     imageNot = samplePropertyImage;
     @track bedroomIcon = property_icons + '/bed.png';
     @track bathroomIcon = property_icons + '/bath.png';
@@ -13,7 +13,7 @@ export default class Esx_PropertyDetailsHero extends LightningElement {
     @track furnishedIcon = property_icons + '/furnished.png';
 
     @track isProperty = false;
-    propertyId = 'a02dL000000xuO1QAI';
+    // propertyId = 'a02dL000000xuO1QAI';
     @track property;
     @track propertyMainImage;
     @track propertyMedias = [];
@@ -23,11 +23,13 @@ export default class Esx_PropertyDetailsHero extends LightningElement {
     placeholderProfile = Blank_Profile_Photo;
 
     connectedCallback() {
+        console.log('propertyId',this.propertyid);
+        
         this.getPropertyInfo();
     }
 
     getPropertyInfo() {
-        getPropertyInformation({ propertyId: this.propertyId })
+        getPropertyInformation({ propertyId: this.propertyid })
             .then(result => {
                 console.log("result", result);
                 if ((result != null && result != undefined) && (result.ownerProfileImage != null && result.ownerProfileImage != undefined)) {

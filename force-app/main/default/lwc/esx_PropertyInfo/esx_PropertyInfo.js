@@ -1,9 +1,9 @@
-import { LightningElement, track } from 'lwc';
+import { LightningElement, track,api } from 'lwc';
 import property_icons from '@salesforce/resourceUrl/propertyViewIcons';
 import amenity_icons from '@salesforce/resourceUrl/amenityIcons';
 import getPropertyInformation from '@salesforce/apex/ESX_PropertyDetailsController.getPropertyInformation';
 export default class Esx_PropertyInfo extends LightningElement {
-
+    @api propertyid;
     @track PhoneIcon = property_icons + '/phone.png';
     @track EmailIcon = property_icons + '/Email.png';
 
@@ -12,7 +12,8 @@ export default class Esx_PropertyInfo extends LightningElement {
 
     @track isProperty = false;
     @track property;
-    propertyId = 'a02dL000000xuO1QAI';
+    // @api propertyId;
+    // propertyId = 'a02dL000000xuO1QAI';
     mapMarkers = [
         {
             location: {
@@ -35,7 +36,7 @@ export default class Esx_PropertyInfo extends LightningElement {
     }
 
     getInfo() {
-        getPropertyInformation({ propertyId: this.propertyId })
+        getPropertyInformation({ propertyId: this.propertyid })
             .then(result => {
                 this.property = result.property;
                 if (this.property.Amenities__c) {
