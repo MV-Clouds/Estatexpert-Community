@@ -65,7 +65,7 @@ export default class Esx_ProfilePage extends NavigationMixin(LightningElement) {
                 isLoggedInUserDataCorrect({ contactId: loggedUserInfoObj.contactId, siteUserId: loggedUserInfoObj.siteUserId })
                     .then(result => {
                         if (result) {
-                            this.contactId = loggedUserInfoObj.contactId;                            
+                            this.contactId = loggedUserInfoObj.contactId;                                                        
                             this.getCurrentContactDetails();
                         }
                     })
@@ -306,7 +306,8 @@ export default class Esx_ProfilePage extends NavigationMixin(LightningElement) {
                 this.uploadToSalesforce(this.imgFile, this.base64Data);
             }
             updateContact({ contact: JSON.stringify(this.contact) }).then(result => {
-                this.contactValues = { ...this.contact };
+                // this.contactValues = { ...this.contact };
+                this.getCurrentContactDetails();
                 this.isLoading = false;
                 this.showPopupMessage('Your details are updated successfully!', this.sucessIcon);
                 this.applyDisabledCss();
