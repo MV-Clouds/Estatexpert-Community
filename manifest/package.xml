@@ -10,6 +10,7 @@
 		<members>esx_PropertyCard</members>
 		<members>esx_PropertyDataTable</members>
 		<members>esx_Register</members>
+		<members>esx_ForgotPassword</members>
 		<name>LightningComponentBundle</name>
 	</types>
 	<types>
