@@ -1,12 +1,17 @@
 <template>
+
+    <!-- Property card child component to display all properties in grid, list, and column views -->
     <div class="main-model">
         <c-esx_-property-card propertydata={property} viewtype={view}></c-esx_-property-card>
-        <!-- Esx_PropertyCard -->
     </div>
+
+    <!-- Add a button to show more properties based on button click -->
     <div class="more" if:true={hasMoreData}>
         <button type="button" class="slds-button morebutton" onclick={loadMore}>Show more apartments</button>
     </div>
 
+
+    <!-- Record not found image (SVG) -->
     <template if:true={recordNotFound}>
         <div class="record-not-found">
             <svg width="830" height="600" viewBox="0 0 830 600" fill="none" xmlns="http://www.w3.org/2000/svg">

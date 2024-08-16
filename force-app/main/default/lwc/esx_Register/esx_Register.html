@@ -1,0 +1,77 @@
+<template>
+    <div class="main-container">
+
+        <template if:true={isLoading}>
+            <div class="slds-spinner_container" style="position:fixed;opacity:1;">
+                <div class="slds-spinner--brand  slds-spinner slds-spinner--large slds-is-relative" role="alert">
+                    <span class="slds-assistive-text">Loading</span>
+                    <div class="slds-spinner__dot-a"></div>
+                    <div class="slds-spinner__dot-b"></div>
+                    <div class="custom-loading-text"></div>
+                </div>
+            </div>
+            <div class="slds-backdrop slds-backdrop_open" style="opacity: 0.5;"></div>
+        </template>
+
+        <c-esx_custom-toast-component show-toast={showToast} type={toastType} message={toastMessage} onclosetoast={closeToast}></c-esx_custom-toast-component>
+
+        <div class="left-side">
+            <img src={sideImgURL} alt="Login Hero Image">
+        </div>
+        <div class="login-modal">
+            <div class="header-span">Sign Up</div>
+            
+            <div class="radio-button">
+                <div class="buyer">
+                    <input type="radio" id="buyer" name="people-type" value="Buyer" checked onclick={handleChange}>
+                    <label for="buyer">Buyer</label><br>
+                </div>
+                <div class="seller">
+                    <input type="radio" id="seller" name="people-type" value="Seller" onclick={handleChange}>
+                    <label for="seller">Seller</label><br>
+                </div>
+                <div class="broker-agent">
+                    <input type="radio" id="broker-agent" name="people-type" value="Agent" onclick={handleChange}>
+                    <label for="broker-agent">Broker/Agent</label>
+                </div>
+            </div>
+
+            <div class="username-input f-l-box">
+                <div class="f-name">
+                    <div class="input-label">First Name</div>
+                    <input type="text" class="login-input" id="firstName" name="firstName" placeholder="First Name" value={firstName} oninput={handleChange}>
+                </div>
+                <div class="l-name">
+                    <div class="input-label">Last Name</div>
+                    <input type="text" class="login-input" id="lastName" name="lastName" placeholder="Last Name" value={lastName} oninput={handleChange}>
+                </div>
+            </div>
+
+            <div class="username-input">
+                <div class="input-label">Email</div>
+                <input type="email" class="login-input" id="email" name="email" placeholder="Email" value={email} onchange={handleChange}>
+            </div>
+
+            <div class="username-input">
+                <div class="input-label">Mobile</div>
+                <input type="tel" class="login-input" id="mobile" name="mobile" placeholder="Mobile" value={mobile} onchange={handleChange}>
+            </div>
+
+            <div class="username-input">
+                <div class="input-label">Password</div>
+                <input type="password" class="login-input" id="password" name="password" placeholder="Password" value={password} onchange={handleChange}>
+            </div>
+
+            <div class="username-input">
+                <div class="input-label">Confirm Password</div>
+                <input type="password" class="login-input" id="confPassword" name="confPassword" placeholder="Confirm Password" value={confPassword} onchange={handleChange}>
+            </div>
+
+            <div class="footer">
+                <div class="login-btn" onclick={handleRegister}>Sign Up</div>
+            </div>
+            <div class="login-url-container" ><div class="login-url-href" onclick={handlelogin}>Already have any account?</div></div>
+
+        </div>
+    </div>
+</template>

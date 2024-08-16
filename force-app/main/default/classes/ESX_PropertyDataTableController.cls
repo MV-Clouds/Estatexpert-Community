@@ -4,6 +4,24 @@ public without sharing class ESX_PropertyDataTableController {
     }
 
     @AuraEnabled(cacheable=true)
+    public static Map<String, String> getPicklistLabelName(){
+        try {
+                Map<String, String> picklistValuesWithLabels = new Map<String, String>();
+                Schema.DescribeFieldResult fieldResult = Property__c.getSObjectType().getDescribe().fields.getMap().get('Property_Type__c').getDescribe();
+                List<Schema.PicklistEntry> picklistEntries = fieldResult.getPicklistValues();
+                for (Schema.PicklistEntry entry : picklistEntries) {
+                    picklistValuesWithLabels.put(entry.getValue(), entry.getLabel());
+                }
+
+                System.debug(picklistValuesWithLabels);
+                return picklistValuesWithLabels;
+
+        } catch (Exception e) {
+            throw new AuraHandledException(e.getMessage());
+        }
+    }
+
+    @AuraEnabled(cacheable=true)
     public static List<Property__c> getListingData(){
         try {
             Set<Id> propertyIdsFromListings = new Set<Id>();
@@ -15,9 +33,6 @@ public without sharing class ESX_PropertyDataTableController {
 
         // Fetch listing data
         listings = [SELECT Property__c FROM Listing__c WHERE Property__c != null ORDER BY CreatedDate DESC LIMIT 50000];
-
-        System.debug('listings-->'+listings);
-        System.debug('listings-->'+listings.size());
         
         // Collect property IDs from listings
         for (Listing__c listing : listings) {
@@ -27,8 +42,6 @@ public without sharing class ESX_PropertyDataTableController {
         // Fetch property media data
         propertyMedia = [SELECT Property__c FROM Property_Media__c WHERE Property__c != null ORDER BY CreatedDate DESC LIMIT 50000];
         
-        System.debug('propertyMedia-->'+propertyMedia);
-        System.debug('propertyMedia-->'+propertyMedia.size());
         // Collect property IDs from media
         for (Property_Media__c media : propertyMedia) {
             propertyIdsFromMedia.add(media.Property__c);
@@ -38,17 +51,12 @@ public without sharing class ESX_PropertyDataTableController {
         propertyIdsFromListings.retainAll(propertyIdsFromMedia);
         intersectingPropertyIds = propertyIdsFromListings;
 
-        System.debug('intersectingPropertyIds-->'+intersectingPropertyIds);
-        System.debug('intersectingPropertyIds-->'+intersectingPropertyIds.size());
-
-
         // Fetch property data with related listings and media
         List<Property__c> properties = [SELECT Id,Name,Price__c,
-                                        (SELECT Id, Name, Property__c,Property__r.Current_Owner__r.Name,Property__r.Name,Property__r.Street__c,Property__r.State__c,Property__r.City__c,Property__r.Postal_Code__c,Property__r.Description__c,property__r.Number_of_Bedrooms__c,property__r.Number_of_Bathrooms__c,property__r.Number_of_Parking__c,property__r.Carpet_Area__c,property__r.carpetAreaUnit__c,property__r.Indoor_Facilities__c,property__r.Outdoor_Facilities__c,property__r.Amenities__c, Listing_Type__c, Listing_Status__c, Listing_Price__c, Listing_Description__c, Listing_Date__c FROM Listings__r ORDER BY CreatedDate DESC LIMIT 1),
+                                        (SELECT Id, Name, Property__c,Property__r.Current_Owner__r.Name,Property__r.Name,Property__r.Street__c,Property__r.State__c,Property__r.City__c,Property__r.Postal_Code__c,Property__r.Description__c,property__r.Number_of_Bedrooms__c,property__r.Number_of_Bathrooms__c,property__r.Number_of_Parking__c,property__r.Carpet_Area__c,property__r.carpetAreaUnit__c,property__r.Indoor_Facilities__c,property__r.Outdoor_Facilities__c,property__r.Amenities__c, Listing_Type__c, Listing_Status__c, Listing_Price__c, Listing_Description__c, Listing_Date__c,Availability_Date__c FROM Listings__r ORDER BY CreatedDate DESC LIMIT 1),
                                         (SELECT Id, ExternalLink__c, Property__c FROM Property_Medias__r ORDER BY CreatedDate DESC LIMIT 1) FROM Property__c WHERE Id IN :intersectingPropertyIds ORDER BY CreatedDate DESC LIMIT 50000];
 
         System.debug('properties--->' + properties);
-        System.debug('properties--->' + properties.size());
 
         return properties;
             

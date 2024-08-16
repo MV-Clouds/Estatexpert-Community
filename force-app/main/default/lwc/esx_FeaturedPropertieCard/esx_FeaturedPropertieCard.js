@@ -1,5 +1,6 @@
 import { LightningElement,track } from 'lwc';
 import ListedProperties from "@salesforce/resourceUrl/ListedProperties";
+import ImageNotFound from '@salesforce/resourceUrl/ImageNotFound';
 import getListingData from '@salesforce/apex/ESX_PropertyDataTableController.getListingData';
 
 export default class Esx_FeaturedPropertieCard extends LightningElement {
@@ -10,6 +11,7 @@ export default class Esx_FeaturedPropertieCard extends LightningElement {
     @track cards = [];
 
     Rectangle = ListedProperties + '/Rectangle.png';
+    imageNot = ImageNotFound;
 
     connectedCallback() {
         this.getPropertyInfo();
@@ -88,6 +90,11 @@ export default class Esx_FeaturedPropertieCard extends LightningElement {
                 detail: selectCard
             })
         );
+    }
+
+    handleErrro(event) {
+        event.target.src = this.imageNot;
+        event.target.onerror = null;
     }
     
 }

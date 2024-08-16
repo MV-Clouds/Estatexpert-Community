@@ -9,11 +9,16 @@
 		<members>esx_FeaturedProperties</members>
 		<members>esx_PropertyCard</members>
 		<members>esx_PropertyDataTable</members>
+		<members>esx_Register</members>
 		<name>LightningComponentBundle</name>
 	</types>
 	<types>
 		<members>*</members>
 		<name>LightningMessageChannel</name>
+	</types>
+	<types>
+		<members>ESX_UserUtil</members>
+		<name>ApexClass</name>
 	</types>
 	<version>60.0</version>
 </Package>

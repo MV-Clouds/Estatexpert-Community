@@ -24,7 +24,7 @@
     outline: none;
     font-weight: normal;
     max-width: 110px;
-    
+
 }
 
 .room-bathroom {
@@ -41,13 +41,14 @@
     display: flex;
 }
 
-.room-bathroom span,.bed-bath span {
+.room-bathroom span,
+.bed-bath span {
     margin: 12px;
     cursor: pointer;
     user-select: none;
 }
 
-.search-button-icon:hover{
+.search-button-icon:hover {
     background: #0467b5;
 }
 
@@ -66,7 +67,8 @@
     justify-content: space-between;
     margin: 8px 3px;
 }
-.more-filters-icon:hover{
+
+.more-filters-icon:hover {
     background: #0467b5;
 }
 
@@ -105,7 +107,7 @@
 
 }
 
-.view-type:hover{
+.view-type:hover {
     background: #0467b5;
 }
 
@@ -118,7 +120,7 @@
     height: 34px;
 }
 
-.select-view-type{
+.select-view-type {
     width: 0;
     border: none;
 }
@@ -127,7 +129,7 @@
     display: flex;
 }
 
-.type-icon svg{
+.type-icon svg {
     width: 25px;
     height: 22px;
 }
@@ -140,13 +142,13 @@ input::-webkit-inner-spin-button {
     -webkit-appearance: none;
 }
 
-.model-popup{
+.model-popup {
     border-radius: 10px;
     max-width: 415px;
-    margin:0 auto;
+    margin: 0 auto;
 }
 
-.main-model{
+.main-model {
     margin: 0 8px;
     user-select: none;
 }
@@ -206,7 +208,7 @@ input::-webkit-inner-spin-button {
     justify-content: center;
 }
 
-.listing-sub select{
+.listing-sub select {
     width: 100%;
     height: 40px;
     border: none;
@@ -222,11 +224,15 @@ input::-webkit-inner-spin-button {
     margin-bottom: 10px;
 }
 
-.max-pop span, .min-pop span{
+.max-pop span,
+.min-pop span {
     padding: 0px 0px 0px 10px;
 }
 
-.max-pop input[type="text"], input[type="number"],.min-pop input[type="text"], input[type="number"]{
+.max-pop input[type="text"],
+input[type="number"],
+.min-pop input[type="text"],
+input[type="number"] {
     padding: 0 0 0 3px;
     -moz-appearance: textfield;
     -webkit-appearance: none;
@@ -236,13 +242,13 @@ input::-webkit-inner-spin-button {
     margin-bottom: 10px;
 }
 
-.square-sub{
+.square-sub {
     display: flex;
     justify-content: space-between;
     padding: 0 9px 0 0;
 }
 
-.squ-icon{
+.squ-icon {
     margin: 0 0 2px 0;
 }
 
@@ -252,13 +258,13 @@ input::-webkit-inner-spin-button {
     margin-bottom: 20px;
 }
 
-.button-apply-cancel{
+.button-apply-cancel {
     max-width: fit-content;
     margin-left: auto;
-    margin-right: auto;   
+    margin-right: auto;
 }
 
-.button-apply-cancel button{
+.button-apply-cancel button {
     color: white;
     border-radius: 8px;
     padding: 9px 20px;
@@ -266,27 +272,28 @@ input::-webkit-inner-spin-button {
     font-weight: bold;
 }
 
-.button-cancel{
+.button-cancel {
     background-color: #C2C2C2;
     margin-left: 8px;
 }
 
-.button-apply{
+.button-apply {
     background-color: #007bff;
     margin-right: 8px;
 }
 
-.button-apply:hover{
+.button-apply:hover {
     background: #0467b5;
 }
 
-.close-button{
+.close-button {
     margin: 10px 10px 0 0;
 }
+
 /* model popup css */
 
 /* mobile-view */
-.mobile-view{
+.mobile-view {
     display: flex;
     margin: 18px 15px 0 15px;
     user-select: none;
@@ -294,26 +301,43 @@ input::-webkit-inner-spin-button {
     cursor: pointer;
 }
 
-.search-mobile{
+.search-mobile {
     box-shadow: 0px 0px 5px 0px #00000040;
     border-radius: 8px;
     padding: 12px 16px;
+    display: flex;
+    justify-content: space-between;
     width: 90%;
     margin: 0 10px 0px 0px;
 }
 
-.search-mobile input[type="text"]{
+.search-mobile input[type="text"] {
     border: none;
     outline: none;
 }
 
-.search-mobile svg{
+.search-mobile svg {
     float: right;
 }
 
-.filter-button-mobile{
+.search-button-mobile:hover {
+    background: #0467b5;
+}
+
+.filter-button-mobile {
     background-color: #007bff;
     border-radius: 8px;
     padding: 10px;
 }
+
 /* mobile-view */
+
+@media (max-width: 900px) {
+    .room-icon span {
+        display: none;
+    }
+
+    .bathroom-icon span {
+        display: none;
+    }
+}

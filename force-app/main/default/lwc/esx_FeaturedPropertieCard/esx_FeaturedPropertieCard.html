@@ -8,7 +8,7 @@
                         <div class="card-image">
                             <template for:each={card.Property_Medias__r} for:item="property">
                                 <img draggable="false" src={property.ExternalLink__c} key={property.Id} loading="lazy"
-                                    class="responsive" alt="Images">
+                                    class="responsive" onerror={handleErrro} alt="Images">
                             </template>
                         </div>
                         <div class="card-inner">

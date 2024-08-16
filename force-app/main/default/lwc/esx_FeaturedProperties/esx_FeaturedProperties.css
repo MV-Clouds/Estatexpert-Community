@@ -6,6 +6,7 @@
     margin: 27px 40px;
     background-color: rgb(241, 247, 252);
     font-family: system-ui;
+    user-select: none;
 }
 
 .background-image{
@@ -100,6 +101,7 @@ b:nth-of-type(3) {
 .property-details p:nth-of-type(1),
 .facility {
     color: #9B9A98;
+    white-space: nowrap;
 }
 
 .property-features {

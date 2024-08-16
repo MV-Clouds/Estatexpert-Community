@@ -5,6 +5,10 @@
     margin: 14px 0px;
 }
 
+.main:hover{
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
 .main-box{
     margin: 0 40px;
 }
@@ -15,6 +19,10 @@
     display: flex;
     width: 100%;
     margin-top: 25px;
+}
+
+.main-list:hover{
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
 
 .image{
@@ -83,7 +91,7 @@ image img{
 .description{
     width: 60%;
     display: grid;
-    gap: 12px;
+    gap: 20px;
     padding: 20px;
 
 }
@@ -99,6 +107,13 @@ image img{
     font-size:1.12rem;
     font-weight: 700;
     line-height: 24px;
+    width: 230px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: pre-line;
+    display: -webkit-box;
+    -webkit-line-clamp: 1;
+    -webkit-box-orient: vertical;
 }
 
 .propertyname-list{
@@ -130,7 +145,6 @@ image img{
     margin-top: 13px;
 }
 .featurespart1{
-    
     font-size: 1rem;
     font-weight: 400;
     line-height: 16px;
@@ -138,12 +152,23 @@ image img{
     display: flex;
     gap: 14px;
 }
+
+.featurespart-list{
+    width: fit-content !important;
+}
+
 .featurespart2{
-    
     font-size: 1rem;
     font-weight: 400;
     line-height: 25px;
     text-align: left;
+    width: 190px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: pre-line;
+    display: -webkit-box;
+    -webkit-line-clamp: 1;
+    -webkit-box-orient: vertical;
 }
 .price{
     
@@ -171,8 +196,7 @@ image img{
     position: absolute;
     top: 10px;
     right: 10px;
-    width: 40px;
-    padding: 7.5px 11.5px;
+    padding: 2.5px 6.5px;
 }
 
 .like-icon svg {
@@ -224,7 +248,10 @@ image img{
     width: 200px;
     overflow: hidden;
     text-overflow: ellipsis;
-    resize: horizontal;
+    white-space: pre-line;
+    display: -webkit-box;
+    -webkit-line-clamp: 1;
+    -webkit-box-orient: vertical;
 }
 
 .addressfet{
@@ -302,7 +329,10 @@ image img{
         white-space: nowrap;
         overflow: hidden;
         text-overflow: ellipsis;
-        resize: horizontal;
+        white-space: pre-line;
+        display: -webkit-box;
+        -webkit-line-clamp: 1;
+        -webkit-box-orient: vertical;
     }
     
     .prname p:last-of-type {

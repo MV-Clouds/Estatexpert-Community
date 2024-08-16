@@ -4,6 +4,7 @@ import FeaturedProperties from "@salesforce/resourceUrl/FeaturedProperties";
 import FORM_FACTOR from "@salesforce/client/formFactor";
 import getListingData from '@salesforce/apex/ESX_PropertyDataTableController.getListingData';
 import { ShowToastEvent } from 'lightning/platformShowToastEvent';
+import ImageNotFound from '@salesforce/resourceUrl/ImageNotFound';
 
 
 export default class Esx_FeaturedProperties extends LightningElement {
@@ -16,6 +17,7 @@ export default class Esx_FeaturedProperties extends LightningElement {
     @track currentItem = 0;
     @track mobileView = true;
     @track isLiked = false;
+    imageNot = ImageNotFound;
 
     @api homePage;
 
@@ -56,7 +58,7 @@ export default class Esx_FeaturedProperties extends LightningElement {
 
             this.carouselItems = [JSON.parse(JSON.stringify(carouselItems))];
         } catch (error) {
-            console.log('error handleChildData--',(error.message));
+            console.error(error.stack);
         }
         
     }
@@ -77,17 +79,16 @@ export default class Esx_FeaturedProperties extends LightningElement {
                         this.homePage ? this.carouselItemsAll = (properties): this.carouselItemsAll = [];
                         this.homePage ? '' : this.updateCarouselItems();
                     } else {
-                        console.log({ error });
-                        console.log('error getListingData--->',error.message );
+                        console.error(error.stack);
                         this.showToast('Error', 'Something went Wrong', 'error');
                     }
                 })
                 .catch(error => {
-                    console.log('error getPropertyInfo--->',error.message );
+                    console.error(error.stack);
                     this.showToast('Error', 'Something went Wrong', 'error');
                 })
         } catch (error) {
-            console.log('error getPropertyInfo--->', error.message);
+            console.error(error.stack);
             this.showToast('Error', 'Something went Wrong', 'error');
 
         }
@@ -102,7 +103,7 @@ export default class Esx_FeaturedProperties extends LightningElement {
                 return { ...item, class: index === this.currentItem ? 'carousel-property active' : 'carousel-property' };
             });
         } catch (error) {
-            console.log('error--',error);
+            console.error(error.stack);
         }
         
     }
@@ -114,7 +115,7 @@ export default class Esx_FeaturedProperties extends LightningElement {
             this.currentItem = (this.currentItem + 1) % this.carouselItems.length;
             this.updateCarouselItems();
         } catch (error) {
-            console.error('Error in nextItem', error);
+            console.error(error.stack);
         }
     }
 
@@ -125,7 +126,7 @@ export default class Esx_FeaturedProperties extends LightningElement {
             this.currentItem = (this.currentItem - 1 + this.carouselItems.length) % this.carouselItems.length;
             this.updateCarouselItems();
         } catch (error) {
-            console.error('Error in prevItem', error);
+            console.error(error.stack);
         }
     }
 
@@ -137,6 +138,11 @@ export default class Esx_FeaturedProperties extends LightningElement {
             mode: 'dismissable'
         });
         this.dispatchEvent(event);
+    }
+
+    handleErrro(event) {
+        event.target.src = this.imageNot;
+        event.target.onerror = null;
     }
 
 

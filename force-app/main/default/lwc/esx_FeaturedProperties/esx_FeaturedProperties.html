@@ -3,7 +3,7 @@
     <div class="container">
         <template if:false={homePage}>
             <div if:true={mobileView} class="background-image">
-                <img src={backgroundimage} alt="">
+                <img draggable="false" src={backgroundimage} alt="">
             </div>
         </template>
         <h1><span>Featured</span>&nbsp;<b>Pr</b><b>o</b><b>p</b><b>erties</b></h1>
@@ -21,7 +21,7 @@
                         <div class="carousel-item">
                             <template for:each={item.Property_Medias__r} for:item="property">
                                 <img draggable="false" src={property.ExternalLink__c} key={property.Id}
-                                    alt="Property Image">
+                                    onerror={handleErrro}>
                             </template>
                             <div class="like-icon" data-id={item.Id} onclick={handleClick}>
                                 <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="none"
