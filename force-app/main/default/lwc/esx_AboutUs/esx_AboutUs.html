@@ -1,0 +1,137 @@
+<template>
+    <div class="about-header">
+        <img class="header-img" src={aboutUsImgUrl} alt="about_us_image">
+        <h1 class="centered-text">About Us</h1>
+    </div>
+
+
+    <div class="container">
+        <h1>Who We Are?</h1>
+        <div class="content">
+            <div class="text-content">
+                <p>MV Clouds is a highly professional development studio for Salesforce, offering Cloud & Salesforce
+                    outsourcing services to the different small and large businesses as well as IT vendors globally.
+                    Headquartered in Ahmedabad, we offer some of the best solutions that suit the business requirements
+                    posed by the client, enabling them to meet their end goals. With our evolving practices, and domain
+                    expertise, we have reached out to several companies across geographies. We have scaled our business
+                    owing to the agility and flexibility imbibed in our workforce. Our skilled and highly passionate
+                    team is
+                    built to create excellent solutions that drive growth and innovation. Having in-depth knowledge and
+                    extensive SaaS & Cloud Computing experience, we can implement custom Force.com solutions and map
+                    legacy
+                    systems of your organization to salesforce.com efficiently. With a sole focus on Salesforce & Cloud
+                    Computing solutions combined with mobile, we aim to streamline your processes and workflow, thus
+                    improving productivity & efficiency across the organization.</p>
+            </div>
+            <div class="image-content">
+                <img src={aboutUsSecondImgUrl} alt="Team working on laptops">
+            </div>
+        </div>
+        <button class="join-us-button" onclick={joinUs}>Join Us
+            <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path
+                    d="M9.41671 16.0833C9.26393 15.9306 9.18393 15.7361 9.17671 15.5C9.16949 15.2639 9.24254 15.0694 9.39588 14.9167L13.4792 10.8333H4.16671C3.9306 10.8333 3.73254 10.7533 3.57254 10.5933C3.41254 10.4333 3.33282 10.2356 3.33338 10C3.33338 9.76389 3.41338 9.56583 3.57338 9.40583C3.73338 9.24583 3.93115 9.16611 4.16671 9.16667H13.4792L9.39588 5.08333C9.2431 4.93056 9.17004 4.73611 9.17671 4.5C9.18338 4.26389 9.26338 4.06944 9.41671 3.91667C9.56949 3.76389 9.76393 3.6875 10 3.6875C10.2362 3.6875 10.4306 3.76389 10.5834 3.91667L16.0834 9.41667C16.1667 9.48611 16.2259 9.57306 16.2609 9.6775C16.2959 9.78194 16.3131 9.88944 16.3125 10C16.3125 10.1111 16.2953 10.2153 16.2609 10.3125C16.2264 10.4097 16.1673 10.5 16.0834 10.5833L10.5834 16.0833C10.4306 16.2361 10.2362 16.3125 10 16.3125C9.76393 16.3125 9.56949 16.2361 9.41671 16.0833Z"
+                    fill="white" />
+            </svg>
+        </button>
+    </div>
+
+    <!-- Heading of Testimonials -->
+    <div class="heading">
+        <h1>Testimonials</h1>
+    </div>
+
+
+    <!-- Carousel container -->
+    <div class="container-carousel">
+
+        <template if:true={hasSlides}>
+        <div class="carousel" data-carousel>
+            <!-- Next and previuus button -->
+            <template if:true={hasManySlides}>
+                <div class="carousel-buttons">
+                    <button class="carousel-button carousel-button_previous" data-carousel="button-previous"
+                        onclick={privousSlide}>
+                        <svg width="57" height="38" viewBox="0 0 57 38" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <rect class="svg-icon" y="0.500061" width="57" height="37" rx="18.5" fill="#F4F8FF" />
+                            <path
+                                d="M26.7788 23.8309C26.6442 23.8309 26.5096 23.7813 26.4034 23.6751L22.1038 19.3755C21.8984 19.1701 21.8984 18.8301 22.1038 18.6246L26.4034 14.3251C26.6088 14.1196 26.9488 14.1196 27.1542 14.3251C27.3596 14.5305 27.3596 14.8705 27.1542 15.0759L23.23 19.0001L27.1542 22.9242C27.3596 23.1296 27.3596 23.4696 27.1542 23.6751C27.055 23.7813 26.9134 23.8309 26.7788 23.8309Z"
+                                fill="#34113F" />
+                            <path
+                                d="M34.5209 19.5313H22.5996C22.3092 19.5313 22.0684 19.2905 22.0684 19.0001C22.0684 18.7096 22.3092 18.4688 22.5996 18.4688H34.5209C34.8113 18.4688 35.0521 18.7096 35.0521 19.0001C35.0521 19.2905 34.8113 19.5313 34.5209 19.5313Z"
+                                fill="#34113F" />
+                        </svg>
+                    </button>
+
+                    <button class="carousel-button carousel-button_next" data-carousel="button-next" onclick={nextSlide}>
+                        <svg width="57" height="38" viewBox="0 0 57 38" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <rect class="svg-icon" width="57" height="37" rx="18.5" transform="matrix(-1 0 0 1 57 0.500061)"
+                                fill="#F4F8FF" />
+                            <path
+                                d="M30.2212 23.8309C30.3558 23.8309 30.4904 23.7813 30.5966 23.6751L34.8962 19.3755C35.1016 19.1701 35.1016 18.8301 34.8962 18.6246L30.5966 14.3251C30.3912 14.1196 30.0512 14.1196 29.8458 14.3251C29.6404 14.5305 29.6404 14.8705 29.8458 15.0759L33.77 19.0001L29.8458 22.9242C29.6404 23.1296 29.6404 23.4696 29.8458 23.6751C29.945 23.7813 30.0866 23.8309 30.2212 23.8309Z"
+                                fill="#34113F" />
+                            <path
+                                d="M22.4791 19.5313H34.4004C34.6908 19.5313 34.9316 19.2905 34.9316 19.0001C34.9316 18.7096 34.6908 18.4688 34.4004 18.4688H22.4791C22.1887 18.4688 21.9479 18.7096 21.9479 19.0001C21.9479 19.2905 22.1887 19.5313 22.4791 19.5313Z"
+                                fill="#34113F" />
+                        </svg>
+                    </button>
+                </div>
+            </template>
+
+
+            <div class="slides" data-carousel="slides-container">
+                <!-- All the slids data load here -->
+                <template for:each={slides} for:item="slide" for:index="index">
+                    <div key={slide.id} class="slide">
+                        <span class="quotes-icon">
+                            <svg width="76" height="57" viewBox="0 0 76 57" fill="none"
+                                xmlns="http://www.w3.org/2000/svg">
+                                <path
+                                    d="M21.5357 2.30916L21.5498 2.3008L21.5635 2.29197C22.972 1.3891 24.18 1 25.2088 1C26.2108 1 27.1452 1.36844 28.0397 2.18758C28.9589 3.02938 29.1662 3.70603 29.0834 4.25751C28.9901 4.87819 28.4851 5.69558 27.2016 6.68012L27.1931 6.68658L27.1849 6.69321C24.6906 8.69184 22.3691 11.2143 20.2154 14.2469C18.0106 17.2012 16.5262 20.683 15.7469 24.6701C15.546 25.5794 15.6976 26.5164 16.4938 27.1589C17.1838 27.7156 18.1739 27.8826 19.2142 27.8826C22.3598 27.8826 25.2792 29.219 27.9948 32.0382L28.0126 32.0566L28.0313 32.0742C30.8523 34.7172 32.2392 37.8765 32.2392 41.6066C32.2392 45.4838 30.7774 48.8766 27.7866 51.8262C24.9712 54.6028 21.4594 56 17.1783 56C13.222 56 9.77288 54.618 6.78744 51.8176C3.75669 48.8256 1.99199 45.522 1.42676 41.8987C0.25498 34.3871 1.4939 27.0143 5.17441 19.7532C9.0108 12.3332 14.4607 6.52474 21.5357 2.30916ZM64.2965 2.30916L64.3105 2.3008L64.3243 2.29197C65.7328 1.3891 66.9408 1 67.9695 1C68.9716 1 69.9059 1.36844 70.8004 2.18758C71.7196 3.02938 71.927 3.70603 71.8441 4.25751C71.7509 4.87819 71.2458 5.69559 69.9623 6.68012L69.9539 6.68658L69.9456 6.69321C67.4514 8.69186 65.1298 11.2143 62.9762 14.247C60.7714 17.2013 59.287 20.683 58.5077 24.6701C58.3144 25.5441 58.4209 26.4706 59.1621 27.1285C59.8204 27.7128 60.7741 27.8826 61.7487 27.8826C65.0571 27.8826 68.0497 29.2291 70.7556 32.0382L70.7734 32.0566L70.7921 32.0742C73.6131 34.7172 75 37.8765 75 41.6066C75 45.4838 73.5382 48.8766 70.5474 51.8262C67.732 54.6028 64.2202 56 59.939 56C55.9828 56 52.5337 54.618 49.5482 51.8176C46.5175 48.8256 44.7528 45.5221 44.1875 41.8987C43.0157 34.3871 44.2547 27.0143 47.9352 19.7531C51.7716 12.3332 57.2215 6.52473 64.2965 2.30916Z"
+                                    fill="white" stroke="#0176D3" stroke-width="2" />
+                            </svg>
+                        </span>
+                        <div class="sub-slide">
+                            <div class="upper-slide-content">
+                                <div class="slide-text-content">
+                                    <p>
+                                        {slide.content}
+                                    </p>
+                                </div>
+                                <div class="slide-image-content">
+                                    <img src={slide.imgUrl} alt="testimonial">
+                                </div>
+                            </div>
+
+                            <div class="lower-slide-content">
+                                <div class="sub-lower-slide-content">
+                                    <div class="sub-lower-left">
+                                        <img class="review-img" src={testimonialImg1} alt="">
+                                    </div>
+                                    <div class="sub-lower-right">
+                                        <p class="sub-lower-p-tag">{slide.author}</p>
+                                        <p>{slide.authorDetails}</p>
+                                    </div>
+                                </div>
+
+                                <div>
+                                    <img src={slide.firmImage} alt="">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </template>
+
+            </div>
+
+        </div>
+        </template>
+
+        <template if:false={hasSlides}>
+            <p class="empty-slides-p">No slides available</p>
+        </template>
+
+    </div>
+
+
+</template>

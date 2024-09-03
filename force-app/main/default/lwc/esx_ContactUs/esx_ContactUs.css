@@ -1,0 +1,163 @@
+.container{
+    height: 90vh;
+
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    width: 100%;
+}
+
+.box{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: #0176D3;
+    color: #FFFFFF;
+    padding: 3rem 2rem;
+    /* max-height: 407px; */
+
+    position: relative;
+    top: 50%;
+    transform: translateY(-50%);
+
+    height: 320px;
+    max-height: 320px;
+}
+
+.left-side-content{
+    font-weight: 300;
+    font-size: small;
+}
+
+.contact-header{
+    font-size: 1.3rem;
+    font-weight: 700;
+    margin-bottom: 0.1rem;
+}
+
+.form-box{
+    box-shadow: 13px 27px 73px 17px rgb(0 0 0 / 32%);
+    background: #FFFFFF;
+    color: black;
+    border-radius: 12px;
+    padding: 2rem;
+    width: 360px;
+}
+
+.font-style{
+    font-size: 1rem;
+    font-weight: 100;
+    color: #FFFFFF;
+}
+
+.icon-style{
+    margin-right: 0.8rem;
+}
+
+.p-tag{
+    margin-bottom: 0.9rem;
+}
+
+.p-tag a{
+    color: #FFFFFF;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.mb{
+    margin-bottom: 1.9rem;
+}
+
+.social-media-link{
+    display: flex;
+    flex-direction: row;
+    gap: 1.6rem;
+}
+
+.label-style{
+    display: block;
+    font-size: small;
+    font-weight: 500;
+}
+
+.form-field{
+    margin-bottom: 0.7rem;
+}
+
+.input-field{
+    width: 100%;
+    border: 1px solid gray;
+    border-radius: 5px;
+    padding: 3px 10px;
+}
+
+.input-field-height{
+    height: 2.4rem;
+    font-size: small;
+}
+
+.btn{
+    border: none;
+    border-radius: 5px;
+    padding: 8px 25px;
+    text-align: center;
+    background-color: #0176D3;
+    color: #FFFFFF;
+    font-size: small;
+    width: 50%;
+}
+
+.btn-div{
+    text-align: center;
+}
+
+.astrick{
+    color: red;
+}
+
+
+.form-field .error-cls{
+    color: red;
+    font-size: 12px;
+}
+
+.text-area-font{
+    font-size: small;
+}
+
+
+/* @media (max-width: 770px) {
+    .container{
+        height: 100%;
+    }
+
+    .box{
+        display: block;
+    }
+} */
+
+@media (max-width: 430px) {
+    .container{
+        height: 100%;
+    }
+
+    .box{
+        display: block;
+        height: 100%;
+        max-height: 100%;
+    }
+
+    .right-side-content{
+        margin-top: 3rem;
+    }
+
+    .form-box{
+        width: 100%;
+    }
+}
+
+@media (max-width: 401px){
+    .btn{
+        width: auto;
+    }
+}

@@ -1,0 +1,397 @@
+.about-header{
+    position: relative;
+    text-align: center;
+    margin-bottom: 1.5rem;
+}
+
+.about-header .header-img{
+    width: 100%;
+    height: auto;
+}
+
+.centered-text {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: #0176D3;
+    font-size: 2.3rem;
+    font-weight: bold;
+    font-family: system-ui;
+    /* text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); */
+}
+
+
+
+
+.container {
+    font-family: Arial, sans-serif;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+.container h1 {
+    font-size: 24px;
+    margin-bottom: 20px;
+}
+
+.content {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 4rem;
+}
+
+.text-content {
+    flex: 1;
+    padding-right: 20px;
+    text-align: justify;
+}
+
+.image-content {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.image-content img {
+    max-width: 100%;
+    height: auto;
+    padding-left: 20px;
+    padding-right: 20px;
+    object-fit: contain;
+}
+
+.join-us-button {
+    background-color: rgba(1, 118, 211, 1);
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 30px;
+    cursor: pointer;
+    margin-top: 20px;
+    display: flex;
+    align-items: center;
+}
+
+.join-us-button svg{
+    margin-left: 8px;
+    display: inline-block;
+}
+
+
+
+
+
+.heading{
+    margin-top: 3.7rem;
+    margin-bottom: 2.7rem;
+}
+
+.heading h1{
+    text-align: center;
+    font-size: xx-large;
+    font-weight: 600;
+    color: #0176D3;
+}
+
+
+
+
+
+.container-carousel {
+    margin-bottom: 2.7rem;
+    display: flex;
+    justify-content: center;
+}
+
+.carousel {
+    --current-slide: 0;
+    width: 70%;
+    position: relative;
+    overflow: hidden;
+    text-align: justify;
+}
+
+.carousel-button {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    padding: 0;
+    cursor: pointer;
+    z-index: 1;
+    border: none;
+    background: transparent;
+}
+
+.carousel-button svg .svg-icon:hover {
+    fill: rgba(0, 0, 0, 0.5);
+}
+
+.carousel-button_next {
+    right: 0;
+}
+
+.slides {
+    display: flex;
+    width: 100%;
+    height: auto;
+    transition: transform 0.5s;
+    transform: translateX(calc(-100% * var(--current-slide)));
+    margin: 0 auto;
+}
+
+.slide {
+    flex: 0 0 100%;
+    padding: 2rem 4rem;
+    position: relative;
+}
+
+.quotes-icon {
+    position: absolute;
+    margin: -17px 0px 0px 64px;
+    top: 5%;
+}
+
+.sub-slide {
+    background: rgba(1, 118, 211, 0.15);
+    padding: 2rem 3rem;
+    border-radius: 16px;
+}
+
+.slide-content {
+    width: 100%;
+    margin: auto;
+    text-align: center;
+}
+
+.slide-text-content {
+    width: 100%;
+    margin: auto;
+}
+
+.slide-content h2 {
+    font-size: 1.5rem;
+}
+
+.upper-slide-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 3rem;
+    line-height: 2;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+    padding-bottom: 1.5rem;
+}
+
+.lower-slide-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 1rem;
+}
+
+.sub-lower-slide-content {
+    display: flex;
+    align-items: center;
+    gap: 1.4rem;
+}
+
+.review-img {
+    width: 4rem;
+    height: 4rem;
+    object-fit: cover;
+    border-radius: 50%;
+}
+
+.sub-lower-p-tag {
+    font-weight: 100;
+}
+
+.empty-slides-p{
+    font-size: 2.5rem;
+    color: gray;
+    font-weight: 300;
+}
+
+
+
+@media (max-width: 1024px) {
+    .carousel {
+        width: 90%;
+    }
+
+    .slide {
+        padding: 2rem;
+    }
+
+    .upper-slide-content {
+        line-height: 1.5;
+    }
+}
+
+@media (max-width: 884px) {
+    /* .image-content img{
+        height: 485px;
+        padding-right: 0px;
+        object-fit: unset;
+    } */
+
+    .text-content{
+        font-size: smaller;
+    }
+}
+
+@media (max-width: 768px) {
+    .container h1{
+        padding-left: 20px;
+    }
+
+    .content {
+        flex-direction: column;
+        gap: 2rem;
+    }
+
+    .text-content{
+        padding-left: 20px;
+    }
+
+    .image-content{
+        order: -1;
+        width: 100%;
+    }
+
+    .image-content img{
+        width: 100%;
+    }
+
+    .join-us-button{
+        margin-left: 20px;
+    }
+
+    .slide-content h2 {
+        font-size: 1.25rem;
+    }
+
+    /* .quotes-icon {
+        display: none;
+    } */
+
+    .quotes-icon {
+        width: 45px;
+        height: 40px;
+        margin: -24px 0px 0px 47px;
+        top: 10%;
+    }
+
+    .quotes-icon svg{
+        width: 45px;
+        height: 40px;
+    }
+
+    .sub-slide {
+        padding: 1.5rem;
+    }
+
+    .upper-slide-content {
+        line-height: 1.4;
+    }
+
+    .lower-slide-content {
+        margin-top: 0.5rem;
+    }
+
+    .review-img {
+        width: 3rem;
+        height: 3rem;
+    }
+}
+
+
+@media (max-width: 480px){
+    .about-header .header-img{
+        height: 270px;
+    }
+
+    .slide {
+        padding: 1rem;
+    }
+
+    .quotes-icon {
+        width: 30px;
+        height: 30px;
+        margin: -72px 0px 0px 32px;
+        top: 15%;
+    }
+    
+    .quotes-icon svg{
+        width: 30px;
+        height: 30px;
+    }
+
+
+    .sub-slide {
+        padding: 1rem;
+    }
+
+    .upper-slide-content {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 1rem;
+    }
+
+    .upper-slide-content,
+    .lower-slide-content {
+        text-align: left;
+    }
+
+    .upper-slide-content {
+        gap: 1.8rem;
+        line-height: 1.3;
+        align-items: center;
+        padding: 1rem;
+    }
+
+    .sub-lower-right{
+        font-size: small;
+    }
+
+    .slide-content h2 {
+        font-size: 1rem;
+    }
+
+    .sub-lower-slide-content {
+        gap: 1rem;
+    }
+
+    .review-img {
+        width: 2.5rem;
+        height: 2.5rem;
+    }
+
+    .slide-image-content{
+        order: -1;
+    }
+
+    .sub-lower-left-img{
+        width: 4rem;
+    }
+}
+
+@media (max-width: 390px){
+    .quotes-icon {
+        width: 25px;
+        height: 25px;
+    }
+    
+    .quotes-icon svg{
+        width: 25px;
+        height: 25px;
+    }
+
+    .empty-slides-p{
+        font-size: 2.2rem;
+    }
+}

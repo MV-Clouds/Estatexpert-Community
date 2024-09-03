@@ -1,0 +1,91 @@
+<template>
+
+    <section class="tags">
+        <div class="tag-wrapper">
+            <ul>
+                <template for:each={tages} for:item="item">
+                    <li key={item.value}><a href="">{item.label}</a></li>
+                </template>
+            </ul>
+        </div>
+    </section>
+
+    <div class="maindiv">
+        <div class="wrapper" ondragover={handleDragOver} ondrop={handleDrop}>
+            <header>AWS File Uploader</header>
+            <form action="#" onclick={handleClick} draggable="true">
+                <input class="file-input" type="file" name="file" hidden onchange={handleFileChange} multiple>
+                <img src={uploadIcon} alt="" srcset="" width="100" height="70">
+                <p>Browse File to Upload</p>
+            </form>
+            <section class="progress-area">
+                <template if:true={progressBar}>
+                    <li class="rowlist">
+                        <i class="fas fa-file-alt"></i>
+                        <div class="content">
+                            <div class="details">
+                                <span class="name">{name} • Uploading</span>
+                                <span class="percent">{uploadProgress}%</span>
+                            </div>
+                            <div class="progress-bar">
+                                <div class="progress" style={progressBarStyle}></div>
+                            </div>
+                        </div>
+                    </li>
+                </template>
+
+            </section>
+            <section class="uploaded-area">
+                <template for:each={imageList} for:item="item">
+                    <li class="rowlist" key={item.Filename__c} data-key={item.Filename__c}>
+                        <div class="content upload">
+                            <img key={item.Filename__c} src={item.ExternalLink__c} width="40" height="40" alt=""
+                                srcset="" onclick={imageClick}>
+                            <div class="details">
+                                <span class="name">{item.Filename__c} • Uploaded</span>
+                                <span class="size">{item.Size__c} KB</span>
+                            </div>
+                        </div>
+                        <img class="delete-img" data-key={item.Filename__c} data-id={item.Id} src={deleteIcon}
+                            style="margin-left: 12px;" width="20" height="20" onclick={deleteImageS3} alt="" srcset="">
+                    </li>
+                </template>
+            </section>
+        </div>
+    </div>
+
+
+    <template if:true={showModal}>
+        <section role="dialog" tabindex="-1" aria-labelledby="modal-heading-01" aria-modal="true"
+            aria-describedby="modal-content-id-1" class="slds-modal slds-fade-in-open">
+            <div class="slds-modal__container">
+                <!-- Header Start -->
+                <header class="slds-modal__header">
+                    <lightning-button-icon class="slds-modal__close" title="Close" icon-name="utility:close"
+                        icon-class="slds-button_icon-inverse" onclick={closeModal}></lightning-button-icon>
+
+                    <h2 id="id-of-modalheader-h2" class="slds-text-heading_large">
+                        File Preview
+                    </h2>
+                </header>
+                <!-- Header End -->
+                <div class="slds-modal__content" id="modal-content-id-1">
+                    <lightning-layout>
+                        <lightning-layout-item flexibility="auto">
+                            <article class="slds-card">
+                                <div class="slds-card__body slds-card__body_inner" style="margin: 0">
+                                    <img src={url} />
+                                </div>
+                            </article>
+                        </lightning-layout-item>
+                    </lightning-layout>
+                </div>
+                <footer class="slds-modal__footer slds-grid slds-grid_align-spread">
+                    <lightning-button variant="brand-outline" label="Cancel" onclick={closeModal} title="Cancel"
+                        class="slds-var-m-left_x-small"></lightning-button>
+                </footer>
+            </div>
+        </section>
+        <div class="slds-backdrop slds-backdrop_open"></div>
+    </template>
+</template>

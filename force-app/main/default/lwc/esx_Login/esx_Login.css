@@ -1,0 +1,250 @@
+.main-container {
+    display: flex;
+    /* align-items: center; */
+    /* justify-content: center; */
+    height: 100vh;
+}
+
+.login-modal{
+    width: 50%;
+    padding: 80px;
+}
+
+.username-input {
+    /* position:relative;
+    padding:0; */
+    margin:0px 0px 24px 0px;
+}
+
+.login-input {
+    /* height:20px; */
+    width: 100%;
+    height:52px;
+    margin:0;
+    padding-left:30px;
+    border: rgba(224, 226, 233, 1);
+    background-color: #EFF0F2;
+}
+
+.login-input:focus-visible {
+    outline: none;
+}
+
+.input_img {
+    position:absolute;
+    bottom:8px;
+    left:10px;
+    width:10px;
+    height:10px;
+}
+
+.login-btn {
+    background: rgba(1, 118, 211, 1);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    height: 48px;
+    width: 300px;
+    margin: 30px 0px 0px 0px;
+
+    font-style: 26px;
+    color: #ffffff;
+}
+
+.left-side {
+    width: 50%;
+    overflow: hidden;
+    /* background: #02878b; */
+}
+
+.header-span {
+    font-size: 42px;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 72px;
+    margin: 0px 0px 36px 0px;
+}
+
+.input-label {
+    color: #4D5959;
+    font-size: 18px;
+    height: 30px;
+}
+
+.footer {
+    display: flex;
+    justify-content: center;
+}
+
+.login-input .slds-input {
+    background: #EFF0F2 !important;
+}
+
+.error-message {
+    color: #DB281A;
+}
+
+.sign-up {
+    display: flex;
+    margin: 16px 0px 0px 0px;
+    justify-content: center;
+}
+
+.sign-up-href {
+    cursor: pointer;
+    color: #0176D3;
+    font-weight: 600;
+}
+
+.forgot-pass-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 24px 0px 0px 0px;
+}
+
+.forgot-pass-href {
+    cursor: pointer;
+    color: #0176D3;
+    font-weight: 600;
+}
+
+/* ** Tablet View Landscap ** */
+@media (min-width: 768px) and (max-width: 1024px) and (orientation:landscape) {
+    .header-span {
+        font-size: 30px;
+        margin: 0px 0px 18px 0px;
+    }
+}
+
+/* ** Tablet View portait ** */
+@media (min-width: 768px) and (max-width: 1024px) and (orientation:portrait) {
+    .main-container {
+        position: relative;
+    }
+
+    .left-side {
+        width: 100%;
+    }
+
+    .login-modal {
+        width: 80%;
+        position: absolute;
+        background-color: white;
+        top: 10%;
+        left: 10%;
+        border-radius: 12px;
+        padding: 44px;
+    }
+
+    .header-span {
+        font-size: 32px;
+        margin: 0px 0px 24px 0px;
+    }
+}
+
+/*  ** Mobile View Portrait **  */
+@media only screen and (max-width: 767px) and (orientation:portrait) {
+    .main-container {
+        position: relative;
+    }
+
+    .left-side {
+        width: 100%;
+    }
+
+    .left-side img {
+        height: 100vh;
+    }
+
+    .login-btn {
+        margin: 22px 0px 0px 0px;
+        height: 40px;
+        font-size: 16px;
+    }
+
+    .username-input {
+        margin: 0px 0px 16px 0px;
+    }
+
+    .input-label {
+        font-size: 14px;
+    }
+
+    .login-input {
+        height: 40px;
+        font-size: 14px;
+        padding-left: 24px;
+    }
+
+    .login-modal {
+        width: 80%;
+        position: absolute;
+        background-color: white;
+        top: 10%;
+        left: 10%;
+        border-radius: 12px;
+        /* padding: 44px; */
+        padding: 28px;
+    }
+
+    .header-span {
+        font-size: 22px;
+        margin: 0px 0px 16px 0px;
+        height: 44px;
+    }
+}
+
+/*  ** Mobile View Landscap **  */
+@media only screen and (max-width: 767px) and (orientation:landscape) {
+    .login-modal {
+        padding: 28px;
+    }
+
+    .header-span {
+        font-size: 22px;
+        height: 30px;
+        margin: 0px 0px 16px 0px;
+    }
+
+    .input-label {
+        font-size: 14px;
+        height: 24px;
+    }
+
+    .username-input {
+        margin: 0px 0px 8px 0px;
+    }
+
+    .login-input {
+        height: 40px;
+        font-size: 14px;
+        padding-left: 20px;
+    }
+
+    .login-btn {
+        margin: 22px 0px 0px 0px;
+        height: 40px;
+        font-size: 16px;
+    }
+
+    .forgot-pass-container {
+        margin: 16px 0px 0px 0px;
+    }
+
+    .forgot-pass-href {
+        font-size: 14px;
+    }
+
+    .sign-up {
+        margin: 10px 0px 0px 0px;
+        font-size: 14px;
+    }
+
+    .error-message {
+        font-size: 14px;
+    }
+}

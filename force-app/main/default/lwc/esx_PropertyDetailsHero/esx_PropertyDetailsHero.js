@@ -1,0 +1,72 @@
+import { LightningElement, track,api } from 'lwc';
+import samplePropertyImage from '@salesforce/resourceUrl/ImageNotFound';
+import property_icons from '@salesforce/resourceUrl/propertyViewIcons';
+import Blank_Profile_Photo from '@salesforce/resourceUrl/Blank_Profile_Photo';
+import getPropertyInformation from '@salesforce/apex/ESX_PropertyDetailsController.getPropertyInformation';
+
+export default class Esx_PropertyDetailsHero extends LightningElement {
+    @api propertyid;
+    imageNot = samplePropertyImage;
+    @track bedroomIcon = property_icons + '/bed.png';
+    @track bathroomIcon = property_icons + '/bath.png';
+    @track balconyIcon = property_icons + '/balcony.png';
+    @track furnishedIcon = property_icons + '/furnished.png';
+
+    @track isProperty = false;
+    // propertyId = 'a02dL000000xuO1QAI';
+    @track property;
+    @track propertyMainImage;
+    @track propertyMedias = [];
+    @track allPropertyImages = [];
+    @track moreImgSize;
+    @track profileImage ='';
+    placeholderProfile = Blank_Profile_Photo;
+
+    connectedCallback() {
+        console.log('propertyId',this.propertyid);
+        
+        this.getPropertyInfo();
+    }
+
+    getPropertyInfo() {
+        getPropertyInformation({ propertyId: this.propertyid })
+            .then(result => {
+                console.log("result", result);
+                if ((result != null && result != undefined) && (result.ownerProfileImage != null && result.ownerProfileImage != undefined)) {
+                    this.profileImage = 'data:image/jpeg;base64,'+ result.ownerProfileImage;
+                } else {
+                    this.profileImage = this.placeholderProfile;
+                }
+                this.property = result.property;
+                this.allPropertyImages = result.mediaLinks;
+                this.propertyMedias = result.mediaLinks;
+                this.propertyMedias = this.propertyMedias.slice(0, 6);
+                this.propertyMainImage = this.propertyMedias.length>0 ?this.propertyMedias[0].ExternalLink__c :this.imageNot;
+                this.isProperty = true;
+                this.moreImgSize = result.mediaLinks.length - 5;
+                const targetId = this.propertyMedias[5].Id;
+                setTimeout(() => {
+                    this.template.querySelector('[data-id="' + targetId + '"]').classList.add("activate");
+                }, 0);
+
+            })
+            .catch(error => {
+                console.error(error);
+            });
+    }
+
+    showMoreImages() {
+        const imgElements = this.template.querySelectorAll('.black');
+        const scrollBox = this.template.querySelector('.scroll');
+        imgElements.forEach(imgElement => {
+            imgElement.style.display = 'none';
+        });
+        scrollBox.style.justifyContent = 'normal';
+        this.propertyMedias = this.allPropertyImages;
+    }
+
+    handleErrro(event) {
+        event.target.src = this.imageNot;
+        event.target.onerror = null;
+    }
+}

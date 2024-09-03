@@ -1,0 +1,16 @@
+<template>
+    <template if:true={showHeader}>
+        <header data-f6-region class='slds-col_padded slds-p-vertical_small'>
+            <!-- Footer content -->
+        </header>
+    </template>
+    <section data-f6-region>
+        <slot></slot>
+    </section>
+
+    <template if:true={showFooter}>
+        <footer data-f6-region class='slds-col_padded slds-p-vertical_small'>
+            <!-- Footer content -->
+        </footer>
+    </template>
+</template>

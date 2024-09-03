@@ -1,0 +1,325 @@
+import { LightningElement, track, wire } from 'lwc';
+import backgroundImage from "@salesforce/resourceUrl/FavoriteProperties";
+import { loadStyle } from 'lightning/platformResourceLoader';
+import getInquiryData from '@salesforce/apex/ESX_InquiryPageController.getInquiryData';
+import DeleteInquiry from '@salesforce/apex/ESX_InquiryPageController.deleteInquiry';
+import isUserSeller from '@salesforce/apex/ESX_InquiryPageController.isUserSeller';
+import customStyles from '@salesforce/resourceUrl/InquiryPageCss';
+import Blank_Profile_Photo from '@salesforce/resourceUrl/Blank_Profile_Photo';
+import popupIcons from '@salesforce/resourceUrl/popupicons1';
+import nopropertyfound from '@salesforce/resourceUrl/ImageNotFound';
+import updateInquiryStatus from '@salesforce/apex/ESX_InquiryPageController.updateInquiryStatus';
+import isLoggedInUserDataCorrect from '@salesforce/apex/ESX_UserUtil.isLoggedInUserDataCorrect';
+import { NavigationMixin } from 'lightning/navigation';
+export default class Esx_InquiryPage extends NavigationMixin(LightningElement) {
+
+    BgImage = backgroundImage + '/Bg-Image.png';
+
+    deleteIcon = popupIcons + '/delete.png';
+    sucessIcon = popupIcons + '/success.png';
+    errorIcon = popupIcons + '/error.png';
+    options = [
+        { label: '--Select--', value: '' },
+        { label: 'Open', value: 'Open' },
+        { label: 'Close', value: 'Close' },
+        { label: 'Pending', value: 'Pending' }
+    ];
+
+    @track propType = 'All';
+    @track propertyMediaUrls = [];
+    @track profilepicUrls = [];
+    @track Data = [];
+    @track FilteredData = [];
+    @track allBtnVarient = 'brand';
+    @track buyBtnVarient = 'brand-outline';
+    @track rentBtnVarient = 'brand-outline';
+    @track isData = false;
+    @track contactId = '';
+    @track profileImgUrl;
+    @track showSpinner = false;
+    @track selectedStatusMap = new Map();
+    @track isModalOpen = false;
+    @track isUpdated = false;
+    @track isError = false;
+    @track errorMsg = ''
+    @track inquiryIdtoDelete;
+    @track imageNot = nopropertyfound;
+    connectedCallback() {
+        this.loadCssFromResource();
+        this.checkUserIsLoggedIn();
+    }
+
+    loadCssFromResource() {
+        loadStyle(this, customStyles)
+            .then(() => {
+                console.log('Custom styles loaded successfully.');
+            })
+            .catch(error => {
+                console.error('Error loading custom styles:', error);
+            });
+    }
+
+    checkUserIsLoggedIn() {
+        try {
+            let loggedUserInfo = localStorage.getItem('loggedUserInfo');
+            if (loggedUserInfo) {
+                let loggedUserInfoObj = JSON.parse(loggedUserInfo);
+                isLoggedInUserDataCorrect({ contactId: loggedUserInfoObj.contactId, siteUserId: loggedUserInfoObj.siteUserId })
+                    .then(result => {
+                        console.log('isLoggedInUserDataCorrect ** => ', result);
+                        if (result) {
+                            this.contactId = loggedUserInfoObj.contactId;
+                            isUserSeller({ contactId: this.contactId }).then(sellerUser => {
+                                if (sellerUser) {
+                                    this.fetchInquryData();
+                                } else {
+                                    this.isData = false;
+                                    this.handleNavigate();
+                                }
+                            });
+                        }
+                    })
+                    .catch(error => {
+                        console.log(error);
+                    });
+            } else {
+                this.handleNavigate();
+            }
+        } catch (error) {
+            console.error({ error });
+        }
+    }
+
+    handleNavigate() {
+        let pageApi = 'Login';
+        this[NavigationMixin.Navigate]({
+            type: 'comm__namedPage',
+            attributes: {
+                name: pageApi
+            },
+        });
+    }
+
+    fetchInquryData() {
+        getInquiryData({ contactId: this.contactId }).then((result) => {
+            if (result.inquiries.length >= 0) {
+                console.log('data:',result);
+                this.isData = true;
+                this.FilteredData = result.inquiries;
+                this.Data = result.inquiries;
+                this.profilepicUrls = result.contactContentVersions;
+                this.propertyMediaUrls = result.medias;
+                
+                this.Data.forEach((row, index) => {
+                    const prop_id = row.Listing__r.Property__r.Id;
+                    const conId = row.Contact__r.Id;
+                    console.log('imageurl',this.propertyMediaUrls[prop_id]);
+                    if(this.propertyMediaUrls[prop_id]!==undefined){
+                        row.ImageURL = this.propertyMediaUrls[prop_id][0].ExternalLink__c ? this.propertyMediaUrls[prop_id][0].ExternalLink__c : this.imageNot;
+                    }else{
+                        row.ImageURL = this.imageNot;
+                    }
+                    row.Inquiry_Date__c = row.Inquiry_Date__c ? this.formatDate(row.Inquiry_Date__c) : '';
+                    row.isEdit = false;
+                    if (this.profilepicUrls) {
+                        row.profileUrl = this.profilepicUrls[conId] ? row.profileUrl = 'data:image/jpeg;base64,' + this.profilepicUrls[conId] : Blank_Profile_Photo;
+                    } else {
+                        row.profileUrl = Blank_Profile_Photo;
+                    }
+                    row.number = index + 1;
+                });
+                this.FilteredData.forEach((row, index) => {
+                    const prop_id = row.Listing__r.Property__r.Id;
+                    const conId = row.Contact__r.Id;
+                    if(this.propertyMediaUrls[prop_id]!==undefined){
+                        row.ImageURL = this.propertyMediaUrls[prop_id][0].ExternalLink__c ? this.propertyMediaUrls[prop_id][0].ExternalLink__c : this.imageNot;
+                    }else{
+                        row.ImageURL = this.imageNot;
+                    }
+                    row.Inquiry_Date__c = row.Inquiry_Date__c ? this.formatDate(row.Inquiry_Date__c) : '';
+                    row.isEdit = false;
+                    if (this.profilepicUrls) {
+                        row.profileUrl = this.profilepicUrls[conId] ? row.profileUrl = 'data:image/jpeg;base64,' + this.profilepicUrls[conId] : Blank_Profile_Photo;
+                    } else {
+                        row.profileUrl = Blank_Profile_Photo;
+                    }
+                    row.number = index + 1;
+                });
+            } else {
+                this.isData = false;
+            }
+        }).catch((fetchError) => {
+            this.isError = true;
+            this.errorMsg = 'Something went wrong!!';
+            const overlay = this.template.querySelector('.overlay');
+            overlay.style.display = 'block';
+            console.error('Error fetching inquiry data:', fetchError);
+        });
+    }
+
+
+    formatDate(dateStr) {
+        let date;
+        const parts = dateStr.split(/[-\/]/);
+        if (parts.length === 3) {
+            if (parts[0].length === 4) {
+                date = new Date(parts[0], parts[1] - 1, parts[2]);
+            } else if (parts[2].length === 4) {
+                date = new Date(parts[2], parts[1] - 1, parts[0]);
+            } else {
+                const year = parseInt(parts[2]) > 50 ? '19' + parts[2] : '20' + parts[2];
+                date = new Date(year, parts[1] - 1, parts[0]);
+            }
+        } else {
+            date = new Date(dateStr);
+        }
+        const day = String(date.getDate()).padStart(2, '0');
+        const month = String(date.getMonth() + 1).padStart(2, '0'); // Months are zero-based
+        const year = date.getFullYear();
+        return `${day}/${month}/${year}`;
+    }
+
+    delete_row(event) {
+        this.isModalOpen = true;
+        const overlay = this.template.querySelector('.overlay');
+        overlay.style.display = 'block';
+        this.inquiryIdtoDelete = event.currentTarget.dataset.key;
+    }
+    deleteInquiryRecord() {
+        DeleteInquiry({ inquiryId: this.inquiryIdtoDelete }).then((result) => {
+            if (result) {
+                this.inquiryIdtoDelete = '';
+                this.isModalOpen = false;
+                const overlay = this.template.querySelector('.overlay');
+                overlay.style.display = 'none';
+                this.fetchInquryData();
+            }
+        }).catch((error)=>{
+            this.isError = true;
+            this.errorMsg = 'Something went wrong!!';
+            const overlay = this.template.querySelector('.overlay');
+            overlay.style.display = 'block';
+        });
+    }
+    cancelAction() {
+        this.inquiryIdtoDelete = '';
+        this.isModalOpen = false;
+        this.isUpdated = false;
+        this.isError = false;
+        const overlay = this.template.querySelector('.overlay');
+        overlay.style.display = 'none';
+        this.fetchInquryData();
+    }
+    clearAll() {
+        this.isEdit = false;
+        this.fetchInquryData();
+    }
+    closePopup() {
+        this.inquiryIdtoDelete = '';
+        this.isModalOpen = false;
+        const overlay = this.template.querySelector('.overlay');
+        overlay.style.display = 'none';
+    }
+    editStatus(event) {
+        const itemId = event.currentTarget.dataset.key;
+        this.FilteredData = this.FilteredData.map(item => {
+            if (item.Id === itemId) {
+                item.isEdit = true;
+            }
+            return item;
+        });
+    }
+
+    handleStatusChange(event) {
+        const recordId = event.currentTarget.dataset.key;
+        const selectedValue = event.target.value;
+        this.selectedStatusMap.set(recordId, selectedValue);
+        this.updateSaveButtonState(recordId, selectedValue);
+    }
+
+    updateSaveButtonState(recordId, selectedValue) {
+        const allSaveButtons = this.template.querySelectorAll('.save-button');
+        allSaveButtons.forEach((button) => {
+            if (button.dataset.key === recordId) {
+                button.dataset.status = selectedValue;
+                button.disabled = selectedValue ? false : true;
+            }
+        });
+    }
+
+    saveUpdatedStatus(event) {
+        let status = event.currentTarget.dataset.status;
+        let recordId = event.currentTarget.dataset.key;
+        updateInquiryStatus({ Status: status, recordId: recordId }).then((result) => {
+            if (result) {
+                this.isUpdated = true;
+                const overlay = this.template.querySelector('.overlay');
+                overlay.style.display = 'block';
+                this.FilteredData = this.FilteredData.map(item => {
+                    if (item.Id === recordId) {
+                        item.isEdit = false;
+                        item.Status__c = status;
+                    }
+                    return item;
+                });
+                this.updateSaveButtonAfterSave(recordId);
+            }
+        }).catch((error)=>{
+            this.isError = true;
+            this.errorMsg = 'Something went wrong!!';
+            const overlay = this.template.querySelector('.overlay');
+            overlay.style.display = 'block';
+        });
+    }
+
+    updateSaveButtonAfterSave(recordId) {
+        const allSaveButtons = this.template.querySelectorAll('.save-button');
+        allSaveButtons.forEach((button) => {
+            if (button.dataset.key === recordId) {
+                button.disabled = true;
+            }
+        });
+    }
+
+    handleFilter(event) {
+        if (event.target.label === 'Buy') {
+            this.propType = 'For Sell';
+            this.buyBtnVarient = 'brand';
+            this.allBtnVarient = 'brand-outline';
+            this.rentBtnVarient = 'brand-outline';
+            this.applyFilter();
+        } else if (event.target.label === 'Rent') {
+            this.propType = 'For Rent';
+            this.buyBtnVarient = 'brand-outline';
+            this.allBtnVarient = 'brand-outline';
+            this.rentBtnVarient = 'brand';
+            this.applyFilter();
+        } else if (event.target.label === 'All') {
+            this.propType = '';
+            this.buyBtnVarient = 'brand-outline';
+            this.allBtnVarient = 'brand';
+            this.rentBtnVarient = 'brand-outline';
+            this.applyFilter();
+        }
+    }
+
+    applyFilter() {
+        this.FilteredData = this.Data.filter(row => {
+            const isPropertyType = this.propType ? row.Listing__r.Property__r.Property_Status__c == this.propType : true;
+            return isPropertyType;
+        });
+        if (this.FilteredData.length > 0) {
+            this.isData = true;
+            this.FilteredData.forEach((row, index) => {
+                row.number = index + 1;
+            });
+        } else {
+            this.isData = false;
+        }
+    }
+
+    handleErrro(event){
+        event.target.src = this.imageNot;
+        event.target.onerror = null;
+    }
+}

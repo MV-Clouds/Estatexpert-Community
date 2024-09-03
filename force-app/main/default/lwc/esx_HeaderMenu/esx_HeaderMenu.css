@@ -30,6 +30,10 @@
     height: 60px;
 }
 
+.logo-div {
+    cursor: pointer;
+}
+
 .menu-div {
     display: flex;
     line-height: 60px;

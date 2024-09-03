@@ -3,11 +3,14 @@
     padding: 1rem;
     gap: 1rem;
     background-color: #FFFFFF;
+    border-radius: 16px;
+    margin: 0.5rem;
     display: inline-block;
     vertical-align: top;
     box-shadow: 0px 4px 26px 0px #42474C14;
     background-size: cover;
     position: relative;
+    cursor: pointer;
 }
 
 /* Make images non-draggable */
@@ -263,15 +266,25 @@ img,
     height: 2.875rem;
     gap: 0.375rem;
 }
+.propTitle {
+    width: 18.875rem;
+    height: 2rem;
+    white-space: nowrap;   /* Prevent the text from wrapping to the next line */
+    overflow: hidden;      /* Hide the overflowed text */
+    text-overflow: ellipsis;
+}
 
 .heading-title {
     padding-top: 0.6rem;
-    width: 100%;
-    height: 1.375rem;
+    width: 18.875rem;
+    height: 2rem;
     font-family: inherit;
     font-weight: 600;
     font-size: 1.125rem;
     line-height: 1.361rem;
+    white-space: nowrap;   /* Prevent the text from wrapping to the next line */
+    overflow: hidden;      /* Hide the overflowed text */
+    text-overflow: ellipsis;
     color: #1C1C1E;
 }
 
@@ -307,6 +320,11 @@ img,
 
 .area-icon {
     margin-top: 0.2rem;
+}
+
+.address-icon-mobile {
+    display: none;
+    height: 0.625rem;
 }
 
 .address-info {
@@ -401,4 +419,112 @@ img,
 
 .area-num {
     width: 1.813rem;
+}
+
+@media only screen and (max-width: 767px) {
+    .wrap {
+        display: none;
+    }
+
+    .container {
+        left: 8.2rem;
+        top: 1.0rem;
+        position: absolute;
+        transition: 100ms;
+        z-index: 2;
+    }
+
+    .checkmark {
+        height: 1.7em;
+        width: 1.7em;
+        padding: 0.11rem;
+        background: rgba(0, 0, 0, 0.3);
+        border-radius: 0.375rem;
+        transition: 100ms;
+        animation: dislike_effect 400ms ease;
+    }
+
+    .property-card {
+        width: 10.938rem;
+        margin: 0.5rem 0.5rem 0.5rem 0.8rem;
+        padding: 0.6rem;
+        border-radius: 0.5rem;
+        box-shadow: 0px 0px 3px 0px rgba(0, 0, 0, 0.25);
+    }
+
+    .property-image {
+        width: 9.688rem;
+        height: 6.25rem;
+        border-radius: 0.25rem;
+    }
+
+    .property-info {
+        height: 6.25rem;
+    }
+
+    .heading-title {
+        width: 9.563rem;
+        height: 1.75rem;
+        font-weight: 600;
+        font-size: 0.75rem;
+    }
+
+    .property-address {
+        align-items: center;
+        margin-top: 0.2rem;
+    }
+
+    .address-info {
+        width: 5rem;
+        /* height: 0.625rem; */
+        font-weight: 400;
+        font-size: 0.625rem;
+    }
+
+    .address-icon {
+        display: none;
+        height: 0.625rem;
+    }
+
+    .address-icon-mobile {
+        display: block;
+        height: 0.625rem;
+    }
+
+    .property-price {
+        margin-top: 0.1rem;
+        font-weight: 600;
+        font-size: 0.75rem;
+    }
+
+    .property-desc {
+        margin-top: 0.8rem;
+    }
+
+    .property-bed,
+    .property-bath,
+    .property-size {
+        height: 0.625rem;
+        width: 2.313rem;
+        gap: 0.25rem;
+        align-items: center;
+    }
+
+    .bedroom-icon,
+    .bathroom-icon,
+    .area-icon {
+        margin-top: 0rem;
+    }
+
+    .bedroom-text,
+    .bathroom-text,
+    .area-text {
+        display: none;
+    }
+
+    .bedroom-num,
+    .bathroom-num,
+    .area-num {
+        font-size: 0.625rem;
+    }
 }

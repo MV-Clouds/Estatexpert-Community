@@ -1,0 +1,50 @@
+.facilityBox{
+    /* width: 7.063rem; */
+    width: 9.063rem;
+    height: 6.25rem;
+    border: 0px;
+    border-radius: 0.75rem;
+    background-color: rgba(225, 241, 254, 1);
+    margin: 1rem;
+    padding: 1.5rem;
+    color:#6B6B6B;
+    cursor: pointer;
+}
+.facilityBox:hover{
+    background-color: #0176D3;
+    color:white;
+}
+.facilityBox:hover svg path{
+    fill: white;
+}
+.facilityBox img{
+    height:31.25px;
+    width:33.75px;
+    cursor:pointer;
+}
+.iconImg svg{
+    height:31.25px;
+    width:33.75px;
+    cursor:pointer;
+}
+
+.facilityBox p{
+    font-size:12px;
+    margin-top:0.5rem;
+}
+
+.amenity-icon:hover{
+    fill: white !important; /* Change fill color on hover */
+}
+
+@media only screen and (max-width: 767px) {
+    .facilityBox{
+        margin: 0.5rem;
+        padding: 0.8rem;
+        width: 6rem;
+        height: 5.375rem;
+    }
+    .facilityBox p{
+        font-size:10px;
+    }
+}

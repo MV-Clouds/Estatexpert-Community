@@ -1,0 +1,56 @@
+<template>
+    <div class="main-div">
+        <div class="overlay">
+            <div class="close-icon">
+                <lightning-icon icon-name="utility:close" alternative-text="Utility image" title="close" size="small"
+                    onclick={closePopup}></lightning-icon>
+            </div>
+        </div>
+        <div class="image-viewer">
+            <template if:true={isModalOpen}>
+                <div class="td-txt photo-cell ph-hg-at" ontouchstart={handleTouchStart} ontouchmove={handleTouchMove}
+                    ontouchend={handleTouchEnd}>
+                    <lightning-button-icon icon-name="utility:chevronleft" size="large" variant="bare"
+                        onclick={goToPrevious} class="arrow left-arrow"
+                        disabled={leftArrowDisabled}></lightning-button-icon>
+                    <div class="main-file-cmp">
+                        <img draggable="false" loading="lazy" onerror={handleErrro} src={previewImageUrl} class={imageClass}></img>
+                        <p class="pagination-number">Swipe left for next image...</p>
+                    </div>
+                    <lightning-button-icon icon-name="utility:chevronright" size="large" variant="bare"
+                        onclick={goToNext} class="arrow right-arrow"
+                        disabled={rightArrowDisabled}></lightning-button-icon>
+                </div>
+            </template>
+        </div>
+        <div class="container">
+            <template if:true={isImages}>
+                <template for:each={gallaryImages} for:item="catagory">
+                    <template if:true={catagory.show}>
+                        <div class="content" key={catagory.name}>
+                            <div class="title-box">
+                                <h1 class="title">{catagory.name}(<span class="number-of-imgs">{catagory.imageCount}</span>)
+                                </h1>
+                            </div>
+                            <div class="images-box">
+                                <template for:each={catagory.images} for:item="img">
+                                    <div class="card" onclick={handleCard} key={img.ExternalLink__c}
+                                        data-url={img.ExternalLink__c}>
+                                        <div class="card-image">
+                                            <img draggable="false" loading="lazy" onerror={handleErrro} src={img.ExternalLink__c} class="responsive" alt="Images">
+                                        </div>
+                                    </div>
+                                </template>
+                            </div>
+                        </div>
+                    </template>
+                </template>
+            </template>
+            <template if:false={isImages}>
+                <div class="content">
+                    <h1 class="no-image-text"><b>Images not found...</b></h1>
+                </div>
+            </template>
+        </div>
+    </div>
+</template>

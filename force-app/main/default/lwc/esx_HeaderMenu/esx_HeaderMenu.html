@@ -2,7 +2,7 @@
     <div class="main-container">
         <div class="desktop-view">
             <div class="mian-div">
-                <div class="logo-div">
+                <div class="logo-div" data-id="Home" onclick={handleNavigate}>
                     <img draggable="false" src={logo}>
                 </div>
         
@@ -38,7 +38,13 @@
                                     <div class="dropdown-item" data-id="My_Properties__c" onclick={handleNavigate}>
                                         My Property
                                     </div>
-                                    <div class="dropdown-item" data-id="Check_Password" onclick={handleNavigate}>
+                                    <div class="dropdown-item" data-id="Property_Inquires__c" onclick={handleNavigate}>
+                                        Property Inquires
+                                    </div>
+                                    <div class="dropdown-item" data-id="Favourite_Properties__c" onclick={handleNavigate}>
+                                        Favourite Properties
+                                    </div>
+                                    <div class="dropdown-item" data-id="Change_Password__c" onclick={handleNavigate}>
                                         Change Password
                                     </div>
                                     <div class="dropdown-item" data-id="Logout" onclick={handleLogOut}>
@@ -111,7 +117,7 @@
                             </div>
 
                             <div class="logout-div">
-                                <lightning-icon class="icons" icon-name="utility:logout" size="small" data-id="Logout" onclick={handleNavigate}> </lightning-icon>
+                                <lightning-icon class="icons" icon-name="utility:logout" size="small" data-id="Logout" onclick={handleLogOut}> </lightning-icon>
                             </div>
                         </div>
                     </template>

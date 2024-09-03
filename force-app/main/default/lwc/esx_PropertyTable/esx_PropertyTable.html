@@ -1,0 +1,13 @@
+<template>
+
+        <lightning-combobox name="progress" label="Status" value={viewtype} placeholder="Select Progress" options={options}
+            onchange={handleChange}></lightning-combobox>
+    
+        <p>Selected value is: {viewtype}</p>
+    <div class="main-model">
+        <c-esx_-property-card propertydata={property} viewtype={view}></c-esx_-property-card>
+    </div>
+    <div class="more" if:true={hasMoreData}>
+        <button type="button" class="slds-button morebutton" onclick={loadMore}>Show more apartments</button>
+    </div>
+</template>

@@ -1,10 +1,11 @@
-public with sharing class ESX_FavouritePropertiesController {
+public without sharing class ESX_FavouritePropertiesController {
 
     @AuraEnabled(cacheable=true)
-    public static List<PropertyWrapper> getFavoritePorperty(){
+    public static List<PropertyWrapper> getFavoritePorperty(String contactId){
         // Fetch Linked Listing records with their associated Listing information
         List<Linked_Listing__c> linkedListings = new List<Linked_Listing__c>();
-        linkedListings = [SELECT Id, Listing__c FROM Linked_Listing__c WHERE Contact__c = '003dL000001BHZdQAO'];
+        linkedListings = [SELECT Id, Listing__c FROM Linked_Listing__c WHERE Contact__c =: contactId];
+        // linkedListings = [SELECT Id, Listing__c FROM Linked_Listing__c];
 
         // Collect Listing Ids
         Set<Id> listingIds = new Set<Id>();
@@ -62,7 +63,7 @@ public with sharing class ESX_FavouritePropertiesController {
         }
         System.debug(propertyList);
         return propertyList;
-}
+    }
 
     // @AuraEnabled(cacheable=true)
     // public static List<String> getExternalLinks(Id propertyId) {
@@ -73,6 +74,24 @@ public with sharing class ESX_FavouritePropertiesController {
     //     }
     //     return externalLinks;   
     // }
+
+    @AuraEnabled
+    public static String deleteFavProperty(String linkedListingId) {
+        try {
+            List<Linked_Listing__c> linkedListingList = new List<Linked_Listing__c>();
+            linkedListingList = [SELECT Id FROM Linked_Listing__c WHERE Id =: linkedListingId LIMIT 1];
+            if (linkedListingList.size() > 0) {
+                delete linkedListingList;
+                return 'Success';
+            } else {
+               return 'Fail';
+            }
+        } catch (Exception e) {
+            System.debug('exception =>' + e);
+            ErrorHandler.Store_Exception(e);
+            return null;
+        }
+    }
 
     public class PropertyWrapper {
         @AuraEnabled

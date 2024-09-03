@@ -1,0 +1,226 @@
+<template>
+    <template if:true={isLoading}>
+        <div class="spinnerDiv">
+            <lightning-spinner alternative-text="Loading" size="medium"></lightning-spinner>
+        </div>
+    </template>
+    <div class="main-div">
+            <div class="overlay" lwc:dom="manual"></div>
+            <div class="popup-for-confirmation">
+                <template if:true={isModalOpen}>
+                    <div class="custom_popup">
+                        <div class="message-icon"><img src={popupIcon}></img></div>
+                        <div class="show-msg">{popupMessage}</div>
+                        <div class="two-buttons">
+                            <button class="ok-btn" onclick={closePopup}>Ok</button>
+                        </div>
+                    </div>
+                </template>
+                <template if:true={profilePreview}>
+                    <div class="profile-preview-popup">
+                        <div class="close-icon">
+                            <lightning-icon icon-name="utility:close" alternative-text="Utility image" title="close"
+                                size="small" onclick={closePopup}></lightning-icon>
+                        </div>
+                        <img src={profileImage}></img>
+                    </div>
+                </template>
+            </div>
+            <div class="background-image">
+                <img src={backgroundImageUrl} alt="Background Image" />
+            </div>
+
+            <div class="main-content">
+                <div class="header">
+                    <lightning-icon class="back-icon" size='x-small' icon-name="utility:chevronleft"
+                        onclick={navigateHome}></lightning-icon>
+                    <div class="header-title">{recordType} Details</div>
+                </div>
+                <div class="general-information">
+                    <div class="profile-image">
+                        <img src={profileImage} alt="Profile Image" onclick={previewProfileImage} />
+                        <template if:false={isDisabled}>
+                            <div class="delete-icon" onclick={removeProfile}>
+                                <lightning-icon class="icon" icon-name="utility:delete" title="close"
+                                    size="x-small"></lightning-icon>
+                            </div>
+                            <button class="upload-button" onclick={uploadProfileImage}>Upload Image</button>
+                            <input type="file" class="hidden-upload" accept=".jpg,.jpeg,.png" onchange={handleFileChange} />
+                        </template>
+                    </div>
+
+                    <div class="general-info-content">
+                        <div class="section-title">General Information</div>
+                        <div class="form-group  first-row ">
+                            <div class="form-element dropdownfield">
+                                <p class="label">Salutation</p>
+                                <select name="salutation" class="input-dropdown" onchange={updateContact}
+                                    disabled={isDisabled}>
+                                    <!-- <option value={contact.salutation}>{contact.salutation}</option> -->
+                                    <template for:each={salutationOptions} for:item="type">
+                                        <option value={type.value} key={type.label}>{type.label}</option>
+                                    </template>
+                                </select>
+                            </div>
+                            <div class="form-element namefield">
+                                <p class="label"><abbr class="slds-required"
+                                    title="required">*</abbr>First Name</p>
+                                <input type="text" name="firstName" data-errmsg="Enter 2-50 alphabetic characters."
+                                    pattern="[A-Za-z]{2,50}$" class="input-text" value={contact.firstName}
+                                    onchange={updateContact} onkeyup={handleValidation} disabled={isDisabled} required></input>
+                                <p class="show-error-message">Name should contain 2-50 character.</p>
+                            </div>
+                            <div class="form-element namefield">
+                                <p class="label"><abbr class="slds-required"
+                                    title="required">*</abbr>Last Name</p>
+                                <input type="text" name="lastName" data-errmsg="Enter 2-50 alphabetic characters."
+                                    pattern="[A-Za-z]{2,50}$" class="input-text" value={contact.lastName}
+                                    onchange={updateContact} onkeyup={handleValidation} disabled={isDisabled} required></input>
+                                <p class="show-error-message">Name should contain 2-50 character.</p>
+                            </div>
+                        </div>
+                        <div class="form-group ">
+                            <div class="form-element">
+                                <div class="gender-options">
+                                    <div class="label">Gender</div>
+                                    <div class="checkbox">
+                                        <div class="tickbox">
+                                            <input class="Male" type="radio" name="gender" value="Male" onchange={updateContact} disabled={isDisabled}> Male
+                                        </div>
+                                        <div class="tickbox">
+                                            <input class="Female" type="radio" name="gender" value="Female" onchange={updateContact} disabled={isDisabled}> Female
+                                        </div>
+                                        <div class="tickbox">
+                                            <input class="Other"  type="radio" name="gender" value="Other" onchange={updateContact} disabled={isDisabled}> Other	
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group ">
+                            <div class="date-and-age">
+                                <div class="form-element date-first-half">
+                                    <p class="label"><abbr class="slds-required"
+                                        title="required">*</abbr>Date of Birth</p>
+                                    <input type="date" name="birthdate" class="input-text otherinput" data-errmsg="Please enter a valid birthdate within the last 120 years."
+                                        value={contact.birthdate} onchange={updateContact} onkeyup={handleValidation} disabled={isDisabled}
+                                        required></input>
+                                    <p class="show-error-message">Please enter a valid birthdate within the last 120 years.</p>
+                                </div>
+                                <template if:true={isDisabled}>
+                                    <div class="form-element date-second-half">
+                                        <p class="label">Age</p>
+                                        <input type="number" name="Birthdate" class="input-text otherinput" min="12"
+                                            value={contact.age} onchange={updateContact} disabled={isDisabled}></input>
+                                    </div>
+                                </template>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="other-details">
+                    <div class="form-group ">
+                        <div class="phone-and-email">
+                            <div class="form-element input-first-half">
+                                <p class="label"><abbr class="slds-required"
+                                    title="required">*</abbr>Mobile Number</p>
+                                <input type="tel" name="phone" data-errmsg="Mobile number should be a 10 digit number."
+                                    class="input-text" pattern="^\d{10}$" value={contact.phone} onkeyup={handleValidation} onchange={updateContact}
+                                    disabled={isDisabled} required></input>
+                                <p class="show-error-message">Enter Valid Mobile Number.</p>
+                            </div>
+                            <div class="form-element input-second-half">
+                                <p class="label"><abbr class="slds-required"
+                                    title="required">*</abbr>Email</p>
+                                <input type="email" name="email" data-errmsg="Enter Valid Email." class="input-text"
+                                    pattern="[a-z0-9._%+\-]+@[a-z0-9.\-]+\.[a-z]{2,}$" value={contact.email}
+                                    onchange={updateContact} onkeyup={handleValidation} disabled={isDisabled} required></input>
+                                <p class="show-error-message">Enter Valid Email.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="address-info">
+                    <div class="section-title">Address Details</div>
+                    <div class="form-group ">
+                        <div class="address-line">
+                            <p class="label">Address Line</p>
+                            <input type="text" name="mailingStreet" class="input-text longfield"
+                                value={contact.mailingStreet} onchange={updateContact} disabled={isDisabled}></input>
+                        </div>
+                    </div>
+                    <div class="form-group ">
+                        <div class="address-fields">
+                            <div class="form-element input-first-half">
+                                <p class="label">City</p>
+                                <input type="text" data-errmsg="Enter valid city name" name="mailingCity" class="input-text" value={contact.mailingCity}
+                                    onchange={updateContact} onkeyup={handleValidation} disabled={isDisabled} pattern="[A-Za-z]{2,100}$"></input>
+                                <p class="show-error-message"></p>
+                            </div>
+                            <div class="form-element input-second-half">
+                                <p class="label">PIN Code</p>
+                                <input type="number" name="mailingPostalCode" max="6"
+                                    data-errmsg="Invalid Pincode" pattern="^[1-9][0-9]{5}$"
+                                    class="input-text" value={contact.mailingPostalCode} onkeyup={handleValidation} onchange={updateContact}
+                                    disabled={isDisabled}></input>
+                                <p class="show-error-message">Invalid Pincode</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group ">
+                        <div class="address-fields">
+                            <div class="form-element input-first-half">
+                                <p class="label"><abbr class="slds-required"
+                                    title="required">*</abbr>State</p>
+                                <input type="text" name="mailingState" class="input-text"
+                                    data-errmsg="State should contain 2-100 character." pattern="[A-Za-z]{2,100}$"
+                                    value={contact.mailingState} onkeyup={handleValidation} onchange={updateContact} disabled={isDisabled}
+                                    required></input>
+                                <p class="show-error-message">Enter valid state name</p>
+                            </div>
+                            <div class="form-element input-second-half">
+                                <p class="label">Country</p>
+                                <select name="mailingCountry" class="input-text country-dropdown"
+                                    onchange={updateContact} disabled={isDisabled}>
+                                    <!-- <option value={contact.mailingCountry}>{contact.mailingCountry}</option> -->
+                                    <template for:each={countryOptions} for:item="type">
+                                        <option value={type.value} key={type.value} class={type.label}>{type.label}</option>
+                                    </template>
+                                </select>
+                                <!-- <input type="text" name="mailingCountry" class="input-text"
+                                    value={contact.mailingCountry} onchange={updateContact}
+                                    disabled={isDisabled}></input> -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="about-info">
+                    <div class="section-title">About</div>
+                    <div class="form-group ">
+                        <div class="address-line">
+                            <p class="label">Description</p>
+                            <!-- <input type="text" size="2" name="description" class="input-text longfield decriptionfield"
+                                onchange={updateContact} disabled={isDisabled} value={contact.description}></input> -->
+                            <textarea name="description" maxlength="1000" class="input-text longfield decriptionfield"
+                                onchange={updateContact} disabled={isDisabled}>{contact.description}</textarea>
+                                <!-- <lightning-textarea type="text" size="2" name="description"
+                                onchange={updateContact} disabled={isDisabled} value={contact.description} variant="label-hidden"></lightning-textarea> -->
+
+                            <p class="show-error-message">About should contain 2-100 character.</p>
+                        </div>
+                    </div>
+                </div>
+                <br />
+                <div class="buttons">
+                    <template if:true={isDisabled}>
+                        <button class="btn slds-m-right_medium" onclick={getContactInfo}>Edit</button>
+                    </template>
+                    <template if:false={isDisabled}>
+                        <button class="btn slds-m-right_medium" onclick={cancelAction}>Cancel</button>
+                    </template>
+                    <button class="save-btn slds-m-left_medium" onclick={updateContactInfo}
+                        disabled={isDisabled}>Save</button>
+                </div>
+            </div>
+    </div>
+</template>

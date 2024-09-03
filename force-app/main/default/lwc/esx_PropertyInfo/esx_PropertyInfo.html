@@ -1,0 +1,48 @@
+<template>
+    <div class="container">
+        <template if:true={isProperty}>
+            <div class="about content-box">
+                <h1 class="heading">About this home</h1>
+                <p class="text-content">{property.Description__c}
+                </p>
+            </div>
+            <div class="facilities-data content-box">
+                <h1 class="heading">Facilities</h1>
+                <br />
+                <div class="facility-box">
+                    <div class="facilities">
+                        <template for:each={property.Amenities__c} for:item="amenity">
+                            <c-esx_-property-amenity key={amenity.name} amenity-name={amenity.name}></c-esx_-property-amenity>
+                        </template>
+                    </div>
+                </div>
+            </div>
+            <div class="more-details content-box">
+                <h1 class="heading">More Details</h1>
+                <div class="details-boxes">
+                    <div class="details">
+                        <div class="address">
+                            <h2 class="inner-heading">Address:-</h2>
+                            <p class="text-content">{property.Landmark__c}, {property.City__c}, {property.Country__c}
+                            </p>
+                        </div>
+                        <div class="landmark">
+                            <h2 class="inner-heading">Landmark:-</h2>
+                            <p class="text-content">{property.Landmark__c}</p>
+                        </div>
+                        <div class="locality">
+                            <h2 class="inner-heading">Locality/Neighborhood:-</h2>
+                            <p class="text-content">{property.Locality__c}</p>
+                        </div>
+                    </div>
+                    <div class="map">
+                        <lightning-map class="map-view" map-markers={mapMarkers} markers-title="Lunch Gems"
+                            onmarkerselect={handleMarkerSelect} selected-marker-value={selectedMarkerValue}>
+                        </lightning-map>
+                    </div>
+                </div>
+            </div>
+        </template>
+    </div>
+
+</template>

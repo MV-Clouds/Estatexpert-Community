@@ -1,0 +1,547 @@
+.spinnerDiv {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 999;
+}
+
+.main-div {
+    position: relative;
+    width: 100%;
+    overflow: hidden;
+}
+
+.overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5); /* Black with 50% transparency */
+    z-index: 999; /* Ensure it is above other content */
+    display: none; /* Initially hidden */
+}
+.popup-for-confirmation{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+.custom_popup{
+    position: fixed; /* Changed from absolute to fixed */
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 1000;
+    width: 23.25rem;
+    height: 10.875rem;
+    margin: auto;
+    border-radius: 2rem;
+    box-shadow: 0px 12px 44px 0px rgba(1, 118, 211, 0.34);
+    box-shadow: 0px -2px 4px 0px rgba(1, 118, 211, 0.12);
+    background: linear-gradient(90deg,rgba(186, 232, 251, 1), rgba(255, 255, 255, 1));
+
+}
+.profile-preview-popup{
+    position: fixed; /* Changed from absolute to fixed */
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 1000;
+    width: 30.25rem;
+    height: 25.875rem;
+    margin: auto;
+    border-radius: 2rem;
+    box-shadow: 0px 12px 44px 0px rgba(1, 118, 211, 0.34);
+    box-shadow: 0px -2px 4px 0px rgba(1, 118, 211, 0.12);
+    /* background: linear-gradient(90deg,rgba(186, 232, 251, 1), rgba(255, 255, 255, 1)); */
+}
+.profile-preview-popup img{
+    width: 23.25rem;
+    height: 21.875rem;
+    /* background: linear-gradient(90deg,rgba(186, 232, 251, 1), rgba(255, 255, 255, 1)); */
+}
+.close-icon{
+    position: absolute;
+    right: 1rem;
+    top: 0.5rem;
+    cursor: pointer;
+}
+
+.show-msg{
+    font-size: 1rem;
+    font-weight: 400;
+    margin-top: 1rem;
+    width: 100%;
+    text-align: center;
+    padding-inline: 1rem;
+    display: flex;
+    justify-content: center;
+}
+.two-buttons{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    position: absolute;
+    bottom: 0.8rem;
+    justify-content: center;
+}
+.ok-btn{
+    width: 4.938rem;
+    height: 1.813rem;
+    background-color: rgba(1, 118, 211, 1);
+    color: white;
+    border-radius: 3.5rem;
+    border: 0px;
+}
+
+.background-image {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+.background-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    opacity: 0.6;
+}
+
+.main-content {
+    position: relative;
+    z-index: 1;
+    padding: 1.25rem;
+}
+
+.header {
+    display: flex;
+    align-items: center;
+    margin-bottom: 1.375rem;
+}
+
+.back-icon {
+    border-radius: 0.313rem;
+    width: 2.5rem;
+    height: 2.5rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 1px solid #d8dde6;
+    margin-right: 0.625rem;
+    cursor: pointer;
+}
+
+.header-title {
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: #16325c;
+    border-bottom: 1px solid #628cdb;
+}
+
+.general-information {
+    display: flex;
+    flex-direction: row;
+}
+.show-error-message{
+    font-size: 0.8rem;
+    font-weight: 400;
+    display: none;
+    color: red;
+}
+
+.profile-image {
+    margin-right: 1.25rem;
+    position: relative;
+    min-width: 13rem;
+}
+
+.profile-image img {
+    border-radius: 9%;
+    width: 16.125rem;
+    height: 15.375rem;
+    object-fit: fill;
+    box-shadow: 0 5px 25px 0 rgba(47, 128, 237, 0.2);
+    cursor: pointer;
+}
+
+.upload-button {
+    position: absolute;
+    bottom: 1.8rem;
+    left: 50%;
+    width: 90%;
+    height: 2rem;
+    transform: translateX(-50%);
+    background-color: rgba(255, 255, 255, 0.8);
+    border: none;
+    border-radius: 1.25rem;
+    cursor: pointer;
+    box-shadow: 0px 1px 61px 1px rgba(0, 0, 0, 0.25);
+    font-size: 0.938rem;
+}
+
+.hidden-upload {
+    display: none;
+}
+
+.general-info-content {
+    width: 100%;
+}
+
+.section-title {
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: #0176D3;
+}
+
+.delete-icon {
+    position: absolute;
+    top: 3%;
+    left: 82%;
+    cursor: pointer;
+}
+
+.icon {
+    position: absolute;
+    width: 1.875rem;
+    height: 1.875rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 2%;
+    border-radius: 50%;
+    background-color: rgba(255, 255, 255, 0.8);
+}
+
+.label {
+    font-size: small;
+    font-weight: 700;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: row;
+}
+
+.namefield {
+    width: 42%;
+}
+
+.dropdownfield {
+    width: 10%;
+}
+
+.form-element .inputBox {
+    width: 25rem;
+}
+
+.input-age {
+    width: 5rem;
+}
+
+.first-row  {
+    margin-top: 1rem;
+    gap: 3rem;
+}
+
+.genderOptions {
+    display: flex;
+    justify-content: space-between;
+}
+.gender-option{
+    margin-left: 0.4rem;
+}
+.tickbox{
+    margin-right: 1rem;
+    display: flex;
+    align-items: center;
+    gap: 0.3rem;
+}
+
+.date-and-age {
+    width: 45%;
+    display: flex;
+    gap: 1.5rem;
+}
+
+.phone-and-email {
+    display: flex;
+    width: 100%;
+}
+
+.input-first-half {
+    width: 50%;
+    margin-right: 1rem;
+}
+
+.input-second-half {
+    width: 50%;
+    margin-left: 1rem;
+}
+
+.inputfield {
+    width: 100%;
+}
+
+.address-line {
+    width: 100%;
+}
+
+.address-fields {
+    display: flex;
+    width: 100%;
+}
+
+.buttons {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+.btn {
+    background-color: rgba(1, 118, 211, 1);
+    border-radius: 1.875rem;
+    width: 10rem;
+    height: 2.938rem;
+    color: white;
+    border: 0px;
+}
+
+.save-btn {
+    background-color: rgba(210, 210, 210, 1);
+    border-radius: 1.875rem;
+    width: 10rem;
+    height: 2.938rem;
+    color: white;
+    border: 0px;
+}
+
+.input-text {
+    font-weight: 500;
+    width: 100%;
+    height: 2.875rem;
+    border-radius: 0.375rem;
+    padding: 0.875rem 1.0rem 0.875rem 1.0rem;
+    border: 1px solid rgba(191, 196, 215, 1);
+    margin-bottom: 1rem;
+    -webkit-appearance: none;
+}
+
+.input-text::-webkit-inner-spin-button,
+.input-text::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+.country-dropdown{
+    background-color: light-dark(rgba(239, 239, 239, 0.3), rgba(59, 59, 59, 0.3));
+    padding: 0.375rem 1.0rem 0.375rem 1.0rem;
+    border: 1px solid rgba(191, 196, 215, 1);
+    -webkit-appearance: none;
+}
+
+
+/* .disabled-field{
+    cursor: default;
+    background-color: light-dark(rgba(239, 239, 239, 0.3), rgba(59, 59, 59, 0.3));
+    color: light-dark(rgb(84, 84, 84), rgb(170, 170, 170));
+    border-color: rgba(118, 118, 118, 0.3);
+} */
+
+.checkbox {
+    display: flex;
+    gap: 2rem;
+    margin-bottom: 1rem;
+}
+
+.input-dropdown {
+    background-color: light-dark(rgba(239, 239, 239, 0.3), rgba(59, 59, 59, 0.3));
+    width: 70%;
+    height: 2.875rem;
+    border-radius: 0.375rem;
+    padding: 0.475rem 1.0rem 0.475rem 1.0rem;
+    border: 1px solid rgba(191, 196, 215, 1);
+    margin-bottom: 1rem;
+    -webkit-appearance: none;
+}
+.enabled-dropdown{
+    background-color: white;
+}
+.disabled-dropdown{
+    background-color: light-dark(rgba(239, 239, 239, 0.3), rgba(59, 59, 59, 0.3));
+}
+
+.otherinput {
+    width: 85%;
+    height: 2.875rem;
+    border-radius: 0.375rem;
+    padding: 0.875rem 1.0rem 0.875rem 1.0rem;
+    border: 1px solid rgba(191, 196, 215, 1);
+    margin-bottom: 1rem;
+    -webkit-appearance: none;
+}
+
+.date-first-half {
+    /* margin-right: 1rem; */
+}
+
+.date-second-half {
+    /* margin-left: 1rem; */
+    width: 24%;
+}
+
+.longfield {
+    width: 100%;
+    height: 2.875rem;
+    border-radius: 0.375rem;
+    padding: 0.875rem 1.0rem 0.875rem 1.0rem;
+    border: 1px solid rgba(191, 196, 215, 1);
+    margin-bottom: 1rem;
+    -webkit-appearance: none;
+}
+.decriptionfield{
+    height: 5.25rem;
+}
+.message-icon {
+    display: flex;
+    justify-content: center;
+    margin-top: 1rem;
+}
+
+.message-icon img {
+    width: 3.625rem;
+    height: 3.625rem;
+}
+/* select {
+    padding: 0.625rem;
+    padding-right: 1.875rem;
+
+    -moz-appearance: none;
+    -webkit-appearance: none;
+    appearance: none;
+    background-image: url(/sfsites/c/resource/dropdownAerrow);
+    background-repeat: no-repeat, repeat;
+    background-position: right .7em top 50%, 0 0;
+    background-size: .65em auto, 100%;
+} */
+
+@media only screen and (max-width: 1024px) {
+    .input-dropdown {
+        width: 100%;
+    }
+    .dropdownfield{
+        width: 15%;
+    }
+    .date-and-age{
+        width: 60%;
+    }
+    .date-first-half {
+        width: 50%;
+    }
+    .otherinput{
+        width: 100%;
+    }
+    .show-error-message{
+        font-size: 0.7rem;
+    }
+    
+}
+
+@media only screen and (max-width: 767px) {
+    .general-information {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .profile-image {
+        position: relative;
+        width: 70%;
+        margin: auto;
+        margin-bottom: 1.25rem;
+        min-width: 13rem;
+    }
+
+    .profile-image img {
+        border-radius: 9%;
+        width: 100%;
+        height: 100%;
+        object-fit: fill;
+        box-shadow: 0 5px 25px 0 rgba(47, 128, 237, 0.2);
+    }
+
+   .address-fields,.phone-and-email,.date-and-age{
+        flex-direction: column;
+    }
+    .input-dropdown {
+        width: 100%;
+    }
+
+    .input-first-half {
+        width: 100%;
+        margin-right: 0;
+    }
+
+    .input-second-half {
+        width: 100%;
+        margin-left: 0;
+    }
+
+    .otherinput{
+        width: 100%;
+    }
+    .date-first-half {
+        width: 60%;
+        /* margin-right: 1rem; */
+    }
+
+    .date-second-half {
+        width: 40%;
+        margin-left: 0;
+    }
+
+    .date-and-age {
+        width: 100%;
+        flex-direction: row;
+    }
+
+    .first-row {
+        flex-direction: row;
+        margin-top: 0;
+        gap: 1.5rem;
+    }
+
+    .namefield {
+        width: 100%;
+    }
+
+    .dropdownfield {
+        width: 20%;
+    }
+
+    .upload-button {
+        bottom: 0.8rem;
+        width: 90%;
+        height: 2rem;
+    }
+
+    .delete-icon {
+        top: 5%;
+        left: 85%;
+    }
+    .custom_popup{
+        width: 21.25rem;
+    }
+    .profile-preview-popup{
+        width: 21.25rem;
+    }
+    .profile-preview-popup img{
+        width: 21.25rem;
+    }
+    .show-error-message{
+        font-size: 0.7rem;
+    }
+}

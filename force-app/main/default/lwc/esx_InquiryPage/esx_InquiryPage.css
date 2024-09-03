@@ -1,0 +1,340 @@
+.slds-m-around_medium {
+    margin: 1rem;
+}
+
+.mainDiv {
+    position: relative;
+    width: 100%;
+}
+
+.container {
+    padding: 2%;
+    position: relative;
+    z-index: 1;
+}
+
+.backgroundImage {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+.backgroundImage img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    opacity: 0.6;
+}
+
+.title {
+    /* font-size: 36px; */
+    font-size: 2.25rem;
+    font-weight: 700;
+}
+
+.bg-image {
+    width: 100%;
+    opacity: 70%;
+    background-size: cover;
+    position: absolute;
+    z-index: 1;
+}
+
+.table {
+    overflow-y: auto;
+    max-height: 400px;
+}
+
+.slds-button__icon_left {
+    margin-right: 0rem;
+}
+
+.table::-webkit-scrollbar {
+    display: none;
+}
+
+.table thead th {
+    position: sticky;
+    background-color: #eef4ff;
+    height: 2rem;
+    z-index: 3;
+    top: 0;
+}
+
+.table tbody tr {
+    border-top: 1px solid rgba(223, 226, 233, 1);
+}
+
+.rowValue {
+    font-size: 0.875rem;
+}
+
+.box {
+    display: flex;
+    align-items: center;
+}
+
+.avatar {
+    /* margin: 0.625rem; */
+    margin: 10px;
+}
+
+.imgbox {
+    /* margin: 0.625rem; */
+    margin: 5px;
+}
+
+.imgbox img {
+    margin: 2px;
+}
+
+.propTitle {
+    width: 200px;
+    text-overflow: ellipsis;
+    white-space: normal;
+    word-break: break-word;
+}
+
+.dropdown {
+    display: flex;
+    align-items: center;
+}
+
+.message {
+    height: 600px;
+    display: flex;
+    justify-content: center;
+}
+
+.message h1 {
+    font-size: 32px;
+}
+
+.card-view {
+    display: none;
+}
+
+.card {
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0 0px 4px 0 rgba(0, 0, 0, 0.25);
+    margin: 1%;
+}
+
+.property-image {
+    border-bottom: 1px solid rgba(149, 149, 149, 1);
+}
+
+.lines {
+    padding: 3%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.actions-buttons {
+    display: flex;
+    padding: 0% 3% 4% 0%;
+    justify-content: flex-end;
+}
+
+.property-image {
+    display: flex;
+    align-items: center;
+}
+
+.card-value {
+    color: rgba(149, 149, 149, 1);
+    font-weight: 400;
+}
+
+.overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    /* Black with 50% transparency */
+    z-index: 999;
+    /* Ensure it is above other content */
+    display: none;
+    /* Initially hidden */
+}
+
+.confirmation-popup {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+.popup-message {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 1000;
+    width: 27.25rem;
+    height: 10.875rem;
+    margin: auto;
+    border-radius: 2rem;
+    box-shadow: 0px 12px 44px 0px rgba(1, 118, 211, 0.34);
+    box-shadow: 0px -2px 4px 0px rgba(1, 118, 211, 0.12);
+    background: linear-gradient(120deg, rgba(186, 232, 251, 1), rgba(255, 255, 255, 1));
+
+}
+
+.close-icon {
+    position: absolute;
+    right: 1rem;
+    top: 0.5rem;
+    cursor: pointer;
+}
+
+.delete-icon {
+    display: flex;
+    justify-content: center;
+    margin-top: 1rem;
+}
+
+.delete-icon img {
+    width: 3.625rem;
+    height: 3.625rem;
+}
+
+.delete-title {
+    font-size: 2.125rem;
+    font-weight: 700;
+    width: 100%;
+    margin-top: 1rem;
+    display: flex;
+    justify-content: center;
+}
+
+.delete-msg {
+    font-size: 1.125rem;
+    font-weight: 400;
+    margin-top: 0.5rem;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+.two-buttons {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    position: absolute;
+    bottom: 0.8rem;
+    justify-content: center;
+}
+
+.btn {
+    width: 4.938rem;
+    height: 1.813rem;
+    background-color: rgba(1, 118, 211, 1);
+    color: white;
+    border-radius: 3.5rem;
+    border: 0px;
+}
+.status-field{
+    display: flex;
+    justify-content: center;
+    font-weight: 400;
+    align-items: center;
+    color: rgba(1, 118, 211, 1);
+    padding: 0rem 0.8rem 0rem 0.8rem;
+    background-color: rgba(228, 228, 228, 1);
+    border-radius: 54px;
+}
+.img-box{
+    width: 70px;
+}
+
+.name-box{
+    width: 80%;
+}
+.dot-to-shows{
+    width: 7px;
+    height: 7px;
+    margin-right: 0.3rem;
+    border-radius: 50%;
+    background-color: rgba(1, 118, 211, 1);
+}
+
+@media (min-width: 768px) and (max-width: 1023px) {
+    .table {
+        display: none;
+    }
+
+    .container {
+        padding: 4%;
+    }
+
+    .card-view {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        overflow: auto;
+        justify-content: center;
+        max-height: 705px;
+    }
+
+    .card-view::-webkit-scrollbar {
+        display: none;
+    }
+
+    .title {
+        font-size: 1.625rem;
+        font-weight: 700;
+    }
+
+    .propTitle {
+        width: 260px;
+    }
+    .error-title{
+        font-size: 28px;
+    }
+}
+
+@media only screen and (max-width: 767px) {
+    .table {
+        display: none;
+    }
+
+    .container {
+        padding: 4%;
+    }
+
+    .card-view {
+        display: flex;
+        flex-direction: column;
+        overflow: auto;
+        max-height: 705px;
+    }
+
+    .card-view::-webkit-scrollbar {
+        display: none;
+    }
+
+    .title {
+        font-size: 1.625rem;
+        font-weight: 700;
+    }
+
+    .propTitle {
+        width: 270px;
+    }
+
+    .popup-message{
+        width: 19.25rem;
+    }
+    .delete-msg{
+        font-size: 0.975rem;
+    }
+    .error-title{
+        font-size: 20px;
+    }
+}

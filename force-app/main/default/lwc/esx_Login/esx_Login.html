@@ -1,0 +1,35 @@
+<template>
+    <div class="main-container">
+        <div class="left-side">
+            <img src={sideImgURL} alt="Login Hero Image">
+        </div>
+        <div class="login-modal">
+            <div class="header-span">Welcome to EstateXpert</div>
+            
+            <div class="username-input">
+                <div class="input-label">Username</div>
+                <input type="text" class="login-input" id="userName" name="userName" placeholder="Username or Email" value={userName} oninput={handleChange}>
+            </div>
+
+            <div class="username-input">
+                <div class="input-label">Password</div>
+                <input type="password" class="login-input" id="password" name="password" placeholder="Password" value={password} oninput={handleChange} onkeyup={handleKeyUp}>
+            </div>
+
+            <template if:true={badCredMessage}>
+                <div class="error-message">{badCredMessage}</div>
+            </template>
+
+            <div class="footer">
+                <div class="login-btn" onclick={handleLogin}>Log In</div>
+            </div>
+
+            <div class="forgot-pass-container">
+                <div class="forgot-pass-href" onclick={handleForgotPassword}>Forgot Password</div>
+            </div>
+
+            <div class="sign-up">Don't have any account? &nbsp;<div class="sign-up-href" onclick={navigateToSignUp}>Sign Up</div></div>
+
+        </div>
+    </div>
+</template>

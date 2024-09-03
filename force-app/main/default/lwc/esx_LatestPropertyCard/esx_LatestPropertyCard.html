@@ -1,8 +1,15 @@
 <template>
-    <div class="property-card">
-        <img src={property.mediaLinks} alt="Image" class="property-image" />
+    <div class="property-card" >
+        <!-- <img src={property.mediaLinks} alt="Image" class="property-image" onclick={redirectToPropertyDetail} /> -->
+
+        <!-- <img draggable="false" src={property.mediaLinks} key={property.Id} loading="lazy"
+            class="responsive property-image" onerror={handleErrro} alt="Images" onclick={redirectToPropertyDetail}> -->
+
+        <img draggable="false" data-key={property.id} src={property.mediaLinks} key={property.Id} loading="lazy"
+            class="responsive property-image" onerror={handleErrro} alt="Images" onclick={handlePropertyDetail}>
+
         <label class="container">
-            <input checked="checked" type="checkbox">
+            <input type="checkbox" onchange={addToFavourite}>
             <div class="checkmark">
                 <svg viewBox="0 0 256 256">
                     <rect fill="none" height="256" width="256"></rect>
@@ -41,11 +48,13 @@
             </div>
             <!-- <img src={forSellIcon} class="forsell-icon" /> -->
         </template>
-        <div class="property-info">
+        <!-- <div class="property-info" onclick={redirectToPropertyDetail} > -->
+        <div class="property-info" data-key={property.id} onclick={handlePropertyDetail} >
             <div class="property-heading">
-                <p class="heading-title">{property.name}</p>
+                <p class="heading-title" title={property.name}>{property.name}</p>
                 <div class="property-address">
                     <img src={addressIcon} alt="AddressIcon" class="address-icon">
+                    <img src={mobileAddressIcon} alt="AddressIcon" class="address-icon-mobile">
                     <p class="address-info">
                         {formattedAddress}
                         <!-- {property.landmark}, {property.city} -->

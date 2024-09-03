@@ -1,0 +1,229 @@
+.container{
+    padding: 1rem;
+}
+.content{
+    margin-bottom: 1rem;
+}
+.title-box{
+    width: 100%;
+    background-color: rgba(1, 118, 211, 0.1);
+    padding: 0.5rem 2rem;
+    border-radius: 1rem;
+}
+.title{
+    font-weight: 700;
+    font-size: 1.25rem;
+}
+.number-of-imgs{
+    color:rgba(1, 118, 211, 1);
+}
+.images-box{
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.card {
+    flex: 0 0 auto;
+    width: 15rem;
+    margin-right:1rem;
+    margin-top: 1rem;
+    border-radius: 1rem;
+    background: white;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+    position: relative;
+    height: 12.5rem;
+}
+.card:hover{
+    cursor: pointer;
+}
+
+.card-image {
+    position: relative;
+}
+
+.card-image img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 15rem;
+    /* height: 100%; */
+    height: 12.5rem;
+    border-radius: 1rem;
+    object-fit: cover;
+}
+
+.overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.9); /* Black with 50% transparency */
+    z-index: 999; /* Ensure it is above other content */
+    display: none; /* Initially hidden */
+}
+.image-viewer{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+.img-viewer-popup{
+    position: fixed; /* Changed from absolute to fixed */
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 1000;
+    width: 41.25rem;
+    height: 21.875rem;
+    margin: auto;
+    border-radius: 1rem;
+    box-shadow: 0px 12px 44px 0px rgba(1, 118, 211, 0.34);
+    box-shadow: 0px -2px 4px 0px rgba(1, 118, 211, 0.12);
+}
+.img-viewer-popup img{
+    width: 41.25rem;
+    height: 21.875rem;
+    border-radius: 1rem;
+}
+.close-icon{
+    border-radius: 50%;
+    position: absolute;
+    right: 1rem;
+    top: 0.5rem;
+    cursor: pointer;
+}
+.arrow {
+    color: white;
+    background-color: rgb(255, 255, 255);
+    box-shadow: 0 1px 4px 0px rgba(0, 0, 0, 0.25);
+    z-index: 1000;
+    border-radius: 50%;
+    padding: 0.4rem;
+    margin: 0.1rem;
+    position: fixed;
+    top: 50%;
+    margin-right: 0.5rem;
+    cursor: pointer;
+ }
+ .left-arrow{
+    left: 1%;
+ }
+ .right-arrow{
+    right: 1%;
+ }
+
+ .td-txt {
+    font-style: normal;
+    font-weight: 400;
+    font-size: 13px;
+    line-height: 20px;
+    display: flex;
+    padding: 8px;
+}
+.photo-cell {
+    width: -webkit-fill-available;
+    overflow: auto;
+    z-index: 1000;
+    height: fit-content;
+}
+.main-file-cmp {
+    position: fixed; /* Changed from absolute to fixed */
+    top: 50%;
+    left: 50%;
+    /* display: flex; */
+    align-items: center;
+    justify-content: center;
+    transform: translate(-50%, -50%);
+    overflow: auto;
+    z-index: 1000;
+    /* flex-direction: row; */
+    /* border: 1px solid rgba(0, 0, 0, 0.3); */
+    /* background-color: white; */
+    /* border-radius: 4px;
+    padding: 8px; */
+    /* width: 95%; */
+    /* height: 100%; */
+    /* width: -webkit-fill-available; */
+}
+.main-file-cmp::-webkit-scrollbar {
+    display: none;
+}
+.img-details{
+    width: 41.25rem;
+    height: 21.875rem;
+    margin-right: 1rem;
+}
+.pagination-number{
+    color: white;
+    text-align: center;
+    margin-top: 1rem;
+    display: none;
+}
+.image-viewer .main-file-cmp img {
+    transition: transform 0.5s ease-in-out, opacity 0.5s ease-in-out;
+    opacity: 0;
+    transform: translateX(100%);
+}
+
+.image-viewer .main-file-cmp img.active {
+    opacity: 1;
+    transform: translateX(0);
+}
+
+.image-viewer .main-file-cmp img.slide-in {
+    opacity: 0;
+    transform: translateX(100%);
+}
+
+.image-viewer .main-file-cmp img.slide-out {
+    opacity: 0;
+    transform: translateX(-100%);
+}
+
+/* .main-file-cmp img:hover{
+    width: 41.25rem;
+    height: 24.875rem;
+    margin-right: 1rem;
+} */
+
+.description{
+    display: flex;
+    justify-content: center;
+    margin-top: 0.5rem;
+    color: white;
+    font-size: 14px;
+}
+.carousel-image{
+    width: 41.25rem;
+    height: 21.875rem;
+}
+.no-image-text{
+    text-align: center;
+    font-size: 2rem;
+}
+
+@media only screen and (max-width: 767px) {
+    .title{
+        font-size: 1rem;
+    }
+    .card{
+        width: 6.563rem;
+        height: 6.25rem;
+    }
+    .card-image img {
+        width: 6.563rem;
+        height: 6.25rem;
+    }
+    .container{
+        margin-top: 1rem;
+    }
+    .arrow{
+        display: none;
+    }
+    .main-file-cmp{
+        width: 96%;
+    }
+    .pagination-number{
+        display: block;
+    }
+}

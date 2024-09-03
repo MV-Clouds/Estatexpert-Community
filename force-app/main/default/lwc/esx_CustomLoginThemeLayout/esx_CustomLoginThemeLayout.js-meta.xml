@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<LightningComponentBundle xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>59.0</apiVersion>
+    <isExposed>true</isExposed>
+    <masterLabel>ESX Custom Login Theme</masterLabel>
+    <description>Custom login theme</description>
+    <targets>
+        <target>lightningCommunity__Theme_Layout</target>  
+        <target>lightningCommunity__Default</target>  
+    </targets>
+
+    <targetConfigs>
+        <targetConfig targets="lightningCommunity__Default">
+        <!-- <targetConfig targets="lightningCommunity__Theme_Layout"> -->
+            <property name="showHeader" type="Boolean" default="false" />
+            <property name="showFooter" type="Boolean" default="false" />
+        </targetConfig>
+    </targetConfigs>
+    
+</LightningComponentBundle>

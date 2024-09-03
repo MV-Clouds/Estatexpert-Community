@@ -1,0 +1,98 @@
+.slds-m-around_medium {
+    margin: 1rem;
+}
+
+.container {
+    padding: 2%;
+    position: relative;
+    z-index: 2;
+}
+
+.bg-image {
+    width: 100%;
+    opacity: 70%;
+    background-size: cover;
+    position: absolute;
+    z-index: 1;
+}
+
+.title {
+    font-size: 36px;
+    font-weight: 700;
+}
+
+.bg-image {
+    width: 100%;
+    opacity: 70%;
+    background-size: cover;
+    position: absolute;
+    z-index: 1;
+}
+
+.table {
+    overflow-y: auto;
+    max-height: 400px;
+}
+
+.slds-button__icon_left {
+    margin-right: 0rem;
+}
+
+.table::-webkit-scrollbar {
+    display: none;
+}
+
+.table thead th {
+    position: sticky;
+    background-color: #eef4ff;
+    height: 2rem;
+    z-index: 3;
+    top: 0;
+}
+
+.table tbody tr {
+    border-top: 1px solid rgba(223, 226, 233, 1);
+}
+
+.rowValue {
+    font-size: 14px;
+}
+
+.box {
+    display: flex;
+    align-items: center;
+}
+
+.avatar {
+    margin: 10px;
+}
+
+.imgbox {
+    margin: 10px;
+}
+
+.imgbox img {
+    margin: 2px;
+}
+
+.propTitle {
+    width: 200px;
+    text-overflow: ellipsis;
+    white-space: normal;
+    word-break: break-word;
+}
+
+.dropdown {
+    display: flex;
+    align-items: center;
+}
+
+.message {
+    height: 600px;
+    display: flex;
+    justify-content: center;
+}
+
+.message h1 {
+    font-size: 32px;
+}
