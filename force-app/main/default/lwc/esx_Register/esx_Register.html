@@ -13,64 +13,130 @@
             <div class="slds-backdrop slds-backdrop_open" style="opacity: 0.5;"></div>
         </template>
 
-        <c-esx_custom-toast-component show-toast={showToast} type={toastType} message={toastMessage} onclosetoast={closeToast}></c-esx_custom-toast-component>
+        <c-esx_custom-toast-component show-toast={showToast} type={toastType} message={toastMessage}
+            onclosetoast={closeToast}></c-esx_custom-toast-component>
 
         <div class="left-side">
             <img src={sideImgURL} alt="Login Hero Image">
         </div>
+
         <div class="login-modal">
-            <div class="header-span">Sign Up</div>
-            
-            <div class="radio-button">
-                <div class="buyer">
-                    <input type="radio" id="buyer" name="people-type" value="Buyer" checked onclick={handleChange}>
-                    <label for="buyer">Buyer</label><br>
+
+            <!-- Register page starts -->
+            <template if:true={isRegisterPassPage}>
+                <div class="header-span">Sign Up</div>
+
+                <div class="radio-button">
+                    <div class="buyer">
+                        <input type="radio" id="buyer" name="people-type" value="Buyer" checked onclick={handleChange}>
+                        <label for="buyer">Buyer</label><br>
+                    </div>
+                    <div class="seller">
+                        <input type="radio" id="seller" name="people-type" value="Seller" onclick={handleChange}>
+                        <label for="seller">Seller</label><br>
+                    </div>
+                    <div class="broker-agent">
+                        <input type="radio" id="broker-agent" name="people-type" value="Agent" onclick={handleChange}>
+                        <label for="broker-agent">Broker/Agent</label>
+                    </div>
                 </div>
-                <div class="seller">
-                    <input type="radio" id="seller" name="people-type" value="Seller" onclick={handleChange}>
-                    <label for="seller">Seller</label><br>
+
+                <div class="username-input f-l-box">
+                    <div class="f-name">
+                        <div class="input-label">First Name <span class="requied-field">*</span></div>
+                        <input type="text" class="login-input" id="firstName" name="firstName" placeholder="First Name"
+                            value={firstName} oninput={handleChange} maxlength="10">
+                    </div>
+                    <div class="l-name">
+                        <div class="input-label">Last Name <span class="requied-field">*</span></div>
+                        <input type="text" class="login-input" id="lastName" name="lastName" placeholder="Last Name"
+                            value={lastName} oninput={handleChange} maxlength="10">
+                    </div>
                 </div>
-                <div class="broker-agent">
-                    <input type="radio" id="broker-agent" name="people-type" value="Agent" onclick={handleChange}>
-                    <label for="broker-agent">Broker/Agent</label>
+
+                <div class="username-input">
+                    <div class="input-label">Email <span class="requied-field">*</span></div>
+                    <input type="email" class="login-input" id="email" name="email" placeholder="Email" value={email}
+                        onchange={handleChange} pattern="">
+                    <template if:true={isEmailValid}>
+                        <div class="error-message">{emailErrorMessage}</div>
+                    </template>
                 </div>
-            </div>
 
-            <div class="username-input f-l-box">
-                <div class="f-name">
-                    <div class="input-label">First Name</div>
-                    <input type="text" class="login-input" id="firstName" name="firstName" placeholder="First Name" value={firstName} oninput={handleChange}>
+                <div class="username-input">
+                    <div class="input-label">Mobile <span class="requied-field">*</span></div>
+                    <input type="tel" class="login-input" id="mobile" name="mobile" placeholder="+919999888888" value={mobile}
+                        onchange={handleChange}>
+                    <template if:true={isMobileValid}>
+                        <div class="error-message">{mobileErrorMessage}</div>
+                    </template>
                 </div>
-                <div class="l-name">
-                    <div class="input-label">Last Name</div>
-                    <input type="text" class="login-input" id="lastName" name="lastName" placeholder="Last Name" value={lastName} oninput={handleChange}>
+
+                <div class="username-input">
+                    <div class="input-label">Password <span class="requied-field">*</span></div>
+                    <input type="password" class="login-input" id="password" name="password" placeholder="Password"
+                        value={password} onchange={handleChange}>
+                    <template if:true={isPasswordValid}>
+                        <div class="error-message">{passwordErrorMessage}</div>
+                    </template>
                 </div>
-            </div>
 
-            <div class="username-input">
-                <div class="input-label">Email</div>
-                <input type="email" class="login-input" id="email" name="email" placeholder="Email" value={email} onchange={handleChange}>
-            </div>
+                <div class="username-input">
+                    <div class="input-label">Confirm Password <span class="requied-field">*</span></div>
+                    <input type="password" class="login-input" id="confPassword" name="confPassword"
+                        placeholder="Confirm Password" value={confPassword} onchange={handleChange}>
+                    <template if:true={isConfPasswordValid}>
+                        <div class="error-message">{confPasswordErrorMessage}</div>
+                    </template>
+                </div>
 
-            <div class="username-input">
-                <div class="input-label">Mobile</div>
-                <input type="tel" class="login-input" id="mobile" name="mobile" placeholder="Mobile" value={mobile} onchange={handleChange}>
-            </div>
+                <div class="footer">
+                    <div class="login-btn" onclick={handleSubmit}>Sign Up</div>
+                    <!-- <div class="login-btn" onclick={handleRegister}>Sign Up</div> -->
+                </div>
+                <div class="login-url-container">
+                    <div class="login-url-href" onclick={handlelogin}>Already have any account?</div>
+                </div>
 
-            <div class="username-input">
-                <div class="input-label">Password</div>
-                <input type="password" class="login-input" id="password" name="password" placeholder="Password" value={password} onchange={handleChange}>
-            </div>
+            </template>
+            <!-- Register page end -->
 
-            <div class="username-input">
-                <div class="input-label">Confirm Password</div>
-                <input type="password" class="login-input" id="confPassword" name="confPassword" placeholder="Confirm Password" value={confPassword} onchange={handleChange}>
-            </div>
+            <!-- Verify OTP page starts -->
+            <template if:true={isVerifyPassPage}>
+                <div class="header-span">Verify Code</div>
+                <div class="header-desc">Enter 6 digit Verification Code sent on {userName}</div>
 
-            <div class="footer">
-                <div class="login-btn" onclick={handleRegister}>Sign Up</div>
-            </div>
-            <div class="login-url-container" ><div class="login-url-href" onclick={handlelogin}>Already have any account?</div></div>
+                <div class="otp-input-container">
+                    <input type="text" class="otp-input" id="otp1" name="otp1" maxlength="1" pattern="[0-9]"
+                        value={otpInput1Value} autocomplete="off" onkeyup={handleOtpKeyUp}>
+                    <input type="text" class="otp-input" id="otp2" name="otp2" maxlength="1" pattern="[0-9]"
+                        value={otpInput2Value} autocomplete="off" onkeyup={handleOtpKeyUp}>
+                    <input type="text" class="otp-input" id="otp3" name="otp3" maxlength="1" pattern="[0-9]"
+                        value={otpInput3Value} autocomplete="off" onkeyup={handleOtpKeyUp}>
+                    <input type="text" class="otp-input" id="otp4" name="otp4" maxlength="1" pattern="[0-9]"
+                        value={otpInput4Value} autocomplete="off" onkeyup={handleOtpKeyUp}>
+                    <input type="text" class="otp-input" id="otp5" name="otp5" maxlength="1" pattern="[0-9]"
+                        value={otpInput5Value} autocomplete="off" onkeyup={handleOtpKeyUp}>
+                    <input type="text" class="otp-input" id="otp6" name="otp6" maxlength="1" pattern="[0-9]"
+                        value={otpInput6Value} autocomplete="off" onkeyup={handleOtpKeyUp}>
+                </div>
+
+                <div class="resend-code">Didn't receive code? &nbsp;<div class="resend-code-href" onclick={resendOTP}>
+                        Resend
+                        Code
+                    </div>
+                </div>
+
+                <template if:true={otpValidationMessage}>
+                    <div class="error-message">{otpValidationMessage}</div>
+                </template>
+
+                <div class="footer">
+                    <div class="login-btn" onclick={hanldeVerifyOTP}>Continue</div>
+                </div>
+
+            </template>
+            <!-- Verify OTP page ends -->
 
         </div>
     </div>

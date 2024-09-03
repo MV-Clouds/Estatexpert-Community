@@ -14,7 +14,7 @@ public without sharing class ESX_UserUtil {
         System.debug('cuj =>' + cuj);
 
         List<Contact> existContactList = new List<Contact>();
-        existContactList = [SELECT Id, Name, Email FROM Contact WHERE Email =: cuj.email OR MobilePhone =: cuj.mobileNumber];
+        existContactList = [SELECT Id, Name, Email,MobilePhone FROM Contact WHERE Email =: cuj.email OR MobilePhone =: cuj.mobileNumber];
 
         List<RecordType> recordTypeList = [SELECT Id,SobjectType,Name,DeveloperName FROM RecordType WHERE SobjectType = 'Contact' AND Name =: cuj.userType];
         
@@ -101,7 +101,7 @@ public without sharing class ESX_UserUtil {
 
         if (siteUserList.size() > 0) {
             // code to send otp in email to user
-            Integer verificationCode = (Integer)(Math.random() * 1000000);
+            Integer verificationCode = otpGenrater();
             String emailSubject = 'Verify Your Login';
             String emailBody = '<span style="font-family: verdana;">';
             emailBody += 'Dear ' + siteUserList[0].Name + ',<br><br>';
@@ -118,6 +118,40 @@ public without sharing class ESX_UserUtil {
             return verificationCode;
         } else {
             return null;
+        }
+    }
+
+    // Method to register password and send otp to user's mail
+    @AuraEnabled
+    public static Integer genrateOtpAndSendMailForRegister(String userName,String firstName) {
+
+            // code to send otp in email to user
+            Integer verificationCode = otpGenrater();
+            String emailSubject = 'Verify Your Register';
+            String emailBody = '<span style="font-family: verdana;">';
+            emailBody += 'Dear ' + firstName + ',<br><br>';
+            emailBody += 'We received your register request. Use the OTP below to proceed:';
+            emailBody += '<br><br>';
+            emailBody += 'Verification Code: ' + '<b>' + verificationCode + '</b>' + '<br><br>';
+            emailBody += 'This OTP is valid for the next 5 minutes. If you did not request this, you can safely ignore this email.';
+            emailBody += '<br><br>';
+            emailBody += 'Best regards,<br>';
+            emailBody += 'EstateXpert Team';
+            emailBody += '</span">';
+
+            System.debug('emailBody-->'+emailBody);
+            GmailIntegration.sendEmail(userName, emailSubject, 'text/html', emailBody);
+
+            return verificationCode;
+    }
+
+    @AuraEnabled
+    public static Integer otpGenrater(){
+        Integer verificationCode = (Integer)(Math.random() * 1000000);
+        if (verificationCode > 99999 ) {
+            return verificationCode;
+        }else {
+            return otpGenrater();
         }
     }
 

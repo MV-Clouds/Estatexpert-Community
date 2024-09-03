@@ -11,6 +11,7 @@ export default class Esx_ForgotPassword extends NavigationMixin(LightningElement
     @track isLoading = false;
     
     @track isForgotPassPage = true;
+    // @track isForgotPassPage = false;
     @track userName = '';
     @track badCredMessage = '';
 
@@ -28,8 +29,25 @@ export default class Esx_ForgotPassword extends NavigationMixin(LightningElement
     @track otpInput6Value = '';
 
     @track isResetPassPage = false;
+    // @track isResetPassPage = true;
     @track password = '';
     @track confPassword = '';
+
+    @track passwordState = {
+        length: false,
+        digit: false,
+        lowerCase: false,
+        upperCase: false,
+        specialChar: false,
+    }
+
+    allRegex = {
+        length: /.{8,}/,
+        digit: /\d/,
+        lowerCase: /[a-z]/,
+        upperCase: /[A-Z]/,
+        specialChar: /[@$!#%*?&]/
+    }
 
 
     // ***  Custom Toast Starts *** //
@@ -232,7 +250,7 @@ export default class Esx_ForgotPassword extends NavigationMixin(LightningElement
             } else if (inputName == 'confPassword') {
                 this.confPassword = changedValue;
             }
-            this.passNotMatchErrorMessage();
+            this.passNotMatchErrorMessage(inputName);
         } catch (error) {
             console.log(error);
         }
@@ -240,16 +258,30 @@ export default class Esx_ForgotPassword extends NavigationMixin(LightningElement
 
     // This will be resets password.
     hanldeResetPass(event) {
-        if (this.password == this.confPassword) {
+        if(this.validateInputs()){
             this.startSpinner();
             setPassword({userName: this.userName, password: this.password})
             .then(result => {
                 if (result == 'Success') {
                     this.stopSpinner();
                     this.handleToast('Success', 'Password reset complete. You can now log in with your new password.');
+                    
+
+                    //clearing the input field
+                    this.password = '';
+                    this.confPassword = '';
+
+                    // clearing password policy background
+                    for(let isMatch in this.allRegex){
+                        this.passwordState[isMatch] = false;
+                    }
+
+                    
+
                     setTimeout(() => {
                         this.customNavigation('Login');
                     }, 1000);
+
                 } else if (result == 'Bad Credantial') {
                     this.stopSpinner();
                     this.handleToast('Error', 'Something Went Wrong');
@@ -260,16 +292,31 @@ export default class Esx_ForgotPassword extends NavigationMixin(LightningElement
                 console.log({error});
                 this.stopSpinner();
             });
+        }else{
+            console.log('Inside else...');
         }
     }
 
     // Error display when pass and confirm pass not match
-    passNotMatchErrorMessage() {
-        if (this.password != this.confPassword) {
-            this.passNotMatchMessage = 'Passwords are not same.';
-        } else {
-            this.passNotMatchMessage = '';
+    passNotMatchErrorMessage(fieldName) {
+
+        for(let isMatch in this.allRegex){
+            this.passwordState[isMatch] = this.allRegex[isMatch].test(this.password);
+            // console.log(isMatch + " --> " + this.passwordState[isMatch]);
         }
+
+        const errorElement = this.template.querySelector(`[data-error="${fieldName}"]`);
+        if (errorElement) {
+            errorElement.innerText = '';
+        }
+
+        const errorBorderEle = this.template.querySelector(`[data-id="${fieldName}"]`);
+
+        if (errorBorderEle) {
+            // errorElement.style.border = 'none';
+            errorBorderEle.style.removeProperty("border");
+        }
+
     }
 
     // *** Spinner methods starts *** //
@@ -283,4 +330,86 @@ export default class Esx_ForgotPassword extends NavigationMixin(LightningElement
     }
 
     // *** Spinner methods ends *** //
+
+
+    // *** Validating all password policy *** //
+
+    validateInputs() {
+        let isValid = true;
+        console.log('validate input is called --> ');
+
+        if (!this.password) {
+            this.showErrorBorder('password');
+            isValid = false;
+            console.log('Inside 1 --> ');
+        } else if (this.password.length < 8) {
+            this.showErrorMessage('password', 'password must be at least 8 characters long');
+            isValid = false;
+            console.log('Inside 2 --> ');
+        } else if (this.password.length > 16) {
+            this.showErrorMessage('password', 'A Maximum length of 16 characters is allowed');
+            isValid = false;
+            console.log('Inside 3 --> ');
+        } else if(this.chekNewPasswordPattern() == true) {
+            this.showErrorMessage('password', 'Password not match with the criteria');
+            isValid = false;
+            console.log('Inside 4 --> ');
+        }else if(!this.confPassword){
+            this.showErrorBorder('confPassword');
+            isValid = false;
+            console.log('Inside 5 ');
+        } else if(this.password !== this.confPassword) {
+            this.showErrorMessage('confPassword', 'Passwords are not same.');
+            isValid = false;
+            console.log('Inside 6 ');
+        }
+
+        return isValid;
+    }
+
+    showErrorMessage(fieldName, message) {
+        const errorElement = this.template.querySelector(`[data-error="${fieldName}"]`);
+        console.log("inside the error message --> "+errorElement);
+        if (errorElement) {
+            errorElement.innerText = message;
+        }
+    }
+
+    showErrorBorder(fieldName) {
+        const errorElement = this.template.querySelector(`[data-id="${fieldName}"]`);
+        if (errorElement) {
+            errorElement.style.border = '1px solid red';
+        }
+
+    }
+
+    chekNewPasswordPattern(){
+        const pattern = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!#%*?&])[A-Za-z\d@$!#%*?&]{8,}$/;
+        return !pattern.test(this.password);
+    }
+
+    get legthClass(){
+        return this.passwordState.length ? 'password-match' : 'password-not-match';
+    }
+
+    get digitClass(){
+        return this.passwordState.digit ? 'password-match' : 'password-not-match';
+    }
+
+    get capitalCaseClass(){
+        return this.passwordState.upperCase ? 'password-match' : 'password-not-match';
+    }
+
+    get lowerCaseClass(){
+        return this.passwordState.lowerCase ? 'password-match' : 'password-not-match';
+    }
+
+    get specialCharClass(){
+        return this.passwordState.specialChar ? 'password-match' : 'password-not-match';
+    }
+
+
+    // *** Validating all password policy Ends Here *** //
+
+
 }
